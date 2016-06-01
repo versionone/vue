@@ -3,3 +3,5 @@
 .gitignore
 specSetup.js
 wallaby.js
+scripts
+.storybook

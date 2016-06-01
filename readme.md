@@ -1,5 +1,7 @@
 # VersionOne UI
 
+A collection of re-usable components developed and used by VersionOne.
+
 ## Getting Started
 
 ```bash

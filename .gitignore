@@ -57,5 +57,5 @@ jspm_packages
 !/package.json
 !/readme.md
 !/scripts
-!/specSetup.js
+!/*.js
 

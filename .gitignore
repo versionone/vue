@@ -58,4 +58,5 @@ jspm_packages
 !/readme.md
 !/scripts
 !/*.js
+!/docs
 

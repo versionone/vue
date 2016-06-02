@@ -1,6 +1,6 @@
 # VersionOne UI
 
-A collection of re-usable components developed and used by VersionOne.
+A collection of re-usable components developed and used by VersionOne. View the components in action in our [storybook](https://versionone.github.io/versionone-ui).
 
 ## Getting Started
 
@@ -23,7 +23,7 @@ Each major component (single or group of related components) is contained within
 
 ### Stories
 
-Please write appropriate stories for each component and include it in the [Storybook](https://github.com/kadirahq/react-storybook) by requiring it within the `.storybook/config.js` file.
+Please write appropriate stories for each component in the `componentName/Stories.js` file.
 
 ### Testing
 

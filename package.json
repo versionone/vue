@@ -18,6 +18,15 @@
   ],
   "author": "Andrew Smith <andrew@WeAreSoftwareCraftsmen.com>",
   "license": "MIT",
+  "babel": {
+    "presets": [
+      "es2015",
+      "react",
+      "stage-3",
+      "stage-2",
+      "stage-1"
+    ]
+  },
   "devDependencies": {
     "@kadira/storybook": "^1.28.1",
     "@kadira/storybook-deployer": "^1.0.0",

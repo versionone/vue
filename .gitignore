@@ -54,6 +54,7 @@ jspm_packages
 !/src
 !/.*
 /.idea
+/.storybook/config.js
 !/package.json
 !/readme.md
 !/scripts

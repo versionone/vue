@@ -1,6 +1,5 @@
 process.env.NODE_ENV = 'test';
 process.env.BABEL_ENV = 'test';
-var pkg = require('./package.json');
 
 var wallabyWebpack = require('wallaby-webpack');
 var webpackConfig = {
@@ -30,13 +29,14 @@ module.exports = function(wallaby) {
             {pattern: 'node_modules/react/dist/react-with-addons.js', instrument: false},
             {pattern: 'node_modules/chai/chai.js', instrument: false},
             {pattern: 'src/**', load: false},
+            {pattern: '!src/**/Stories.js', load: false},
             {pattern: '!src/**/*.spec.js', load: false}
         ],
         tests: [
             {pattern: 'src/**/*.spec.js', load: false}
         ],
         compilers: {
-            'src/**/*.js': wallaby.compilers.babel(pkg.babel)
+            'src/**/*.js': wallaby.compilers.babel()
         },
         postprocessor: wallabyWebpack(webpackConfig),
         testFramework: 'mocha',

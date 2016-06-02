@@ -1,21 +1,14 @@
 var fs = require('fs');
 var path = require('path');
 var rimraf = require('rimraf');
+var dirs = require('./directories');
 
-var appRootDirectory = path.join(__dirname, '..');
-var rootSrcDirectory = path.join(appRootDirectory, 'src');
-var fsItems = fs.readdirSync(rootSrcDirectory);
+var fsItems = fs.readdirSync(dirs.src);
 fsItems = fsItems
-    .filter(isDirectory(rootSrcDirectory))
-    .map(toDeployedDirectory(appRootDirectory))
+    .filter(dirs.isDirectory(dirs.src))
+    .map(toDeployedDirectory(dirs.app))
     .filter(hasMatchingDeployedDirectory())
-    .forEach(deleteDeployedDirectory(appRootDirectory));
-
-function isDirectory(rootDirectory) {
-    return function(itemRef) {
-        return fs.statSync(path.join(rootDirectory, itemRef)).isDirectory();
-    }
-}
+    .forEach(deleteDeployedDirectory(dirs.app));
 
 function toDeployedDirectory(deployRootDirectory) {
     return function(directoryRef) {

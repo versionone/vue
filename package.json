@@ -9,7 +9,8 @@
     "build:storybook": "node ./scripts/build.storybook.js",
     "test": "cross-env NODE_ENV=test node_modules/.bin/mocha --require specSetup.js --compilers js:babel-core/register src/**/*.spec.js --recursive",
     "start": "npm run build:storybook && start-storybook -p 9001",
-    "deploy": "npm run build:storybook && cross-env NODE_ENV=production storybook-to-ghpages"
+    "deploy": "npm run build:storybook && cross-env NODE_ENV=production storybook-to-ghpages",
+    "prepublish": "npm test && npm run clean && npm run build && npm run deploy"
   },
   "keywords": [
     "VersionOne",

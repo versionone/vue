@@ -1,32 +1,34 @@
 import React from 'react';
 import {storiesOf} from '@kadira/storybook';
-import Toolbar from './Toolbar';
-import ToolbarGroup from './ToolbarGroup';
-import ToolbarGroupTitle from './ToolbarGroupTitle';
+import {Toolbar, ToolbarGroup, ToolbarTitle, ToolbarSeparator, ToolbarSpacer} from './';
 
 storiesOf('Toolbar', module)
-    .add('with title', () => (
+    .add('with no children', () => (
         <Toolbar title="App Toolbar" />
     ))
-    .add('with no title', () => (
-        <Toolbar />
+    .add('with title', () => (
+        <Toolbar>
+            <ToolbarTitle text="App Toolbar" />
+        </Toolbar>
     ))
-    .add('kitchen sink', () => (
-        <Toolbar title="App Toolbar">
+    .add('with groups and spacers', () => (
+        <Toolbar>
             <ToolbarGroup>
-                <button />
+                <button>View A</button>
+                <button>View B</button>
+            </ToolbarGroup>
+            <ToolbarSeparator />
+            <ToolbarGroup>
+                <button>View C</button>
+            </ToolbarGroup>
+            <ToolbarSpacer />
+            <ToolbarGroup>
+                <ToolbarTitle text="Group 2" />
+                <button>View D</button>
+                <button>View E</button>
+                <ToolbarSeparator />
+                <button>View F</button>
+                <button>View G</button>
             </ToolbarGroup>
         </Toolbar>
-    ));
-
-storiesOf('ToolbarGroup', module)
-    .add('with title', () => (
-        <ToolbarGroup>
-            <ToolbarGroupTitle text="Group title" />
-        </ToolbarGroup>
-    ));
-
-storiesOf('ToolbarGroupTitle', module)
-    .add('with text', () => (
-        <ToolbarGroupTitle text="Group title" />
     ));

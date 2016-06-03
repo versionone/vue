@@ -1,6 +1,6 @@
 import React from 'react';
 import {componentType, oneOfComponentType} from './PropTypes';
-import {Toolbar, ToolbarGroup, ToolbarGroupTitle} from './../Toolbar';
+import {Toolbar, ToolbarGroup, ToolbarTitle} from './../Toolbar';
 
 describe('utilities/PropTypes/componentType', function() {
     beforeEach(() => {
@@ -22,8 +22,8 @@ describe('utilities/PropTypes/componentType', function() {
                     this.actual = componentType(this.input)(this.props, 'prop', 'My Custom Component');
                 });
                 it('it should return an error', () => {
-                    expect(this.actual).to.be.an.instanceOf(Error);
-                    expect(this.actual.message).to.eql('`My Custom Component` prop, `prop`, should be a `Toolbar` component. Check the render method of `My Custom Component`');
+                    this.actual.should.be.an.instanceOf(Error);
+                    this.actual.message.should.eql('`My Custom Component` prop, `prop`, should be a `Toolbar` component. Check the render method of `My Custom Component`');
                 });
             });
         });
@@ -39,7 +39,7 @@ describe('utilities/PropTypes/componentType', function() {
                     this.actual = componentType(this.input)(this.props, 'prop', 'My Custom Component');
                 });
                 it('it should not return an error', () => {
-                    expect(this.actual).to.equal(undefined);
+                    should.not.exist(this.actual);
                 });
             });
         });
@@ -55,8 +55,8 @@ describe('utilities/PropTypes/componentType', function() {
                     this.actual = componentType(this.input)(this.props, 'children', 'My Custom Component');
                 });
                 it('it should return an error', () => {
-                    expect(this.actual).to.be.an.instanceOf(Error);
-                    expect(this.actual.message).to.equal('`My Custom Component` is only allowed children that are `Toolbar` components. Check the render method of `My Custom Component`');
+                    this.actual.should.be.an.instanceOf(Error);
+                    this.actual.message.should.equal('`My Custom Component` is only allowed children that are `Toolbar` components. Check the render method of `My Custom Component`');
                 });
             });
         });
@@ -71,8 +71,8 @@ describe('utilities/PropTypes/componentType', function() {
                 beforeEach(() => {
                     this.actual = componentType(this.input)(this.props, 'children', 'My Custom Component');
                 });
-                it('it should return an error', () => {
-                    expect(this.actual).to.equal(undefined);
+                it('it should not return anything', () => {
+                    should.not.exist(this.actual);
                 });
             });
         });
@@ -86,7 +86,7 @@ describe('utilities/PropTypes/oneOfComponentType', function() {
     });
     describe('given a collection of component classes', () => {
         beforeEach(() => {
-            this.input = [Toolbar, ToolbarGroupTitle];
+            this.input = [Toolbar, ToolbarTitle];
         });
         describe('and given a non-children prop that does not match any of the component classes', () => {
             beforeEach(() => {
@@ -99,8 +99,8 @@ describe('utilities/PropTypes/oneOfComponentType', function() {
                     this.actual = oneOfComponentType(this.input)(this.props, 'prop', 'My Custom Component');
                 });
                 it('it should return an error', () => {
-                    expect(this.actual).to.be.an.instanceOf(Error);
-                    expect(this.actual.message).to.eql('`My Custom Component` prop, `prop`, should be one of the following component types: `Toolbar`, `ToolbarGroupTitle`. Check the render method of `My Custom Component`');
+                    this.actual.should.be.an.instanceOf(Error);
+                    this.actual.message.should.eql('`My Custom Component` prop, `prop`, should be one of the following component types: `Toolbar`, `ToolbarTitle`. Check the render method of `My Custom Component`');
                 });
             });
         });
@@ -115,8 +115,8 @@ describe('utilities/PropTypes/oneOfComponentType', function() {
                 beforeEach(() => {
                     this.actual = oneOfComponentType(this.input)(this.props, 'prop', 'My Custom Component');
                 });
-                it('it should not return an error', () => {
-                    expect(this.actual).to.equal(undefined);
+                it('it should not return anything', () => {
+                    should.not.exist(this.actual);
                 });
             });
         });
@@ -132,8 +132,8 @@ describe('utilities/PropTypes/oneOfComponentType', function() {
                     this.actual = oneOfComponentType(this.input)(this.props, 'children', 'My Custom Component');
                 });
                 it('it should return an error', () => {
-                    expect(this.actual).to.be.an.instanceOf(Error);
-                    expect(this.actual.message).to.equal('`My Custom Component` is only allowed children that are one of the following component types: `Toolbar`, `ToolbarGroupTitle`. Check the render method of `My Custom Component`');
+                    this.actual.should.be.an.instanceOf(Error);
+                    this.actual.message.should.equal('`My Custom Component` is only allowed children that are one of the following component types: `Toolbar`, `ToolbarTitle`. Check the render method of `My Custom Component`');
                 });
             });
         });
@@ -148,8 +148,8 @@ describe('utilities/PropTypes/oneOfComponentType', function() {
                 beforeEach(() => {
                     this.actual = oneOfComponentType(this.input)(this.props, 'children', 'My Custom Component');
                 });
-                it('it should return an error', () => {
-                    expect(this.actual).to.equal(undefined);
+                it('it should not return anything', () => {
+                    should.not.exist(this.actual)
                 });
             });
         });

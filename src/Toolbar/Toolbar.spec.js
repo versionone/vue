@@ -2,34 +2,24 @@ import React from 'react';
 import {shallow} from 'enzyme';
 import Toolbar from './Toolbar';
 import ToolbarGroup from './ToolbarGroup';
+import ToolbarSeparator from './ToolbarSeparator';
 
 describe('<Toolbar />', function() {
-    describe('when rendering a toolbar with no title', () => {
+    describe('when rendering a toolbar without specifying the height style', () => {
         beforeEach(() => {
             this.wrapper = shallow(<Toolbar />);
         });
-
-        it('it should not render a title', () => {
-            this.wrapper.find('h1').length.should.equal(0);
-        });
-    });
-    describe('when rendering a toolbar with a title', () => {
-        beforeEach(() => {
-            this.wrapper = shallow(<Toolbar title="Toolbar Title" />);
-        });
-
-        it('it should render the title in a h1', () => {
-            this.wrapper.find('h1').length.should.equal(1);
-            this.wrapper.find('h1').text().should.equal('Toolbar Title');
+        it('it should use the default height of 56px', () => {
+            this.wrapper.should.have.style('height', '56px');
         });
     });
 
-    describe('when rendering a toolbar with a title and a custom title style', () => {
+    describe('when rendering a toolbar with a specified height', () => {
         beforeEach(() => {
-            this.wrapper = shallow(<Toolbar title="Toolbar Title" titleStyle={{display: 'none'}} />);
+            this.wrapper = shallow(<Toolbar style={{height: '100px'}} />);
         });
-        it('it should render the toolbar with the titleStyle prop applied to the title', () => {
-            expect(this.wrapper.find('h1')).to.have.style('display', 'none');
+        it('it should use the default height of 56px', () => {
+           this.wrapper.should.have.style('height', '100px');
         });
     });
 
@@ -38,36 +28,34 @@ describe('<Toolbar />', function() {
             this.wrapper = shallow(<Toolbar className="my-class-name" />);
         });
         it('it should render the toolbar with specified className on the root element', () => {
-            this.wrapper.find('.toolbar').hasClass('my-class-name');
+           this.wrapper.find('.toolbar').should.have.className('my-class-name');
         });
     });
 
     describe('when rendering a toolbar with a custom style', () => {
         beforeEach(() => {
-            this.wrapper = shallow(<Toolbar style={{display: 'inline'}} titleStyle={{display: 'none'}} />);
+            this.wrapper = shallow(<Toolbar style={{display: 'inline'}} />);
         });
         it('it should render the toolbar with the style prop applied to the root element', () => {
-            expect(this.wrapper).to.have.style('display', 'inline');
+            this.wrapper.should.have.style('display', 'inline');
         });
     });
 
-    describe('when rendering a toolbar with children and a title', () => {
+    describe('when rendering a toolbar with children', () => {
         beforeEach(() => {
             this.wrapper = shallow(
-                <Toolbar title="Toolbar Title">
-                    <ToolbarGroup />
-                    <ToolbarGroup />
+                <Toolbar title="Toolbar Title" style={{height: '56px'}}>
+                    <div></div>
+                    <div></div>
+                    <div></div>
                 </Toolbar>
             );
         });
-        it('it should render the children in a grouping div', () => {
-            expect(this.wrapper.childAt(1).children().length).to.equal(2);
-            expect(this.wrapper.childAt(1)).to.have.descendants(ToolbarGroup);
-            expect(this.wrapper.childAt(1)).to.have.descendants(ToolbarGroup);
+        it('it should render the children', () => {
+            this.wrapper.children().length.should.equal(3);
         });
-        it('it should render grouping of children after title', () => {
-            expect(this.wrapper.childAt(0).type()).to.equal('h1');
-            expect(this.wrapper.childAt(1).type()).to.equal('div');
+        it('it should render the children with the toolbar\'s height', () => {
+            this.wrapper.children().forEach((child)=> child.should.have.style('height', '56px'));
         });
     });
 });

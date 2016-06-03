@@ -1,38 +1,41 @@
 import React, {Component, PropTypes} from 'react';
 import stylePropType from 'react-style-proptype';
+import classNames from 'classnames';
 
 export default class ToolbarGroup extends Component {
     static propTypes = {
+        children: PropTypes.element,
         className: PropTypes.string,
-        style: stylePropType,
-        itemStyle: stylePropType,
-        children: PropTypes.element
+        style: {...stylePropType, height: PropTypes.string.isRequired}
     };
 
     static defaultProps = {
-        className: '',
         style: {},
-        itemStyle: {}
+        attachToRight: false
     };
 
     render() {
         const {
             children,
             className,
-            style,
-            itemStyle
+            style
         } = this.props;
         const toolbarGroupStyle = Object.assign({}, ToolbarGroup.defaultStyles.container, style);
-        const toolbarGroupListStyle = Object.assign({}, ToolbarGroup.defaultStyles.list);
-        const toolbarGroupItemStyle = Object.assign({}, ToolbarGroup.defaultStyles.item, itemStyle);
 
         return (
-            <div className={`toolbar-group ${className}`} style={toolbarGroupStyle}>
-                <ol style={toolbarGroupListStyle}>
-                    {React.Children.map(children, (child, index) => (
-                        <li className="toolbar-group-item" style={toolbarGroupItemStyle} key={index}>{child}</li>
-                    ))}
-                </ol>
+            <div className={classNames('toolbar-group', className)} style={toolbarGroupStyle}>
+                {React.Children.map(children, (child, index) => {
+                    let childStyle;
+                    if (child.type.name === 'ToolbarSeparator') {
+                         childStyle = Object.assign({}, {height: style.height}, child.props.style, {display: 'flex'});
+                    } else {
+                        childStyle = Object.assign({}, child.props.style, {display: 'flex'});
+                    }
+                    return React.cloneElement(child, {
+                        key: index,
+                        style: childStyle
+                    })
+                })}
             </div>
         );
     }
@@ -40,16 +43,8 @@ export default class ToolbarGroup extends Component {
     static defaultStyles = {
         container: {
             boxSizing: 'border-box',
-            display: 'inline-block',
-            width: '100%'
-        },
-        list: {
-            display: 'flex'
-        },
-        item: {
-            paddingRight: '0.5rem',
-            display: 'inline-block',
-            alignSelf: 'center'
+            display: 'flex',
+            alignItems: 'center'
         }
     };
 }

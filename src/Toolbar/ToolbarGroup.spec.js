@@ -1,14 +1,23 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 import ToolbarGroup from './ToolbarGroup';
+import ToolbarSeparator from './ToolbarSeparator';
 
 describe('<ToolbarGroup />', function() {
+    describe('when rendering a toolbar group', () => {
+        beforeEach(() => {
+            this.wrapper = shallow(<ToolbarGroup height={'56px'} />);
+        });
+        it('it should render it\'s children with the provided height prop', () => {
+            this.wrapper.children().forEach((child) => child.should.have.style('height', '56px'))
+        });
+    });
     describe('when rendering a toolbar group with a className', () => {
         beforeEach(() => {
             this.wrapper = shallow(<ToolbarGroup className="my-class-name" />);
         });
         it('it should render the Toolbar with specified className on the root element', () => {
-            expect(this.wrapper).to.have.className('my-class-name');
+            this.wrapper.should.have.className('my-class-name');
         });
     });
 
@@ -17,36 +26,31 @@ describe('<ToolbarGroup />', function() {
             this.wrapper = shallow(<ToolbarGroup style={{display: 'inline'}} />);
         });
         it('it should render the Toolbar with the style prop applied to the root element', () => {
-            expect(this.wrapper).to.have.style('display', 'inline');
+            this.wrapper.should.have.style('display', 'inline');
         });
     });
 
-    describe('given children', () => {
+    describe('when rendering a toolbar group with children', () => {
         beforeEach(() => {
-            this.children = [<div></div>, <span></span>];
+            this.wrapper = shallow(
+                <ToolbarGroup style={{height: '56px'}}>
+                    <div></div>
+                    <ToolbarSeparator />
+                    <div></div>
+                </ToolbarGroup>
+            );
         });
-        describe('when rendiner a toolbar group', () => {
-            beforeEach(() => {
-                this.wrapper = shallow(<ToolbarGroup>{this.children}</ToolbarGroup>);
-            });
-
-            it('it should render each child as a list item within an ordered list', () => {
-                expect(this.wrapper.find('ol')).to.not.be.undefined;
-                expect(this.wrapper.find('ol > li').length).to.equal(2);
-                expect(this.wrapper.find('ol > li').first()).to.contain(<div />);
-                expect(this.wrapper.find('ol > li').last()).to.contain(<span />);
-            });
+        it('it should render the children', () => {
+            this.wrapper.children().length.should.equal(3);
         });
-
-        describe('when rendering a toolbar group with a custom item style', () => {
-            beforeEach(() => {
-                this.wrapper = shallow(<ToolbarGroup itemStyle={{display: 'inline'}}>{this.children}</ToolbarGroup>);
-            });
-            it('it should render the each toolbar item with the custom style', () => {
-                this.wrapper.find('ol > li').forEach((node) => {
-                    expect(node).to.have.style({display: 'inline'});
-                });
-            });
+        it('it should pass the height down to toolbar separator children', () => {
+            this.wrapper.children('ToolbarSeparator')
+                .forEach((child) => child.should.have.style('height', "56px"))
+        });
+        it('it should not pass the height down to non toolbar separator children', () => {
+            this.wrapper.children()
+                .not('ToolbarSeparator')
+                .forEach((child) => child.should.not.have.style('height', "56px"))
         });
     });
 });

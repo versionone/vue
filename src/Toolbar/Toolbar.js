@@ -1,44 +1,44 @@
 import React, {Component, PropTypes} from 'react';
 import stylePropType from 'react-style-proptype';
-import ToolbarGroup from './ToolbarGroup';
-import {componentType} from './../utilities/PropTypes';
+import classNames from 'classnames';
 
 export default class Toolbar extends Component {
     static propTypes = {
-        title: PropTypes.string,
+        children: PropTypes.element,
         className: PropTypes.string,
         style: stylePropType,
-        titleStyle: stylePropType,
-        children: componentType(ToolbarGroup)
+        titleStyle: stylePropType
     };
 
     static defaultProps = {
-        title: null,
-        className: '',
         style: {},
-        titleStyle: {}
+        titleStyle: {},
+        itemStyle: {}
     };
 
     render() {
         const {
             children,
-            title,
             className,
             style,
-            titleStyle
         } = this.props;
-        const toolbarStyle = Object.assign({}, Toolbar.defaultStyles.container, style);
-        const toolbarTitleStyle = Object.assign({}, Toolbar.defaultStyles.title, titleStyle);
-        const toolbarTitle = (title !== null)
-            ? <h1 style={toolbarTitleStyle}>{title}</h1>
-            : null;
+        const height = style.height
+            ? style.height
+            : '56px';
+
+        const toolbarStyle = Object.assign({}, Toolbar.defaultStyles.container, style, {
+            height
+        });
 
         return (
-            <div className={`toolbar ${className}`} style={toolbarStyle}>
-                {toolbarTitle}
-                <div style={Toolbar.defaultStyles.groups}>
-                    {children}
-                </div>
+            <div className={classNames('toolbar', className)} style={toolbarStyle}>
+                {React.Children.map(children, (child, index) => {
+                    const style = Object.assign({}, {height},child.props.style);
+                    return React.cloneElement(child, {
+                        key: index,
+                        style
+                    });
+                })}
             </div>
         );
     }
@@ -47,16 +47,10 @@ export default class Toolbar extends Component {
         container: {
             boxSizing: 'border-box',
             display: 'flex',
-            width: '100%',
-            padding: '0.5rem'
-        },
-        title: {
-            paddingRight: '0.75rem',
-            alignSelf: 'center'
-        },
-        groups: {
-            alignSelf: 'center',
-            flex: 1
+            padding: '0 1.5rem',
+            background: '#cdcdcd',
+            minHeight: '56px',
+            alignItems: 'center'
         }
     };
 }

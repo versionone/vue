@@ -3,7 +3,6 @@ var chaiEnzyme = require('chai-enzyme');
 
 chai.use(chaiEnzyme());
 chai.should();
-global.expect = chai.expect;
 
 var jsdom = require('jsdom').jsdom;
 var exposedProperties = ['window', 'navigator', 'document'];

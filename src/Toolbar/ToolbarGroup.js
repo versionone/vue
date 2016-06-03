@@ -5,7 +5,8 @@ export default class ToolbarGroup extends Component {
     static propTypes = {
         className: PropTypes.string,
         style: stylePropType,
-        itemStyle: stylePropType
+        itemStyle: stylePropType,
+        children: PropTypes.element
     };
 
     static defaultProps = {

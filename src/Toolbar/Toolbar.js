@@ -1,12 +1,15 @@
 import React, {Component, PropTypes} from 'react';
 import stylePropType from 'react-style-proptype';
+import ToolbarGroup from './ToolbarGroup';
+import {componentType} from './../utilities/PropTypes';
 
 export default class Toolbar extends Component {
     static propTypes = {
         title: PropTypes.string,
         className: PropTypes.string,
         style: stylePropType,
-        titleStyle: stylePropType
+        titleStyle: stylePropType,
+        children: componentType(ToolbarGroup)
     };
 
     static defaultProps = {

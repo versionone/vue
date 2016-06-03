@@ -19,3 +19,21 @@ export const componentType = (type) => (props, propName, componentName) => {
     }
     return new Error(`\`${componentName}\` prop, \`${propName}\`, should be a \`${type.name}\` component. Check the render method of \`${componentName}\``);
 };
+
+export const oneOfComponentType = (types) => (props, propName, componentName) => {
+    const prop = props[propName];
+    const typeNames = types.map((type) => type.name);
+    const typeNamesForError = typeNames.map((name)=> `\`${name}\``).join(', ');
+    if (propName === 'children') {
+        const childrenNames = React.Children.toArray(prop).map((child) => child.type.name);
+        for (var index = 0; index < childrenNames.length; index++) {
+            if (typeNames.indexOf(childrenNames[index]) < 0) {
+                return new Error(`\`${componentName}\` is only allowed children that are one of the following component types: ${typeNamesForError}. Check the render method of \`${componentName}\``);
+            }
+        }
+        return;
+    }
+    if (typeNames.indexOf(prop.name) < 0) {
+        return new Error(`\`${componentName}\` prop, \`prop\`, should be one of the following component types: ${typeNamesForError}. Check the render method of \`${componentName}\``);
+    }
+};

@@ -1,11 +1,12 @@
 import React, {Component, PropTypes} from 'react';
+import stylePropType from 'react-style-proptype';
 
 export default class Toolbar extends Component {
     static propTypes = {
         title: PropTypes.string,
         className: PropTypes.string,
-        style: PropTypes.object,
-        titleStyle: PropTypes.object
+        style: stylePropType,
+        titleStyle: stylePropType
     };
 
     static defaultProps = {
@@ -14,9 +15,6 @@ export default class Toolbar extends Component {
         style: {},
         titleStyle: {}
     };
-
-    componentDidMount() {
-    }
 
     render() {
         const {

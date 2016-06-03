@@ -1,10 +1,11 @@
 import React, {Component, PropTypes} from 'react';
+import stylePropType from 'react-style-proptype';
 
 export default class ToolbarGroup extends Component {
     static propTypes = {
         className: PropTypes.string,
-        style: PropTypes.object,
-        itemStyle: PropTypes.object
+        style: stylePropType,
+        itemStyle: stylePropType
     };
 
     static defaultProps = {

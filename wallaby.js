@@ -24,25 +24,25 @@ var webpackConfig = {
 module.exports = function(wallaby) {
     return {
         files: [
-            {pattern: 'node_modules/babel-polyfill/browser.js', instrument: false},
-            {pattern: 'node_modules/phantomjs-polyfill/bind-polyfill.js', instrument: false},
-            {pattern: 'node_modules/react/dist/react-with-addons.js', instrument: false},
-            {pattern: 'node_modules/chai/chai.js', instrument: false},
-            {pattern: 'src/**', load: false},
-            {pattern: '!src/**/Stories.js', load: false},
-            {pattern: '!src/**/*.spec.js', load: false}
+            {pattern: 'specSetup.js'},
+            {pattern: 'src/**'},
+            {pattern: '!src/**/Stories.js'},
+            {pattern: '!src/**/*.spec.js'}
         ],
         tests: [
-            {pattern: 'src/**/*.spec.js', load: false}
+            {pattern: 'src/**/*.spec.js'}
         ],
         compilers: {
-            'src/**/*.js': wallaby.compilers.babel()
+            '**/*.js': wallaby.compilers.babel()
         },
-        postprocessor: wallabyWebpack(webpackConfig),
+        env: {
+            type: 'node',
+            runner: 'node'
+        },
         testFramework: 'mocha',
-        setup: function() {
-            chai.should();
-            window.__moduleBundler.loadTests();
+        bootstrap: function() {
+            var path = require('path');
+            require('./specSetup');
         },
         debug: true
     };

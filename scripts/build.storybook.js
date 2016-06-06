@@ -30,6 +30,7 @@ function hasStories(srcDirectory) {
 
 function toStoryPaths(srcDirectory) {
     return function(directoryRef) {
-        return `require('${path.join(srcDirectory, directoryRef, 'Stories.js')}');`;
+        const requirePath = path.join(srcDirectory, directoryRef, 'Stories.js').replace(/\\/g, '\\\\');
+        return `require('${requirePath}');`;
     };
 }

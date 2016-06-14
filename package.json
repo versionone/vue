@@ -1,7 +1,7 @@
 {
-  "name": "versionone-ui",
+  "name": "component-ui",
   "version": "1.0.0",
-  "description": "Common UI components used by VersionOne.",
+  "description": "Common UI components used by modern web applicatoins.",
   "main": "dist/index.js",
   "scripts": {
     "clean": "node ./scripts/clean.js",
@@ -13,7 +13,6 @@
     "prepublish": "npm test && npm run clean && npm run build && npm run deploy"
   },
   "keywords": [
-    "VersionOne",
     "react",
     "components",
     "UI"

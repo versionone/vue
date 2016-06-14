@@ -1,6 +1,6 @@
-# VersionOne UI
+# Component UI
 
-A collection of re-usable components developed and used by VersionOne. View the components in action in our [storybook](https://versionone.github.io/versionone-ui).
+A collection of re-usable components for modern web applicatoins. View the components in action in our [storybook](https://andrew-codes.github.io/component-ui).
 
 ## Getting Started
 

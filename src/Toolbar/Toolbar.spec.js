@@ -1,8 +1,6 @@
 import React from 'react';
 import {shallow} from 'enzyme';
 import Toolbar from './Toolbar';
-import ToolbarGroup from './ToolbarGroup';
-import ToolbarSeparator from './ToolbarSeparator';
 
 describe('<Toolbar />', function() {
     describe('when rendering a toolbar without specifying the height style', () => {

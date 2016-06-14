@@ -1,6 +1,6 @@
 # Component UI
 
-A collection of re-usable components for modern web applicatoins. View the components in action in our [storybook](https://andrew-codes.github.io/component-ui).
+A collection of re-usable components for modern web applications. View the components in action in our [storybook](https://andrew-codes.github.io/component-ui).
 
 ## Getting Started
 

@@ -2,7 +2,7 @@ var chai = require('chai');
 var chaiEnzyme = require('chai-enzyme');
 
 chai.use(chaiEnzyme());
-chai.should();
+global.should = chai.should();
 
 var jsdom = require('jsdom').jsdom;
 var exposedProperties = ['window', 'navigator', 'document'];

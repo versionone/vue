@@ -26,7 +26,7 @@ export default class ToolbarGroup extends Component {
             <div className={classNames('toolbar-group', className)} style={toolbarGroupStyle}>
                 {React.Children.map(children, (child, index) => {
                     let childStyle;
-                    if (child.type.name === 'ToolbarSeparator') {
+                    if (child.type.name === 'ToolbarSeparator' || child.type.name === 'ToolbarItem') {
                          childStyle = Object.assign({}, {height: style.height}, child.props.style, {display: 'flex'});
                     } else {
                         childStyle = Object.assign({}, child.props.style, {display: 'flex'});

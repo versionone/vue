@@ -2,6 +2,7 @@ import React from 'react';
 import {shallow} from 'enzyme';
 import ToolbarGroup from './ToolbarGroup';
 import ToolbarSeparator from './ToolbarSeparator';
+import ToolbarItem from './ToolbarItem';
 
 describe('<ToolbarGroup />', function() {
     describe('when rendering a toolbar group', () => {
@@ -9,7 +10,7 @@ describe('<ToolbarGroup />', function() {
             this.wrapper = shallow(<ToolbarGroup height={'56px'} />);
         });
         it('it should render it\'s children with the provided height prop', () => {
-            this.wrapper.children().forEach((child) => child.should.have.style('height', '56px'))
+            this.wrapper.find('.toolbar-group').children().forEach((child) => child.should.have.style('height', '56px'))
         });
     });
     describe('when rendering a toolbar group with a className', () => {
@@ -34,7 +35,7 @@ describe('<ToolbarGroup />', function() {
         beforeEach(() => {
             this.wrapper = shallow(
                 <ToolbarGroup style={{height: '56px'}}>
-                    <div></div>
+                    <ToolbarItem />
                     <ToolbarSeparator />
                     <div></div>
                 </ToolbarGroup>
@@ -43,14 +44,19 @@ describe('<ToolbarGroup />', function() {
         it('it should render the children', () => {
             this.wrapper.children().length.should.equal(3);
         });
-        it('it should pass the height down to toolbar separator children', () => {
+        it('it should pass the height down to toolbar separators', () => {
             this.wrapper.children('ToolbarSeparator')
-                .forEach((child) => child.should.have.style('height', "56px"))
+                .forEach((child) => child.should.have.style('height', "56px"));
+        });
+        it('it should pass the height down to toolbar items', () => {
+            this.wrapper.children('ToolbarItem')
+                .forEach((child) => child.should.have.style('height', "56px"));
         });
         it('it should not pass the height down to non toolbar separator children', () => {
             this.wrapper.children()
                 .not('ToolbarSeparator')
-                .forEach((child) => child.should.not.have.style('height', "56px"))
+                .not('ToolbarItem')
+                .forEach((child) => child.should.not.have.style('height', "56px"));
         });
     });
 });

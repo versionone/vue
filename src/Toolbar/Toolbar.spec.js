@@ -16,8 +16,17 @@ describe('<Toolbar />', function() {
         beforeEach(() => {
             this.wrapper = shallow(<Toolbar style={{height: '100px'}} />);
         });
-        it('it should use the default height of 56px', () => {
-           this.wrapper.should.have.style('height', '100px');
+        it('it should use the style height for the Toolbar\'s height', () => {
+            this.wrapper.should.have.style('height', '100px');
+        });
+    });
+
+    describe('when rendering a toolbar', () => {
+        beforeEach(() => {
+            this.wrapper = shallow(<Toolbar><span></span></Toolbar>);
+        });
+        it('it should render it\'s children with the Toolbar\'s height', () => {
+            this.wrapper.find('.toolbar').children().forEach((child) => child.should.have.style('height', '56px'));
         });
     });
 
@@ -26,7 +35,7 @@ describe('<Toolbar />', function() {
             this.wrapper = shallow(<Toolbar className="my-class-name" />);
         });
         it('it should render the toolbar with specified className on the root element', () => {
-           this.wrapper.find('.toolbar').should.have.className('my-class-name');
+            this.wrapper.find('.toolbar').should.have.className('my-class-name');
         });
     });
 

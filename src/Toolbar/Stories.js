@@ -1,6 +1,6 @@
 import React from 'react';
 import {storiesOf} from '@kadira/storybook';
-import {Toolbar, ToolbarGroup, ToolbarTitle, ToolbarSeparator, ToolbarSpacer} from './';
+import {Toolbar, ToolbarGroup, ToolbarTitle, ToolbarSeparator, ToolbarSpacer, ToolbarItem} from './';
 
 storiesOf('Toolbar', module)
     .add('with no children', () => (
@@ -11,10 +11,16 @@ storiesOf('Toolbar', module)
             <ToolbarTitle text="App Toolbar" />
         </Toolbar>
     ))
-    .add('with groups and spacers', () => (
+    .add('with title, groups, items, separators and spacers', () => (
         <Toolbar>
+            <ToolbarTitle text="App Toolbar" />
             <ToolbarGroup>
-                <button>View A</button>
+                <ToolbarItem label="Options">
+                    <select>
+                        <option>Option 1</option>
+                        <option>Option 2</option>
+                    </select>
+                </ToolbarItem>
                 <button>View B</button>
             </ToolbarGroup>
             <ToolbarSeparator />
@@ -23,7 +29,6 @@ storiesOf('Toolbar', module)
             </ToolbarGroup>
             <ToolbarSpacer />
             <ToolbarGroup>
-                <ToolbarTitle text="Group 2" />
                 <button>View D</button>
                 <button>View E</button>
                 <ToolbarSeparator />

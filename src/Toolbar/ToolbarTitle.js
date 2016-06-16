@@ -38,7 +38,7 @@ export default class ToolbarTitle extends Component {
             display: 'flex',
             alignItems: 'center',
             paddingRight: '24px',
-            fontSize: '18px',
+            fontSize: '24px',
             lineHeight: 1
         }
     }

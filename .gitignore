@@ -61,3 +61,6 @@ jspm_packages
 !/*.js
 !/docs
 
+### Published github pages
+.out
+

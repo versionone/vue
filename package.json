@@ -1,7 +1,7 @@
 {
-  "name": "component-ui",
+  "name": "versionone-ui",
   "version": "1.0.0",
-  "description": "Common UI components used by modern web applicatoins.",
+  "description": "Common UI components developed and used by VersionOne.",
   "main": "dist/index.js",
   "scripts": {
     "clean": "node ./scripts/clean.js",
@@ -15,6 +15,7 @@
   "keywords": [
     "react",
     "components",
+    "VersionOne",
     "UI"
   ],
   "author": "Andrew Smith <andrew@WeAreSoftwareCraftsmen.com>",

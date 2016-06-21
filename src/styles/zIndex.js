@@ -1,10 +1,1 @@
-export const menu = 1000;
-export const appBar = 1100;
-export const drawerOverlay = 1200;
-export const drawer = 1300;
-export const dialogOverlay = 1400;
-export const dialog = 1500;
-export const layer = 2000;
-export const popover = 2100;
-export const snackbar = 2900;
-export const tooltip = 3000;
+export const toolbar = 1100;

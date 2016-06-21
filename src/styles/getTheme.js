@@ -15,10 +15,10 @@ export default function getTheme(theme, ...more) {
     const {spacing, fontFamily, palette} = theme;
 
     theme = Object.assign({}, {
-        Toolbar: {
+        toolbar: {
             color: palette.primary1Color,
             textColor: palette.alternateTextColor,
-            height: spacing.desktopKeylineIncrement,
+            height: spacing.desktopToolbarHeight,
             titleFontWeight: typography.fontWeightNormal,
             padding: spacing.desktopGutter
         }

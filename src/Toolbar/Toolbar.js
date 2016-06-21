@@ -1,19 +1,27 @@
 import React, {Component, PropTypes} from 'react';
 import stylePropType from 'react-style-proptype';
 import classNames from 'classnames';
+import zIndex from './../styles/zIndex';
 
 export const getStyles = (props, context) => {
+    const {
+        toolbar
+    } = context.theme;
+
     const height = props.style.height
         ? props.style.height
-        : '56px';
+        : toolbar.height;
 
     return {
         root: {
             height,
             boxSizing: 'border-box',
             display: 'flex',
-            padding: '0 1.5rem',
-            background: '#cdcdcd'
+            paddingLeft: toolbar.padding,
+            paddingRight: toolbar.padding,
+            background: toolbar.color,
+            zIndex: zIndex.toolbar,
+            position: 'relative'
         },
         children: {
             height

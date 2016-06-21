@@ -4,7 +4,6 @@ import classNames from 'classnames';
 
 export default class ToolbarGroup extends Component {
     static propTypes = {
-        children: PropTypes.element,
         className: PropTypes.string,
         style: {...stylePropType, height: PropTypes.string.isRequired}
     };

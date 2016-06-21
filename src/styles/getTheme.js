@@ -28,7 +28,7 @@ export default function getTheme(theme, ...more) {
         .map((transform) => transform(theme))
         .filter((transformed) => transformed);
 
-    theme.prepareStyles = compose(...transformers);
+    theme.prepareStyles = (...styles) => compose(...transformers)(Object.assign({}, ...styles));
 
     return theme;
 }

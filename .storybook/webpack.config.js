@@ -10,6 +10,10 @@ module.exports = {
                 test: /\.css?$/,
                 loaders: ['style', 'css', 'postcss', 'less'],
                 include: path.resolve(__dirname, '../')
+            },
+            {
+                test: /\.json$/,
+                loader: 'json'
             }
         ]
     },

@@ -20,6 +20,7 @@ export const getStyles = (props, context) => {
             paddingLeft: toolbar.padding,
             paddingRight: toolbar.padding,
             background: toolbar.color,
+            color: toolbar.textColor,
             zIndex: zIndex.toolbar,
             position: 'relative'
         },

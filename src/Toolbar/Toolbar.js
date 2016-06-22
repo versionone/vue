@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import stylePropType from 'react-style-proptype';
 import classNames from 'classnames';
-import zIndex from './../styles/zIndex';
+import * as zIndex from './../styles/zIndex';
 
 export const getStyles = (props, context) => {
     const {

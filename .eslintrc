@@ -1,0 +1,43 @@
+{
+    "env": {
+        "mocha": true,
+        "node": true,
+        "browser": true
+    },
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "plugins": [
+        "babel",
+        "react"
+    ],
+    "settings": {
+        "react": {
+            "pragma": "React",
+            "version": "15.0"
+        }
+    },
+    "globals": {
+        "should": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
+    "rules": {
+        "strict": 0,
+        "babel/generator-star-spacing": 0,
+        "babel/new-cap": 0,
+        "babel/array-bracket-spacing": 0,
+        "babel/object-curly-spacing": 0,
+        "babel/object-shorthand": 0,
+        "babel/arrow-parens": 0,
+        "babel/no-await-in-loop": 0,
+        "babel/flow-object-type": 0,
+        "babel/func-params-comma-dangle": 0
+    }
+}

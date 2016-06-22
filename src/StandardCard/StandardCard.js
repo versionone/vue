@@ -1,7 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 
-export default class StandardCard extends React.Component {
+export default class StandardCard extends Component {
     static propTypes = {
+        children: PropTypes.arrayOf(PropTypes.element),
         title: PropTypes.string,
         className: PropTypes.string,
         style: PropTypes.object,
@@ -18,7 +19,7 @@ export default class StandardCard extends React.Component {
     };
 
     render() {
-        const { children, title, className, style, headerStyle, contentStyle } = this.props;
+        const {children, title, className, style, headerStyle, contentStyle} = this.props;
 
         const standardCardStyle = Object.assign({}, StandardCard.defaultStyles.card, style);
         const standardCardHeaderStyle = Object.assign({}, StandardCard.defaultStyles.header, headerStyle);

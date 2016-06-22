@@ -32,6 +32,7 @@ export const getStyles = (props, context) => {
 
 export default class Toolbar extends Component {
     static propTypes = {
+        children: PropTypes.arrayOf(PropTypes.element),
         className: PropTypes.string,
         style: CustomPropTypes.style
     };
@@ -48,7 +49,7 @@ export default class Toolbar extends Component {
         const {
             children,
             className,
-            style,
+            style
         } = this.props;
         const {prepareStyles} = this.context.theme;
         const styles = getStyles(this.props, this.context);

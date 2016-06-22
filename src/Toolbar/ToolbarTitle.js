@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 export default class ToolbarTitle extends Component {
     static propTypes = {
+        children: PropTypes.arrayOf(PropTypes.element),
         text: PropTypes.string.isRequired,
         className: PropTypes.string,
         style: CustomPropTypes.style

@@ -12,7 +12,7 @@ export default function getTheme(theme, ...more) {
         userAgent: undefined
     }, v1Theme, theme, ...more);
 
-    const {spacing, fontFamily, palette} = theme;
+    const {spacing, palette} = theme;
 
     theme = Object.assign({}, {
         toolbar: {

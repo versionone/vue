@@ -32,7 +32,7 @@ export const getStyles = (props, context) => {
 
 export default class Toolbar extends Component {
     static propTypes = {
-        children: PropTypes.arrayOf(PropTypes.element),
+        children: PropTypes.node,
         className: PropTypes.string,
         style: CustomPropTypes.style
     };

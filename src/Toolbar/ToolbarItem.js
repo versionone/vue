@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 export default class ToolbarItem extends Component {
     static propTypes = {
-        children: PropTypes.arrayOf(PropTypes.element),
+        children: PropTypes.node,
         label: PropTypes.string.isRequired,
         className: PropTypes.string,
         style: stylePropType,

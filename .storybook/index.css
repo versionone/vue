@@ -1,0 +1,6 @@
+[data-reactroot] > div > a + div {
+    z-index: 10000;
+}
+[data-reactroot] > div > a + div > a  {
+    margin-right: 15px;
+}

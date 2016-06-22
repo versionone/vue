@@ -65,6 +65,7 @@
     "precss": "^1.4.0",
     "react-addons-test-utils": "^15.1.0",
     "react-dom": "^15.1.0",
+    "react-storybook-addon-add-stories-group": "^0.1.0",
     "rimraf": "^2.5.2",
     "sinon": "^2.0.0-pre",
     "style-loader": "^0.13.1",

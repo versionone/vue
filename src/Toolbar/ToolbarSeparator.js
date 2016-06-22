@@ -1,11 +1,11 @@
 import React, {Component, PropTypes} from 'react';
-import stylePropType from 'react-style-proptype';
+import * as CustomPropTypes from './../utilities/PropTypes';
 import classNames from 'classnames';
 
 class ToolbarSeparator extends Component {
     static propTypes = {
         className: PropTypes.string,
-        style: {...stylePropType, height: PropTypes.string.isRequired}
+        style: CustomPropTypes.style
     };
 
     static defaultProps = {

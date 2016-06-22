@@ -1,4 +1,11 @@
 import React from 'react';
+import stylePropType from 'react-style-proptype';
+import {CALLED_ONCE} from './callOnce';
+
+export const style = (props, propName, componentName) => {
+    delete props[propName][CALLED_ONCE];
+    return stylePropType(props, propName, componentName);
+};
 
 export const componentType = (type) => (props, propName, componentName) => {
     const prop = props[propName];

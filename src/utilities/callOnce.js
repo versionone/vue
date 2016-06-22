@@ -1,6 +1,6 @@
 import invariant from 'invariant';
 
-const CALLED_ONCE = 'themePrepared';
+export const CALLED_ONCE = 'themePrepared';
 
 export default function callOnce() {
     if (process.env.NODE_ENV !== 'production') {

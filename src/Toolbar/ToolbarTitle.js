@@ -1,12 +1,12 @@
 import React, {Component, PropTypes} from 'react';
-import stylePropType from 'react-style-proptype';
+import * as CustomPropTypes from './../utilities/PropTypes';
 import classNames from 'classnames';
 
 export default class ToolbarTitle extends Component {
     static propTypes = {
         text: PropTypes.string.isRequired,
         className: PropTypes.string,
-        style: {...stylePropType, height: PropTypes.string.isRequired}
+        style: CustomPropTypes.style
     };
 
     static defaultProps = {

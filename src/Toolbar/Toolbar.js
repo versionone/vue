@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import stylePropType from 'react-style-proptype';
+import * as CustomPropTypes from './../utilities/PropTypes';
 import classNames from 'classnames';
 import * as zIndex from './../styles/zIndex';
 
@@ -32,7 +32,7 @@ export const getStyles = (props, context) => {
 export default class Toolbar extends Component {
     static propTypes = {
         className: PropTypes.string,
-        style: stylePropType
+        style: CustomPropTypes.style
     };
 
     static contextTypes = {

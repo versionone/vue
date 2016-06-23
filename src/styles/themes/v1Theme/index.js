@@ -5,7 +5,11 @@ import * as spacing from './spacing';
 
 export default {
     spacing,
-    fontFamily: 'Roboto, sans-serif',
+    font: {
+        fontFamily: 'Roboto, sans-serif',
+        fontStyleLabelFontSize: 18,
+        fontStyleButtonFontSize: 14
+    },
     palette: {
         primary1Color: cyan500,
         primary2Color: cyan700,

@@ -12,7 +12,7 @@ export default function getTheme(theme, ...more) {
         userAgent: undefined
     }, v1Theme, theme, ...more);
 
-    const {spacing, palette} = theme;
+    const {spacing, font, palette} = theme;
 
     theme = Object.assign({}, {
         toolbar: {
@@ -21,6 +21,11 @@ export default function getTheme(theme, ...more) {
             height: spacing.desktopToolbarHeight,
             titleFontWeight: typography.fontWeightNormal,
             padding: spacing.desktopGutter
+        },
+        toolbarItem: {
+            padding: spacing.desktopGutter,
+            labelPadding: spacing.desktopGutterLess,
+            labelFontSize: `${font.fontStyleLabelFontSize}px`
         }
     }, theme);
 

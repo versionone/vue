@@ -2,6 +2,31 @@ import React, {Component, PropTypes} from 'react';
 import stylePropType from 'react-style-proptype';
 import classNames from 'classnames';
 
+export const getStyles = (props, context) => {
+    const {
+        toolbarItem
+    } = context.theme;
+
+    return {
+        root: {
+            boxSizing: 'border-box',
+            display: 'flex',
+            alignItems: 'center',
+            paddingRight: toolbarItem.padding
+        },
+        label: {
+            whiteSpace: 'nowrap',
+            display: 'flex'
+        },
+        labelText: {
+            alignItems: 'center',
+            display: 'flex',
+            fontSize: toolbarItem.labelFontSize,
+            paddingRight: toolbarItem.labelPadding
+        }
+    };
+};
+
 export default class ToolbarItem extends Component {
     static propTypes = {
         children: PropTypes.node,
@@ -12,7 +37,12 @@ export default class ToolbarItem extends Component {
     };
 
     static defaultProps = {
-        style: {}
+        style: {},
+        labelTextStyle: {}
+    };
+
+    static contextTypes = {
+        theme: PropTypes.object.isRequired
     };
 
     render() {
@@ -23,35 +53,18 @@ export default class ToolbarItem extends Component {
             labelTextStyle,
             children
         } = this.props;
-        const containerStyleComputed = Object.assign({}, ToolbarItem.defaultStyles.container, style);
-        const labelStyleComputed = Object.assign({}, ToolbarItem.defaultStyles.label, {height: style.height});
-        const labelChildrenWrapperStyleComputed = Object.assign({}, ToolbarItem.defaultStyles.labelText, labelTextStyle, {height: style.height});
+        const {prepareStyles} = this.context.theme;
+        const styles = getStyles(this.props, this.context);
+        const root = prepareStyles(styles.root, style);
+        const labelChildrenWrapperStyleComputed = prepareStyles(styles.labelText, labelTextStyle, {height: style.height});
+
         return (
-            <div style={containerStyleComputed} className={classNames('toolbar-item', className)}>
-                <label style={labelStyleComputed}>
-                    <span
-                        style={labelChildrenWrapperStyleComputed}>{label}:</span>
+            <div style={root} className={classNames('toolbar-item', className)}>
+                <label style={prepareStyles(styles.label, {height: style.height})}>
+                    <span style={labelChildrenWrapperStyleComputed}>{label}:</span>
                     <div style={labelChildrenWrapperStyleComputed}>{children}</div>
                 </label>
             </div>
         );
-    }
-
-    static defaultStyles = {
-        container: {
-            display: 'flex',
-            alignItems: 'center',
-            paddingRight: '24px'
-        },
-        label: {
-            whiteSpace: 'nowrap',
-            display: 'flex'
-        },
-        labelText: {
-            alignItems: 'center',
-            display: 'flex',
-            fontSize: '18px',
-            paddingRight: '12px'
-        }
     }
 }

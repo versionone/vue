@@ -56,10 +56,10 @@ export default class Toolbar extends Component {
 
         return (
             <div className={classNames('toolbar', className)}
-                 style={prepareStyles( styles.root, style)}>
+                 style={prepareStyles(styles.root, style)}>
                 {React.Children.map(children, (child, index) => React.cloneElement(child, {
                     key: index,
-                    style: prepareStyles(styles.children)
+                    style: prepareStyles(child.props.style, styles.children)
                 }))}
             </div>
         );

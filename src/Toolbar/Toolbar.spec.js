@@ -45,7 +45,7 @@ describe('<Toolbar />', function() {
             this.wrapper = mount(
                 <ThemeProvider>
                     <Toolbar title="Toolbar Title" style={{height: '56px'}}>
-                        <div></div>
+                        <div style={{color: 'blue'}}></div>
                         <div></div>
                         <div></div>
                     </Toolbar>
@@ -57,6 +57,9 @@ describe('<Toolbar />', function() {
         });
         it('it should render the children with the toolbar\'s height', () => {
             this.wrapper.find('.toolbar').children().forEach((child)=> child.should.have.style('height', '56px'));
+        });
+        it('it should maintain the styles of the children', () => {
+            this.wrapper.find('.toolbar').children().first().should.have.style('color', 'blue');
         });
     });
 });

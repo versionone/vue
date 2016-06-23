@@ -7,8 +7,11 @@ export default {
     spacing,
     font: {
         fontFamily: 'Roboto, sans-serif',
-        fontStyleLabelFontSize: 18,
-        fontStyleButtonFontSize: 14
+        fontStyleLabelFontSize: 16,
+        fontStyleButtonFontSize: 16,
+        fontStyleTitleFontSizeSmall: 18,
+        fontStyleTitleFontSize: 22,
+        fontStyleTitleFontSizeLarge: 24
     },
     palette: {
         primary1Color: cyan500,

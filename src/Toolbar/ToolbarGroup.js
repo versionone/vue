@@ -2,23 +2,21 @@ import React, {Component, PropTypes} from 'react';
 import * as CustomPropTypes from './../utilities/PropTypes';
 import classNames from 'classnames';
 
-export const getStyles = (props, context) => {
-    return {
-        root: {
-            boxSizing: 'border-box',
-            display: 'flex',
-            alignItems: 'center',
-            height: props.style.height
-        },
-        toolbarChildren: {
-            height: props.style.height,
-            display: 'flex'
-        },
-        otherChildren: {
-            display: 'flex'
-        }
-    };
-};
+export const getStyles = (props, context) => ({
+    root: {
+        boxSizing: 'border-box',
+        display: 'flex',
+        alignItems: 'center',
+        height: props.style.height
+    },
+    toolbarChildren: {
+        height: props.style.height,
+        display: 'flex'
+    },
+    otherChildren: {
+        display: 'flex'
+    }
+});
 
 export default class ToolbarGroup extends Component {
     static propTypes = {

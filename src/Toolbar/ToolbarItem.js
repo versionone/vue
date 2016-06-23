@@ -2,30 +2,24 @@ import React, {Component, PropTypes} from 'react';
 import stylePropType from 'react-style-proptype';
 import classNames from 'classnames';
 
-export const getStyles = (props, context) => {
-    const {
-        toolbarItem
-    } = context.theme;
-
-    return {
-        root: {
-            boxSizing: 'border-box',
-            display: 'flex',
-            alignItems: 'center',
-            paddingRight: toolbarItem.padding
-        },
-        label: {
-            whiteSpace: 'nowrap',
-            display: 'flex'
-        },
-        labelText: {
-            alignItems: 'center',
-            display: 'flex',
-            fontSize: toolbarItem.labelFontSize,
-            paddingRight: toolbarItem.labelPadding
-        }
-    };
-};
+export const getStyles = (props, context) => ({
+    root: {
+        boxSizing: 'border-box',
+        display: 'flex',
+        alignItems: 'center',
+        paddingRight: context.theme.toolbarItem.padding
+    },
+    label: {
+        whiteSpace: 'nowrap',
+        display: 'flex'
+    },
+    labelText: {
+        alignItems: 'center',
+        display: 'flex',
+        fontSize: context.theme.toolbarItem.labelFontSize,
+        paddingRight: context.theme.toolbarItem.labelPadding
+    }
+});
 
 export default class ToolbarItem extends Component {
     static propTypes = {

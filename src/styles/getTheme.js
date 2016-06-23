@@ -26,6 +26,14 @@ export default function getTheme(theme, ...more) {
             padding: spacing.desktopGutter,
             labelPadding: spacing.desktopGutterLess,
             labelFontSize: `${font.fontStyleLabelFontSize}px`
+        },
+        toolbarSeparator: {
+            padding: spacing.desktopGutter,
+            color: palette.borderColor
+        },
+        toolbarTitle: {
+            fontSize: font.fontStyleTitleFontSize,
+            padding: spacing.desktopGutter
         }
     }, theme);
 

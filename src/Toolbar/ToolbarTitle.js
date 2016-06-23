@@ -2,6 +2,16 @@ import React, {Component, PropTypes} from 'react';
 import * as CustomPropTypes from './../utilities/PropTypes';
 import classNames from 'classnames';
 
+export const getStyles = (props, context) => ({
+    root: {
+        display: 'flex',
+        alignItems: 'center',
+        paddingRight: context.theme.toolbarTitle.padding,
+        fontSize: context.theme.toolbarTitle.fontSize,
+        lineHeight: 1
+    }
+});
+
 export default class ToolbarTitle extends Component {
     static propTypes = {
         children: PropTypes.node,
@@ -14,9 +24,9 @@ export default class ToolbarTitle extends Component {
         style: {}
     };
 
-    constructor(props, ...rest) {
-        super(props, ...rest);
-    }
+    static contextTypes = {
+        theme: PropTypes.object.isRequired
+    };
 
     render() {
         const {
@@ -24,23 +34,13 @@ export default class ToolbarTitle extends Component {
             className,
             style
         } = this.props;
-        const containerStyle = Object.assign({}, ToolbarTitle.defaultStyles.container, style);
-        const titleStyle = Object.assign({}, ToolbarTitle.defaultStyles.title);
+        const {prepareStyles} = this.context.theme;
+        const styles = getStyles(this.props, this.context);
 
         return (
-            <div style={containerStyle} className={classNames('toolbar-title', className)} >
-                <span style={titleStyle}>{text}</span>
+            <div style={prepareStyles(styles.root, style)} className={classNames('toolbar-title', className)}>
+                <span>{text}</span>
             </div>
         );
-    }
-
-    static defaultStyles = {
-        container: {
-            display: 'flex',
-            alignItems: 'center',
-            paddingRight: '24px',
-            fontSize: '24px',
-            lineHeight: 1
-        }
     }
 }

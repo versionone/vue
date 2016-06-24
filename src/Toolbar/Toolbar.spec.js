@@ -2,23 +2,34 @@ import React from 'react';
 import {mount} from 'enzyme';
 import Toolbar from './Toolbar';
 import ThemeProvider from './../styles/ThemeProvider';
+import getTheme from './../styles/getTheme';
 
 describe('<Toolbar />', function() {
-    describe('when rendering a toolbar without specifying the height style', () => {
+    describe('when rendering a toolbar without specifying the height', () => {
         beforeEach(() => {
-            this.wrapper = mount(<ThemeProvider><Toolbar /></ThemeProvider>);
+            this.theme = getTheme();
+            this.wrapper = mount(<ThemeProvider theme={this.theme}><Toolbar /></ThemeProvider>);
         });
-        it('it should use the default height of 56px', () => {
-            this.wrapper.should.have.style('height', '56px');
+        it('it should use the default height of the theme', () => {
+            this.wrapper.should.have.style('height', `${this.theme.spacing.desktopToolbarHeight}px`);
         });
     });
 
     describe('when rendering a toolbar with a specified height', () => {
         beforeEach(() => {
-            this.wrapper = mount(<ThemeProvider><Toolbar style={{height: '100px'}} /></ThemeProvider>);
+            this.wrapper = mount(<ThemeProvider><Toolbar height="100px" /></ThemeProvider>);
         });
         it('it should use the style height for the Toolbar\'s height', () => {
             this.wrapper.should.have.style('height', '100px');
+        });
+    });
+
+    describe('when rendering a toolbar with a specified background', () => {
+        beforeEach(() => {
+            this.wrapper = mount(<ThemeProvider><Toolbar background="green" /></ThemeProvider>);
+        });
+        it('it should use the style height for the Toolbar\'s height', () => {
+            this.wrapper.should.have.style('background', 'green');
         });
     });
 
@@ -44,10 +55,10 @@ describe('<Toolbar />', function() {
         beforeEach(() => {
             this.wrapper = mount(
                 <ThemeProvider>
-                    <Toolbar title="Toolbar Title" style={{height: '56px'}}>
+                    <Toolbar title="Toolbar Title" height="100px" background="green">
                         <div style={{color: 'blue'}}></div>
                         <div></div>
-                        <div></div>
+                        <div style={{background: 'blue'}}></div>
                     </Toolbar>
                 </ThemeProvider>
             );
@@ -56,7 +67,12 @@ describe('<Toolbar />', function() {
             this.wrapper.children().length.should.equal(3);
         });
         it('it should render the children with the toolbar\'s height', () => {
-            this.wrapper.find('.toolbar').children().forEach((child)=> child.should.have.style('height', '56px'));
+            this.wrapper.find('.toolbar').children().forEach((child)=> child.should.have.style('height', '100px'));
+        });
+        it('it should render the children with the toolbar\'s background color unless otherwise specified by the child', () => {
+            this.wrapper.find('.toolbar').childAt(0).should.have.style('background', 'green');
+            this.wrapper.find('.toolbar').childAt(1).should.have.style('background', 'green');
+            this.wrapper.find('.toolbar').childAt(2).should.have.style('background', 'blue');
         });
         it('it should maintain the styles of the children', () => {
             this.wrapper.find('.toolbar').children().first().should.have.style('color', 'blue');

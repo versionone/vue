@@ -8,9 +8,13 @@ export const getStyles = (props, context) => {
         toolbar
     } = context.theme;
 
-    const height = props.style.height
-        ? props.style.height
+    const height = props.height
+        ? props.height
         : toolbar.height;
+
+    const background = props.background
+        ? props.background
+        : toolbar.color;
 
     return {
         root: {
@@ -19,13 +23,14 @@ export const getStyles = (props, context) => {
             display: 'flex',
             paddingLeft: toolbar.padding,
             paddingRight: toolbar.padding,
-            background: toolbar.color,
+            background: background,
             color: toolbar.textColor,
             zIndex: zIndex.toolbar,
             position: 'relative'
         },
         children: {
-            height
+            height,
+            background: background
         }
     };
 };
@@ -34,7 +39,9 @@ export default class Toolbar extends Component {
     static propTypes = {
         children: PropTypes.node,
         className: PropTypes.string,
-        style: CustomPropTypes.style
+        style: CustomPropTypes.style,
+        height: PropTypes.number,
+        background: PropTypes.string
     };
 
     static contextTypes = {
@@ -59,7 +66,7 @@ export default class Toolbar extends Component {
                  style={prepareStyles(styles.root, style)}>
                 {React.Children.map(children, (child, index) => React.cloneElement(child, {
                     key: index,
-                    style: prepareStyles(child.props.style, styles.children)
+                    style: prepareStyles(styles.children, child.props.style)
                 }))}
             </div>
         );

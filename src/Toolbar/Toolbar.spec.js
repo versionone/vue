@@ -1,8 +1,7 @@
 import React from 'react';
 import {mount} from 'enzyme';
 import Toolbar from './Toolbar';
-import ThemeProvider from './../styles/ThemeProvider';
-import getTheme from './../styles/getTheme';
+import ThemeProvider, {getTheme} from './../Theme';
 
 describe('<Toolbar />', function() {
     describe('when rendering a toolbar without specifying the height', () => {
@@ -68,11 +67,6 @@ describe('<Toolbar />', function() {
         });
         it('it should render the children with the toolbar\'s height', () => {
             this.wrapper.find('.toolbar').children().forEach((child)=> child.should.have.style('height', '100px'));
-        });
-        it('it should render the children with the toolbar\'s background color unless otherwise specified by the child', () => {
-            this.wrapper.find('.toolbar').childAt(0).should.have.style('background', 'green');
-            this.wrapper.find('.toolbar').childAt(1).should.have.style('background', 'green');
-            this.wrapper.find('.toolbar').childAt(2).should.have.style('background', 'blue');
         });
         it('it should maintain the styles of the children', () => {
             this.wrapper.find('.toolbar').children().first().should.have.style('color', 'blue');

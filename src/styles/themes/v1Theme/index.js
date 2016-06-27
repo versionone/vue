@@ -1,12 +1,13 @@
-import {white, darkBlack, fullBlack} from './../../colors';
-import {cyan500, cyan700, grey100, grey300, grey400, grey500, pinkA200} from './colors';
+import {white, lightWhite, darkBlack, fullBlack, cyan500, cyan700, grey100, grey300, grey500, pinkA200} from './colors';
 import {fade} from './../../../utilities/colorManipulator';
 import * as spacing from './spacing';
+import * as typography from './typography';
 
 export default {
     spacing,
-    font: {
-        fontFamily: 'Roboto, sans-serif',
+    typography: {
+        ...typography,
+        fontFamily: `'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif`,
         fontStyleLabelFontSize: 16,
         fontStyleButtonFontSize: 16,
         fontStyleTitleFontSizeSmall: 18,
@@ -16,7 +17,7 @@ export default {
     palette: {
         primary1Color: cyan500,
         primary2Color: cyan700,
-        primary3Color: grey400,
+        primary3Color: lightWhite,
         accent1Color: pinkA200,
         accent2Color: grey100,
         accent3Color: grey500,

@@ -6,8 +6,8 @@ export const getStyles = (props, context) => ({
     root: {
         display: 'flex',
         alignItems: 'center',
-        paddingRight: context.theme.toolbarTitle.padding,
-        fontSize: context.theme.toolbarTitle.fontSize,
+        paddingRight: context.theme.ToolbarTitle.padding,
+        fontSize: context.theme.ToolbarTitle.fontSize,
         lineHeight: 1
     }
 });

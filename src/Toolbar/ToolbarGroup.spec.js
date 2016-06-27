@@ -1,6 +1,6 @@
 import React from 'react';
 import {mount} from 'enzyme';
-import ThemeProvider from './../styles/ThemeProvider';
+import ThemeProvider from './../Theme';
 import ToolbarGroup from './ToolbarGroup';
 import ToolbarSeparator from './ToolbarSeparator';
 import ToolbarItem from './ToolbarItem';

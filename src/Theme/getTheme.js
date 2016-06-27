@@ -1,9 +1,36 @@
 import * as zIndex from './zIndex';
-import * as typography from './typography';
-import v1Theme from './themes/v1Theme';
+import v1Theme from './../styles/themes/v1Theme';
 import autoprefixer from './../utilities/autoprefixer';
 import callOnce from '../utilities/callOnce';
 import compose from 'recompose/compose';
+
+const expandTheme = (theme) => {
+    const {spacing, typography, palette} = theme;
+    return {
+        Toolbar: {
+            color: palette.primary3Color,
+            textColor: palette.textColor,
+            height: spacing.desktopToolbarHeight,
+            titleFontWeight: typography.fontWeightNormal,
+            padding: spacing.desktopGutter,
+            fontFamily: typography.fontFamily
+        },
+        ToolbarItem: {
+            padding: spacing.desktopGutter,
+            labelPadding: spacing.desktopGutterLess,
+            labelFontSize: `${typography.fontStyleLabelFontSize}px`
+        },
+        ToolbarSeparator: {
+            padding: spacing.desktopGutter,
+            color: palette.borderColor
+        },
+        ToolbarTitle: {
+            fontSize: typography.fontStyleTitleFontSize,
+            padding: spacing.desktopGutter
+        }
+    };
+};
+
 
 export default function getTheme(theme, ...more) {
     theme = Object.assign({}, {
@@ -11,38 +38,11 @@ export default function getTheme(theme, ...more) {
         isRtl: false,
         userAgent: undefined
     }, v1Theme, theme, ...more);
-
-    const {spacing, font, palette} = theme;
-
-    theme = Object.assign({}, {
-        toolbar: {
-            color: palette.primary1Color,
-            textColor: palette.alternateTextColor,
-            height: spacing.desktopToolbarHeight,
-            titleFontWeight: typography.fontWeightNormal,
-            padding: spacing.desktopGutter
-        },
-        toolbarItem: {
-            padding: spacing.desktopGutter,
-            labelPadding: spacing.desktopGutterLess,
-            labelFontSize: `${font.fontStyleLabelFontSize}px`
-        },
-        toolbarSeparator: {
-            padding: spacing.desktopGutter,
-            color: palette.borderColor
-        },
-        toolbarTitle: {
-            fontSize: font.fontStyleTitleFontSize,
-            padding: spacing.desktopGutter
-        }
-    }, theme);
-
+    theme = Object.assign({}, expandTheme(theme), theme);
     const transformers = [autoprefixer, callOnce]
         .map((transform) => transform(theme))
         .filter((transformed) => transformed);
-
     theme.prepareStyles = (...styles) => compose(...transformers)(Object.assign({}, ...styles));
-
     return theme;
 }
 

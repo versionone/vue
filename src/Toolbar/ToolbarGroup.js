@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import * as CustomPropTypes from './../utilities/PropTypes';
 import classNames from 'classnames';
 
-export const getStyles = (props, context) => ({
+export const getStyles = (props) => ({
     root: {
         boxSizing: 'border-box',
         display: 'flex',

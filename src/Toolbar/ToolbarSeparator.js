@@ -7,10 +7,10 @@ export const getStyles = (props, context) => ({
         display: 'inline-block',
         marginTop: 0,
         marginBottom: 0,
-        marginRight: context.theme.toolbarSeparator.padding,
-        marginLeft: context.theme.toolbarSeparator.padding,
+        marginRight: context.theme.ToolbarSeparator.padding,
+        marginLeft: context.theme.ToolbarSeparator.padding,
         width: '1px',
-        background: context.theme.toolbarSeparator.color
+        background: context.theme.ToolbarSeparator.color
     }
 });
 

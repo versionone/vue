@@ -1,6 +1,6 @@
 import React from 'react';
 import {mount} from 'enzyme';
-import ThemeProvider from './../styles/ThemeProvider';
+import ThemeProvider from './../Theme';
 import ToolbarSpacer from './ToolbarSpacer';
 
 describe('<ToolbarSpacer />', function() {

@@ -1,3 +1,7 @@
+html {
+    background: #dde2e9;
+}
+
 [data-reactroot] > div > a + div {
     z-index: 10000;
 }

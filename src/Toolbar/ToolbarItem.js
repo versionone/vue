@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import stylePropType from 'react-style-proptype';
+import  * as CustomPropTypes from './../utilities/PropTypes';
 import classNames from 'classnames';
 
 export const getStyles = (props, context) => ({
@@ -26,8 +26,8 @@ export default class ToolbarItem extends Component {
         children: PropTypes.node,
         label: PropTypes.string.isRequired,
         className: PropTypes.string,
-        style: stylePropType,
-        labelTextStyle: stylePropType
+        style: CustomPropTypes.style,
+        labelTextStyle: CustomPropTypes.style
     };
 
     static defaultProps = {

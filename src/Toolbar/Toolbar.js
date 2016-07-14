@@ -3,29 +3,29 @@ import * as CustomPropTypes from './../utilities/PropTypes';
 import classNames from 'classnames';
 import {zIndex} from './../Theme';
 
-export const getStyles = (props, context) => {
+const getStyles = (props, context) => {
     const {
-        Toolbar
+        spacing, typography, palette
     } = context.theme;
 
     const height = props.height
         ? props.height
-        : Toolbar.height;
+        : spacing.desktopToolbarHeight;
 
     const background = props.background
         ? props.background
-        : Toolbar.color;
+        : palette.primary3Color;
 
     return {
         root: {
             height,
             boxSizing: 'border-box',
-            fontFamily: Toolbar.fontFamily,
+            fontFamily: typography.fontFamily,
             display: 'flex',
-            paddingLeft: Toolbar.padding,
-            paddingRight: Toolbar.padding,
+            paddingLeft: spacing.desktopGutter,
+            paddingRight: spacing.desktopGutter,
             background: background,
-            color: Toolbar.textColor,
+            color: palette.textColor,
             zIndex: zIndex.toolbar,
             position: 'relative'
         },

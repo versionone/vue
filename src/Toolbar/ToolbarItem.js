@@ -7,7 +7,7 @@ export const getStyles = (props, context) => ({
         boxSizing: 'border-box',
         display: 'flex',
         alignItems: 'center',
-        paddingRight: context.theme.ToolbarItem.padding
+        paddingRight: context.theme.spacing.desktopGutter
     },
     label: {
         whiteSpace: 'nowrap',
@@ -16,8 +16,8 @@ export const getStyles = (props, context) => ({
     labelText: {
         alignItems: 'center',
         display: 'flex',
-        fontSize: context.theme.ToolbarItem.labelFontSize,
-        paddingRight: context.theme.ToolbarItem.labelPadding
+        fontSize: `${context.theme.typography.fontStyleLabelFontSize}px`,
+        paddingRight: context.theme.spacing.desktopGutterLess
     }
 });
 

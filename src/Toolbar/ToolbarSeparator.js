@@ -2,15 +2,15 @@ import React, {Component, PropTypes} from 'react';
 import * as CustomPropTypes from './../utilities/PropTypes';
 import classNames from 'classnames';
 
-export const getStyles = (props, context) => ({
+const getStyles = (props, context) => ({
     root: {
         display: 'inline-block',
         marginTop: 0,
         marginBottom: 0,
-        marginRight: context.theme.ToolbarSeparator.padding,
-        marginLeft: context.theme.ToolbarSeparator.padding,
+        marginRight: context.theme.spacing.desktopGutter,
+        marginLeft: context.theme.spacing.desktopGutter,
         width: '1px',
-        background: context.theme.ToolbarSeparator.color
+        background: context.theme.palette.borderColor
     }
 });
 

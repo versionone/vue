@@ -24,7 +24,7 @@ export const getStyles = (props, context) => ({
 export default class ToolbarItem extends Component {
     static propTypes = {
         children: PropTypes.node,
-        label: PropTypes.string.isRequired,
+        label: PropTypes.string,
         className: PropTypes.string,
         style: CustomPropTypes.style,
         labelTextStyle: CustomPropTypes.style
@@ -51,11 +51,12 @@ export default class ToolbarItem extends Component {
         const styles = getStyles(this.props, this.context);
         const root = prepareStyles(styles.root, style);
         const labelChildrenWrapperStyleComputed = prepareStyles(styles.labelText, labelTextStyle, {height: style.height});
+        const labelText = label && <span style={labelChildrenWrapperStyleComputed}>{label}:</span>;
 
         return (
             <div style={root} className={classNames('toolbar-item', className)}>
                 <label style={prepareStyles(styles.label, {height: style.height})}>
-                    <span style={labelChildrenWrapperStyleComputed}>{label}:</span>
+                    {labelText}
                     <div style={labelChildrenWrapperStyleComputed}>{children}</div>
                 </label>
             </div>

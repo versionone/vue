@@ -32,6 +32,9 @@ storiesOf('Toolbar')
                     <button>View F</button>
                     <button>View G</button>
                 </ToolbarGroup>
+                <ToolbarItem>
+                    <input type="text" />
+                </ToolbarItem>
             </Toolbar>
         ),
     );

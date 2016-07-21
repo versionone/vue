@@ -8,47 +8,22 @@ class ThemeProvider extends Component {
     };
 
     static childContextTypes = {
-        theme: PropTypes.object.isRequired,
-        window: PropTypes.object.isRequired
+        theme: PropTypes.object.isRequired
     };
 
     getChildContext() {
         return {
-            theme: this.props.theme || getTheme(),
-            window: this.state.window
+            theme: this.props.theme || getTheme()
         };
     }
 
     constructor(props, ...rest) {
         super(props, ...rest);
-        this.state = {
-            window: {
-                width: window.innerWidth,
-                height: window.innerHeight
-            }
-        };
-    }
-
-    componentDidMount() {
-        window.addEventListener('resize', this.resize);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.resize)
     }
 
     render() {
         return this.props.children;
     }
-
-    resize = (evt) => {
-        this.setState({
-            window: {
-                width: window.innerWidth,
-                height: window.innerHeight
-            }
-        });
-    };
 }
 
 export default ThemeProvider;

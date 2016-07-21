@@ -2,6 +2,7 @@ import {white, lightWhite, darkBlack, fullBlack, cyan500, cyan700, grey100, grey
 import {fade} from './../../../utilities/colorManipulator';
 import * as spacing from './spacing';
 import * as typography from './typography';
+import panel from './panel';
 
 export default {
     spacing,
@@ -27,5 +28,6 @@ export default {
         borderColor: grey300,
         disabledColor: fade(darkBlack, 0.3),
         shadowColor: fullBlack
-    }
+    },
+    panel
 };

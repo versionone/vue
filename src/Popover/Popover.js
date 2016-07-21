@@ -7,6 +7,10 @@ import * as CustomPropTypes from './../utilities/PropTypes';
 import {findDOMNode} from 'react-dom';
 import PopoverAnimationDefault from './PopoverAnimationDefault';
 
+const getStyles = (props, context) => ({
+    padding: context.theme.popover.padding
+});
+
 class Popover extends Component {
     static propTypes = {
         children: PropTypes.node,
@@ -43,6 +47,10 @@ class Popover extends Component {
             overflowY: 'auto',
         },
         className: ''
+    };
+
+    static contextTypes = {
+        theme: PropTypes.object.isRequired
     };
 
     componentDidUpdate() {
@@ -289,22 +297,13 @@ class Popover extends Component {
             isOpen,
             isClosing
         } = this.state;
-
+        const {
+            theme: {prepareStyles}
+        } = this.context;
         let Animation = animation;
-        let styleRoot = style;
-
-        // if (!Animation) {
-        //     if (!this.state.isOpen) {
-        //         return null;
-        //     }
-        //     Animation = Panel;
-        //     styleRoot = {
-        //         position: 'fixed',
-        //     };
-        // }
 
         return (
-            <Animation {...rest} style={styleRoot} open={isOpen && !isClosing}>
+            <Animation {...rest} style={prepareStyles(getStyles(this.props, this.context), style)} isOpen={isOpen && !isClosing}>
                 {children}
             </Animation>
         );

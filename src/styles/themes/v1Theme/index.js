@@ -3,6 +3,7 @@ import {fade} from './../../../utilities/colorManipulator';
 import * as spacing from './spacing';
 import * as typography from './typography';
 import panel from './panel';
+import popover from './popover';
 
 export default {
     spacing,
@@ -29,5 +30,6 @@ export default {
         disabledColor: fade(darkBlack, 0.3),
         shadowColor: fullBlack
     },
-    panel
+    panel,
+    popover
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import stylePropType from 'react-style-proptype';
 import {CALLED_ONCE} from './callOnce';
 
@@ -44,3 +44,13 @@ export const oneOfComponentType = (types) => (props, propName, componentName) =>
         return new Error(`\`${componentName}\` prop, \`prop\`, should be one of the following component types: ${typeNamesForError}. Check the render method of \`${componentName}\``);
     }
 };
+
+const horizontal = PropTypes.oneOf(['left', 'middle', 'right']);
+const vertical = PropTypes.oneOf(['top', 'center', 'bottom']);
+
+export const origin = PropTypes.shape({
+    horizontal,
+    vertical
+});
+
+export const zDepth = PropTypes.oneOf([0, 1, 2, 3, 4, 5]);

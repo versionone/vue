@@ -4,9 +4,11 @@ import addStoriesGroup from 'react-storybook-addon-add-stories-group';
 import ThemeProvider from './../src/Theme';
 import React from 'react';
 import './index.css';
+import withState from './withState';
 
 setAddon(infoAddon);
 setAddon(addStoriesGroup);
+
 addDecorator((story) => (
     <div style={{marginTop: '30px'}}>
         <ThemeProvider>
@@ -14,6 +16,7 @@ addDecorator((story) => (
         </ThemeProvider>
     </div>
 ));
+addDecorator(withState);
 
 const req = require.context('./../', true, /Stories\.js$/);
 

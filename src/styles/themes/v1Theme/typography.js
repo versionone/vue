@@ -12,3 +12,5 @@ export const textLightWhite = lightWhite;
 export const fontWeightLight = 300;
 export const fontWeightNormal = 400;
 export const fontWeightMedium = 500;
+
+export const basicFont = `'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif`;

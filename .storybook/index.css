@@ -2,9 +2,9 @@ html {
     background: #dde2e9;
 }
 
-[data-reactroot] > div > a + div {
+[data-reactroot] > div > div > a + div {
     z-index: 10000;
 }
-[data-reactroot] > div > a + div > a  {
+[data-reactroot] > div > div > a + div > a  {
     margin-right: 15px;
 }

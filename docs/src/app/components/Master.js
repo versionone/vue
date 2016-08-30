@@ -9,6 +9,7 @@ import AppNavDrawer from './AppNavDrawer';
 import FullWidthSection from './FullWidthSection';
 import withWidth, {MEDIUM, LARGE} from 'material-ui/utils/withWidth';
 import Search from './Search';
+import v1Theme from './../themes/v1Theme';
 
 class Master extends Component {
   static propTypes = {
@@ -37,7 +38,7 @@ class Master extends Component {
 
   componentWillMount() {
     this.setState({
-      muiTheme: getMuiTheme(),
+      muiTheme: getMuiTheme(v1Theme),
     });
   }
 
@@ -173,9 +174,6 @@ class Master extends Component {
           onLeftIconButtonTouchTap={this.handleTouchTapLeftIconButton}
           title={title}
           zDepth={0}
-          iconElementRight={
-           <Search />
-          }
           style={styles.appBar}
           showMenuIconButton={showMenuIconButton}
         />
@@ -198,6 +196,7 @@ class Master extends Component {
           open={navDrawerOpen}
         />
         <FullWidthSection style={styles.footer}>
+            <Search />
           <p style={prepareStyles(styles.p)}>
             {'Hand crafted with love by the engineers at '}
             <a style={styles.a} href="http://www.call-em-all.com/Careers">

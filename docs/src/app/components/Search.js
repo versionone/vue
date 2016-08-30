@@ -15,7 +15,6 @@ export default class extends Component {
     };
 
     render() {
-        console.log(this.context.router);
         const {dataSource} = this.state;
         return (
             <AutoComplete hintText="keywords" floatingLabelText="I'm looking for..." dataSource={dataSource}

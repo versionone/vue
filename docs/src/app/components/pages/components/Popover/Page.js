@@ -28,29 +28,7 @@ const PopoverPage = () => (
   <div>
     <Title render={(previousTitle) => `Popover - ${previousTitle}`} />
     <MarkdownElement text={popoverReadmeText} />
-    <CodeExample
-      title="Simple example"
-      description={descriptions.simple}
-      code={popoverExampleSimpleCode}
-    >
-      <PopoverExampleSimple />
-    </CodeExample>
-    <CodeExample
-      title="Animation"
-      description={descriptions.animation}
-      code={popoverExampleAnimationCode}
-    >
-      <PopoverExampleAnimation />
-    </CodeExample>
-    <CodeExample
-      title="Anchor playground"
-      description={descriptions.configurable}
-      code={popoverExampleConfigurableCode}
-    >
-      <PopoverExampleConfigurable />
-    </CodeExample>
     <MarkdownElement text={popoverNoteText} />
-    <PropTypeDescription code={popoverCode} />
   </div>
 );
 export default PopoverPage;

@@ -8,6 +8,7 @@ import {darkWhite, lightWhite, grey900} from 'material-ui/styles/colors';
 import AppNavDrawer from './AppNavDrawer';
 import FullWidthSection from './FullWidthSection';
 import withWidth, {MEDIUM, LARGE} from 'material-ui/utils/withWidth';
+import Search from './Search';
 
 class Master extends Component {
   static propTypes = {
@@ -173,10 +174,7 @@ class Master extends Component {
           title={title}
           zDepth={0}
           iconElementRight={
-            <IconButton
-              iconClassName="muidocs-icon-custom-github"
-              href="https://github.com/callemall/material-ui"
-            />
+           <Search />
           }
           style={styles.appBar}
           showMenuIconButton={showMenuIconButton}

@@ -7,7 +7,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {darkWhite, lightWhite, grey900} from 'material-ui/styles/colors';
 import AppNavDrawer from './AppNavDrawer';
 import FullWidthSection from './FullWidthSection';
-import withWidth, {LARGE} from 'material-ui/utils/withWidth';
+import withWidth from 'material-ui/utils/withWidth';
 import v1Theme from 'versionone-ui/styles/themes/v1Theme';
 import ThemeProvider, {getTheme} from 'versionone-ui/Theme';
 import {gunSmoke} from 'versionone-ui/styles/themes/v1Theme/colors';
@@ -114,10 +114,6 @@ class Master extends Component {
             children,
         } = this.props;
 
-        let {
-            navDrawerOpen,
-        } = this.state;
-
         const {
             prepareStyles,
         } = this.state.muiTheme;
@@ -131,20 +127,15 @@ class Master extends Component {
                         router.isActive(`/search/${this.props.params.searchTerm}`) ? 'Search Results' :
                             router.isActive('/discover-more') ? 'Discover More' : '';
 
-        let docked = false;
-        let showMenuIconButton = true;
+        const docked = true;
+        const navDrawerOpen = true;
+        const showMenuIconButton = false;
 
-        if (title === 'Search Results' || this.props.width === LARGE && title !== '') {
-            docked = true;
-            navDrawerOpen = true;
-            showMenuIconButton = false;
-
-            styles.navDrawer = {
-                zIndex: styles.appBar.zIndex - 1,
-            };
-            styles.children.paddingLeft = 256;
-            styles.footer.paddingLeft = 256;
-        }
+        styles.navDrawer = {
+            zIndex: styles.appBar.zIndex - 1,
+        };
+        styles.children.paddingLeft = 256;
+        styles.footer.paddingLeft = 256;
 
         return (
             <ThemeProvider theme={getTheme(v1Theme)}>
@@ -157,7 +148,10 @@ class Master extends Component {
                         style={styles.appBar}
                         showMenuIconButton={showMenuIconButton}
                         iconElementRight={<a href="http://VersionOne.com"><img src="images/white-v-logo.png"
-                                                                               style={{width: '64px', height: '48px'}} /></a>}
+                                                                               style={{
+                                                                                   width: '64px',
+                                                                                   height: '48px'
+                                                                               }} /></a>}
                     />
                     {React.Children.map(children, (child) => React.cloneElement(child, {style: styles.children}))}
                     <AppNavDrawer

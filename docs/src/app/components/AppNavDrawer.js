@@ -6,7 +6,7 @@ import Subheader from 'material-ui/Subheader';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import {spacing, typography, zIndex} from 'material-ui/styles';
-import {gunSmoke} from './../themes/v1Theme/colors';
+import {gunSmoke} from 'versionone-ui/styles/themes/v1Theme/colors';
 import SearchField from './SearchField';
 
 const SelectableList = MakeSelectable(List);

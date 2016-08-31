@@ -6,7 +6,7 @@ import withWidth, {LARGE} from 'material-ui/utils/withWidth';
 import spacing from 'material-ui/styles/spacing';
 import typography from 'material-ui/styles/typography';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import {gunSmoke, grey200, darkWhite} from './../../themes/v1Theme/colors';
+import {gunSmoke, grey200, darkWhite} from 'versionone-ui/styles/themes/v1Theme/colors';
 
 class HomePage extends Component {
 

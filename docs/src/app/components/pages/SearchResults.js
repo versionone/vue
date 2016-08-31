@@ -26,9 +26,10 @@ export default class extends Component {
     render() {
         const {results} = this.state;
         return (
-            <div>
+            <div className="markdown-body">
                 <Title render={(previousTitle) => `Search Results - ${previousTitle}`} />
-                <ol>
+                <h2>Search Results</h2>
+                <ol style={{listStyle: 'none', marginLeft: 0, paddingLeft: 0}}>
                     {results.map((result, index)=>(
                         <li key={index}><SearchResult {...result} /></li>
                     ))}

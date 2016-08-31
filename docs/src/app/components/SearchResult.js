@@ -14,7 +14,7 @@ class SearchResult extends Component {
 
         return (
             <article>
-                <h2><Link to={path}>{title}</Link></h2>
+                <h3><Link to={path}>{title}</Link></h3>
                 <MarkdownElement text={description} />
             </article>
         );

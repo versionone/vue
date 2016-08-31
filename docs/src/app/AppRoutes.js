@@ -1,18 +1,14 @@
 import React from 'react';
 import {Route, Redirect, IndexRoute} from 'react-router';
-import searchIndex from './searchIndex';
+import {index} from './searchIndex';
 import Master from './components/Master';
+import ContentPage from './components/pages/ContentPage';
+import SearchResults from './components/pages/SearchResults';
 import Home from './components/pages/Home';
 import Colors from './components/pages/Patterns/Colors';
 import Themes from './components/pages/Patterns/Themes';
 import Styles from './components/pages/Patterns/Styles';
-import Popover from './components/pages/components/Popover/Page';
-import PopoverSearch from 'versionone-ui/Popover/package.json';
-
-
-// Add component packages to search index:
-searchIndex.add(PopoverSearch);
-
+import * as Popover from './components/pages/components/Popover/Page';
 
 // Here we define all our material-ui ReactComponents.
 
@@ -29,15 +25,18 @@ const AppRoutes = (
     <Route path="/" component={Master}>
         <IndexRoute component={Home} />
         <Route path="home" component={Home} />
-        <Redirect from="get-started" to="/get-started/prerequisites" />
-        <Redirect from="patterns" to="/patterns/themes" />
-        <Route path="Patterns">
-            <Route ptah="colors" component={Colors} />
-            <Route path="themes" component={Themes} />
-            <Route path="styles" component={Styles} />
-        </Route>
-        <Route path="components">
-            <Route path="popover" component={Popover} />
+        <Route component={ContentPage}>
+            <Redirect from="get-started" to="/get-started/prerequisites" />
+            <Redirect from="patterns" to="/patterns/themes" />
+            <Route path="search/:searchTerm" component={SearchResults}  />
+            <Route path="Patterns">
+                <Route path="colors" component={Colors} />
+                <Route path="themes" component={Themes} />
+                <Route path="styles" component={Styles} />
+            </Route>
+            <Route path="components">
+                <Route path="popover" component={index('components/popover', Popover)} />
+            </Route>
         </Route>
     </Route>
 );

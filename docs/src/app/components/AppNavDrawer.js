@@ -7,6 +7,7 @@ import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import {spacing, typography, zIndex} from 'material-ui/styles';
 import {cyan500} from 'material-ui/styles/colors';
+import SearchField from './SearchField';
 
 const SelectableList = MakeSelectable(List);
 
@@ -138,6 +139,9 @@ class AppNavDrawer extends Component {
             />
           ))}
         </DropDownMenu>
+          <div style={styles.version}>
+            <SearchField />
+          </div>
         <SelectableList
           value={location.pathname}
           onChange={onChangeList}

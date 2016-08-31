@@ -8,7 +8,7 @@ import {darkWhite, lightWhite, grey900} from 'material-ui/styles/colors';
 import AppNavDrawer from './AppNavDrawer';
 import FullWidthSection from './FullWidthSection';
 import withWidth, {MEDIUM, LARGE} from 'material-ui/utils/withWidth';
-import Search from './Search';
+import SearchField from './SearchField';
 import v1Theme from './../themes/v1Theme';
 
 class Master extends Component {
@@ -61,12 +61,6 @@ class Master extends Component {
         paddingTop: spacing.desktopKeylineIncrement,
         minHeight: 400,
       },
-      content: {
-        margin: spacing.desktopGutter,
-      },
-      contentWhenMedium: {
-        margin: `${spacing.desktopGutter * 2}px ${spacing.desktopGutter * 3}px`,
-      },
       footer: {
         backgroundColor: grey900,
         textAlign: 'center',
@@ -96,11 +90,8 @@ class Master extends Component {
       iconButton: {
         color: darkWhite,
       },
+        children: {}
     };
-
-    if (this.props.width === MEDIUM || this.props.width === LARGE) {
-      styles.content = Object.assign(styles.content, styles.contentWhenMedium);
-    }
 
     return styles;
   }
@@ -150,12 +141,13 @@ class Master extends Component {
       router.isActive('/get-started') ? 'Get Started' :
       router.isActive('/Patterns') ? 'Customization' :
       router.isActive('/components') ? 'Components' :
+      router.isActive(`/search/${this.props.params.searchTerm}`) ? 'Search Results' :
       router.isActive('/discover-more') ? 'Discover More' : '';
 
     let docked = false;
     let showMenuIconButton = true;
 
-    if (this.props.width === LARGE && title !== '') {
+    if (title === 'Search Results' || this.props.width === LARGE && title !== '') {
       docked = true;
       navDrawerOpen = true;
       showMenuIconButton = false;
@@ -163,13 +155,13 @@ class Master extends Component {
       styles.navDrawer = {
         zIndex: styles.appBar.zIndex - 1,
       };
-      styles.root.paddingLeft = 256;
+      styles.children.paddingLeft = 256;
       styles.footer.paddingLeft = 256;
     }
 
     return (
       <div>
-        <Title render="Material-UI" />
+        <Title render="VersionOne-UI" />
         <AppBar
           onLeftIconButtonTouchTap={this.handleTouchTapLeftIconButton}
           title={title}
@@ -177,16 +169,7 @@ class Master extends Component {
           style={styles.appBar}
           showMenuIconButton={showMenuIconButton}
         />
-        {title !== '' ?
-          <div style={prepareStyles(styles.root)}>
-            <div style={prepareStyles(styles.content)}>
-              {React.cloneElement(children, {
-                onChangeMuiTheme: this.handleChangeMuiTheme,
-              })}
-            </div>
-          </div> :
-          children
-        }
+        {React.Children.map(children, (child) => React.cloneElement(child, {style:styles.children}))}
         <AppNavDrawer
           style={styles.navDrawer}
           location={location}
@@ -196,7 +179,6 @@ class Master extends Component {
           open={navDrawerOpen}
         />
         <FullWidthSection style={styles.footer}>
-            <Search />
           <p style={prepareStyles(styles.p)}>
             {'Hand crafted with love by the engineers at '}
             <a style={styles.a} href="http://www.call-em-all.com/Careers">

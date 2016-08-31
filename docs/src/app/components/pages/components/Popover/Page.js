@@ -14,6 +14,7 @@ import PopoverExampleConfigurable from './ExampleConfigurable';
 import popoverExampleConfigurableCode from '!raw!./ExampleConfigurable';
 import popoverNoteText from './NOTE';
 import popoverCode from '!raw!material-ui/Popover/Popover';
+import popoverPackage from 'versionone-ui/Popover/package.json';
 
 const descriptions = {
   simple: 'A simple example showing a Popover containing a [Menu](/#/components/menu). ' +
@@ -32,3 +33,12 @@ const PopoverPage = () => (
   </div>
 );
 export default PopoverPage;
+export const meta = {
+    ...popoverPackage,
+    title: 'Popover',
+    keywords: [
+    ],
+    'see also': [
+        'dropdown'
+    ]
+};

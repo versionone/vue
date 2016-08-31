@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
 import MarkdownElement from './MarkdownElement';
-import {Link} from 'react-router';
 
 class SearchResult extends Component {
     static propTypes = {
@@ -10,11 +9,11 @@ class SearchResult extends Component {
     };
 
     render() {
-        const {title, description, path} = this.props;
+        const {title, description} = this.props;
 
         return (
             <article>
-                <h3><Link to={path}>{title}</Link></h3>
+                <h3>{title}</h3>
                 <MarkdownElement text={description} />
             </article>
         );

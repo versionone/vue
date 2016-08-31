@@ -2,12 +2,18 @@ import React, {Component, PropTypes} from 'react';
 import Title from 'react-title-component';
 import SearchResult from './../SearchResult';
 import {search} from '../../searchIndex';
+import {List, ListItem, MakeSelectable} from 'material-ui/List';
+const SelectableList = MakeSelectable(List);
 
 export default class extends Component {
     static propTypes = {
         params: PropTypes.shape({
             searchTerm: PropTypes.string.isRequired
         }).isRequired
+    };
+
+    static contextTypes = {
+        router: PropTypes.object.isRequired
     };
 
     constructor(...rest) {
@@ -29,12 +35,18 @@ export default class extends Component {
             <div className="markdown-body">
                 <Title render={(previousTitle) => `Search Results - ${previousTitle}`} />
                 <h2>Search Results</h2>
-                <ol style={{listStyle: 'none', marginLeft: 0, paddingLeft: 0}}>
+                <SelectableList
+                    value={location.pathname}
+                    onChange={this.selectSearchResult}>
                     {results.map((result, index)=>(
-                        <li key={index}><SearchResult {...result} /></li>
+                        <ListItem key={index} value={result.path}><SearchResult {...result} /></ListItem>
                     ))}
-                </ol>
+                </SelectableList>
             </div>
         );
     }
+
+    selectSearchResult = (evt, value) => {
+        this.context.router.push(value);
+    };
 }

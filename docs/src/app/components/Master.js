@@ -8,7 +8,6 @@ import {darkWhite, lightWhite, grey900} from 'material-ui/styles/colors';
 import AppNavDrawer from './AppNavDrawer';
 import FullWidthSection from './FullWidthSection';
 import withWidth, {MEDIUM, LARGE} from 'material-ui/utils/withWidth';
-import SearchField from './SearchField';
 import v1Theme from './../themes/v1Theme';
 
 class Master extends Component {
@@ -50,7 +49,7 @@ class Master extends Component {
   }
 
   getStyles() {
-    const styles = {
+    return {
       appBar: {
         position: 'fixed',
         // Needed to overlap the examples
@@ -74,26 +73,11 @@ class Master extends Component {
         color: lightWhite,
         maxWidth: 356,
       },
-      browserstack: {
-        display: 'flex',
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-        margin: '25px 15px 0',
-        padding: 0,
-        color: lightWhite,
-        lineHeight: '25px',
-        fontSize: 12,
-      },
-      browserstackLogo: {
-        margin: '0 3px',
-      },
       iconButton: {
         color: darkWhite,
       },
         children: {}
-    };
-
-    return styles;
+    }
   }
 
   handleTouchTapLeftIconButton = () => {
@@ -168,8 +152,13 @@ class Master extends Component {
           zDepth={0}
           style={styles.appBar}
           showMenuIconButton={showMenuIconButton}
+          iconElementRight={<IconButton
+              iconStyle={styles.iconButton}
+              iconClassName="vuidocs-icon-custom-github"
+              href="https://github.com/versionone/versionone-ui"
+          />}
         />
-        {React.Children.map(children, (child) => React.cloneElement(child, {style:styles.children}))}
+        {React.Children.map(children, (child) => React.cloneElement(child, {style: styles.children}))}
         <AppNavDrawer
           style={styles.navDrawer}
           location={location}
@@ -179,31 +168,11 @@ class Master extends Component {
           open={navDrawerOpen}
         />
         <FullWidthSection style={styles.footer}>
-          <p style={prepareStyles(styles.p)}>
-            {'Hand crafted with love by the engineers at '}
-            <a style={styles.a} href="http://www.call-em-all.com/Careers">
-              Call-Em-All
-            </a>
-            {' and our awesome '}
-            <a
-              style={prepareStyles(styles.a)}
-              href="https://github.com/callemall/material-ui/graphs/contributors"
-            >
-              contributors
-            </a>.
-          </p>
           <IconButton
             iconStyle={styles.iconButton}
-            iconClassName="muidocs-icon-custom-github"
-            href="https://github.com/callemall/material-ui"
+            iconClassName="vuidocs-icon-custom-github"
+            href="https://github.com/versionone/versionone-ui"
           />
-          <p style={prepareStyles(styles.browserstack)}>
-            {'Thank you to '}
-            <a href="https://www.browserstack.com" style={prepareStyles(styles.browserstackLogo)} target="_blank">
-              <img src="http://www.browserstack.com/images/layout/logo.png" height="25" width="auto" />
-            </a>
-            {' for providing real browser testing infrastructure.'}
-          </p>
         </FullWidthSection>
       </div>
     );

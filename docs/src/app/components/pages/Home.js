@@ -81,13 +81,11 @@ class HomePage extends Component {
 
     return (
       <FullWidthSection style={styles.root}>
-        <img style={styles.svgLogo} src="images/material-ui-logo.svg" />
         <div style={styles.tagline}>
-          <h1 style={styles.h1}>Material-UI</h1>
+          <h1 style={styles.h1}>VersionOne-UI</h1>
           <h2 style={styles.h2}>
             A Set of React Components <span style={styles.nowrap}>
-            that Implement</span> <span style={styles.nowrap}>
-            Google&apos;s Material Design</span>
+            used by VersionOne</span>
           </h2>
           <RaisedButton
             className="demo-button"
@@ -128,13 +126,7 @@ class HomePage extends Component {
         contentType="p"
         className="home-purpose"
       >
-        Material-UI came about from our love of&nbsp;
-        <a href="http://facebook.github.io/react/">React</a> and&nbsp;
-        <a href="https://www.google.com/design/spec/material-design/introduction.html">
-         Google's Material Design
-        </a>. We're currently using it on a project at&nbsp;
-        <a href="https://www.call-em-all.com/Careers">Call-Em-All</a> and plan on adding to it
-        and making it better in the coming months.
+        We need a purpose here.
       </FullWidthSection>
     );
   }
@@ -147,13 +139,11 @@ class HomePage extends Component {
         <HomeFeature
           heading="Get Started"
           route="/get-started"
-          img="images/get-started.svg"
           firstChild={true}
         />
         <HomeFeature
           heading="Customization"
           route="/customization"
-          img="images/css-framework.svg"
         />
         <HomeFeature
           heading="Components"
@@ -185,13 +175,12 @@ class HomePage extends Component {
     return (
       <FullWidthSection useContent={true} style={styles.root}>
         <h3 style={styles.h3}>
-          Want to help make this <span style={styles.nowrap}>project awesome? </span>
-          <span style={styles.nowrap}>Check out our repo.</span>
+            Looking to contribute and make this project awesome? <span style={styles.nowrap}>Check out our repo.</span>
         </h3>
         <RaisedButton
           label="GitHub"
           primary={true}
-          href="https://github.com/callemall/material-ui"
+          href="https://github.com/versionone/versionone-ui"
           style={styles.button}
         />
       </FullWidthSection>

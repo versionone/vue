@@ -86,13 +86,6 @@ class HomePage extends Component {
             A Set of React Components <span style={styles.nowrap}>
             used by <a href="http://VersionOne.com">VersionOne</a>.</span>
           </h2>
-          <RaisedButton
-            className="demo-button"
-            label="Demo"
-            onTouchTap={this.handleTouchTapDemo}
-            style={styles.demoStyle}
-            labelStyle={styles.label}
-          />
         </div>
       </FullWidthSection>
     );
@@ -135,25 +128,25 @@ class HomePage extends Component {
   homeFeatures() {
     const styles = {maxWidth: 906};
 
-    return (
-      <FullWidthSection useContent={true} contentStyle={styles}>
-        <HomeFeature
-          heading="Get Started"
-          route="/get-started"
-          firstChild={true}
-        />
-        <HomeFeature
-          heading="Customization"
-          route="/customization"
-        />
-        <HomeFeature
-          heading="Components"
-          route="/components"
-          img="images/components.svg"
-          lastChild={true}
-        />
-      </FullWidthSection>
-    );
+    return ( '');
+    //   <FullWidthSection useContent={true} contentStyle={styles}>
+    //     <HomeFeature
+    //       heading="Get Started"
+    //       route="/get-started"
+    //       firstChild={true}
+    //     />
+    //     <HomeFeature
+    //       heading="Customization"
+    //       route="/customization"
+    //     />
+    //     <HomeFeature
+    //       heading="Components"
+    //       route="/components"
+    //       img="images/components.svg"
+    //       lastChild={true}
+    //     />
+    //   </FullWidthSection>
+    // );
   }
 
   homeContribute() {
@@ -188,10 +181,7 @@ class HomePage extends Component {
     );
   }
 
-  handleTouchTapDemo = () => {
-    this.context.router.push('/components');
-  };
-
+ 
   render() {
     const style = {
       paddingTop: spacing.desktopKeylineIncrement,

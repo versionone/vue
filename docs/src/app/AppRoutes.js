@@ -5,6 +5,7 @@ import Master from './components/Master';
 import ContentPage from './components/pages/ContentPage';
 import SearchResults from './components/pages/SearchResults';
 import Home from './components/pages/Home';
+import ContentWithPlayground from './components/pages/ContentWithPlayground';
 import Colors from './components/pages/Patterns/Colors';
 import Themes from './components/pages/Patterns/Themes';
 import Styles from './components/pages/Patterns/Styles';
@@ -34,7 +35,7 @@ const AppRoutes = (
                 <Route path="themes" component={Themes} />
                 <Route path="styles" component={Styles} />
             </Route>
-            <Route path="components">
+            <Route path="components" component={ContentWithPlayground}>
                 <Route path="popover" component={index('components/popover', Popover)} />
             </Route>
         </Route>

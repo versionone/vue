@@ -16,7 +16,7 @@ const descriptions = {
     configurable: 'Use the radio buttons to adjust the `anchorOrigin` and `targetOrigin` positions.',
 };
 
-const PopoverPage = () => (
+const PopoverPage = (props) => (
     <div>
         <Title render={(previousTitle) => `Popover - ${previousTitle}`} />
         <StatusBadge status={popoverPackage.status}/>
@@ -24,7 +24,8 @@ const PopoverPage = () => (
         <CodeExample
             title="Simple example"
             description={descriptions.simple}
-            code={popoverExampleSimpleCode}>
+            code={popoverExampleSimpleCode}
+            openInPlayground={props.openPlayground}>
             <PopoverExampleSimple />
         </CodeExample>
         <MarkdownElement text={popoverNoteText} />

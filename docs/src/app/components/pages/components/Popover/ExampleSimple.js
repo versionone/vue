@@ -30,15 +30,13 @@ export default class PopoverExampleSimple extends React.Component {
 
     render() {
         return (
-            <div>
+            <div style={{marginBottom: '150px'}}>
                 <RaisedButton
                     onTouchTap={this.handleTouchTap}
                     label="Click me" />
                 <Popover
                     isOpen={this.state.open}
                     anchorElement={this.state.anchorEl}
-                    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-                    targetOrigin={{horizontal: 'left', vertical: 'top'}}
                     onRequestClose={this.handleRequestClose}>
                     <h3>Content heading</h3>
                     <p>A paragraph of content.</p>

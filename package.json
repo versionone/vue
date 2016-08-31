@@ -1,7 +1,7 @@
 {
   "name": "versionone-ui",
   "version": "1.0.0",
-  "description": "Common UI components developed and used by VersionOne.",
+  "description": "Common UI components developed and used by VersionOne; built with React.",
   "main": "dist/index.js",
   "publishConfig": {
     "registry": "http://artifactory.dev.corp.versionone.net/artifactory/api/npm/local-npm"

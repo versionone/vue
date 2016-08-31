@@ -122,7 +122,7 @@ class AppNavDrawer extends Component {
         containerStyle={{zIndex: zIndex.drawer - 100}}
       >
         <div style={styles.logo} onTouchTap={this.handleTouchTapHeader}>
-          Material-UI
+          VersionOne-UI
         </div>
         <span style={styles.version}>Version:</span>
         <DropDownMenu

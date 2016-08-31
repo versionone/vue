@@ -9,7 +9,7 @@ import popoverNoteText from './NOTE';
 import popoverCode from '!raw!versionone-ui/Popover/Popover';
 import popoverPackage from 'versionone-ui/Popover/package.json';
 import PropTypeDescription from './../../../PropTypeDescription';
-
+import StatusBadge from './../../../StatusBadge';
 const descriptions = {
     simple: 'A simple example showing a Popover containing a [Menu](/#/components/menu). It can be also closed by clicking away from the Popover.',
     animation: 'The default animation style is to animate around the origin. An alternative animation can be applied using the `animation` property. Currently one alternative animation is available, `popover-animation-from-top`, which animates vertically.',
@@ -19,6 +19,7 @@ const descriptions = {
 const PopoverPage = () => (
     <div>
         <Title render={(previousTitle) => `Popover - ${previousTitle}`} />
+        <StatusBadge status={popoverPackage.status}/>
         <MarkdownElement text={popoverReadmeText} />
         <CodeExample
             title="Simple example"

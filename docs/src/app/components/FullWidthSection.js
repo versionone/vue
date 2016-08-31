@@ -36,8 +36,8 @@ class FullWidthSection extends Component {
         paddingBottom: desktopGutter * 2,
       },
       rootWhenLarge: {
-        paddingTop: desktopGutter * 3,
-        paddingBottom: desktopGutter * 3,
+        paddingTop: desktopGutter / 2,
+        paddingBottom: desktopGutter * 4,
       },
     };
   }

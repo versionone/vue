@@ -6,7 +6,7 @@ import withWidth, {LARGE} from 'material-ui/utils/withWidth';
 import spacing from 'material-ui/styles/spacing';
 import typography from 'material-ui/styles/typography';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import {cyan500, grey200, darkWhite} from 'material-ui/styles/colors';
+import {gunSmoke, grey200, darkWhite} from './../../themes/v1Theme/colors';
 
 class HomePage extends Component {
 
@@ -21,13 +21,11 @@ class HomePage extends Component {
   homePageHero() {
     const styles = {
       root: {
-        backgroundColor: cyan500,
+        backgroundColor: gunSmoke,
         overflow: 'hidden',
       },
       svgLogo: {
-        marginLeft: window.innerWidth * 0.5 - 130,
-        width: 420,
-        height: 157,
+        marginLeft: window.innerWidth * 0.5 - 130
       },
       tagline: {
         margin: '16px auto 0 auto',
@@ -46,6 +44,7 @@ class HomePage extends Component {
       h1: {
         color: darkWhite,
         fontWeight: typography.fontWeightLight,
+        fontSize: 86
       },
       h2: {
         fontSize: 20,
@@ -61,12 +60,12 @@ class HomePage extends Component {
         marginTop: 32,
       },
       h1WhenLarge: {
-        fontSize: 56,
+        fontSize: 86,
       },
       h2WhenLarge: {
         fontSize: 24,
         lineHeight: '32px',
-        paddingTop: 16,
+        paddingTop: 32,
         marginBottom: 12,
       },
     };
@@ -82,10 +81,10 @@ class HomePage extends Component {
     return (
       <FullWidthSection style={styles.root}>
         <div style={styles.tagline}>
-          <h1 style={styles.h1}>VersionOne-UI</h1>
+          <h1 style={{...styles.h1, border: `1px solid ${darkWhite}`, width: '300px', height: '300px', lineHeight: '300px', margin: '0 auto'}}>Vue</h1>
           <h2 style={styles.h2}>
             A Set of React Components <span style={styles.nowrap}>
-            used by VersionOne</span>
+            used by <a href="http://VersionOne.com">VersionOne</a>.</span>
           </h2>
           <RaisedButton
             className="demo-button"

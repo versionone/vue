@@ -6,7 +6,7 @@ import Subheader from 'material-ui/Subheader';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import {spacing, typography, zIndex} from 'material-ui/styles';
-import {cyan500} from 'material-ui/styles/colors';
+import {gunSmoke} from './../themes/v1Theme/colors';
 import SearchField from './SearchField';
 
 const SelectableList = MakeSelectable(List);
@@ -18,7 +18,7 @@ const styles = {
     color: typography.textFullWhite,
     lineHeight: `${spacing.desktopKeylineIncrement}px`,
     fontWeight: typography.fontWeightLight,
-    backgroundColor: cyan500,
+    backgroundColor: gunSmoke,
     paddingLeft: spacing.desktopGutter,
     marginBottom: 8,
   },

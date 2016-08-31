@@ -152,11 +152,7 @@ class Master extends Component {
           zDepth={0}
           style={styles.appBar}
           showMenuIconButton={showMenuIconButton}
-          iconElementRight={<IconButton
-              iconStyle={styles.iconButton}
-              iconClassName="vuidocs-icon-custom-github"
-              href="https://github.com/versionone/versionone-ui"
-          />}
+          iconElementRight={<a href="http://VersionOne.com"><img src="images/white-v-logo.png" style={{width: '48px'}}/></a>}
         />
         {React.Children.map(children, (child) => React.cloneElement(child, {style: styles.children}))}
         <AppNavDrawer

@@ -1,4 +1,4 @@
-import {white, lightWhite, darkBlack, fullBlack, faintBlack, cyan500, cyan700, grey100, grey300, grey500, pinkA200} from './colors';
+import {white, lightWhite, darkBlack, fullBlack, minBlack, gunSmoke, cyan700, grey100, grey300, grey500, pinkA200} from './colors';
 import * as spacing from './spacing';
 import * as typography from './typography';
 import panel from './panel';
@@ -16,7 +16,7 @@ export default {
         fontStyleTitleFontSizeLarge: 24
     },
     palette: {
-        primary1Color: cyan500,
+        primary1Color: gunSmoke,
         primary2Color: cyan700,
         primary3Color: lightWhite,
         accent1Color: pinkA200,
@@ -26,7 +26,7 @@ export default {
         alternateTextColor: white,
         canvasColor: white,
         borderColor: grey300,
-        disabledColor: faintBlack,
+        disabledColor: minBlack,
         shadowColor: fullBlack
     },
     panel,

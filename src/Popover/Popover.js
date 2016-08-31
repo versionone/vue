@@ -13,17 +13,68 @@ const getStyles = (props, context) => ({
 
 class Popover extends Component {
     static propTypes = {
+        /**
+         * The content of the popover.
+         */
         children: PropTypes.node,
+        /**
+         * If true, the popover is visible.
+         */
         isOpen: PropTypes.bool,
+        /**
+         * This is the DOM element that will be used to set the position of the
+         * popover.
+         */
         anchorElement: PropTypes.object,
+        /**
+         * This is the point on the anchor where the popover's
+         * `targetOrigin` will attach to.
+         * Options:
+         * vertical: [top, middle, bottom];
+         * horizontal: [left, center, right].
+         */
         anchorOrigin: CustomPropTypes.origin,
+        /**
+         * This is the point on the popover which will attach to
+         * the anchor's origin.
+         * Options:
+         * vertical: [top, middle, bottom];
+         * horizontal: [left, center, right].
+         */
         targetOrigin: CustomPropTypes.origin,
+        /**
+         * If true, the popover (potentially) ignores `targetOrigin`
+         * and `anchorOrigin` to make itself fit on screen,
+         * which is useful for mobile devices.
+         */
         shouldAutoAdjustPosition: PropTypes.bool,
+        /**
+         * If true, the popover will hide when the anchor is scrolled off the screen.
+         */
         shouldAutoCloseWhenOffScreen: PropTypes.bool,
+        /**
+         * Callback function fired when the popover is requested to be closed.
+         *
+         * @param {string} reason The reason for the close request. Possibles values
+         * are 'clickAway' and 'offScreen'.
+         */
         onRequestClose: PropTypes.func,
+        /**
+         * If true, the popover will apply transitions when
+         * it is added to the DOM.
+         */
         isAnimated: PropTypes.bool,
+        /**
+         * Override the default animation component used.
+         */
         animation: PropTypes.func,
+        /**
+         * Override the inline-styles of the root element.
+         */
         style: CustomPropTypes.style,
+        /**
+         * The CSS class name of the root element.
+         */
         className: PropTypes.string
     };
 

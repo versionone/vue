@@ -7,8 +7,11 @@ export default class extends Component {
     };
 
     render() {
+        const styles = {
+            width: '100%'
+        };
         return (
-            <TextField hintText="keywords" floatingLabelText="I'm looking for..." onKeyDown={this.search} />
+            <TextField hintText="keywords" floatingLabelText="I'm looking for..." style={styles} onKeyDown={this.search} />
         )
     }
 

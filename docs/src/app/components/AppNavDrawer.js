@@ -124,8 +124,7 @@ class AppNavDrawer extends Component {
                 docked={docked}
                 open={open}
                 onRequestChange={onRequestChangeNavDrawer}
-                containerStyle={{zIndex: zIndex.drawer - 100}}
-            >
+                containerStyle={{zIndex: zIndex.drawer - 100}}>
                 <div style={styles.logo} onTouchTap={this.handleTouchTapHeader}>
                     VersionOne-UI
                 </div>
@@ -134,8 +133,7 @@ class AppNavDrawer extends Component {
                     value={this.currentVersion()}
                     onChange={this.handleVersionChange}
                     maxHeight={300}
-                    style={{width: 181}}
-                >
+                    style={{width: 181}}>
                     {this.state.muiVersions.map((version) => (
                         <MenuItem
                             key={version}
@@ -149,28 +147,7 @@ class AppNavDrawer extends Component {
                 </div>
                 <SelectableList
                     value={location.pathname}
-                    onChange={onChangeList}
-                >
-                    <ListItem
-                        primaryText="Get Started"
-                        primaryTogglesNestedList={true}
-                        nestedItems={[
-                            <ListItem primaryText="Prerequisites" value="/get-started/prerequisites" />,
-                            <ListItem primaryText="Installation" value="/get-started/installation" />,
-                            <ListItem primaryText="Usage" value="/get-started/usage" />,
-                            <ListItem primaryText="Server Rendering" value="/get-started/server-rendering" />,
-                            <ListItem primaryText="Examples" value="/get-started/examples" />,
-                        ]}
-                    />
-                    <ListItem
-                        primaryText="Customization"
-                        primaryTogglesNestedList={true}
-                        nestedItems={[
-                            <ListItem primaryText="Themes" value="/customization/themes" />,
-                            <ListItem primaryText="Styles" value="/customization/styles" />,
-                            <ListItem primaryText="Colors" value="/customization/colors" />,
-                        ]}
-                    />
+                    onChange={onChangeList}>
                     <ListItem
                         primaryText="Components"
                         primaryTogglesNestedList={true}
@@ -178,26 +155,13 @@ class AppNavDrawer extends Component {
                             <ListItem
                                 primaryText="Popover"
                                 value="/components/popover"
-                                href="#/components/popover"
-                            />
-                        ]}
-                    />
-                    <ListItem
-                        primaryText="Discover More"
-                        primaryTogglesNestedList={true}
-                        nestedItems={[
-                            <ListItem primaryText="Community" value="/discover-more/community" />,
-                            <ListItem primaryText="Contributing" value="/discover-more/contributing" />,
-                            <ListItem primaryText="Showcase" value="/discover-more/showcase" />,
-                            <ListItem primaryText="Related projects" value="/discover-more/related-projects" />,
-                        ]}
-                    />
+                                href="#/components/popover" />
+                        ]} />
                 </SelectableList>
                 <Divider />
                 <SelectableList
                     value=""
-                    onChange={this.handleRequestChangeLink}
-                >
+                    onChange={this.handleRequestChangeLink}>
                     <Subheader>Resources</Subheader>
                     <ListItem primaryText="GitHub" value="https://github.com/versionone/versionone-ui" />
                     <ListItem primaryText="React" value="http://facebook.github.io/react" />

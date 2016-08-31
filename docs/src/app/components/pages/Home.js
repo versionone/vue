@@ -187,14 +187,16 @@ class HomePage extends Component {
         );
     }
 
- 
+
     render() {
-        const style = {
+        const {style} = this.props;
+        const root = {
             paddingTop: spacing.desktopKeylineIncrement,
+            ...style
         };
 
         return (
-            <div style={style}>
+            <div style={root}>
                 {this.homePageHero()}
                 {this.homePurpose()}
                 {this.homeFeatures()}

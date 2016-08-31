@@ -1,3 +1,8 @@
+// VersionOne corporate colors
+export const corpRed = '#7c2348';
+
+
+// Black, whites, and grays
 export const black = '#000000';
 export const white = '#ffffff';
 

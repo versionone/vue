@@ -10,6 +10,7 @@ import FullWidthSection from './FullWidthSection';
 import withWidth, {LARGE} from 'material-ui/utils/withWidth';
 import v1Theme from 'versionone-ui/styles/themes/v1Theme';
 import ThemeProvider, {getTheme} from 'versionone-ui/Theme';
+import {gunSmoke} from 'versionone-ui/styles/themes/v1Theme/colors';
 
 class Master extends Component {
     static propTypes = {
@@ -56,6 +57,7 @@ class Master extends Component {
                 // Needed to overlap the examples
                 zIndex: this.state.muiTheme.zIndex.appBar + 1,
                 top: 0,
+                backgroundColor: gunSmoke
             },
             root: {
                 paddingTop: spacing.desktopKeylineIncrement,
@@ -155,7 +157,7 @@ class Master extends Component {
                         style={styles.appBar}
                         showMenuIconButton={showMenuIconButton}
                         iconElementRight={<a href="http://VersionOne.com"><img src="images/white-v-logo.png"
-                                                                               style={{width: '48px'}} /></a>}
+                                                                               style={{width: '64px', height: '48px'}} /></a>}
                     />
                     {React.Children.map(children, (child) => React.cloneElement(child, {style: styles.children}))}
                     <AppNavDrawer

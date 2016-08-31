@@ -1,4 +1,4 @@
-import {white, lightWhite, darkBlack, fullBlack, gunSmoke, cyan700, grey100, grey300, grey500, pinkA200} from './colors';
+import {white, lightWhite, darkBlack, fullBlack, gunSmoke, cyan700, grey100, grey300, grey500, corpRed} from './colors';
 import {fade} from './../../../utilities/colorManipulator';
 import * as spacing from './spacing';
 import * as typography from './typography';
@@ -17,10 +17,10 @@ export default {
         fontStyleTitleFontSizeLarge: 24
     },
     palette: {
-        primary1Color: gunSmoke,
-        primary2Color: cyan700,
+        primary1Color: corpRed,
+        primary2Color: gunSmoke,
         primary3Color: lightWhite,
-        accent1Color: pinkA200,
+        accent1Color: corpRed,
         accent2Color: grey100,
         accent3Color: grey500,
         textColor: darkBlack,

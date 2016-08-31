@@ -1,5 +1,5 @@
 import * as zIndex from './zIndex';
-import v1Theme from 'versionone-ui/styles/themes/v1Theme';
+import v1Theme from './../styles/themes/v1Theme';
 import autoprefixer from './../utilities/autoprefixer';
 import callOnce from '../utilities/callOnce';
 import compose from 'recompose/compose';

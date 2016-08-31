@@ -125,7 +125,9 @@ class HomePage extends Component {
         contentType="p"
         className="home-purpose"
       >
-        We need a purpose here.
+          Vue is a window to the collection of patterns and components found within the VersionOne application.
+          Vue’s purpose is to expedite development and prevent team member silos by promoting communication throughout the feature cycle.
+          Vue empowers the teams to build with a consistent UI and codebase.
       </FullWidthSection>
     );
   }

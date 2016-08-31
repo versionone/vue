@@ -2,6 +2,14 @@
 
 A collection of re-usable UI components developed and used by VersionOne. View the components in action in our ~[storybook](https://andrew-codes.github.io/component-ui)~.
 
+## Running the Docs
+```
+cd docs
+npm install # one time installation
+
+npm start # http://localhost:3000
+```
+
 ## Getting Started
 
 ```bash

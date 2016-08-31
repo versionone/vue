@@ -17,11 +17,12 @@ class ContentPage extends Component {
         const {code, isOpen} = this.state;
         return (
             <div>
+                <Playground code={code} open={isOpen} docked={true}
+                            onRequestChange={(isOpen) => this.setState({isOpen: false})} />
                 {React.Children.map(children, (child)=> React.cloneElement(child, {
                     openPlayground: this.openPlayground
                 }))}
-                <Playground code={code} open={isOpen} docked={true} onRequestChange={() => {
-                }} />
+
             </div>
         );
     }

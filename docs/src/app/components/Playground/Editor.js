@@ -1,17 +1,18 @@
-import React from 'react';
+import React, {Component, PropTypes} from 'react';
 import CodeMirror from 'codemirror';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
+import './_editor.css';
 
-class Editor extends React.Component {
+class Editor extends Component {
     static propTypes = {
-        code: React.PropTypes.string,
-        lineNumbers: React.PropTypes.bool,
-        onChange: React.PropTypes.func,
-        readOnly: React.PropTypes.bool,
-        tabSize: React.PropTypes.number,
-        theme: React.PropTypes.string
+        code: PropTypes.string,
+        lineNumbers: PropTypes.bool,
+        onChange: PropTypes.func,
+        readOnly: PropTypes.bool,
+        tabSize: PropTypes.number,
+        theme: PropTypes.string
     };
 
     static defaultProps = {
@@ -31,13 +32,13 @@ class Editor extends React.Component {
             matchBrackets: true,
             theme: theme,
             readOnly: readOnly
-        });console.log('here', this.editor);
+        });
         this.editor.on('change', this.handleChange);
     }
 
     componentDidUpdate() {
         const {code, readOnly} = this.props;
-        if (readOnly) {
+        if (!readOnly) {
             this.editor.setValue(code);
         }
     }
@@ -50,9 +51,11 @@ class Editor extends React.Component {
     };
 
     render() {
+        const {code} = this.props;
         return (
-            <div>
-                <textarea ref="editor" defaultValue={this.props.code} />
+            <div style={{height: '100%', display: 'flex', flexDirection: 'column'}}>
+                <textarea ref="editor" defaultValue={code} />
+                <div style={{flex: 1}}>Here is where the code will render live.</div>
             </div>
         );
     }

@@ -1,17 +1,17 @@
 import React, {Component, PropTypes} from 'react';
 import Drawer from 'material-ui/Drawer';
 import {spacing, typography, zIndex} from 'material-ui/styles';
-import {gunSmoke} from 'versionone-ui/styles/themes/v1Theme/colors';
+import {corpRed} from 'versionone-ui/styles/themes/v1Theme/colors';
 import Editor from './Editor';
 
 const styles = {
-    logo: {
+    toolbar: {
         cursor: 'pointer',
         fontSize: 24,
         color: typography.textFullWhite,
         lineHeight: `${spacing.desktopKeylineIncrement}px`,
         fontWeight: typography.fontWeightLight,
-        backgroundColor: gunSmoke,
+        backgroundColor: corpRed,
         paddingLeft: spacing.desktopGutter,
         marginBottom: 8,
     },
@@ -55,14 +55,19 @@ class PlaygroundDrawer extends Component {
                 docked={docked}
                 open={open}
                 onRequestChange={onRequestChange}
-                containerStyle={{zIndex: zIndex.drawer - 100}}>
-                <div onTouchTap={this.handleTouchTapHeader}>
+                containerStyle={{zIndex: zIndex.drawer - 100}}
+                width={850}>
+                <div style={styles.toolbar} onTouchTap={this.handleTouchTapHeader}>
                     Code Playground
                 </div>
                 <Editor code={code} />
             </Drawer>
         );
     }
+
+    handleTouchTapHeader = () => {
+        this.props.onRequestChange(false);
+    };
 }
 
 export default PlaygroundDrawer;

@@ -60,7 +60,7 @@ class CodeExample extends Component {
 
         const {description} = this.props;
         const descriptionStyle = styles.description;
-        const codeStyle = Object.assign({}, styles.markdown, styles.markdownRetracted);
+        const codeStyle = Object.assign({}, styles.markdown);
 
         const text = `\`\`\`js
 ${code}
@@ -73,7 +73,7 @@ ${code}
                         <MarkdownElement style={descriptionStyle} text={description} />
                     </Tab>
                     <Tab label="Example Code" value={1}>
-                        <FloatingActionButton onMouseUp={() => openInPlayground(code)} style={{position: 'absolute', right: desktopGutter, top: desktopGutter}}><CodeIcon /></FloatingActionButton>
+                        <FloatingActionButton onMouseUp={() => openInPlayground(this.props.code)} style={{position: 'absolute', right: desktopGutter, top: desktopGutter}}><CodeIcon /></FloatingActionButton>
                         <MarkdownElement style={codeStyle} text={text} />
                         <MarkdownElement style={descriptionStyle} text={description} />
                     </Tab>

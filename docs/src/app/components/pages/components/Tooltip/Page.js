@@ -2,39 +2,37 @@ import React from 'react';
 import Title from 'react-title-component';
 import CodeExample from '../../../CodeExample';
 import MarkdownElement from '../../../MarkdownElement';
-import popoverReadmeText from './README';
-import PopoverExampleSimple from './ExampleSimple';
-import popoverExampleSimpleCode from '!raw!./ExampleSimple';
-import popoverNoteText from './NOTE';
-import popoverCode from '!raw!versionone-ui/Popover/Popover';
-import popoverPackage from 'versionone-ui/Popover/package.json';
+import componentReadmeText from './README';
+import ExampleSimple from './TooltipExampleSimple';
+import ExampleSimpleCode from '!raw!./TooltipExampleSimple';
+import noteText from './NOTE';
+import exampleCode from '!raw!versionone-ui/Popover/Popover';
+import componentPackage from 'versionone-ui/Popover/package.json';
 import PropTypeDescription from './../../../PropTypeDescription';
 import StatusBadge from './../../../StatusBadge';
 const descriptions = {
-    simple: 'A simple example showing a Popover containing a [Menu](/#/components/menu). It can be also closed by clicking away from the Popover.',
-    animation: 'The default animation style is to animate around the origin. An alternative animation can be applied using the `animation` property. Currently one alternative animation is available, `popover-animation-from-top`, which animates vertically.',
-    configurable: 'Use the radio buttons to adjust the `anchorOrigin` and `targetOrigin` positions.',
+    simple: 'A simple example showing a Tooltip.',
 };
 
-const PopoverPage = (props) => (
+const ExamplePage = (props) => (
     <div>
-        <Title render={(previousTitle) => `Popover - ${previousTitle}`} />
-        <StatusBadge status={popoverPackage.status}/>
-        <MarkdownElement text={popoverReadmeText} />
+        <Title render={(previousTitle) => `Tooltip - ${previousTitle}`} />
+        <StatusBadge status={componentPackage.status}/>
+        <MarkdownElement text={componentReadmeText} />
         <CodeExample
             title="Simple example"
             description={descriptions.simple}
-            code={popoverExampleSimpleCode}
+            code={ExampleSimpleCode}
             openInPlayground={props.openPlayground}>
-            <PopoverExampleSimple />
+            <ExampleSimple />
         </CodeExample>
-        <MarkdownElement text={popoverNoteText} />
-        <PropTypeDescription header="## PropTypes" code={popoverCode} />
+        <MarkdownElement text={noteText} />
+        <PropTypeDescription header="## PropTypes" code={exampleCode} />
     </div>
 );
-export default PopoverPage;
+export default ExamplePage;
 export const meta = {
-    ...popoverPackage,
+    ...componentPackage,
     title: 'Popover',
     keywords: [],
     'see also': [

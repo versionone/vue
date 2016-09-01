@@ -161,6 +161,11 @@ class AppNavDrawer extends Component {
                                 primaryText="Toolbar"
                                 value="/components/toolbar"
                                 href="#/components/toolbar"
+                            />,
+			                <ListItem
+                                primaryText="Tooltip"
+                                value="/components/tooltip"
+                                href="#/components/tooltip"
                             />
                         ]} />
                 </SelectableList>

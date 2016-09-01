@@ -30,10 +30,6 @@ class Editor extends Component {
         theme: 'material'
     };
 
-    static contextTypes = {
-        muiTheme: PropTypes.object.isRequired,
-    };
-
     componentDidMount() {
         const {lineNumbers, tabSize, theme, readOnly} = this.props;
         this.editor = CodeMirror.fromTextArea(this.refs.editor, {
@@ -64,9 +60,8 @@ class Editor extends Component {
 
     render() {
         const {code} = this.props;
-        const {prepareStyles} = this.context.muiTheme;
         return (
-            <div style={prepareStyles(styles.root)}>
+            <div style={styles.root}>
                 <textarea ref="editor" defaultValue={code} />
             </div>
         );

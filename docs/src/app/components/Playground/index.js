@@ -48,7 +48,8 @@ class PlaygroundDrawer extends Component {
             code
         } = this.props;
         const {prepareStyles} = this.context.muiTheme;
-
+        const sectionStyles = prepareStyles(styles.section);
+        
         return (
             <Drawer
                 style={style}
@@ -62,10 +63,10 @@ class PlaygroundDrawer extends Component {
                     <header style={styles.header} onTouchTap={this.handleTouchTapHeader}>
                         Code Playground
                     </header>
-                    <section style={prepareStyles(styles.section)}>
+                    <section style={sectionStyles}>
                         <Editor code={code} />
                     </section>
-                    <section style={prepareStyles(styles.section)}>
+                    <section style={sectionStyles}>
                         Here is where the code will render live.
                     </section>
                 </div>

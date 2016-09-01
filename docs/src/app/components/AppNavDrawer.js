@@ -152,12 +152,12 @@ class AppNavDrawer extends Component {
                         primaryText="Foundations"
                         primaryTogglesNestedList={true}
                         nestedItems={[
-                            <ListItem primaryText="Colors" value="https://github.com/versionone/versionone-ui" />,
-                            <ListItem primaryText="Fonts" value="http://facebook.github.io/react" />,
-                            <ListItem primaryText="Icons" value="http://VersionOne.com" />,
-                            <ListItem primaryText="Headings" value="http://VersionOne.com" />,
-                            <ListItem primaryText="Layout" value="http://VersionOne.com" />,
-                            <ListItem primaryText="Typography" value="http://VersionOne.com" />
+                            <ListItem primaryText="Colors" value="#/foundations/colors" />,
+                            <ListItem primaryText="Fonts" value="#/foundations/colors" />,
+                            <ListItem primaryText="Icons" value="#/foundations/colors" />,
+                            <ListItem primaryText="Headings" value="#/foundations/colors" />,
+                            <ListItem primaryText="Layout" value="#/foundations/colors" />,
+                            <ListItem primaryText="Typography" value="#/foundations/colors" />
                         ]} />
                 </SelectableList>
                 <SelectableList
@@ -171,7 +171,22 @@ class AppNavDrawer extends Component {
                                 primaryText="Inline Dialog"
                                 value="#/patterns/inlineDialog"
                                 href="#/patterns/inlineDialog"
-                            />
+                            />,
+                            <ListItem
+                                primaryText="Advanced Dialog"
+                                value="#/patterns/inlineDialog"
+                                href="#/patterns/inlineDialog"
+                            />,
+                            <ListItem
+                                primaryText="Notifications"
+                                value="#/patterns/inlineDialog"
+                                href="#/patterns/inlineDialog"
+                            />,
+                            <ListItem
+                                primaryText="Tooltip"
+                                value="#/patterns/inlineDialog"
+                                href="#/patterns/inlineDialog"
+                            />,
                         ]} />
                 </SelectableList>
                 <SelectableList

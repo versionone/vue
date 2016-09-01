@@ -6,7 +6,7 @@ import ContentPage from './components/pages/ContentPage';
 import SearchResults from './components/pages/SearchResults';
 import Home from './components/pages/Home';
 import ContentWithPlayground from './components/pages/ContentWithPlayground';
-import Colors from './components/pages/foundations/Colors';
+import Colors from './components/pages/foundations/V1Colors';
 import Themes from './components/pages/foundations/Themes';
 import Styles from './components/pages/foundations/Styles';
 import * as Popover from './components/pages/components/Popover/Page';

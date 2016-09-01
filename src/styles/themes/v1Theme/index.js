@@ -31,5 +31,10 @@ export default {
         shadowColor: fullBlack
     },
     panel,
-    popover
+    popover,
+    tabs: {
+        backgroundColor: gunSmoke,
+        textColor: white,
+        selectedTextColor: white
+    },
 };

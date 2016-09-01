@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import Playground from './../Playground';
+import PlaygroundDrawer from './../Playground';
 
 class ContentPage extends Component {
     static propTypes = {
@@ -17,7 +17,7 @@ class ContentPage extends Component {
         const {code, isOpen} = this.state;
         return (
             <div>
-                <Playground code={code} open={isOpen} docked={true}
+                <PlaygroundDrawer ref="playground" open={isOpen} docked={true}
                             onRequestChange={(isOpen) => this.setState({isOpen: false})} />
                 {React.Children.map(children, (child)=> React.cloneElement(child, {
                     openPlayground: this.openPlayground
@@ -27,7 +27,10 @@ class ContentPage extends Component {
         );
     }
 
-    openPlayground = (code) => this.setState({code, isOpen: true});
+    openPlayground = (code) => {
+        this.setState({isOpen: true});
+        this.refs.playground.loadCode(code);
+    }
 }
 
 export default ContentPage;

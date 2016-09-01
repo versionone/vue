@@ -47,8 +47,17 @@ class Editor extends Component {
     componentDidUpdate() {
         const {code, readOnly} = this.props;
         if (!readOnly) {
-            this.editor.setValue(code);
+            // this.editor.setValue(code);
         }
+    }
+
+    render() {
+        const {code} = this.props;
+        return (
+            <div style={styles.root}>
+                <textarea ref="editor" defaultValue={code} />
+            </div>
+        );
     }
 
     handleChange = () => {
@@ -58,13 +67,9 @@ class Editor extends Component {
         }
     };
 
-    render() {
-        const {code} = this.props;
-        return (
-            <div style={styles.root}>
-                <textarea ref="editor" defaultValue={code} />
-            </div>
-        );
+    setCode(code) {
+        this.editor.getDoc().setValue(code);
+        this.handleChange();
     }
 }
 

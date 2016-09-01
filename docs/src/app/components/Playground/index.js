@@ -2,7 +2,9 @@ import React, {Component, PropTypes} from 'react';
 import Drawer from 'material-ui/Drawer';
 import {spacing, typography, zIndex} from 'material-ui/styles';
 import {cerulean, gunSmoke} from 'versionone-ui/styles/themes/v1Theme/colors';
+import {desktopGutter} from 'versionone-ui/styles/themes/v1Theme/spacing';
 import Editor from './Editor';
+import Preview from './Preview';
 
 const styles = {
     drawerContents: {
@@ -22,7 +24,8 @@ const styles = {
     },
     section: {
         flex: 1,
-        display: 'flex'
+        display: 'flex',
+        padding: desktopGutter
     }
 };
 
@@ -31,13 +34,19 @@ class PlaygroundDrawer extends Component {
         docked: PropTypes.bool.isRequired,
         onRequestChange: PropTypes.func.isRequired,
         open: PropTypes.bool.isRequired,
-        style: PropTypes.object,
-        code: PropTypes.string.isRequired
+        style: PropTypes.object
     };
 
     static contextTypes = {
         muiTheme: PropTypes.object.isRequired,
     };
+
+    constructor(props, ...rest) {
+        super(props, ...rest);
+        this.state = {
+            code: ''
+        };
+    }
 
     render() {
         const {
@@ -45,11 +54,13 @@ class PlaygroundDrawer extends Component {
             onRequestChange,
             open,
             style,
-            code
         } = this.props;
+        const {
+            code
+        } = this.state;
         const {prepareStyles} = this.context.muiTheme;
         const sectionStyles = prepareStyles(styles.section);
-        
+
         return (
             <Drawer
                 style={style}
@@ -64,14 +75,24 @@ class PlaygroundDrawer extends Component {
                         Code Playground
                     </header>
                     <section style={sectionStyles}>
-                        <Editor code={code} />
+                        <Editor ref="editor" code={code} onChange={this.setCode} />
                     </section>
                     <section style={sectionStyles}>
-                        Here is where the code will render live.
+                        <Preview code={code} />
                     </section>
                 </div>
             </Drawer>
         );
+    }
+
+    setCode = (code) => {
+        this.setState({
+            code
+        });
+    };
+
+    loadCode(code) {
+        this.refs.editor.setCode(code);
     }
 
     handleTouchTapHeader = () => {

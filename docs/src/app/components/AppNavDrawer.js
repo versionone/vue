@@ -126,15 +126,14 @@ class AppNavDrawer extends Component {
                 onRequestChange={onRequestChangeNavDrawer}
                 containerStyle={{zIndex: zIndex.drawer - 100}}>
                 <div style={styles.logo} onTouchTap={this.handleTouchTapHeader}>
-                    VersionOne-UI
+                    Vue
                 </div>
                 <span style={styles.version}>Version:</span>
                 <DropDownMenu
                     value={this.currentVersion()}
                     onChange={this.handleVersionChange}
                     maxHeight={300}
-                    style={{width: 181}}
-                >
+                    style={{width: 181}}>
                     {this.state.muiVersions.map((version) => (
                         <MenuItem
                             key={version}
@@ -148,8 +147,7 @@ class AppNavDrawer extends Component {
                 </div>
                 <SelectableList
                     value={location.pathname}
-                    onChange={onChangeList}
-                >
+                    onChange={onChangeList}>
                     <ListItem
                         primaryText="Components"
                         primaryTogglesNestedList={true}
@@ -164,8 +162,7 @@ class AppNavDrawer extends Component {
                 <Divider />
                 <SelectableList
                     value=""
-                    onChange={this.handleRequestChangeLink}
-                >
+                    onChange={this.handleRequestChangeLink}>
                     <Subheader>Resources</Subheader>
                     <ListItem primaryText="GitHub" value="https://github.com/versionone/versionone-ui" />
                     <ListItem primaryText="React" value="http://facebook.github.io/react" />

@@ -2,7 +2,7 @@ import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import Popover from 'versionone-ui/Popover';
 
-export default class PopoverExampleSimple extends React.Component {
+export default class Example extends React.Component {
 
     constructor(props) {
         super(props);

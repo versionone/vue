@@ -4,7 +4,7 @@ import {Toolbar, ToolbarTitle, ToolbarSeparator, ToolbarItem} from 'versionone-u
 export default class Example extends React.Component {
     render() {
         return (
-            <Toolbar>
+            <Toolbar background="#bdbdbd">
                 <ToolbarTitle text="Toolbar Title" />
                 <ToolbarItem label="Input label">
                     <input type="text" />

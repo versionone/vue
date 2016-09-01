@@ -4,7 +4,7 @@ import {Toolbar, ToolbarGroup, ToolbarTitle, ToolbarSeparator, ToolbarItem} from
 export default class Example extends React.Component {
     render() {
         return (
-            <Toolbar>
+            <Toolbar background="#bdbdbd">
                 <ToolbarTitle text="Toolbar Title" />
                 <ToolbarGroup>
                     <ToolbarItem label="Input label">

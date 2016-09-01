@@ -39,7 +39,7 @@ class Preview extends Component {
     render() {
         const {errorMessage} = this.state;
         return (
-            <div>
+            <div style={{width: '100%'}}>
                 {errorMessage !== null && <span>{errorMessage}</span>}
                 <div ref="mount" />
             </div>

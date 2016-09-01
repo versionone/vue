@@ -4,13 +4,13 @@ function getLabelColor(status){
     const baseStyle = {margin:4};
     switch (status) {
         case 'experimental':
-            return 'blue';
+            return '#008EC0';
         case 'stable':
-            return 'green';
+            return '#86A10E ';
         case 'deprecated':
-            return 'red';
+            return '#E94800';
         default:
-            return '';
+            return '#474C54';
     }
 }
 class StatusBadge extends Component {

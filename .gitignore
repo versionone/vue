@@ -61,6 +61,9 @@ jspm_packages
 /index.js
 !/docs
 
+### OS
+.DS_Store
+
 ### Published github pages
 .out
 

@@ -36,7 +36,7 @@ export default ExamplePage;
 export const meta = {
     ...componentPackage,
     status: "deprecated",
-    title: 'Popover',
+    title: 'tooltip',
     keywords: [],
     'see also': [
         'dropdown',

@@ -6,12 +6,13 @@ import ContentPage from './components/pages/ContentPage';
 import SearchResults from './components/pages/SearchResults';
 import Home from './components/pages/Home';
 import ContentWithPlayground from './components/pages/ContentWithPlayground';
-import Colors from './components/pages/Patterns/Colors';
-import Themes from './components/pages/Patterns/Themes';
-import Styles from './components/pages/Patterns/Styles';
+import Colors from './components/pages/foundations/Colors';
+import Themes from './components/pages/foundations/Themes';
+import Styles from './components/pages/foundations/Styles';
 import * as Popover from './components/pages/components/Popover/Page';
 import * as Toolbar from './components/pages/components/Toolbar/Page';
 import * as Tooltip from './components/pages/components/Tooltip/Page';
+import * as InlineDialog from './components/pages/Patterns/InlineDialog'
 // Here we define all our material-ui ReactComponents.
 
 /**
@@ -31,10 +32,13 @@ const AppRoutes = (
             <Redirect from="get-started" to="/get-started/prerequisites" />
             <Redirect from="patterns" to="/patterns/themes" />
             <Route path="search/:searchTerm" component={SearchResults}  />
-            <Route path="Patterns">
+            <Route path="foundations" >
                 <Route path="colors" component={Colors} />
                 <Route path="themes" component={Themes} />
                 <Route path="styles" component={Styles} />
+            </Route>
+            <Route path="patterns" component={ContentWithPlayground}>
+                <Route path="inlineDialog" component={index('patterns/inlineDialog', InlineDialog)} />
             </Route>
             <Route path="components" component={ContentWithPlayground}>
                 <Route path="popover" component={index('components/popover', Popover)} />

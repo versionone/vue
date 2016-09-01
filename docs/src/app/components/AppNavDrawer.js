@@ -146,6 +146,35 @@ class AppNavDrawer extends Component {
                     <SearchField />
                 </div>
                 <SelectableList
+                    value=""
+                    onChange={this.handleRequestChangeLink}>
+                    <ListItem
+                        primaryText="Foundations"
+                        primaryTogglesNestedList={true}
+                        nestedItems={[
+                            <ListItem primaryText="Colors" value="https://github.com/versionone/versionone-ui" />,
+                            <ListItem primaryText="Fonts" value="http://facebook.github.io/react" />,
+                            <ListItem primaryText="Icons" value="http://VersionOne.com" />,
+                            <ListItem primaryText="Headings" value="http://VersionOne.com" />,
+                            <ListItem primaryText="Layout" value="http://VersionOne.com" />,
+                            <ListItem primaryText="Typography" value="http://VersionOne.com" />
+                        ]} />
+                </SelectableList>
+                <SelectableList
+                    value=""
+                    onChange={this.handleRequestChangeLink}>
+                    <ListItem
+                        primaryText="Patterns"
+                        primaryTogglesNestedList={true}
+                        nestedItems={[
+                            <ListItem
+                                primaryText="Inline Dialog"
+                                value="#/patterns/inlineDialog"
+                                href="#/patterns/inlineDialog"
+                            />
+                        ]} />
+                </SelectableList>
+                <SelectableList
                     value={location.pathname}
                     onChange={onChangeList}>
                     <ListItem
@@ -170,6 +199,7 @@ class AppNavDrawer extends Component {
                         ]} />
                 </SelectableList>
                 <Divider />
+
                 <SelectableList
                     value=""
                     onChange={this.handleRequestChangeLink}>

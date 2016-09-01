@@ -20,7 +20,7 @@ export default {
         primary1Color: cerulean,
         primary2Color: gunSmoke,
         primary3Color: lightWhite,
-        accent1Color: gunSmoke,
+        accent1Color: cerulean,
         accent2Color: grey100,
         accent3Color: grey500,
         textColor: darkBlack,
@@ -34,7 +34,6 @@ export default {
     popover,
     tabs: {
         backgroundColor: gunSmoke,
-        textColor: white,
-        selectedTextColor: white
+        selectedTextColor: cerulean
     },
 };

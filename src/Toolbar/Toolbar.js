@@ -2,11 +2,6 @@ import React, {Component, PropTypes} from 'react';
 import * as CustomPropTypes from './../utilities/PropTypes';
 import classNames from 'classnames';
 import {zIndex} from './../Theme';
-import ToolbarTitle from './ToolbarTitle';
-import ToolbarGroup from './ToolbarGroup';
-import ToolbarItem from './ToolbarItem';
-import ToolbarSeparator from './ToolbarSeparator';
-import ToolbarSpacer from './ToolbarSpacer';
 
 const getStyles = (props, context) => {
     const {
@@ -42,13 +37,19 @@ const getStyles = (props, context) => {
 
 export default class Toolbar extends Component {
     static propTypes = {
-        children: CustomPropTypes.oneOfComponentType([
-            ToolbarTitle,
-            ToolbarGroup,
-            ToolbarItem,
-            ToolbarSeparator,
-            ToolbarSpacer
-        ]),
+
+        // /**
+        //  * The content of the popover.
+        //  */
+        // children: CustomPropTypes.oneOfComponentType(
+        //     [
+        //         ToolbarTitle,
+        //         ToolbarGroup,
+        //         ToolbarItem,
+        //         ToolbarSeparator,
+        //         ToolbarSpacer
+        //     ]
+        // ),
         className: PropTypes.string,
         style: CustomPropTypes.style,
         height: PropTypes.number,

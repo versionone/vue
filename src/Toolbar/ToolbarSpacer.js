@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 
-class ToolbarSpacer extends Component {
+export default class ToolbarSpacer extends Component {
     static contextTypes = {
         theme: PropTypes.object.isRequired
     };
@@ -15,4 +15,3 @@ class ToolbarSpacer extends Component {
         );
     }
 }
-export default ToolbarSpacer;

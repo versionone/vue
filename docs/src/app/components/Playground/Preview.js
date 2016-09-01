@@ -18,7 +18,7 @@ class Preview extends Component {
     };
 
     static defaultProps = {
-        scope: {React, ...Vue, ...materialUi}
+        scope: {React, ...Vue, ...Vue.Toolbar, ...materialUi}
     };
 
     state = {
@@ -40,7 +40,7 @@ class Preview extends Component {
         const {errorMessage} = this.state;
         return (
             <div>
-                {errorMessage !== null && <span className={style.error}>{errorMessage}</span>}
+                {errorMessage !== null && <span>{errorMessage}</span>}
                 <div ref="mount" />
             </div>
         );

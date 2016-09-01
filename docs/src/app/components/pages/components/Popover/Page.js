@@ -29,7 +29,7 @@ const PopoverPage = (props) => (
             <PopoverExampleSimple />
         </CodeExample>
         <MarkdownElement text={popoverNoteText} />
-        <PropTypeDescription header="## PropTypes" code={popoverCode} />
+        <PropTypeDescription header="### PropTypes" code={popoverCode} />
     </div>
 );
 export default PopoverPage;

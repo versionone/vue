@@ -156,6 +156,11 @@ class AppNavDrawer extends Component {
                                 primaryText="Popover"
                                 value="/components/popover"
                                 href="#/components/popover"
+                            />,
+                            <ListItem
+                                primaryText="Toolbar"
+                                value="/components/toolbar"
+                                href="#/components/toolbar"
                             />
                         ]} />
                 </SelectableList>

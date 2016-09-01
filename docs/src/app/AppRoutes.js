@@ -10,6 +10,7 @@ import Colors from './components/pages/Patterns/Colors';
 import Themes from './components/pages/Patterns/Themes';
 import Styles from './components/pages/Patterns/Styles';
 import * as Popover from './components/pages/components/Popover/Page';
+import * as Toolbar from './components/pages/components/Toolbar/Page';
 
 // Here we define all our material-ui ReactComponents.
 
@@ -37,6 +38,7 @@ const AppRoutes = (
             </Route>
             <Route path="components" component={ContentWithPlayground}>
                 <Route path="popover" component={index('components/popover', Popover)} />
+                <Route path="toolbar" component={index('components/toolbar', Toolbar)} />
             </Route>
         </Route>
     </Route>

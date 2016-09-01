@@ -1,6 +1,6 @@
 {
   "name": "Toolbar",
-  "status": "experimental",
+  "status": "stable",
   "isDeprecated": false,
   "description": "A Toolbar is a collection of components stacked horizontally; ensuring all their children are vertically aligned center."
 }

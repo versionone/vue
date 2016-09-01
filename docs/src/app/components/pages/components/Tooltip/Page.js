@@ -6,8 +6,10 @@ import componentReadmeText from './README';
 import ExampleSimple from './TooltipExampleSimple';
 import ExampleSimpleCode from '!raw!./TooltipExampleSimple';
 import noteText from './NOTE';
+//hack start
 import exampleCode from '!raw!versionone-ui/Popover/Popover';
 import componentPackage from 'versionone-ui/Popover/package.json';
+// hack end
 import PropTypeDescription from './../../../PropTypeDescription';
 import StatusBadge from './../../../StatusBadge';
 const descriptions = {
@@ -17,7 +19,7 @@ const descriptions = {
 const ExamplePage = (props) => (
     <div>
         <Title render={(previousTitle) => `Tooltip - ${previousTitle}`} />
-        <StatusBadge status={componentPackage.status}/>
+        <StatusBadge status="deprecated"/>
         <MarkdownElement text={componentReadmeText} />
         <CodeExample
             title="Simple example"
@@ -33,6 +35,7 @@ const ExamplePage = (props) => (
 export default ExamplePage;
 export const meta = {
     ...componentPackage,
+    status: "deprecated",
     title: 'Popover',
     keywords: [],
     'see also': [

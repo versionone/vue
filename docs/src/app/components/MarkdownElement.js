@@ -43,12 +43,15 @@ class MarkdownElement extends Component {
       text,
     } = this.props;
 
+      const textStrippedOfArrayLineBreakFormatting = text.replace(/\[(\n|\r)+/g, '[').replace(/,(\n|\r)+/g, ', ').replace(/(\n|\r)*]\)(\n|\r)*/g, '])');
+      console.log(textStrippedOfArrayLineBreakFormatting);
+
     /* eslint-disable react/no-danger */
     return (
       <div
         style={Object.assign({}, styles.root, style)}
         className="markdown-body"
-        dangerouslySetInnerHTML={{__html: marked(text)}}
+        dangerouslySetInnerHTML={{__html: marked(textStrippedOfArrayLineBreakFormatting)}}
       />
     );
     /* eslint-enable */

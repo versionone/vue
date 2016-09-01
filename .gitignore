@@ -58,6 +58,7 @@ jspm_packages
 !/readme.md
 !/scripts
 !/*.js
+/index.js
 !/docs
 
 ### Published github pages

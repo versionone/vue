@@ -5,6 +5,14 @@ import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
 import './_editor.css';
 
+const styles = {
+    root: {
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column'
+    }
+};
+
 class Editor extends Component {
     static propTypes = {
         code: PropTypes.string,
@@ -20,6 +28,10 @@ class Editor extends Component {
         readOnly: false,
         tabSize: 2,
         theme: 'material'
+    };
+
+    static contextTypes = {
+        muiTheme: PropTypes.object.isRequired,
     };
 
     componentDidMount() {
@@ -52,10 +64,10 @@ class Editor extends Component {
 
     render() {
         const {code} = this.props;
+        const {prepareStyles} = this.context.muiTheme;
         return (
-            <div style={{height: '100%', display: 'flex', flexDirection: 'column'}}>
+            <div style={prepareStyles(styles.root)}>
                 <textarea ref="editor" defaultValue={code} />
-                <div style={{flex: 1}}>Here is where the code will render live.</div>
             </div>
         );
     }

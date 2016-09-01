@@ -29,3 +29,4 @@ export const grey500 = '#9e9e9e';
 export const gunSmoke = '#31363e';
 export const shuttle = '##61666e';
 export const pale = 'dde2e9';
+export const cerulean = '#00a9e0';

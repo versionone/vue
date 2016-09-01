@@ -1,29 +1,29 @@
 import React, {Component, PropTypes} from 'react';
 import Drawer from 'material-ui/Drawer';
 import {spacing, typography, zIndex} from 'material-ui/styles';
-import {corpRed} from 'versionone-ui/styles/themes/v1Theme/colors';
+import {cerulean, gunSmoke} from 'versionone-ui/styles/themes/v1Theme/colors';
 import Editor from './Editor';
 
 const styles = {
-    toolbar: {
+    drawerContents: {
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%'
+    },
+    header: {
         cursor: 'pointer',
         fontSize: 24,
         color: typography.textFullWhite,
         lineHeight: `${spacing.desktopKeylineIncrement}px`,
         fontWeight: typography.fontWeightLight,
-        backgroundColor: corpRed,
+        backgroundColor: cerulean,
         paddingLeft: spacing.desktopGutter,
-        marginBottom: 8,
+        borderBottom: `8px solid ${gunSmoke}`,
     },
-    version: {
-        paddingLeft: spacing.desktopGutterLess,
-        fontSize: 16,
-    },
-    search: {
-        paddingLeft: spacing.desktopGutterLess,
-        paddingRight: spacing.desktopGutterLess,
-        fontSize: 16,
-    },
+    section: {
+        flex: 1,
+        display: 'flex'
+    }
 };
 
 class PlaygroundDrawer extends Component {
@@ -47,6 +47,7 @@ class PlaygroundDrawer extends Component {
             style,
             code
         } = this.props;
+        const {prepareStyles} = this.context.muiTheme;
 
         return (
             <Drawer
@@ -57,10 +58,17 @@ class PlaygroundDrawer extends Component {
                 onRequestChange={onRequestChange}
                 containerStyle={{zIndex: zIndex.drawer - 100}}
                 width={850}>
-                <div style={styles.toolbar} onTouchTap={this.handleTouchTapHeader}>
-                    Code Playground
+                <div style={prepareStyles(styles.drawerContents)}>
+                    <header style={styles.header} onTouchTap={this.handleTouchTapHeader}>
+                        Code Playground
+                    </header>
+                    <section style={prepareStyles(styles.section)}>
+                        <Editor code={code} />
+                    </section>
+                    <section style={prepareStyles(styles.section)}>
+                        Here is where the code will render live.
+                    </section>
                 </div>
-                <Editor code={code} />
             </Drawer>
         );
     }

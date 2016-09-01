@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import MarkdownElement from './MarkdownElement';
-import {corpRed} from 'versionone-ui/styles/themes/v1Theme/colors';
+import {cerulean} from 'versionone-ui/styles/themes/v1Theme/colors';
 
 class SearchResult extends Component {
     static propTypes = {
@@ -14,7 +14,7 @@ class SearchResult extends Component {
 
         return (
             <article className="search-result">
-                <h3 style={{color: corpRed}}>{title}</h3>
+                <h3 style={{color: cerulean}}>{title}</h3>
                 <MarkdownElement text={description} />
             </article>
         );

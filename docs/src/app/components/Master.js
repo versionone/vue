@@ -140,7 +140,7 @@ class Master extends Component {
         return (
             <ThemeProvider theme={getTheme(v1Theme)}>
                 <div>
-                    <Title render="VersionOne-UI" />
+                    <Title render="Vue - VersionOne" />
                     <AppBar
                         onLeftIconButtonTouchTap={this.handleTouchTapLeftIconButton}
                         title={title}

@@ -6,8 +6,8 @@ Inline Dialog is user requested information and the containers should not take o
 
 ## Examples
 Pic of Tooltips
-![Example of Tooltips](/images/tooltip1.png)
+![Example of Tooltips](/images/patterns/tooltip1.png)
 Pic of Popovers
-![Example of Popovers](/images/popover1.png)
+![Example of Popovers](/images/patterns/popover1.png)
 Pic of Advanced Dialogs
-![Example of Advanced Dialogs](/images/advanced_b.png)
+![Example of Advanced Dialogs](/images/patterns/advanced_b.png)

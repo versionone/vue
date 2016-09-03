@@ -1,3 +1,8 @@
+// VersionOne corporate colors
+export const corpRed = '#7c2348';
+
+
+// Black, whites, and grays
 export const black = '#000000';
 export const white = '#ffffff';
 
@@ -19,4 +24,9 @@ export const cyan700 = '#0097a7';
 export const grey100 = '#f5f5f5';
 export const grey300 = '#e0e0e0';
 export const grey400 = '#bdbdbd';
-export const grey500 = '#9e9e9e'
+export const grey500 = '#9e9e9e';
+
+export const gunSmoke = '#31363e';
+export const shuttle = '##61666e';
+export const pale = 'dde2e9';
+export const cerulean = '#00a9e0';

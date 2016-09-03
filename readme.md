@@ -2,17 +2,26 @@
 
 A collection of re-usable UI components developed and used by VersionOne. View the components in action in our ~[storybook](https://andrew-codes.github.io/component-ui)~.
 
-## Getting Started
-
-```bash
+## Running the Docs
+```
+npm install
+cd docs
 npm install
 
-npm start # open browser and go to http://localhost:9001 to view storybook
+npm start
+# open browser and navigate to http://localhost:3000
 ```
 
 ## Contributing
 
-New component PR's should include tests and stories (see below) in order to be accepted.
+New component PR's should include tests and stories (see below) and appropriate documentation in order to be accepted.
+
+```bash
+npm install
+
+npm start
+# open browser and navigate to http://localhost:9001
+```
 
 ### Structure
 

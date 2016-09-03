@@ -22,7 +22,8 @@ export default class ToolbarGroup extends Component {
     static propTypes = {
         children: PropTypes.node,
         className: PropTypes.string,
-        style: CustomPropTypes.style
+        style: CustomPropTypes.style,
+        attachToRight: PropTypes.bool
     };
 
     static defaultProps = {

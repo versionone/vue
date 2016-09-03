@@ -58,8 +58,11 @@ jspm_packages
 !/readme.md
 !/scripts
 !/*.js
+/index.js
 !/docs
+
+### OS
+.DS_Store
 
 ### Published github pages
 .out
-

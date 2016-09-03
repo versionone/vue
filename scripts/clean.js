@@ -5,10 +5,9 @@ var dirs = require('./directories');
 
 var fsItems = fs.readdirSync(dirs.src);
 fsItems = fsItems
-    .filter(dirs.isDirectory(dirs.src))
     .map(toDeployedDirectory(dirs.app))
     .filter(hasMatchingDeployedDirectory())
-    .forEach(deleteDeployedDirectory(dirs.app));
+    .forEach(deleteDeployedDirectory());
 
 function toDeployedDirectory(deployRootDirectory) {
     return function(directoryRef) {
@@ -22,9 +21,9 @@ function hasMatchingDeployedDirectory() {
     };
 }
 
-function deleteDeployedDirectory(rootDirectory) {
+function deleteDeployedDirectory() {
     return function(directoryRef) {
-        rimraf(path.join(rootDirectory, directoryRef), logDone);
+        rimraf(path.join(directoryRef), logDone);
     }
 }
 

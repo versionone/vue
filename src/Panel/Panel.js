@@ -18,7 +18,7 @@ const getStyles = (props, context) => {
 class Panel extends Component {
     static propTypes = {
         children: PropTypes.node,
-        style: PropTypes.object,
+        style: PropTypes.object
     };
 
     static contextTypes = {
@@ -29,7 +29,7 @@ class Panel extends Component {
         const {
             children,
             style,
-            ...rest,
+            ...rest
         } = this.props;
 
         const {prepareStyles} = this.context.theme;

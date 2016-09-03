@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {findDOMNode} from 'react-dom';
 import {storiesOf} from '@kadira/storybook';
 import Popover from './';
 
@@ -18,7 +17,7 @@ storiesOf('Popover')
     )
     .addWithInfo('anchor is a DOM element',
         `A popover can be optionally anchored to an element, passed in as a prop; \`anchorElement\`. The prop's value must be a native DOM element or React ref.`,
-        (context) => (
+        () => (
             <PopoverExample />
         )
     );

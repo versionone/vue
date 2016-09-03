@@ -86,7 +86,7 @@ class Popover extends Component {
         },
         targetOrigin: {
             vertical: 'top',
-            horizontal: 'left',
+            horizontal: 'left'
         },
         shouldAutoCloseWhenOffScreen: true,
         shouldAutoAdjustPosition: true,
@@ -95,7 +95,7 @@ class Popover extends Component {
         isAnimated: true,
         animation: PopoverAnimationDefault,
         style: {
-            overflowY: 'auto',
+            overflowY: 'auto'
         },
         className: ''
     };
@@ -125,12 +125,12 @@ class Popover extends Component {
                     this.setState({isClosing: true});
                     this.animationTimeout = setTimeout(() => {
                         this.setState({
-                            isOpen: false,
+                            isOpen: false
                         });
                     }, 500);
                 } else {
                     this.setState({
-                        isOpen: false,
+                        isOpen: false
                     });
                 }
             }
@@ -239,7 +239,7 @@ class Popover extends Component {
             bottom: targetElement.offsetHeight,
             left: 0,
             middle: targetElement.offsetWidth / 2,
-            right: targetElement.offsetWidth,
+            right: targetElement.offsetWidth
         };
     };
 
@@ -342,7 +342,7 @@ class Popover extends Component {
             animation,
             children,
             style,
-            ...rest,
+            ...rest
         } = this.props;
         const {
             isOpen,

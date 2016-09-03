@@ -6,7 +6,6 @@ import Panel from './../Panel';
 function getStyles(props, context, state) {
     const {targetOrigin} = props;
     const {isOpen} = state;
-    const {theme} = context;
     const horizontal = targetOrigin.horizontal.replace('middle', 'vertical');
 
     return {
@@ -17,7 +16,7 @@ function getStyles(props, context, state) {
             position: 'fixed',
             zIndex: 2,
             transition: transitions.easeOut('250ms', ['transform', 'opacity']),
-            maxHeight: '100%',
+            maxHeight: '100%'
         },
         horizontal: {
             maxHeight: '100%',
@@ -25,13 +24,13 @@ function getStyles(props, context, state) {
             transform: isOpen ? 'scaleX(1)' : 'scaleX(0)',
             opacity: isOpen ? 1 : 0,
             transformOrigin: `${horizontal} ${targetOrigin.vertical}`,
-            transition: transitions.easeOut('250ms', ['transform', 'opacity']),
+            transition: transitions.easeOut('250ms', ['transform', 'opacity'])
         },
         vertical: {
             opacity: isOpen ? 1 : 0,
             transform: isOpen ? 'scaleY(1)' : 'scaleY(0)',
             transformOrigin: `${horizontal} ${targetOrigin.vertical}`,
-            transition: transitions.easeOut('500ms', ['transform', 'opacity']),
+            transition: transitions.easeOut('500ms', ['transform', 'opacity'])
         }
     };
 }

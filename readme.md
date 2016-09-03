@@ -1,29 +1,30 @@
-# VersionOne UI
+# Vue
 
-A collection of re-usable UI components developed and used by VersionOne. View the components in action in our ~[storybook](https://andrew-codes.github.io/component-ui)~.
+Common UI components developed and used by VersionOne; built with React.
 
-## Running the Docs
+## Getting Started
+
 ```
-npm install
-cd docs
 npm install
 
 npm start
 # open browser and navigate to http://localhost:3000
+# runs documentation site for Vue, locally
 ```
 
 ## Contributing
 
-New component PR's should include tests and stories (see below) and appropriate documentation in order to be accepted.
+New component PR's should include tests, stories (see below) and appropriate documentation in order to be accepted.
+
+### Developing Components
 
 ```bash
-npm install
-
-npm start
+npm start:dev
 # open browser and navigate to http://localhost:9001
+# runs storybook on Vue; allowing real-time viewing of component stories
 ```
 
-### Structure
+#### Structure
 
 Each major component (single or group of related components) is contained within its own directory under `./src`. Every component **must** contain the following within its source directory:
 
@@ -31,10 +32,10 @@ Each major component (single or group of related components) is contained within
 - Stories.js
 - *.spec.js
 
-### Stories
+#### Stories
 
-Please write appropriate stories for each component in the `componentName/Stories.js` file.
+Please write appropriate stories for each component in the `Stories.js` file. Stories are primarily used for development of components.
 
-### Testing
+#### Tests
 
-Please write specs for components. Specs can be run via the `npm test` command or [WallabyJS](https://wallabyjs.com/). PR's without adequate specs will not be accepted.
+Please write specs for components. Specs can be run via the `npm test` command or with [WallabyJS](https://wallabyjs.com/). In Vue's case, specs are used to validate behavior of components. **Please note**: PR's without adequate specs will not be accepted.

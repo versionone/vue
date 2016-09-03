@@ -6,8 +6,8 @@ import popoverReadmeText from './README';
 import PopoverExampleSimple from './ExampleSimple';
 import popoverExampleSimpleCode from '!raw!./ExampleSimple';
 import popoverNoteText from './NOTE';
-import popoverCode from '!raw!versionone-ui/Popover/Popover';
-import popoverPackage from 'versionone-ui/Popover/package.json';
+import popoverCode from '!raw!vue/Popover/Popover';
+import popoverPackage from 'vue/Popover/package.json';
 import PropTypeDescription from './../../../PropTypeDescription';
 import StatusBadge from './../../../StatusBadge';
 const descriptions = {

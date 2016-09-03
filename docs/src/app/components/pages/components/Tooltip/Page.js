@@ -7,8 +7,8 @@ import ExampleSimple from './TooltipExampleSimple';
 import ExampleSimpleCode from '!raw!./TooltipExampleSimple';
 import noteText from './NOTE';
 //hack start
-import exampleCode from '!raw!versionone-ui/Popover/Popover';
-import componentPackage from 'versionone-ui/Popover/package.json';
+import exampleCode from '!raw!vue/Popover/Popover';
+import componentPackage from 'vue/Popover/package.json';
 // hack end
 import PropTypeDescription from './../../../PropTypeDescription';
 import StatusBadge from './../../../StatusBadge';

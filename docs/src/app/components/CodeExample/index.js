@@ -6,7 +6,7 @@ import MarkdownElement from '../MarkdownElement';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import CodeIcon from 'material-ui/svg-icons/action/code';
-import {desktopGutter} from 'versionone-ui/styles/themes/v1Theme/spacing';
+import {desktopGutter} from 'vue/styles/themes/v1Theme/spacing';
 
 class CodeExample extends Component {
     static propTypes = {

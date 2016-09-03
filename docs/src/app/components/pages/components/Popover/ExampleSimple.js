@@ -1,6 +1,6 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-import Popover from 'versionone-ui/Popover';
+import Popover from 'vue/Popover';
 
 export default class Example extends React.Component {
 

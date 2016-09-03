@@ -8,9 +8,9 @@ import {darkWhite, lightWhite, grey900} from 'material-ui/styles/colors';
 import AppNavDrawer from './AppNavDrawer';
 import FullWidthSection from './FullWidthSection';
 import withWidth from 'material-ui/utils/withWidth';
-import v1Theme from 'versionone-ui/styles/themes/v1Theme';
-import ThemeProvider, {getTheme} from 'versionone-ui/Theme';
-import {gunSmoke} from 'versionone-ui/styles/themes/v1Theme/colors';
+import v1Theme from 'vue/styles/themes/v1Theme';
+import ThemeProvider, {getTheme} from 'vue/Theme';
+import {gunSmoke} from 'vue/styles/themes/v1Theme/colors';
 
 class Master extends Component {
     static propTypes = {
@@ -166,7 +166,7 @@ class Master extends Component {
                         <IconButton
                             iconStyle={styles.iconButton}
                             iconClassName="vuidocs-icon-custom-github"
-                            href="https://github.com/versionone/versionone-ui"
+                            href="https://github.com/versionone/vue/"
                         />
                     </FullWidthSection>
                 </div>

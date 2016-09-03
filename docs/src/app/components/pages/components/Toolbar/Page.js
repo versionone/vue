@@ -1,6 +1,6 @@
 import React from 'react';
 import Title from 'react-title-component';
-import * as Toolbar from 'versionone-ui/Toolbar';
+import * as Toolbar from 'vue/Toolbar';
 import CodeExample from '../../../CodeExample';
 import MarkdownElement from '../../../MarkdownElement';
 import readme from './README';
@@ -10,12 +10,12 @@ import ExampleToolbarGroupsAndSeparators from './ExampleToolbarGroupsAndSeparato
 import exampleToolbarGroupsAndSeparatorsCode from '!raw!./ExampleToolbarGroupsAndSeparators';
 import ExampleWithSpacer from './ExampleWithSpacer';
 import exampleWithSpacer from '!raw!./ExampleWithSpacer';
-import toolbarCode from '!raw!versionone-ui/Toolbar/Toolbar';
-import toolbarGroupCode from '!raw!versionone-ui/Toolbar/ToolbarGroup';
-import toolbarItemCode from '!raw!versionone-ui/Toolbar/ToolbarItem';
-import toolbarSeparatorCode from '!raw!versionone-ui/Toolbar/ToolbarSeparator';
-import toolbarTitleCode from '!raw!versionone-ui/Toolbar/ToolbarTitle';
-import pkg from 'versionone-ui/Toolbar/package.json';
+import toolbarCode from '!raw!vue/Toolbar/Toolbar';
+import toolbarGroupCode from '!raw!vue/Toolbar/ToolbarGroup';
+import toolbarItemCode from '!raw!vue/Toolbar/ToolbarItem';
+import toolbarSeparatorCode from '!raw!vue/Toolbar/ToolbarSeparator';
+import toolbarTitleCode from '!raw!vue/Toolbar/ToolbarTitle';
+import pkg from 'vue/Toolbar/package.json';
 import PropTypeDescription from './../../../PropTypeDescription';
 import StatusBadge from './../../../StatusBadge';
 const descriptions = {

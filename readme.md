@@ -4,7 +4,7 @@ Common UI components developed and used by VersionOne; built with React.
 
 ## Getting Started
 
-```
+```sh
 npm install
 
 npm start
@@ -18,7 +18,7 @@ New component PR's should include tests, stories (see below) and appropriate doc
 
 ### Developing Components
 
-```bash
+```sh
 npm start:dev
 # open browser and navigate to http://localhost:9001
 # runs storybook on Vue; allowing real-time viewing of component stories

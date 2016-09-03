@@ -1,10 +1,10 @@
 {
-  "name": "material-ui-docs",
-  "version": "0.16.0-alpha",
-  "description": "Documentation site for material-ui",
+  "name": "@versioneone/vue-docs",
+  "version": "1.0.0-alpha",
+  "description": "Documentation site for VersionOne Vue",
   "repository": {
     "type": "git",
-    "url": "https://github.com/callemall/material-ui.git"
+    "url": "https://github.com/versionone/vue.git"
   },
   "engines": {
     "node": ">=4"

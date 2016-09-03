@@ -6,7 +6,7 @@ import Subheader from 'material-ui/Subheader';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import {spacing, typography, zIndex} from 'material-ui/styles';
-import {gunSmoke} from 'versionone-ui/styles/themes/v1Theme/colors';
+import {gunSmoke} from 'vue/styles/themes/v1Theme/colors';
 import SearchField from './SearchField';
 
 const SelectableList = MakeSelectable(List);
@@ -219,7 +219,7 @@ class AppNavDrawer extends Component {
                     value=""
                     onChange={this.handleRequestChangeLink}>
                     <Subheader>Resources</Subheader>
-                    <ListItem primaryText="GitHub" value="https://github.com/versionone/versionone-ui" />
+                    <ListItem primaryText="GitHub" value="https://github.com/versionone/vue/" />
                     <ListItem primaryText="React" value="http://facebook.github.io/react" />
                     <ListItem primaryText="VersionOne" value="http://VersionOne.com" />
                 </SelectableList>

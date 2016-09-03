@@ -1,11 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 import {unmountComponentAtNode, render} from 'react-dom';
-import * as Vue from 'versionone-ui';
+import * as Vue from 'vue/';
 import * as materialUi from 'material-ui';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {transform} from 'babel-standalone';
 import {babel} from './../../../../package.json';
-import v1Theme from 'versionone-ui/styles/themes/v1Theme';
+import v1Theme from 'vue/styles/themes/v1Theme';
 
 const ERROR_TIMEOUT = 500;
 const theme = Vue.Theme.getTheme(v1Theme);

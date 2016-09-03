@@ -2,7 +2,7 @@ import React from 'react';
 import Title from 'react-title-component';
 import MarkdownElement from '../../MarkdownElement';
 import readme from './InlineDialog.md';
-import pkg from 'versionone-ui/Toolbar/package.json';
+import pkg from 'vue/Toolbar/package.json';
 import StatusBadge from './../../StatusBadge';
 
 const InlineDialogPage = (props) => (

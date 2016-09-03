@@ -1,5 +1,5 @@
 import React from 'react';
-import {Toolbar, ToolbarTitle, ToolbarSeparator, ToolbarItem} from 'versionone-ui/Toolbar';
+import {Toolbar, ToolbarTitle, ToolbarSeparator, ToolbarItem} from 'vue/Toolbar';
 
 export default class Example extends React.Component {
     render() {

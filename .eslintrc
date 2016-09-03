@@ -38,6 +38,7 @@
         "babel/arrow-parens": 0,
         "babel/no-await-in-loop": 0,
         "babel/flow-object-type": 0,
-        "babel/func-params-comma-dangle": 0
+        "babel/func-params-comma-dangle": 0,
+        "react/no-did-mount-set-state": 0
     }
 }

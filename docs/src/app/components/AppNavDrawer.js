@@ -41,6 +41,10 @@ class AppNavDrawer extends Component {
         onRequestChangeNavDrawer: PropTypes.func.isRequired,
         open: PropTypes.bool.isRequired,
         style: PropTypes.object,
+        componentMenuItems: PropTypes.arrayOf(PropTypes.shape({
+            menuLabel: PropTypes.string.isRequired,
+            path: PropTypes.string.isRequired
+        }))
     };
 
     static contextTypes = {
@@ -116,6 +120,7 @@ class AppNavDrawer extends Component {
             onChangeList,
             open,
             style,
+            componentMenuItems
         } = this.props;
 
         return (
@@ -195,23 +200,10 @@ class AppNavDrawer extends Component {
                     <ListItem
                         primaryText="Components"
                         primaryTogglesNestedList={true}
-                        nestedItems={[
-                            <ListItem
-                                primaryText="Popover"
-                                value="/components/popover"
-                                href="#/components/popover"
-                            />,
-                            <ListItem
-                                primaryText="Toolbar"
-                                value="/components/toolbar"
-                                href="#/components/toolbar"
-                            />,
-			                <ListItem
-                                primaryText="Tooltip"
-                                value="/components/tooltip"
-                                href="#/components/tooltip"
-                            />
-                        ]} />
+                        nestedItems={componentMenuItems.map((item, index) => (
+                            <ListItem primaryText={item.menuLabel} value={`#/components/${item.path}`}
+                                      href={`#/components/${item.path}`} />
+                        ))} />
                 </SelectableList>
                 <Divider />
 

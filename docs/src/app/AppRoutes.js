@@ -9,10 +9,8 @@ import ContentWithPlayground from './components/pages/ContentWithPlayground';
 import Colors from './components/pages/foundations/V1Colors';
 import Themes from './components/pages/foundations/Themes';
 import Styles from './components/pages/foundations/Styles';
-import * as Popover from './components/pages/components/Popover/Page';
-import * as Toolbar from './components/pages/components/Toolbar/Page';
-import * as Tooltip from './components/pages/components/Tooltip/Page';
 import * as InlineDialog from './components/pages/Patterns/InlineDialog'
+import ComponentRoutes from './routes/components';
 // Here we define all our material-ui ReactComponents.
 
 /**
@@ -41,9 +39,9 @@ const AppRoutes = (
                 <Route path="inlineDialog" component={index('patterns/inlineDialog', InlineDialog)} />
             </Route>
             <Route path="components" component={ContentWithPlayground}>
-                <Route path="popover" component={index('components/popover', Popover)} />
-                <Route path="toolbar" component={index('components/toolbar', Toolbar)} />
-                <Route path="tooltip" component={index('components/tooltip', Tooltip)} />
+                {ComponentRoutes.map((route, i) => (
+                    <Route path={route.path} component={index(`components${route.path}`, route.component)} key={i} />
+                ))}
             </Route>
         </Route>
     </Route>

@@ -11,6 +11,7 @@ import withWidth from 'material-ui/utils/withWidth';
 import v1Theme from 'vue/styles/themes/v1Theme';
 import ThemeProvider, {getTheme} from 'vue/Theme';
 import {gunSmoke} from 'vue/styles/themes/v1Theme/colors';
+import componentRoutes from './../routes/components';
 
 class Master extends Component {
     static propTypes = {
@@ -114,6 +115,12 @@ class Master extends Component {
             children,
         } = this.props;
 
+        const componentMenuItems = componentRoutes.map((route, index) =>({
+                menuLabel: route.component.meta.name,
+                path: route.path
+            })
+        );
+
         const {
             prepareStyles,
         } = this.state.muiTheme;
@@ -161,6 +168,7 @@ class Master extends Component {
                         onRequestChangeNavDrawer={this.handleChangeRequestNavDrawer}
                         onChangeList={this.handleChangeList}
                         open={navDrawerOpen}
+                        componentMenuItems={componentMenuItems}
                     />
                     <FullWidthSection style={styles.footer}>
                         <IconButton

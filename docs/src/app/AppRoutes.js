@@ -10,7 +10,7 @@ import Colors from './components/pages/foundations/V1Colors';
 import Themes from './components/pages/foundations/Themes';
 import Styles from './components/pages/foundations/Styles';
 import * as InlineDialog from './components/pages/Patterns/InlineDialog'
-import ComponentRoutes from './routes/menuItems';
+import menuItems from './routes/menuItems';
 // Here we define all our material-ui ReactComponents.
 
 /**
@@ -29,20 +29,14 @@ const AppRoutes = (
         <Route component={ContentPage}>
             <Redirect from="get-started" to="/get-started/prerequisites" />
             <Redirect from="patterns" to="/patterns/themes" />
-            <Route path="search/:searchTerm" component={SearchResults}  />
-            <Route path="foundations" >
-                <Route path="colors" component={Colors} />
-                <Route path="themes" component={Themes} />
-                <Route path="styles" component={Styles} />
-            </Route>
-            <Route path="patterns" component={ContentWithPlayground}>
-                <Route path="inlineDialog" component={index('patterns/inlineDialog', InlineDialog)} />
-            </Route>
-            <Route path="components" component={ContentWithPlayground}>
-                {ComponentRoutes.map((route, i) => (
-                    <Route path={route.path} component={index(`components${route.path}`, route.component)} key={i} />
-                ))}
-            </Route>
+            <Route path="search/:searchTerm" component={SearchResults} />
+            {menuItems.map((rootMenuItem, i) => (
+                <Route path={rootMenuItem.path} component={rootMenuItem.component} key={i}>
+                    {rootMenuItem.nestedMenuItems.map((menuItem, menuItemIndex) => (
+                        <Route path={menuItem.path} component={index(`${rootMenuItem.path}/${menuItem.path}`, menuItem.component, menuItem.meta)} key={menuItemIndex} />
+                    ))}
+                </Route>
+            ))}
         </Route>
     </Route>
 );

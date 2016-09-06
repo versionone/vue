@@ -11,15 +11,15 @@ const indexData = lunr(function() {
     this.ref('id');
 });
 
-export const index = (path, page) => {
+export const index = (path, component, meta = {}) => {
     const id = getUniqueSearchId();
-    const dataWithId = {...page.meta, id, path};
+    const dataWithId = {...meta, id, path};
     indexData.add(dataWithId);
     dataStore = {
         ...dataStore,
         [id]: dataWithId
     };
-    return page.default;
+    return component;
 };
 
 export const search = (searchTerm) => indexData.search(searchTerm)

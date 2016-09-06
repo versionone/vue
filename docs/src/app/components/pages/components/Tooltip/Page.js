@@ -32,15 +32,4 @@ const ExamplePage = (props) => (
         <PropTypeDescription header="## PropTypes" code={exampleCode} />
     </div>
 );
-ExamplePage.meta =  {
-    ...componentPackage,
-    status: "deprecated",
-    title: 'tooltip',
-    keywords: [],
-    'see also': [
-        'dropdown',
-        'tooltip',
-        'select field'
-    ]
-};
 export default ExamplePage;

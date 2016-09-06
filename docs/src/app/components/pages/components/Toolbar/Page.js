@@ -57,12 +57,4 @@ const ToolbarPage = (props) => (
         <PropTypeDescription header="### PropTypes ToolbarSeparator" code={toolbarSeparatorCode} />
     </div>
 );
-ToolbarPage.meta =  {
-    ...pkg,
-    title: 'Toolbar',
-    keywords: [],
-    'see also': [
-        'app bar'
-    ]
-};
 export default ToolbarPage;

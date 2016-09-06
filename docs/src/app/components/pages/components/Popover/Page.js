@@ -32,14 +32,4 @@ const PopoverPage = (props) => (
         <PropTypeDescription header="### PropTypes" code={popoverCode} />
     </div>
 );
-PopoverPage.meta = {
-    ...popoverPackage,
-    title: 'Popover',
-    keywords: [],
-    'see also': [
-        'dropdown',
-        'tooltip',
-        'select field'
-    ]
-};
 export default PopoverPage;

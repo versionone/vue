@@ -47,7 +47,7 @@ class Master extends Component {
     componentWillReceiveProps(nextProps, nextContext) {
         const newMuiTheme = nextContext.muiTheme ? nextContext.muiTheme : this.state.muiTheme;
         this.setState({
-            muiTheme: newMuiTheme,
+            muiTheme: newMuiTheme
         });
     }
 
@@ -115,14 +115,15 @@ class Master extends Component {
             children,
         } = this.props;
 
-        const componentMenuItems = componentRoutes.map((menuItemRoute) => ({
-            title: menuItemRoute.component.meta.title,
-            path: menuItemRoute.path,
-            nestedMenuItems: menuItemRoute.nestedMenuItems.map((menuItem) => ({
-                title: menuItem.component.meta.title,
-                path: menuItem.path
-            }))
-        }));
+        const componentMenuItems = componentRoutes.map((rootMenuItem => ({
+                title: rootMenuItem.meta.title,
+                path: rootMenuItem.path,
+                nestedMenuItems: rootMenuItem.nestedMenuItems.map((menuItem) => ({
+                    title: menuItem.meta.title,
+                    path: menuItem.path,
+                }))
+            })
+        ));
 
         const {
             prepareStyles,
@@ -171,7 +172,7 @@ class Master extends Component {
                         onRequestChangeNavDrawer={this.handleChangeRequestNavDrawer}
                         onChangeList={this.handleChangeList}
                         open={navDrawerOpen}
-                        componentMenuItems={componentMenuItems}
+                        menuItems={componentMenuItems}
                     />
                     <FullWidthSection style={styles.footer}>
                         <IconButton

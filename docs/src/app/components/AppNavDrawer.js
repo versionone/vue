@@ -41,7 +41,7 @@ class AppNavDrawer extends Component {
         onRequestChangeNavDrawer: PropTypes.func.isRequired,
         open: PropTypes.bool.isRequired,
         style: PropTypes.object,
-        componentMenuItems: PropTypes.arrayOf(PropTypes.shape({
+        menuItems: PropTypes.arrayOf(PropTypes.shape({
             title: PropTypes.string.isRequired,
             path: PropTypes.string.isRequired,
             nestedMenuItems: PropTypes.arrayOf(PropTypes.shape({
@@ -124,7 +124,7 @@ class AppNavDrawer extends Component {
             onChangeList,
             open,
             style,
-            componentMenuItems
+            menuItems
         } = this.props;
 
         return (
@@ -198,7 +198,7 @@ class AppNavDrawer extends Component {
                             />,
                         ]} />
                 </SelectableList>
-                {componentMenuItems.map((menuItemRoot, menuItemIndex) => (
+                {menuItems.map((menuItemRoot, menuItemIndex) => (
                     <SelectableList
                         value={menuItemRoot.path}
                         onChange={onChangeList}
@@ -206,12 +206,11 @@ class AppNavDrawer extends Component {
                         <ListItem
                             primaryText={menuItemRoot.title}
                             primaryTogglesNestedList={true}
-                            nestedItems={menuItemRoot.nestedMenuItems.map((item, nestedMenuItemIndex) => {
-                                console.log(item.title);
-                                return <ListItem primaryText={item.title}
-                                                 value={`#/components/${item.path}`}
-                                                 href={`#/components/${item.path}`} key={nestedMenuItemIndex} />
-                            })} />
+                            nestedItems={menuItemRoot.nestedMenuItems.map((item, nestedMenuItemIndex) =>(
+                                <ListItem primaryText={item.title}
+                                          value={`#/components/${item.path}`}
+                                          href={`#/components/${item.path}`} key={nestedMenuItemIndex} />
+                            ))} />
                     </SelectableList>
                 ))}
                 <Divider />

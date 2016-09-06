@@ -1,5 +1,6 @@
 import ContentWithPlaygroundPage from './../components/ContentWithPlayground';
 import Colors from './../components/pages/foundations/Colors';
+import InlineDialog from './../components/pages/patterns/InlineDialog';
 import Popover from './../components/pages/components/Popover/Page';
 import Toolbar from './../components/pages/components/Toolbar/Page';
 import Tooltip from './../components/pages/components/Tooltip/Page';
@@ -21,6 +22,25 @@ export default [
                     keywords: []
                 },
                 component: Colors
+            }
+        ]
+    },
+    {
+        path: 'patterns',
+        meta: {
+            title: 'Patterns',
+            description: '',
+            keywords: []
+        },
+        nestedMenuItems: [
+            {
+                path: 'inlineDialog',
+                meta: {
+                    title: 'Inline Dialog',
+                    description: '',
+                    keywords: ['dropdown', 'modal', 'tooltip']
+                },
+                component: InlineDialog
             }
         ]
     },

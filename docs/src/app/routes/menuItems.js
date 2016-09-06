@@ -10,6 +10,7 @@ export default [
         path: 'foundations',
         meta: {
             title: 'Foundations',
+            description: '',
             keywords: []
         },
         component: ContentPage,
@@ -18,6 +19,7 @@ export default [
                 path: 'colors',
                 meta: {
                     title: 'Colors',
+                    description: '',
                     keywords: []
                 },
                 component: Colors
@@ -28,6 +30,7 @@ export default [
         path: 'components',
         meta: {
             title: 'Components',
+            description: '',
             keywords: []
         },
         component: ContentWithPlaygroundPage,
@@ -36,6 +39,7 @@ export default [
                 path: 'popover',
                 meta: {
                     title: 'Popover',
+                    description: '',
                     keywords: ['dropdown']
                 },
                 component: Popover
@@ -44,6 +48,7 @@ export default [
                 path: 'toolbar',
                 meta: {
                     title: 'Toolbar',
+                    description: '',
                     keywords: ['dropdown']
                 },
                 component: Toolbar
@@ -52,6 +57,7 @@ export default [
                 path: 'tooltip',
                 meta: {
                     title: 'Tooltip',
+                    description: '',
                     keywords: ['dropdown']
                 },
                 component: Tooltip

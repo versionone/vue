@@ -3,16 +3,13 @@ import Chip from 'material-ui/Chip';
 import IconButton from 'material-ui/IconButton';
 
 export default class TooltipSimpleExample extends React.Component {
-
-    constructor(props) {
-        super(props);
+    constructor(...rest) {
+        super(...rest);
 
         this.state = {
             open: false,
         };
     }
-
-
 
     render() {
         return (

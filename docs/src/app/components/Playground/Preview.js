@@ -9,8 +9,7 @@ import v1Theme from 'vue/styles/themes/v1Theme';
 
 const ERROR_TIMEOUT = 500;
 const theme = Vue.Theme.getTheme(v1Theme);
-const trimImportsRegularExpression = new RegExp('import .*([\n\r])*', 'g');
-const exportDefaultRegularExpression = new RegExp('export default');
+
 class Preview extends Component {
     static propTypes = {
         code: PropTypes.string.isRequired,
@@ -82,11 +81,11 @@ class Preview extends Component {
     };
 
     compileCode = (scope) => (code) => {
-        const trimmedImportsInCode = code.replace(trimImportsRegularExpression, '').replace(exportDefaultRegularExpression, '');
-        const transformedCode = transform(trimmedImportsInCode, {presets: babel.presets}).code;
+        const wrappedCode = `const example = () => {return ${code}};`;
+        const transformedCode = transform(wrappedCode, {presets: babel.presets}).code.replace('"use strict";', '');
         return `(function (${Object.keys(scope).join(', ')}, mountNode) {
         ${transformedCode}
-        return Example;
+        return example();
       });`
     };
 

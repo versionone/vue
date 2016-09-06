@@ -2,8 +2,7 @@ import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import Popover from 'vue/Popover';
 
-export default class Example extends React.Component {
-
+export default class SimpleExample extends React.Component {
     constructor(props) {
         super(props);
 

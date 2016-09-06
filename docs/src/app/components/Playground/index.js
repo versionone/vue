@@ -6,6 +6,9 @@ import {desktopGutter} from 'vue/styles/themes/v1Theme/spacing';
 import Editor from './Editor';
 import Preview from './Preview';
 
+const trimImportsRegularExpression = new RegExp('import .*([\n\r])*', 'g');
+const exportDefaultRegularExpression = new RegExp('export default');
+
 const styles = {
     drawerContents: {
         display: 'flex',
@@ -92,8 +95,12 @@ class PlaygroundDrawer extends Component {
     };
 
     loadCode(code) {
-        this.refs.editor.setCode(code);
+        this.refs.editor.setCode(this.prepareCodeToBeLoaded(code));
     }
+
+    prepareCodeToBeLoaded = (code) => {
+        return code.replace(trimImportsRegularExpression, '').replace(exportDefaultRegularExpression, '');
+    };
 
     handleTouchTapHeader = () => {
         this.props.onRequestChange(false);

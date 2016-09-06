@@ -1,4 +1,3 @@
-import ContentPage from './../components/ContentPage';
 import ContentWithPlaygroundPage from './../components/ContentWithPlayground';
 import Colors from './../components/pages/foundations/Colors';
 import Popover from './../components/pages/components/Popover/Page';
@@ -13,7 +12,6 @@ export default [
             description: '',
             keywords: []
         },
-        component: ContentPage,
         nestedMenuItems: [
             {
                 path: 'colors',

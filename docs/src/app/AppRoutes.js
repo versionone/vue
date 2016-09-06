@@ -28,13 +28,16 @@ const AppRoutes = (
         <Route path="home" component={Home} />
         <Route component={ContentPage}>
             <Route path="search/:searchTerm" component={SearchResults} />
-            {menuItems.map((rootMenuItem, i) => (
-                <Route path={rootMenuItem.path} component={rootMenuItem.component} key={i}>
-                    {rootMenuItem.nestedMenuItems.map((menuItem, menuItemIndex) => (
-                        <Route path={menuItem.path} component={index(`${rootMenuItem.path}/${menuItem.path}`, menuItem.component, menuItem.meta)} key={menuItemIndex} />
-                    ))}
-                </Route>
-            ))}
+            {menuItems.map((rootMenuItem, i) => {
+                const componentProp = rootMenuItem.component ? {component: rootMenuItem.component} : {};
+                return (
+                    <Route path={rootMenuItem.path} {...componentProp} key={i}>
+                        {rootMenuItem.nestedMenuItems.map((menuItem, menuItemIndex) => (
+                            <Route path={menuItem.path} component={index(`${rootMenuItem.path}/${menuItem.path}`, menuItem.component, menuItem.meta)} key={menuItemIndex} />
+                        ))}
+                    </Route>
+                );
+            })}
         </Route>
     </Route>
 );

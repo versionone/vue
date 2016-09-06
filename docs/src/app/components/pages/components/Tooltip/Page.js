@@ -32,8 +32,7 @@ const ExamplePage = (props) => (
         <PropTypeDescription header="## PropTypes" code={exampleCode} />
     </div>
 );
-export default ExamplePage;
-export const meta = {
+ExamplePage.meta =  {
     ...componentPackage,
     status: "deprecated",
     title: 'tooltip',
@@ -44,3 +43,4 @@ export const meta = {
         'select field'
     ]
 };
+export default ExamplePage;

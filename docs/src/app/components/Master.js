@@ -11,7 +11,7 @@ import withWidth from 'material-ui/utils/withWidth';
 import v1Theme from 'vue/styles/themes/v1Theme';
 import ThemeProvider, {getTheme} from 'vue/Theme';
 import {gunSmoke} from 'vue/styles/themes/v1Theme/colors';
-import componentRoutes from './../routes/components';
+import componentRoutes from '../routes/menuItems';
 
 class Master extends Component {
     static propTypes = {
@@ -115,11 +115,14 @@ class Master extends Component {
             children,
         } = this.props;
 
-        const componentMenuItems = componentRoutes.map((route, index) =>({
-                menuLabel: route.component.meta.name,
-                path: route.path
-            })
-        );
+        const componentMenuItems = componentRoutes.map((menuItemRoute) => ({
+            title: menuItemRoute.component.meta.title,
+            path: menuItemRoute.path,
+            nestedMenuItems: menuItemRoute.nestedMenuItems.map((menuItem) => ({
+                title: menuItem.component.meta.title,
+                path: menuItem.path
+            }))
+        }));
 
         const {
             prepareStyles,

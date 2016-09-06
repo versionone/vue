@@ -32,8 +32,7 @@ const PopoverPage = (props) => (
         <PropTypeDescription header="### PropTypes" code={popoverCode} />
     </div>
 );
-export default PopoverPage;
-export const meta = {
+PopoverPage.meta = {
     ...popoverPackage,
     title: 'Popover',
     keywords: [],
@@ -43,3 +42,4 @@ export const meta = {
         'select field'
     ]
 };
+export default PopoverPage;

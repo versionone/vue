@@ -8,6 +8,11 @@ import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import {gunSmoke, grey200, darkWhite} from 'vue/styles/themes/v1Theme/colors';
 
 class HomePage extends Component {
+    static meta = {
+        title: 'Home',
+        keywords: [],
+        status: null
+    };
 
     static propTypes = {
         width: PropTypes.number.isRequired,

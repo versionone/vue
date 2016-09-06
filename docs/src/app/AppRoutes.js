@@ -10,7 +10,7 @@ import Colors from './components/pages/foundations/V1Colors';
 import Themes from './components/pages/foundations/Themes';
 import Styles from './components/pages/foundations/Styles';
 import * as InlineDialog from './components/pages/Patterns/InlineDialog'
-import ComponentRoutes from './routes/components';
+import ComponentRoutes from './routes/menuItems';
 // Here we define all our material-ui ReactComponents.
 
 /**

@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import Title from 'react-title-component';
-import SearchResult from './../SearchResult';
-import {search} from '../../searchIndex';
+import SearchResult from './SearchResult';
+import {search} from './../searchIndex';
 import {List, ListItem, MakeSelectable} from 'material-ui/List';
 const SelectableList = MakeSelectable(List);
 

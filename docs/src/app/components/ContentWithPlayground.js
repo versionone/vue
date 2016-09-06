@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import PlaygroundDrawer from './../Playground';
+import PlaygroundDrawer from './Playground';
 
 class ContentPage extends Component {
     static propTypes = {

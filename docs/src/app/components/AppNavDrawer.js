@@ -154,62 +154,18 @@ class AppNavDrawer extends Component {
                 <div style={styles.search}>
                     <SearchField />
                 </div>
-                <SelectableList
-                    value=""
-                    onChange={this.handleRequestChangeLink}>
-                    <ListItem
-                        primaryText="Foundations"
-                        primaryTogglesNestedList={true}
-                        nestedItems={[
-                            <ListItem primaryText="Colors" value="#/foundations/colors" />,
-                            <ListItem primaryText="Fonts" value="#/foundations/colors" />,
-                            <ListItem primaryText="Icons" value="#/foundations/colors" />,
-                            <ListItem primaryText="Headings" value="#/foundations/colors" />,
-                            <ListItem primaryText="Layout" value="#/foundations/colors" />,
-                            <ListItem primaryText="Typography" value="#/foundations/colors" />
-                        ]} />
-                </SelectableList>
-                <SelectableList
-                    value=""
-                    onChange={this.handleRequestChangeLink}>
-                    <ListItem
-                        primaryText="Patterns"
-                        primaryTogglesNestedList={true}
-                        nestedItems={[
-                            <ListItem
-                                primaryText="Inline Dialog"
-                                value="#/patterns/inlineDialog"
-                                href="#/patterns/inlineDialog"
-                            />,
-                            <ListItem
-                                primaryText="Advanced Dialog"
-                                value="#/patterns/inlineDialog"
-                                href="#/patterns/inlineDialog"
-                            />,
-                            <ListItem
-                                primaryText="Notifications"
-                                value="#/patterns/inlineDialog"
-                                href="#/patterns/inlineDialog"
-                            />,
-                            <ListItem
-                                primaryText="Tooltip"
-                                value="#/patterns/inlineDialog"
-                                href="#/patterns/inlineDialog"
-                            />,
-                        ]} />
-                </SelectableList>
-                {menuItems.map((menuItemRoot, menuItemIndex) => (
+                {menuItems.map((rootMenuItem, menuItemIndex) => (
                     <SelectableList
-                        value={menuItemRoot.path}
+                        value={rootMenuItem.path}
                         onChange={onChangeList}
                         key={menuItemIndex}>
                         <ListItem
-                            primaryText={menuItemRoot.title}
+                            primaryText={rootMenuItem.title}
                             primaryTogglesNestedList={true}
-                            nestedItems={menuItemRoot.nestedMenuItems.map((item, nestedMenuItemIndex) =>(
+                            nestedItems={rootMenuItem.nestedMenuItems.map((item, nestedMenuItemIndex) =>(
                                 <ListItem primaryText={item.title}
-                                          value={`#/components/${item.path}`}
-                                          href={`#/components/${item.path}`} key={nestedMenuItemIndex} />
+                                          value={`#/${rootMenuItem.path}/${item.path}`}
+                                          href={`#/${rootMenuItem.path}/${item.path}`} key={nestedMenuItemIndex} />
                             ))} />
                     </SelectableList>
                 ))}

@@ -27,8 +27,6 @@ const AppRoutes = (
         <IndexRoute component={Home} />
         <Route path="home" component={Home} />
         <Route component={ContentPage}>
-            <Redirect from="get-started" to="/get-started/prerequisites" />
-            <Redirect from="patterns" to="/patterns/themes" />
             <Route path="search/:searchTerm" component={SearchResults} />
             {menuItems.map((rootMenuItem, i) => (
                 <Route path={rootMenuItem.path} component={rootMenuItem.component} key={i}>

@@ -1,5 +1,6 @@
 /src
 .editorconfig
+.eslintrc
 .gitignore
 specSetup.js
 wallaby.js

@@ -1,8 +1,7 @@
 {
   "name": "@versionone/vue",
   "version": "1.0.0",
-  "description": "Common UI components developed and used by VersionOne; built with React.",
-  "main": "dist/index.js",
+  "description": "Open-source and community supported collection of common UI components built with React. As an open-sourced and community supported project, VersionOne Vue is not formally supported by VersionOne.",
   "repository": {
     "type": "git",
     "url": "https://github.com/versionone/vue.git"
@@ -26,7 +25,7 @@
     "VersionOne",
     "UI"
   ],
-  "author": "Andrew Smith <andrew@WeAreSoftwareCraftsmen.com>",
+  "author": "Andrew Smith <andrew@andrew.codes>",
   "license": "MIT",
   "babel": {
     "presets": [

@@ -4,9 +4,10 @@ const getUniqueSearchId = unique();
 let dataStore = {};
 
 const indexData = lunr(function() {
-    this.field('title', {boost: 10});
-    this.field('keywords', {boost: 15});
+    this.field('title', {boost: 15});
+    this.field('keywords', {boost: 10});
     this.field('status');
+    this.field('see also', {boost: 5});
     this.ref('id');
 });
 

@@ -15,7 +15,8 @@ const config = {
         extensions: ['', '.js', '.md', '.txt'],
         alias: {
             // material-ui requires will be searched in src folder, not in node_modules
-            'vue': path.resolve(__dirname, '../src')
+            'vue': path.resolve(__dirname, '../src'),
+            'vue-docs': path.resolve(__dirname, 'src', 'app', 'components')
         }
     },
     devtool: 'source-map',
@@ -51,10 +52,10 @@ const config = {
         new webpack.NoErrorsPlugin(),
         // Transfer Files
         new CopyWebpackPlugin([
-            {from: 'src/www/css', to: 'css'},
-            {from: 'src/www/images', to: 'images'},
-            {from: 'src/www/index.html'},
-            {from: 'src/www/versions.json'}
+            {from: 'www/css', to: 'css'},
+            {from: 'www/images', to: 'images'},
+            {from: 'www/index.html'},
+            {from: 'www/versions.json'}
         ])
     ],
     module: {

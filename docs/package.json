@@ -27,6 +27,7 @@
     "react-tap-event-plugin": "^1.0.0",
     "react-title-component": "^1.0.1",
     "simple-assign": "^0.1.0",
+    "underscore": "^1.8.3",
     "uniqueid": "^1.0.0"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-const buildPath = path.resolve(__dirname, 'src/www');
+const buildPath = path.resolve(__dirname, 'www');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const config = {
@@ -17,12 +17,13 @@ const config = {
         extensions: ['', '.js', '.md', '.txt'],
         alias: {
             // material-ui requires will be searched in src folder, not in node_modules
-            'vue': path.resolve(__dirname, '../src')
+            'vue': path.resolve(__dirname, '../src'),
+            'vue-docs': path.resolve(__dirname, 'src', 'app', 'components')
         }
     },
     // Configuration for dev server
     devServer: {
-        contentBase: 'src/www',
+        contentBase: 'www',
         devtool: 'eval',
         hot: true,
         inline: true,
@@ -42,7 +43,7 @@ const config = {
         // Allows error warninggs but does not stop compiling. Will remove when eslint is added
         new webpack.NoErrorsPlugin(),
         new CopyWebpackPlugin([
-            {from: 'src/www/index.html'}
+            {from: 'www/index.html'}
         ])
     ],
     module: {

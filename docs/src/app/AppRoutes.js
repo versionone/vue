@@ -3,14 +3,13 @@ import {Route, IndexRoute} from 'react-router';
 import camelCase from 'camelcase';
 import Master from './components/Master';
 import ContentPage from './components/ContentPage';
+import Page from './components/Page';
 import ComponentPage from './components/ComponentPage';
 import SearchResults from './components/SearchResults';
 import Home from './components/pages/Home';
-import menuItems from './routes/menuItems';
 import injectPageMeta from './injectPageMeta';
-import componentsMeta from './../../componentsMeta';
-
-const isNotComponentMenuGroup = () => (menuItem) => menuItem.meta.title !== 'Components';
+import componentsMeta from './../../componentPagesMeta';
+import pages from './../../pagesMeta';
 
 // Here we define all our material-ui ReactComponents.
 
@@ -34,17 +33,11 @@ const AppRoutes = (
                 const componentMeta = componentsMeta[componentId];
                 callback(null, injectPageMeta(componentMeta)(ComponentPage));
             }} />
-            {menuItems
-                .filter(isNotComponentMenuGroup())
-                .map((rootMenuItem, i) => (
-                    <Route path={rootMenuItem.path} key={i}>
-                        {rootMenuItem.nestedMenuItems.map((menuItem, menuItemIndex) => (
-                            <Route path={menuItem.path}
-                                   component={menuItem.component}
-                                   key={menuItemIndex} />
-                        ))}
-                    </Route>
-                ))}
+            <Route path="page/:pageName" getComponent={(nextState, callback) => {
+                const pageId = camelCase(nextState.params.pageName);
+                const pageMeta = pages.find((page) => camelCase(page.title) === pageId);
+                callback(null, injectPageMeta(pageMeta)(pageMeta.component && pageMeta.component.default ? pageMeta.component.default : Page));
+            }} />
         </Route>
     </Route>
 );

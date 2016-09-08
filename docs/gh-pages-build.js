@@ -8,7 +8,7 @@ var pkg = require('./../package.json');
 var execSync = require('child_process').execSync;
 
 var usage = '\nbuild <vn.n.n[-pre[.n]]> | <HEAD> [-p]\n';
-var versionsFile = './src/www/versions.json';
+var versionsFile = './www/versions.json';
 
 // Read the command-line args
 var args = process.argv;

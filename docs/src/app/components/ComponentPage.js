@@ -10,7 +10,6 @@ export default class ComponentPage extends Component {
     static propTypes = {
         name: PropTypes.string,
         status: PropTypes.string,
-        isDeprecated: PropTypes.bool,
         readme: PropTypes.string,
         examples: PropTypes.arrayOf(PropTypes.shape({
             title: PropTypes.string,
@@ -24,8 +23,7 @@ export default class ComponentPage extends Component {
     };
 
     static defaultProps = {
-        examples: [],
-        isDeprecated: false
+        examples: []
     };
 
     state = {

@@ -12,7 +12,7 @@ export const getStyles = (props, context) => ({
     }
 });
 
-export default class ToolbarTitle extends Component {
+class ToolbarTitle extends Component {
     static propTypes = {
         children: PropTypes.node,
         text: PropTypes.string.isRequired,
@@ -44,3 +44,4 @@ export default class ToolbarTitle extends Component {
         );
     }
 }
+export default ToolbarTitle;

@@ -40,7 +40,7 @@ const getStyles = (props, context) => {
     };
 };
 
-export default class Toolbar extends Component {
+class Toolbar extends Component {
     static propTypes = {
         children: CustomPropTypes.oneOfComponentType([
             ToolbarTitle,
@@ -83,3 +83,4 @@ export default class Toolbar extends Component {
         );
     }
 }
+export default Toolbar;

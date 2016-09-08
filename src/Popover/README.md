@@ -1,5 +1,3 @@
-## Popovers
-
 Popovers are containers for supporting content that are displayed on user request. If complex interactions are needed consider using 'xxxxx' as an alternative.
 
 ### Behaviors
@@ -12,3 +10,7 @@ Popovers are containers for supporting content that are displayed on user reques
 ### Variations
 * 'Tooltip'
 * 'Advanced Dialogs'
+
+## Note
+
+The `event.preventDefault();` in the examples above is to prevent an effect called [ghost click](http://ariatemplates.com/blog/2014/05/ghost-clicks-in-mobile-browsers/) that happens with touch-devices. It is recommended that you add that call whenever you handle a `TouchTap` event associated with closing/opening `Popover`.

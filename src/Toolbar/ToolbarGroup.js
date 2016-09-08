@@ -18,7 +18,7 @@ export const getStyles = (props) => ({
     }
 });
 
-export default class ToolbarGroup extends Component {
+class ToolbarGroup extends Component {
     static propTypes = {
         children: PropTypes.node,
         className: PropTypes.string,
@@ -62,3 +62,4 @@ export default class ToolbarGroup extends Component {
         );
     }
 }
+export default ToolbarGroup;

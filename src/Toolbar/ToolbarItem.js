@@ -21,7 +21,7 @@ export const getStyles = (props, context) => ({
     }
 });
 
-export default class ToolbarItem extends Component {
+class ToolbarItem extends Component {
     static propTypes = {
         children: PropTypes.node,
         label: PropTypes.string,
@@ -63,3 +63,4 @@ export default class ToolbarItem extends Component {
         );
     }
 }
+export default ToolbarItem;

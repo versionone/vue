@@ -8,25 +8,24 @@ import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import {gunSmoke, grey200, darkWhite} from 'vue/styles/themes/v1Theme/colors';
 
 class HomePage extends Component {
-    static meta = {
-        title: 'Home',
-        keywords: [],
-        status: null
-    };
-
     static propTypes = {
         width: PropTypes.number.isRequired,
+        style: PropTypes.object
+    };
+
+    static defaultProps = {
+        style: {}
     };
 
     static contextTypes = {
-        router: PropTypes.object.isRequired,
+        router: PropTypes.object.isRequired
     };
 
     homePageHero() {
         const styles = {
             root: {
                 backgroundColor: gunSmoke,
-                overflow: 'hidden',
+                overflow: 'hidden'
             },
             svgLogo: {
                 marginLeft: window.innerWidth * 0.5 - 130
@@ -34,16 +33,16 @@ class HomePage extends Component {
             tagline: {
                 margin: '16px auto 0 auto',
                 textAlign: 'center',
-                maxWidth: 575,
+                maxWidth: 575
             },
             label: {
-                color: lightBaseTheme.palette.primary1Color,
+                color: lightBaseTheme.palette.primary1Color
             },
             githubStyle: {
-                margin: '16px 32px 0px 8px',
+                margin: '16px 32px 0px 8px'
             },
             demoStyle: {
-                margin: '16px 32px 0px 32px',
+                margin: '16px 32px 0px 32px'
             },
             h1: {
                 color: darkWhite,
@@ -55,21 +54,21 @@ class HomePage extends Component {
                 lineHeight: '28px',
                 paddingTop: 19,
                 marginBottom: 13,
-                letterSpacing: 0,
+                letterSpacing: 0
             },
             nowrap: {
-                whiteSpace: 'nowrap',
+                whiteSpace: 'nowrap'
             },
             taglineWhenLarge: {},
             h1WhenLarge: {
-                fontSize: 86,
+                fontSize: 86
             },
             h2WhenLarge: {
                 fontSize: 24,
                 lineHeight: '32px',
                 paddingTop: 32,
-                marginBottom: 12,
-            },
+                marginBottom: 12
+            }
         };
 
         styles.h2 = Object.assign({}, styles.h1, styles.h2);
@@ -103,7 +102,7 @@ class HomePage extends Component {
     homePurpose() {
         const styles = {
             root: {
-                backgroundColor: grey200,
+                backgroundColor: grey200
             },
             content: {
                 maxWidth: 700,
@@ -115,8 +114,8 @@ class HomePage extends Component {
                 paddingTop: 19,
                 marginBottom: 13,
                 letterSpacing: 0,
-                color: typography.textDarkBlack,
-            },
+                color: typography.textDarkBlack
+            }
         };
 
         return (
@@ -125,54 +124,29 @@ class HomePage extends Component {
                 useContent={true}
                 contentStyle={styles.content}
                 contentType="p"
-                className="home-purpose"
-            >
-          Vue is a window to the collection of patterns and components found within the VersionOne application.
-          Vue’s purpose is to expedite development and prevent team member silos by promoting communication throughout the feature cycle.
-          Vue empowers the teams to build with a consistent UI and codebase.
+                className="home-purpose">
+                Vue is an open-source and community supported collection of common UI components found withing the
+                VersionOne application; built with React. As an open-sourced and community supported project, Vue is not
+                formally supported by VersionOne. Vue empowers the teams to build with a consistent UI and codebase.
             </FullWidthSection>
         );
-    }
-
-    homeFeatures() {
-        const styles = {maxWidth: 906};
-
-    return ( '');
-    //   <FullWidthSection useContent={true} contentStyle={styles}>
-    //     <HomeFeature
-    //       heading="Get Started"
-    //       route="/get-started"
-    //       firstChild={true}
-    //     />
-    //     <HomeFeature
-    //       heading="Customization"
-    //       route="/customization"
-    //     />
-    //     <HomeFeature
-    //       heading="Components"
-    //       route="/components"
-    //       img="images/components.svg"
-    //       lastChild={true}
-    //     />
-    //   </FullWidthSection>
-    // );
     }
 
     homeContribute() {
         const styles = {
             root: {
                 backgroundColor: grey200,
-                textAlign: 'center',
+                textAlign: 'center'
             },
             h3: {
                 margin: 0,
                 padding: 0,
                 fontWeight: typography.fontWeightLight,
-                fontSize: 22,
+                fontSize: 22
             },
             button: {
-                marginTop: 32,
-            },
+                marginTop: 32
+            }
         };
 
         return (
@@ -185,12 +159,10 @@ class HomePage extends Component {
                     label="GitHub"
                     primary={true}
                     href="https://github.com/versionone/vue/"
-                    style={styles.button}
-                />
+                    style={styles.button} />
             </FullWidthSection>
         );
     }
-
 
     render() {
         const {style} = this.props;
@@ -203,7 +175,6 @@ class HomePage extends Component {
             <div style={root}>
                 {this.homePageHero()}
                 {this.homePurpose()}
-                {this.homeFeatures()}
                 {this.homeContribute()}
             </div>
         );

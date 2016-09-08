@@ -4,6 +4,7 @@
  */
 
 var fs = require('fs');
+var pkg = require('./../package.json');
 var execSync = require('child_process').execSync;
 
 var usage = '\nbuild <vn.n.n[-pre[.n]]> | <HEAD> [-p]\n';
@@ -12,11 +13,7 @@ var versionsFile = './src/www/versions.json';
 // Read the command-line args
 var args = process.argv;
 
-if (args.length < 3) {
-  exit(usage);
-}
-
-var version = args[2];
+var version = `v${pkg.version}`;
 
 // The regex isn't a perfect filter (it allows any component parts of a pre-release in the right order)
 if (!version.match(/v\d{1,2}.\d{1,2}.\d{1,2}-?\w*\.?\d{0,2}/) && version !== 'HEAD') {
@@ -136,7 +133,7 @@ function buildDocs() {
     execho('git add .. && git commit -m \'' + version + '\'');
   }
 
-  if (args[3] === '-p') {
+  if (args[2] === '-p') {
     execho('git push -f');
   }
 }

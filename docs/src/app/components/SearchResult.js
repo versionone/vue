@@ -6,11 +6,12 @@ class SearchResult extends Component {
     static propTypes = {
         title: PropTypes.string.isRequired,
         path: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired
+        readme: PropTypes.string.isRequired
     };
 
     render() {
-        const {title, description} = this.props;
+        const {title, readme} = this.props;
+        const description = `${readme.substring(0, 150)}...`;
 
         return (
             <article className="search-result">

@@ -1,16 +1,17 @@
 import React from 'react';
-import {Route, Redirect, IndexRoute} from 'react-router';
-import {index} from './searchIndex';
+import {Route, IndexRoute} from 'react-router';
+import camelCase from 'camelcase';
 import Master from './components/Master';
 import ContentPage from './components/ContentPage';
+import ComponentPage from './components/ComponentPage';
 import SearchResults from './components/SearchResults';
 import Home from './components/pages/Home';
-import ContentWithPlayground from './components/ContentWithPlayground';
-import Colors from './components/pages/foundations/V1Colors';
-import Themes from './components/pages/foundations/Themes';
-import Styles from './components/pages/foundations/Styles';
-import * as InlineDialog from './components/pages/Patterns/InlineDialog'
 import menuItems from './routes/menuItems';
+import injectPageMeta from './injectPageMeta';
+import componentsMeta from './../../componentsMeta';
+
+const isNotComponentMenuGroup = () => (menuItem) => menuItem.meta.title !== 'Components';
+
 // Here we define all our material-ui ReactComponents.
 
 /**
@@ -28,16 +29,22 @@ const AppRoutes = (
         <Route path="home" component={Home} />
         <Route component={ContentPage}>
             <Route path="search/:searchTerm" component={SearchResults} />
-            {menuItems.map((rootMenuItem, i) => {
-                const componentProp = rootMenuItem.component ? {component: rootMenuItem.component} : {};
-                return (
-                    <Route path={rootMenuItem.path} {...componentProp} key={i}>
+            <Route path="component/:componentName" getComponent={(nextState, callback) => {
+                const componentId = camelCase(nextState.params.componentName);
+                const componentMeta = componentsMeta[componentId];
+                callback(null, injectPageMeta(componentMeta)(ComponentPage));
+            }} />
+            {menuItems
+                .filter(isNotComponentMenuGroup())
+                .map((rootMenuItem, i) => (
+                    <Route path={rootMenuItem.path} key={i}>
                         {rootMenuItem.nestedMenuItems.map((menuItem, menuItemIndex) => (
-                            <Route path={menuItem.path} component={index(`${rootMenuItem.path}/${menuItem.path}`, menuItem.component, menuItem.meta)} key={menuItemIndex} />
+                            <Route path={menuItem.path}
+                                   component={menuItem.component}
+                                   key={menuItemIndex} />
                         ))}
                     </Route>
-                );
-            })}
+                ))}
         </Route>
     </Route>
 );

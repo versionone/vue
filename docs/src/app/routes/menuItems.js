@@ -1,9 +1,6 @@
-import ContentWithPlaygroundPage from './../components/ContentWithPlayground';
 import Colors from './../components/pages/foundations/Colors';
 import InlineDialog from './../components/pages/patterns/InlineDialog';
-import Popover from './../components/pages/components/Popover/Page';
-import Toolbar from './../components/pages/components/Toolbar/Page';
-import Tooltip from './../components/pages/components/Tooltip/Page';
+import componentMeta from './../../../componentsMeta';
 
 export default [
     {
@@ -45,41 +42,16 @@ export default [
         ]
     },
     {
-        path: 'components',
+        path: 'component',
         meta: {
-            title: 'Components',
-            description: '',
-            keywords: []
+            title: 'Components'
         },
-        component: ContentWithPlaygroundPage,
-        nestedMenuItems: [
-            {
-                path: 'popover',
+        nestedMenuItems: Object.keys(componentMeta)
+            .map((key) => ({
+                path: key,
                 meta: {
-                    title: 'Popover',
-                    description: '',
-                    keywords: ['dropdown']
-                },
-                component: Popover
-            },
-            {
-                path: 'toolbar',
-                meta: {
-                    title: 'Toolbar',
-                    description: '',
-                    keywords: ['dropdown']
-                },
-                component: Toolbar
-            },
-            {
-                path: 'tooltip',
-                meta: {
-                    title: 'Tooltip',
-                    description: '',
-                    keywords: ['dropdown']
-                },
-                component: Tooltip
-            }
-        ]
+                    title: componentMeta[key].name
+                }
+            }))
     }
 ];

@@ -4,22 +4,20 @@ const getUniqueSearchId = unique();
 let dataStore = {};
 
 const indexData = lunr(function() {
-    this.field('name', {boost: 10});
+    this.field('title', {boost: 10});
     this.field('keywords', {boost: 15});
-    this.field('see also', {boost: -5});
     this.field('status');
     this.ref('id');
 });
 
-export const index = (path, component, meta = {}) => {
+export const index = (path, meta = {}) => {
     const id = getUniqueSearchId();
-    const dataWithId = {...meta, id, path};
+    const dataWithId = {title: meta.name, ...meta, id, path};
     indexData.add(dataWithId);
     dataStore = {
         ...dataStore,
         [id]: dataWithId
     };
-    return component;
 };
 
 export const search = (searchTerm) => indexData.search(searchTerm)

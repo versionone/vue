@@ -12,7 +12,7 @@ function getLabelColor(status){
         case 'experimental':
             return {
                 color:'#008EC0',
-                text: 'this item is new and not fully tested use with care'
+                text: 'API may break at any time; use with caution'
             };
         case 'stable':
             return {
@@ -22,7 +22,7 @@ function getLabelColor(status){
         case 'deprecated':
             return {
                 color:'#E94800',
-                text: 'this item is going away please check with UX before using'
+                text: 'do not use; please check with UX for alternatives'
             };
         default:
             return {

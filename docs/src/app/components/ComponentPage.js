@@ -17,7 +17,10 @@ export default class ComponentPage extends Component {
             description: PropTypes.string,
             code: PropTypes.string
         })),
-        componentsSources: PropTypes.arrayOf(PropTypes.string)
+        componentsSources: PropTypes.arrayOf(PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            code: PropTypes.string.isRequired
+        }))
     };
 
     static defaultProps = {
@@ -53,8 +56,9 @@ export default class ComponentPage extends Component {
                             <example.component />
                         </CodeExample>
                     ))}
-                    {componentsSources.map((code, index) => (
-                        <PropTypeDescription header="## PropTypes" code={code} key={index} />
+                    <h2>PropTypes</h2>
+                    {componentsSources.map((componentCode, index) => (
+                        <PropTypeDescription header={`### ${componentCode.name}`} code={componentCode.code} key={index} />
                     ))}
                 </div>
             </div>

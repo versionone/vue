@@ -1,6 +1,6 @@
 {
   "name": "@versionone/vue",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Open-source and community supported collection of common UI components built with React. As an open-sourced and community supported project, VersionOne Vue is not formally supported by VersionOne.",
   "repository": {
     "type": "git",
@@ -16,9 +16,10 @@
     "lint:watch": "esw --watch --color src/**/*.js",
     "start": "cd docs && npm start && cd ../",
     "start:dev": "start-storybook -p 9001",
-    "preversion": "npm run lint && npm test && npm run clean && npm run build",
-    "prepublish": "npm test && npm run clean && npm run build",
-    "publish": "npm publish --registry http://artifactory.dev.corp.versionone.net/artifactory/api/npm/local-npm"
+    "preversion": "npm run lint && npm test && npm run build",
+    "prepublish": "npm run lint && npm test && npm run build && npm run publish:docs",
+    "publish": "npm publish --registry http://artifactory.dev.corp.versionone.net/artifactory/api/npm/local-npm",
+    "publish:docs": "cd docs && npm run gh-pages:build -p && cd ../"
   },
   "keywords": [
     "react",

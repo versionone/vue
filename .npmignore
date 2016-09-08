@@ -7,3 +7,5 @@ wallaby.js
 docs
 scripts
 .storybook
+release
+/v*

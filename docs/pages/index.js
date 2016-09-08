@@ -5,10 +5,5 @@ export default [
         menuCategory: 'Foundations',
         component: require('./foundations/Colors')
     },
-    {
-        title: 'Inline Dialogs',
-        status: 'experimental',
-        menuCategory: 'Patterns',
-        readme: require('./patterns/InlineDialog.md')
-    }
+    require('./patterns/InlineDialog.md')
 ];

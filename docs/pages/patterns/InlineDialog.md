@@ -5,7 +5,7 @@ status: experimental
 keywords:
 ---
 
-Inline Dialog is information that assists them understand the functionality and purpose of the application. Examples include [Tooltips](#/component/tooltip), [Popovers](#/component/popover), or 'Advanced Dialogs'.
+Inline Dialog is information that assists the user understand the functionality and purpose of the application. Examples include [Tooltips](#/component/tooltip), [Popovers](#/component/popover), or 'Advanced Dialogs'.
 
 ## General Behavior
 Inline Dialog is user requested information and the containers should not take over the screen.

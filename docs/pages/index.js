@@ -9,6 +9,7 @@ export default [
 
     // Patterns pages
     require('./patterns/InlineDialog.md'),
+    require('./patterns/Search.md'),
 
     // Contributing pages
     require('./contributing/Documentation.md')

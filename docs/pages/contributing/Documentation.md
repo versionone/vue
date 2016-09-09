@@ -37,8 +37,14 @@ Finally, we need to register our new page with the site. This is done by editing
 
 ```js
 export default [
+// Other pages
 require('./patterns/another page.md'),
-require('./contributing/Sample Page.md')   
+
+// Your new page
+require('./contributing/Sample Page.md'),
+
+// Other pages
+require('./patterns/some different page.md')
 ];
 ```
 

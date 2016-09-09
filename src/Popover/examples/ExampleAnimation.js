@@ -10,7 +10,7 @@ export default class PopoverExampleAnimation extends React.Component {
     super(props);
 
     this.state = {
-      open: false,
+      open: false
     };
   }
 
@@ -19,13 +19,13 @@ export default class PopoverExampleAnimation extends React.Component {
     event.preventDefault();
     this.setState({
       open: true,
-      anchorEl: event.currentTarget,
+      anchorEl: event.currentTarget
     });
   };
 
   handleRequestClose = () => {
     this.setState({
-      open: false,
+      open: false
     });
   };
 
@@ -34,16 +34,14 @@ export default class PopoverExampleAnimation extends React.Component {
       <div>
         <RaisedButton
           onTouchTap={this.handleTouchTap}
-          label="Click me"
-        />
+          label="Click me" />
         <Popover
           open={this.state.open}
           anchorEl={this.state.anchorEl}
           anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
           targetOrigin={{horizontal: 'left', vertical: 'top'}}
           onRequestClose={this.handleRequestClose}
-          animation={PopoverAnimationVertical}
-        >
+          animation={PopoverAnimationVertical}>
           <Menu>
             <MenuItem primaryText="Refresh" />
             <MenuItem primaryText="Help &amp; feedback" />

@@ -1,4 +1,4 @@
-import {white, lightWhite, darkBlack, fullBlack, gunSmoke, cyan700, grey100, grey300, grey500, cerulean} from './colors';
+import {white, lightWhite, darkBlack, fullBlack, gunSmoke, grey100, grey300, grey500, cerulean} from './colors';
 import {fade} from './../../../utilities/colorManipulator';
 import * as spacing from './spacing';
 import * as typography from './typography';
@@ -35,5 +35,5 @@ export default {
     tabs: {
         backgroundColor: gunSmoke,
         selectedTextColor: cerulean
-    },
+    }
 };

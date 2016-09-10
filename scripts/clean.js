@@ -23,10 +23,12 @@ function hasMatchingDeployedDirectory() {
 
 function deleteDeployedDirectory() {
     return function(directoryRef) {
-        rimraf(path.join(directoryRef), logDone);
+        rimraf(path.join(directoryRef), logDone(directoryRef));
     }
 }
 
-function logDone() {
-    console.log('done');
+function logDone(directoryRef) {
+    return function() {
+        console.log('cleaned', directoryRef);
+    }
 }

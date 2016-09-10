@@ -16,10 +16,9 @@
     "lint:watch": "esw --watch --color src/**/*.js",
     "start": "cd docs && npm start && cd ../",
     "start:dev": "start-storybook -p 9001",
-    "preversion": "npm run lint && npm test && npm run build",
-    "prepublish": "npm test && npm run build",
+    "preversion": "npm run lint && npm test",
+    "publish": "npm run lint && npm run test && npm run build && npm publish --registry http://artifactory.dev.corp.versionone.net/artifactory/api/npm/local-npm",
     "postpublish": "npm run clean && npm run publish:docs",
-    "publish": "npm publish --registry http://artifactory.dev.corp.versionone.net/artifactory/api/npm/local-npm",
     "publish:docs": "cd docs && npm run gh-pages:build -p && cd ../"
   },
   "keywords": [

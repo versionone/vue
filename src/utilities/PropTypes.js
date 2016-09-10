@@ -30,7 +30,7 @@ export const componentType = (type) => (props, propName, componentName) => {
 export const oneOfComponentType = (types) => (props, propName, componentName) => {
     const prop = props[propName];
     const typeNames = types.map((type) => type.name);
-    const typeNamesForError = typeNames.map((name)=> `\`${name}\``).join(', ');
+    const typeNamesForError = typeNames.map((name) => `\`${name}\``).join(', ');
     if (propName === 'children') {
         const childrenNames = React.Children.toArray(prop).map((child) => child.type.name);
         for (var index = 0; index < childrenNames.length; index++) {
@@ -54,3 +54,7 @@ export const origin = PropTypes.shape({
 });
 
 export const zDepth = PropTypes.oneOf([0, 1, 2, 3, 4, 5]);
+
+export const theme = PropTypes.shape({
+    prepareStyles: PropTypes.func.isRequired
+});

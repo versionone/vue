@@ -25,6 +25,7 @@ module.exports = function(wallaby) {
     return {
         files: [
             {pattern: 'specSetup.js'},
+            {pattern: 'specHelpers/*.js'},
             {pattern: 'src/**'},
             {pattern: '!src/**/Stories.js'},
             {pattern: '!src/**/*.spec.js'}

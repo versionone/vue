@@ -1,68 +1,88 @@
 import React, {Component, PropTypes} from 'react';
+import {findDOMNode} from 'react-dom';
 import * as CustomPropTypes from './../utilities/PropTypes';
+import HintText from '../shared/HintText';
+import RequiredIndicator from '../shared/RequiredIndicator';
 
 const getStyles = (theme, props, state) => {
-    // Things to pull from a theme/be configurable/not functional styles-ish
-    const height = '48px';
-    const fontSize = '16px';
+    // TODO: pull out into theme/css/etc.
+    const height = 48;
+    const fontSize = 16;
     const fontFamily = 'Arial';
+    const lineHeight = 24;
+    const hintTextOffset = state.hintTextHeight - lineHeight;
 
     const rootDefaultStyles = {
         position: 'relative',
-        width: `${props.width}px`,
-        height: height,
-        lineHeight: '24px',
+        width: props.fullWidth ? '100%' : `${props.width}px`,
+        height: `${height}px`,
+        lineHeight: `${lineHeight}px`,
         display: 'inline-block',
         transition: 'height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
         backgroundColor: 'transparent'
     };
     const hintTextDefaultStyles = {
         position: 'absolute',
-        width: '100%',
-        bottom: '12px',
-        transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
-        fontSize,
-        fontFamily,
-        color: 'rgba(0, 0, 0, 0.298039)'
+        top: hintTextOffset > 0 ? `-${hintTextOffset}px` : 0,
+        font: fontFamily,
+        fontSize: `${fontSize}px`
+    };
+    const inputWrapperDefaultStyles = {
+        display: 'flex'
     };
     const inputDefaultStyles = {
+        flex: 1,
         width: '100%',
         background: 'rgba(0, 0, 0, 0)',
         border: 'none',
         height: '100%',
         outline: 'none',
-        fontSize,
-        fontFamily,
-        position: 'relative'
+        font: fontFamily,
+        fontSize: `${fontSize}px`,
+        position: 'relative',
+        cursor: props.disabled ? 'not-allowed' : 'initial'
+    };
+    const requiredIndicatorDefaultStyles = {
+        alignSelf: 'center'
     };
     const underlineDefaultStyles = {
-      margin: 0
+        margin: 0
     };
 
     return theme.prepareStyles({
         root: rootDefaultStyles,
         hintText: {
             ...hintTextDefaultStyles,
-            ...props.hintTextStyle,
-            opacity: props.hintText && !state.value ? 1 : 0
+            ...props.hintTextStyle
         },
+        inputWrapper: inputWrapperDefaultStyles,
         input: inputDefaultStyles,
+        requiredIndicator: requiredIndicatorDefaultStyles,
         underline: underlineDefaultStyles
     });
 };
 
 class TextEntryField extends Component {
     static propTypes = {
+        disabled: PropTypes.bool,
+        fullWidth: PropTypes.bool,
         hintText: PropTypes.string,
         hintTextStyle: CustomPropTypes.style,
+        onChange: PropTypes.func,
+        required: PropTypes.bool,
         width: PropTypes.number,
         value: PropTypes.string
     };
 
     static defaultProps = {
-        value: '',
+        disabled: false,
+        fullWidth: false,
+        hintTextStyle: {},
+        onChange: () => {
+        },
+        required: false,
         width: 256,
-        hintTextStyle: {}
+        value: ''
     };
 
     static contextTypes = {
@@ -72,18 +92,37 @@ class TextEntryField extends Component {
     constructor(props, ...rest) {
         super(props, ...rest);
         this.state = {
-            value: props.value
+            hintTextHeight: 24,
+            hasValue: !!props.value
         };
     }
 
+    componentDidMount() {
+        this.setState({
+            hintTextHeight: findDOMNode(this.refs.hintText).getBoundingClientRect().height
+        });
+    }
+    componentDidReceiveProps(nextProps) {
+        this.setState({
+            hasValue: !!nextProps.value,
+            hintTextHeight: findDOMNode(this.refs.hintText).getBoundingClientRect().height
+        });
+    }
+
+
     render() {
         const styles = getStyles(this.context.theme, this.props, this.state);
-        const {value, hintText} = this.props;
+        const {disabled, value, hintText, required} = this.props;
+        const {hasValue} = this.state;
 
         return (
             <div style={styles.root}>
-                <div className="hint-text" style={styles.hintText}>{hintText}</div>
-                <input style={styles.input} type="text" defaultValue={value} onKeyUp={this.handleKeyUp} />
+                <HintText ref="hintText" text={hintText} style={styles.hintText} hidden={hasValue} />
+                <div style={styles.inputWrapper}>
+                    <input style={styles.input} type="text" defaultValue={value} onChange={this.handleChange}
+                           disabled={disabled} />
+                    <RequiredIndicator hidden={!required} style={styles.requiredIndicator} />
+                </div>
                 <div>
                     <hr style={styles.underline} />
                 </div>
@@ -91,10 +130,11 @@ class TextEntryField extends Component {
         );
     }
 
-    handleKeyUp = (evt) => {
+    handleChange = (evt) => {
         this.setState({
-            value: evt.target.value
-        })
+            hasValue: !!evt.target.value
+        });
+        this.props.onChange && this.props.onChange(evt.target.value);
     }
 }
 export default TextEntryField;

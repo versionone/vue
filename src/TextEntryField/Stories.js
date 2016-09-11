@@ -3,15 +3,27 @@ import {storiesOf} from '@kadira/storybook';
 import TextEntryField from './';
 
 storiesOf('TextEntryField')
-    .addWithInfo('no value, long hint',
+    .addWithInfo('long hint text',
         ``,
         () => (
-            <TextEntryField hintText="placeholder text that is a really long hint text" />
+            <TextEntryField hintText="hint text is super duper long, so long in fact, that it just may be unbelievable" />
+        )
+    )
+    .addWithInfo('disabled',
+        ``,
+        () => (
+            <TextEntryField hintText="hint text" disabled />
+        )
+    )
+    .addWithInfo('required',
+        ``,
+        () => (
+            <TextEntryField hintText="hint text" required />
         )
     )
     .addWithInfo('with value',
         ``,
         () => (
-            <TextEntryField value="alpha-numeric!" />
+            <TextEntryField hintText="hint text" value="alpha-numeric!" />
         )
     );

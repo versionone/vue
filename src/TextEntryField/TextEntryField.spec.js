@@ -1,10 +1,13 @@
 import React from 'react';
-import {mount} from 'enzyme';
+import {mount, shallow} from 'enzyme';
 import sinon from 'sinon';
 import {applyTheme} from './../../specHelpers';
 import TextEntryField from './TextEntryField';
 
 describe('<TextEntryField>', function() {
+    beforeEach(() => {
+        this.actual = undefined;
+    });
     describe('when rendering the text field', () => {
         beforeEach(() => {
             this.actual = mount(applyTheme(<TextEntryField />));
@@ -29,18 +32,29 @@ describe('<TextEntryField>', function() {
     });
     describe('when rendering without a value and with a very long hint text', () => {
         beforeEach(() => {
-            this.actual = mount(applyTheme(<TextEntryField hintText="hint text is super duper long, so long in fact, that it just may be unbelievable" />));
+            this.actual = shallow(applyTheme(<TextEntryField
+                hintText="hint text is super duper long, so long in fact, that it just may be unbelievable" />));
         });
         it('it should place the text above the field by taking it\'s height and subtracting the line-height of the field', () => {
-            this.actual.find('HintText').props().style.should.contain({top: '-48px'});
+            this.actual.find('HintText').first().should.have.style({top: '-48px'});
         });
     });
     describe('when rendering with hint text and custom hint text styles', () => {
         beforeEach(() => {
             this.actual = mount(applyTheme(<TextEntryField hintText="I should be blue"
-                                                           hintTextStyle={{color: 'blue'}} />));
+                                                           hintTextStyle={{
+                                                               color: 'blue',
+                                                               position: 'relative',
+                                                               top: '100px'
+                                                           }} />));
         });
-        it('it should override the default hint text styles with the provided styles', () => {
+        it('it should not override the position of the hint text', () => {
+            this.actual.find('HintText').should.have.style('position', 'absolute');
+        });
+        it('it should not override the top offset of the hint text', () => {
+            this.actual.find('HintText').should.have.style('top', '0px');
+        });
+        it('it should pass the other styles to the HintText', () => {
             this.actual.find('HintText').props().style.should.contain({color: 'blue'});
         });
     });

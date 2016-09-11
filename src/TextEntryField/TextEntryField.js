@@ -10,7 +10,6 @@ const getStyles = (theme, props, state) => {
     const fontSize = 16;
     const fontFamily = 'Arial';
     const lineHeight = 24;
-    const hintTextOffset = state.hintTextHeight - lineHeight;
 
     const rootDefaultStyles = {
         position: 'relative',
@@ -21,9 +20,8 @@ const getStyles = (theme, props, state) => {
         transition: 'height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
         backgroundColor: 'transparent'
     };
+
     const hintTextDefaultStyles = {
-        position: 'absolute',
-        top: hintTextOffset > 0 ? `-${hintTextOffset}px` : 0,
         font: fontFamily,
         fontSize: `${fontSize}px`
     };
@@ -49,11 +47,18 @@ const getStyles = (theme, props, state) => {
         margin: 0
     };
 
+    const hintTextOffset = state.hintTextHeight - lineHeight;
+    const hintTextRequiredStyles = {
+        position: 'absolute',
+        top: hintTextOffset > 0 ? `-${hintTextOffset}px` : 0
+    };
+
     return theme.prepareStyles({
         root: rootDefaultStyles,
         hintText: {
             ...hintTextDefaultStyles,
-            ...props.hintTextStyle
+            ...props.hintTextStyle,
+            ...hintTextRequiredStyles
         },
         inputWrapper: inputWrapperDefaultStyles,
         input: inputDefaultStyles,
@@ -102,6 +107,7 @@ class TextEntryField extends Component {
             hintTextHeight: findDOMNode(this.refs.hintText).getBoundingClientRect().height
         });
     }
+
     componentDidReceiveProps(nextProps) {
         this.setState({
             hasValue: !!nextProps.value,

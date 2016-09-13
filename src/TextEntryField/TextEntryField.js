@@ -133,9 +133,9 @@ class TextEntryField extends Component {
 
         return (
             <div style={styles.root}>
-                <HintText ref="hintText" text={hintText} style={styles.hintText} hidden={hasValue} />
+                <HintText ref="hintText" text={hintText} style={styles.hintText} hidden={hasValue} onClick={this.focusInput} />
                 <div style={styles.inputWrapper}>
-                    <input style={styles.input} type="text" defaultValue={value} onChange={this.handleChange}
+                    <input style={styles.input} type="text" ref="inputField" defaultValue={value} onChange={this.handleChange}
                            disabled={disabled} />
                     <RequiredIndicator hidden={!required} style={styles.requiredIndicator} />
                 </div>
@@ -151,6 +151,10 @@ class TextEntryField extends Component {
             hasValue: !!evt.target.value
         });
         this.props.onChange && this.props.onChange(evt.target.value);
-    }
+    };
+
+    focusInput = (evt) => {
+        this.refs.inputField.focus();
+    };
 }
 export default TextEntryField;

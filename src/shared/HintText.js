@@ -21,21 +21,24 @@ const getStyles = (theme, props) => {
 class HintText extends Component {
     static propTypes = {
         hidden: PropTypes.bool,
+        onClick: PropTypes.func,
         text: PropTypes.string,
         style: CustomPropTypes.style
     };
 
     static defaultProps = {
         hidden: false,
+        onClick: () => {
+        },
         text: '',
         style: {}
     };
 
     render() {
-        const {text} = this.props;
+        const {text, onClick, hidden, ...rest} = this.props;
         const styles = getStyles(this.context.theme, this.props);
         return (
-            <div style={styles.root}><span style={styles.text}>{text}</span></div>
+            <div style={styles.root} onClick={onClick} {...rest}><span style={styles.text}>{text}</span></div>
         );
     }
 }

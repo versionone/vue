@@ -7,11 +7,11 @@ const getStyles = (theme, props) => {
 
     return {
         root: {
-            color,
             width: '100%',
             ...props.style
         },
         text: {
+            color,
             opacity: props.hidden ? 0 : 1,
             transition: 'opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'
         }

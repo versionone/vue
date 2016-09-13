@@ -12,5 +12,6 @@ export default [
     require('./patterns/Search.md'),
 
     // Contributing pages
-    require('./contributing/Documentation.md')
+    require('./contributing/Documentation.md'),
+    require('./contributing/Components.md')
 ];

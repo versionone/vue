@@ -1,5 +1,5 @@
 ---
-title: Components
+title: Creating Components
 menuCategory: Contributing
 status: draft
 keywords:
@@ -14,7 +14,7 @@ This guide will aid in creating new components to be added to the library and to
 
 Every major component is grouped into its own directory under `./src`. Here is an example of a component, with specs, stories, documentation, and examples.
 
-```shell
+```bash
 .
 ├── _meta.js
 ├── index.js
@@ -39,15 +39,21 @@ import examples from './examples';
 
 export default {
     name: 'ComponentName',
+    
     keywords: ['tooltip', 'drop down menu'],
+    
     readme: require('./README.md'),
+    
     status: 'experimental | stable | deprecated',
+    
     componentsSources: [
         {
             name: 'ComponentName',
+            
             code: require('!raw!./ComponentName')
         }
     ],
+    
     examples
 }
 ```
@@ -87,8 +93,11 @@ An examples directory should contain an `index.js` exporting an array of example
 export default [
     {
         title: 'Simple Example',
+        
         description: 'A simple example showing a Popover containing a [Menu](/#/components/menu). It can be also closed by clicking away from the Popover.',
+        
         code: require('!raw!./SimpleExample'),
+        
         component: require('./SimpleExample').default
     }
 ];

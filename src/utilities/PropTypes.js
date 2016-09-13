@@ -1,10 +1,30 @@
 import React, {PropTypes} from 'react';
-import stylePropType from 'react-style-proptype';
+import validCssStyles from './validCssStyles';
 import {CALLED_ONCE} from './callOnce';
 
 export const style = (props, propName, componentName) => {
     delete props[propName][CALLED_ONCE];
-    return stylePropType(props, propName, componentName);
+    const styles = props[propName];
+
+    if (!styles) {
+        return;
+    }
+    const failures = Object.keys(styles).reduce((output, key) => {
+        if (validCssStyles.indexOf(key) < 0) {
+            output.push(key)
+        }
+        return output;
+    } , []);
+    if (failures.length) {
+        throw new Error('Prop ' + propName + ' passed to ' + componentName + '. Has invalid keys ' + failures.join(', '));
+    }
+};
+
+module.exports.isRequired = function(props, propName, componentName) {
+    if (!props[propName]) {
+        throw new Error('Prop ' + propName + ' passed to ' + componentName + ' is required');
+    }
+    return module.exports(props, propName, componentName);
 };
 
 export const componentType = (type) => (props, propName, componentName) => {

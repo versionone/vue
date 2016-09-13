@@ -22,7 +22,7 @@ const getStyles = (theme, props, state) => {
     };
 
     const hintTextDefaultStyles = {
-        font: fontFamily,
+        fontFamily,
         fontSize: `${fontSize}px`
     };
     const inputWrapperDefaultStyles = {
@@ -35,7 +35,7 @@ const getStyles = (theme, props, state) => {
         border: 'none',
         height: '100%',
         outline: 'none',
-        font: fontFamily,
+        fontFamily,
         fontSize: `${fontSize}px`,
         position: 'relative',
         cursor: props.disabled ? 'not-allowed' : 'initial'

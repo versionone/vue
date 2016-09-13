@@ -47,14 +47,15 @@ const getStyles = (theme, props, state) => {
         margin: 0
     };
 
-    const rootRequiredStyles = {
-        marginTop: `${textFieldHeight}px`
-    };
-
     const hintTextOffset = state.hintTextHeight - textFieldHeight;
+
     const hintTextRequiredStyles = {
         position: 'absolute',
         top: hintTextOffset > 0 ? `-${hintTextOffset}px` : 0
+    };
+
+    const rootRequiredStyles = {
+        marginTop: hintTextOffset > 0 ? `${textFieldHeight}px` : 0
     };
 
     return theme.prepareStyles({

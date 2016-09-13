@@ -21,6 +21,9 @@ describe('<TextEntryField>', function() {
         it('it should hide the required indicator', () => {
             this.actual.find('RequiredIndicator').props().hidden.should.be.true;
         });
+        it('it should not auto-adjust its height', () => {
+            this.actual.should.have.style('marginTop', '0px');
+        });
     });
     describe('when rendering without a value and with hint text', () => {
         beforeEach(() => {

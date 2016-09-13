@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import * as CustomPropTypes from './../utilities/PropTypes';
 import classNames from 'classnames';
-import {zIndex} from './../Theme';
 import ToolbarTitle from './ToolbarTitle';
 import ToolbarGroup from './ToolbarGroup';
 import ToolbarItem from './ToolbarItem';
@@ -27,7 +26,7 @@ const getStyles = (props, theme) => {
             paddingRight: theme.Toolbar.sidePadding,
             background: background,
             color: theme.Toolbar.textColor,
-            zIndex: zIndex.toolbar,
+            zIndex: 1100,
             position: 'relative'
         },
         children: {

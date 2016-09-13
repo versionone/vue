@@ -34,9 +34,14 @@ describe('<TextEntryField>', function() {
         beforeEach(() => {
             this.actual = shallow(applyTheme(<TextEntryField
                 hintText="hint text is super duper long, so long in fact, that it just may be unbelievable" />));
+            this.mountedActual = mount(applyTheme(<TextEntryField
+                hintText="hint text is super duper long, so long in fact, that it just may be unbelievable" />));
         });
         it('it should place the text above the field by taking it\'s height and subtracting the line-height of the field', () => {
             this.actual.find('HintText').first().should.have.style({top: '-48px'});
+        });
+        it('it should auto adjust the height of the text field to accommodate the extra long hint text', () => {
+            this.mountedActual.should.have.style('marginTop', '24px');
         });
     });
     describe('when rendering with hint text and custom hint text styles', () => {

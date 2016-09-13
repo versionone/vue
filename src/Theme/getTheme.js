@@ -1,4 +1,3 @@
-import * as zIndex from './zIndex';
 import * as v1Theme from './../styles/themes/v1Theme';
 import autoprefixer from './../utilities/autoprefixer';
 import callOnce from '../utilities/callOnce';
@@ -6,7 +5,6 @@ import compose from 'recompose/compose';
 
 export default function getTheme(theme, ...more) {
     theme = Object.assign({}, {
-        zIndex,
         isRtl: false,
         userAgent: undefined
     }, v1Theme, theme, ...more);

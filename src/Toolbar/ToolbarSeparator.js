@@ -2,15 +2,15 @@ import React, {Component, PropTypes} from 'react';
 import * as CustomPropTypes from './../utilities/PropTypes';
 import classNames from 'classnames';
 
-const getStyles = (props, context) => ({
+const getStyles = (props, theme) => ({
     root: {
         display: 'inline-block',
         marginTop: 0,
         marginBottom: 0,
-        marginRight: context.theme.spacing.desktopGutter,
-        marginLeft: context.theme.spacing.desktopGutter,
+        marginRight: theme.ToolbarSeparator.horizontalGutter,
+        marginLeft: theme.ToolbarSeparator.horizontalGutter,
         width: '1px',
-        background: context.theme.palette.borderColor
+        background: theme.ToolbarSeparator.borderColor
     }
 });
 
@@ -34,7 +34,7 @@ class ToolbarSeparator extends Component {
             style
         } = this.props;
         const {prepareStyles} = this.context.theme;
-        const styles = getStyles(this.props, this.context);
+        const styles = getStyles(this.props, this.context.theme);
 
         return (
             <div className={classNames('toolbar-separator', className)} style={prepareStyles(styles.root, style)}></div>

@@ -2,12 +2,12 @@ import React, {Component, PropTypes} from 'react';
 import * as CustomPropTypes from './../utilities/PropTypes';
 import classNames from 'classnames';
 
-export const getStyles = (props, context) => ({
+export const getStyles = (props, theme) => ({
     root: {
         display: 'flex',
         alignItems: 'center',
-        paddingRight: context.theme.spacing.desktopGutter,
-        fontSize: context.theme.typography.fontStyleTitleFontSize,
+        paddingRight: theme.ToolbarTitle.gutter,
+        fontSize: theme.ToolbarTitle.fontSize,
         lineHeight: 1
     }
 });
@@ -35,7 +35,7 @@ class ToolbarTitle extends Component {
             style
         } = this.props;
         const {prepareStyles} = this.context.theme;
-        const styles = getStyles(this.props, this.context);
+        const styles = getStyles(this.props, this.context.theme);
 
         return (
             <div style={prepareStyles(styles.root, style)} className={classNames('toolbar-title', className)}>

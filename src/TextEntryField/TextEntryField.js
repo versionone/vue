@@ -10,6 +10,8 @@ const getStyles = (theme, props, state) => {
     const fontSize = 16;
     const fontFamily = 'Arial';
     const textFieldHeight = 24;
+    const backgroundColor = theme.TextField.backgroundColor | 'transparent';
+    const padding = theme.TextField.padding ? `${theme.TextField.padding}px` : 0;
 
     const rootDefaultStyles = {
         position: 'relative',
@@ -18,7 +20,8 @@ const getStyles = (theme, props, state) => {
         lineHeight: `${textFieldHeight}px`,
         display: 'inline-block',
         transition: 'height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
-        backgroundColor: 'transparent'
+        backgroundColor,
+        padding
     };
 
     const hintTextDefaultStyles = {
@@ -122,7 +125,6 @@ class TextEntryField extends Component {
             hintTextHeight: findDOMNode(this.refs.hintText).getBoundingClientRect().height
         });
     }
-
 
     render() {
         const styles = getStyles(this.context.theme, this.props, this.state);

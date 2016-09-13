@@ -10,7 +10,7 @@ describe('<Toolbar />', function() {
             this.wrapper = mount(<ThemeProvider theme={this.theme}><Toolbar /></ThemeProvider>);
         });
         it('it should use the default height of the theme', () => {
-            this.wrapper.should.have.style('height', `${this.theme.spacing.desktopToolbarHeight}px`);
+            this.wrapper.should.have.style('height', `${this.theme.Toolbar.height}px`);
         });
     });
 

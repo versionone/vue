@@ -2,12 +2,12 @@ import React, {Component, PropTypes} from 'react';
 import  * as CustomPropTypes from './../utilities/PropTypes';
 import classNames from 'classnames';
 
-export const getStyles = (props, context) => ({
+export const getStyles = (props, theme) => ({
     root: {
         boxSizing: 'border-box',
         display: 'flex',
         alignItems: 'center',
-        paddingRight: context.theme.spacing.desktopGutter
+        paddingRight: theme.ToolbarItem.horizontalGutter
     },
     label: {
         whiteSpace: 'nowrap',
@@ -16,8 +16,9 @@ export const getStyles = (props, context) => ({
     labelText: {
         alignItems: 'center',
         display: 'flex',
-        fontSize: `${context.theme.typography.fontStyleLabelFontSize}px`,
-        paddingRight: context.theme.spacing.desktopGutterLess
+        fontFamily: theme.ToolbarItem.fontFamily,
+        fontSize: `${theme.ToolbarItem.labelFontSize}px`,
+        paddingRight: theme.ToolbarItem.labelGutter
     }
 });
 
@@ -48,7 +49,7 @@ class ToolbarItem extends Component {
             children
         } = this.props;
         const {prepareStyles} = this.context.theme;
-        const styles = getStyles(this.props, this.context);
+        const styles = getStyles(this.props, this.context.theme);
         const root = prepareStyles(styles.root, style);
         const labelChildrenWrapperStyleComputed = prepareStyles(styles.labelText, labelTextStyle, {height: style.height});
         const labelText = label && <span style={labelChildrenWrapperStyleComputed}>{label}:</span>;

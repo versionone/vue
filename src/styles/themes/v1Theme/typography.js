@@ -14,3 +14,9 @@ export const fontWeightNormal = 400;
 export const fontWeightMedium = 500;
 
 export const basicFont = `'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif`;
+
+export const labelFontSize = 16;
+export const buttonFontSize = 16;
+export const titleFontSize = 22;
+export const titleFontSizeSmall = 18;
+export const titleFontSizeLarge = 24;

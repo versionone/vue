@@ -1,8 +1,11 @@
-// VersionOne corporate colors
+// # Color definitions only
+// these do not map to any meaning within VersionOne; see palette.js for that.
+
+// ## VersionOne corporate colors
 export const corpRed = '#7c2348';
 
 
-// Black, whites, and grays
+// ## Black, whites, and grays
 export const black = '#000000';
 export const white = '#ffffff';
 

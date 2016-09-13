@@ -9,7 +9,9 @@ const getStyles = (theme, props) => {
         root: {
             color,
             width: '100%',
-            ...props.style,
+            ...props.style
+        },
+        text: {
             opacity: props.hidden ? 0 : 1,
             transition: 'opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'
         }
@@ -33,7 +35,7 @@ class HintText extends Component {
         const {text} = this.props;
         const styles = getStyles(this.context.theme, this.props);
         return (
-            <div style={styles.root}>{text}</div>
+            <div style={styles.root}><span style={styles.text}>{text}</span></div>
         );
     }
 }

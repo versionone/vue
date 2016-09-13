@@ -10,8 +10,9 @@ const getStyles = (theme, props, state) => {
     const fontSize = 16;
     const fontFamily = 'Arial';
     const textFieldHeight = 24;
-    const backgroundColor = theme.TextField.backgroundColor | 'transparent';
-    const padding = theme.TextField.padding ? `${theme.TextField.padding}px` : 0;
+    const padding = theme.TextField.padding || 0;
+    const hintTextOffset = state.hintTextHeight - textFieldHeight - (2 * padding);
+    const backgroundColor = theme.TextField.backgroundColor || 'transparent';
 
     const rootDefaultStyles = {
         position: 'relative',
@@ -19,24 +20,17 @@ const getStyles = (theme, props, state) => {
         height: `${height}px`,
         lineHeight: `${textFieldHeight}px`,
         display: 'inline-block',
-        transition: 'height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
-        backgroundColor,
-        padding
+        transition: 'height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'
     };
-
     const hintTextDefaultStyles = {
         fontFamily,
         fontSize: `${fontSize}px`
-    };
-    const inputWrapperDefaultStyles = {
-        display: 'flex'
     };
     const inputDefaultStyles = {
         flex: 1,
         width: '100%',
         background: 'rgba(0, 0, 0, 0)',
         border: 'none',
-        height: '100%',
         outline: 'none',
         fontFamily,
         fontSize: `${fontSize}px`,
@@ -46,19 +40,25 @@ const getStyles = (theme, props, state) => {
     const requiredIndicatorDefaultStyles = {
         alignSelf: 'center'
     };
+
     const underlineDefaultStyles = {
         margin: 0
     };
 
-    const hintTextOffset = state.hintTextHeight - textFieldHeight;
-
-    const hintTextRequiredStyles = {
-        position: 'absolute',
-        top: hintTextOffset > 0 ? `-${hintTextOffset}px` : 0
-    };
-
     const rootRequiredStyles = {
         marginTop: hintTextOffset > 0 ? `${textFieldHeight}px` : 0
+    };
+    const hintTextRequiredStyles = {
+        position: 'absolute',
+        top: hintTextOffset > 0 ? `-${hintTextOffset}px` : 0,
+        padding,
+        backgroundColor,
+        boxSizing: 'border-box'
+    };
+    const inputWrapperRequiredStyles = {
+        padding,
+        backgroundColor,
+        display: 'flex'
     };
 
     return theme.prepareStyles({
@@ -71,7 +71,7 @@ const getStyles = (theme, props, state) => {
             ...props.hintTextStyle,
             ...hintTextRequiredStyles
         },
-        inputWrapper: inputWrapperDefaultStyles,
+        inputWrapper: inputWrapperRequiredStyles,
         input: inputDefaultStyles,
         requiredIndicator: requiredIndicatorDefaultStyles,
         underline: underlineDefaultStyles

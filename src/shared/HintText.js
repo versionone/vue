@@ -35,6 +35,7 @@ class HintText extends Component {
     };
 
     render() {
+        // eslint-disable-next-line no-unused-vars
         const {text, onClick, hidden, ...rest} = this.props;
         const styles = getStyles(this.context.theme, this.props);
         return (

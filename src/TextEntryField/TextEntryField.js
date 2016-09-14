@@ -153,7 +153,7 @@ class TextEntryField extends Component {
         this.props.onChange && this.props.onChange(evt.target.value);
     };
 
-    focusInput = (evt) => {
+    focusInput = () => {
         this.refs.inputField.focus();
     };
 }

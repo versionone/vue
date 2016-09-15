@@ -54,13 +54,13 @@ const getStyles = (theme, props, state) => {
     const hintTextRequiredStyles = {
         position: 'absolute',
         top: hintTextOffset > 0 ? `-${hintTextOffset}px` : 0,
-        padding,
+        padding: `${padding}px`,
         backgroundColor,
         boxSizing: 'border-box',
         width: '100%'
     };
     const inputWrapperRequiredStyles = {
-        padding,
+        padding: `${padding}px`,
         backgroundColor,
         display: 'flex'
     };
@@ -120,10 +120,10 @@ class TextEntryField extends Component {
     static defaultThemeProps = {
         backgroundColor: 'transparent',
         border: '1px solid #000',
-        padding: '6px',
+        padding: 6,
         outline: 'none'
     };
-    static states = ['focused'];
+    static themedStates = ['focused'];
 
     static contextTypes = {
         theme: CustomPropTypes.theme

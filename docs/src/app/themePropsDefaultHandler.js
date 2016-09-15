@@ -6,7 +6,7 @@ import resolveToValue from 'react-docgen/dist/utils/resolveToValue';
 
 var {types: {namedTypes: types, visit}} = recast;
 
-function getDefaultValue(path) {
+const getDefaultValue = (path) => {
     var node = path.node;
     var defaultValue;
     if (types.Literal.check(node)) {
@@ -28,7 +28,7 @@ function getDefaultValue(path) {
             types.Identifier.check(node)
         };
     }
-}
+};
 
 export default (documentation, path) => {
     var defaultPropsPath = getMemberValuePath(path, 'defaultThemeProps');

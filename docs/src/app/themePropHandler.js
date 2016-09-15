@@ -10,15 +10,15 @@ import resolveToValue from 'react-docgen/dist/utils/resolveToValue';
 
 var {types: {namedTypes: types}} = recast;
 
-function isPropTypesExpression(path) {
+const isPropTypesExpression = (path) => {
     var moduleName = resolveToModule(path);
     if (moduleName) {
         return isReactModuleName(moduleName) || moduleName === 'ReactPropTypes';
     }
     return false;
-}
+};
 
-function amendPropTypes(documentation, path) {
+const amendPropTypes = (documentation, path)=> {
     if (!types.ObjectExpression.check(path.node)) {
         return;
     }
@@ -49,7 +49,7 @@ function amendPropTypes(documentation, path) {
                 break;
         }
     });
-}
+};
 
 export default (documentation, path) => {
     var propTypesPath = getMemberValuePath(path, 'themeProps');

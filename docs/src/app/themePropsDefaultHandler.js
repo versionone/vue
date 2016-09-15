@@ -31,7 +31,6 @@ function getDefaultValue(path) {
 }
 
 export default (documentation, path) => {
-    console.log(path);
     var defaultPropsPath = getMemberValuePath(path, 'defaultThemeProps');
     if (!defaultPropsPath) {
         return;
@@ -61,7 +60,6 @@ export default (documentation, path) => {
         defaultPropsPath.get('properties')
             .filter(propertyPath => types.Property.check(propertyPath.node))
             .forEach(function(propertyPath) {
-                console.log(propertyPath)
                 var propDescriptor = documentation.getPropDescriptor(
                     getPropertyName(propertyPath)
                 );

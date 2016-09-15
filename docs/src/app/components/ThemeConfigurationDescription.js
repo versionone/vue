@@ -1,11 +1,12 @@
 import React, {Component, PropTypes} from 'react';
 import {parse} from 'react-docgen';
+import resolver from 'react-docgen/dist/resolver/findExportedComponentDefinition';
 import {parse as parseDoctrine} from 'doctrine';
 import MarkdownElement from './MarkdownElement';
 import recast from 'recast';
 import themePropHandler from './../themePropHandler';
 import themePropsDefaultHandler from './../themePropsDefaultHandler';
-import resolver from 'react-docgen/dist/resolver/findExportedComponentDefinition';
+import themePropDocblockHandler from './../themePropDocblockHandler'
 
 require('./prop-type-description.css');
 
@@ -126,11 +127,9 @@ class ThemeConfigurationDescription extends Component {
 | Name | Type | Default | Description |
 |:-----|:-----|:-----|:-----|\n`;
 
-    const componentInfo = parse(code, resolver, [themePropHandler, themePropsDefaultHandler]);
-    console.log('componentInfo', componentInfo);
+    const componentInfo = parse(code, resolver, [themePropHandler, themePropsDefaultHandler, themePropDocblockHandler]);
     for (let key in componentInfo.props) {
       const prop = componentInfo.props[key];
-
       const description = generateDescription(prop.required, prop.description, prop.type);
 
       if (description === null) continue;

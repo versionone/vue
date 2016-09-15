@@ -121,7 +121,7 @@ describe('<TextEntryField>', function() {
         beforeEach(() => {
             this.actual = mount(applyTheme(<TextEntryField width={250} />));
         });
-        it('it should render the text entry field with the specified width in pixels', () => {
+        it('it should render the text field with the specified width in pixels', () => {
             this.actual.should.have.style('width', '250px');
         });
     });
@@ -129,7 +129,7 @@ describe('<TextEntryField>', function() {
         beforeEach(() => {
             this.actual = mount(applyTheme(<TextEntryField />));
         });
-        it('it should render the text entry field with the default width', () => {
+        it('it should render the text field with the default width', () => {
             this.actual.should.have.style('width', '256px');
         });
     });
@@ -137,7 +137,7 @@ describe('<TextEntryField>', function() {
         beforeEach(() => {
             this.actual = mount(applyTheme(<TextEntryField width={250} fullWidth />));
         });
-        it('it should render the text entry field with 100% width', () => {
+        it('it should render the text field with 100% width', () => {
             this.actual.should.have.style('width', '100%');
         });
     });

@@ -13,15 +13,17 @@ const fontFamily = 'Arial';
 const textFieldHeight = 24;
 
 // TODO: This can be a utility function
-const getThemeStyles = (defaultThemeValues, themeStyles, state) => {
+const getThemeStyles = (defaultThemeValues, themeStyles, state, props) => {
     // Themed styles based on state
-    const focusedStyles = state.isFocused ? {...defaultThemeValues.focused, ...(themeStyles.focused || {})} : {};
+    const focusedStyles = state.focused ? {...defaultThemeValues.focused, ...(themeStyles.focused || {})} : {};
+    const pendingStyles = props.pending ? {...defaultThemeValues.pending, ...(themeStyles.pending || {})}: {};
 
     // Compose default theme values, then theme, then state based theme values;
     return {
         ...defaultThemeValues,
         ...themeStyles,
-        ...focusedStyles
+        ...focusedStyles,
+        ...pendingStyles
     };
 };
 
@@ -84,7 +86,7 @@ const getCustomStyles = (props) => ({
 
 const getStyles = (defaultThemeValues, theme, props, state) => {
     // Theme styles to be used when generating default and required styles.
-    const themeStyles = getThemeStyles(defaultThemeValues, theme.TextField, state);
+    const themeStyles = getThemeStyles(defaultThemeValues, theme.TextField, state, props);
 
     // Default, custom, required styles
     const defaultStyles = getDefaultStyles(themeStyles, props, state);
@@ -124,7 +126,7 @@ class TextEntryField extends Component {
         value: ''
     };
 
-    static themedStates = ['focused'];
+    static themedStates = ['focused', 'pending'];
     static themeProps = {
         backgroundColor: PropTypes.string,
         border: PropTypes.string,
@@ -139,7 +141,10 @@ class TextEntryField extends Component {
         outline: '1px solid transparent',
         width: 256,
         focused: {
-            outline: '1px solid blue'
+            outline: '1px solid transparent'
+        },
+        pending: {
+            backgroundColor: 'transparent'
         }
     };
 
@@ -152,7 +157,7 @@ class TextEntryField extends Component {
         this.state = {
             hintTextHeight: 24,
             hasValue: !!props.value,
-            isFocused: false
+            focused: false
         };
     }
 
@@ -197,14 +202,14 @@ class TextEntryField extends Component {
 
     handleFocus = (evt) => {
         this.setState({
-            isFocused: true
+            focused: true
         });
         this.props.onFocus(evt);
     };
 
     handleBlur = (evt) => {
         this.setState({
-            isFocused: false
+            focused: false
         });
         this.props.onBlur(evt);
     };

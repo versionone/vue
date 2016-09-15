@@ -7,5 +7,8 @@ export default {
     border: `1px solid ${lightBlack}`,
     focused: {
         outline: '1px solid blue'
+    },
+    pending: {
+        backgroundColor: 'yellow'
     }
 };

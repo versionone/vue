@@ -21,6 +21,12 @@ storiesOf('TextEntryField')
             <TextEntryField hintText="hint text" required />
         )
     )
+    .addWithInfo('pending',
+        ``,
+        () => (
+            <TextEntryField hintText="hint text" required pending />
+        )
+    )
     .addWithInfo('with value',
         ``,
         () => (

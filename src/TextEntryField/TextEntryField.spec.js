@@ -236,10 +236,18 @@ describe('<TextEntryField>', function() {
     });
     describe('when rendering a text field that is in a pending state', () => {
         beforeEach(() => {
-            this.actual = mount(applyTheme(<TextEntryField pending />));
+            this.theme = {
+                TextField: {
+                    pending: {
+                        backgroundColor: 'yellow'
+                    }
+                }
+            };
+            this.actual = mount(applyTheme(<TextEntryField pending />, this.theme));
         });
         it('it should render the text field with the pending state styles', () => {
-            throw new Error('Not Implemented Error');
+            this.actual.find('input').parent().should.have.style('backgroundColor', 'yellow');
+            this.actual.find('HintText').should.have.style('backgroundColor', 'yellow');
         });
     });
 });

@@ -111,6 +111,20 @@ class TextEntryField extends Component {
         value: ''
     };
 
+    static themeProps = {
+        backgroundColor: PropTypes.string,
+        border: PropTypes.string,
+        padding: PropTypes.number,
+        outline: PropTypes.string
+    };
+    static defaultThemeProps = {
+        backgroundColor: 'transparent',
+        border: '1px solid #000',
+        padding: '6px',
+        outline: 'none'
+    };
+    static states = ['focused'];
+
     static contextTypes = {
         theme: CustomPropTypes.theme
     };

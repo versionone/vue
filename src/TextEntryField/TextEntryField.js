@@ -158,9 +158,11 @@ class TextEntryField extends Component {
 
         return (
             <div style={styles.root}>
-                <HintText ref="hintText" text={hintText} style={styles.hintText} hidden={hasValue} onClick={this.focusInput} />
+                <HintText ref="hintText" text={hintText} style={styles.hintText} hidden={hasValue}
+                          onClick={this.focusInput} />
                 <div style={styles.inputWrapper}>
-                    <input style={styles.input} type="text" ref="inputField" defaultValue={value} onChange={this.handleChange}
+                    <input style={styles.input} type="text" ref="inputField" defaultValue={value}
+                           onChange={this.handleChange}
                            disabled={disabled} onFocus={this.handleFocus} onBlur={this.handleBlur} />
                     <RequiredIndicator hidden={!required} style={styles.requiredIndicator} />
                 </div>

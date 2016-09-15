@@ -163,6 +163,71 @@ describe('<TextEntryField>', function() {
             this.actual.find('RequiredIndicator').props().style.should.contain({});
         });
     });
+    describe('given a focus event handler prop', () => {
+        beforeEach(() => {
+            this.onFocus = sinon.spy();
+        });
+        describe('when focusing on the text field', () => {
+            beforeEach(() => {
+                this.actual = mount(applyTheme(<TextEntryField onFocus={this.onFocus} />));
+                this.actual.find('input').simulate('focus');
+            });
+            it('it should call the event handler', () => {
+                this.onFocus.called.should.be.true;
+            });
+        });
+    });
+    describe('when focusing on the text field', () => {
+        beforeEach(() => {
+            this.theme = {
+                TextField: {
+                    focused: {
+                        outline: ' 1px solid blue'
+                    }
+                }
+            };
+            this.actual = mount(applyTheme(<TextEntryField />, this.theme));
+            this.actual.find('input').simulate('focus');
+        });
+        it('it should render in the focused state', () => {
+            this.actual.find('HintText').props().style.should.contain(this.theme.TextField.focused);
+        });
+    });
+    describe('given I am focused on the text field', () => {
+        beforeEach(() => {
+            this.theme = {
+                TextField: {
+                    focused: {
+                        outline: ' 1px solid blue'
+                    }
+                }
+            };
+            this.actual = mount(applyTheme(<TextEntryField />, this.theme));
+            this.actual.find('input').simulate('focus');
+        });
+        describe('when blurring the text field', () => {
+            beforeEach(() => {
+                this.actual.find('input').simulate('blur');
+            });
+            it('it should render in the non-focused state', () => {
+                this.actual.find('HintText').props().style.should.contain({outline: 'none'});
+            });
+        });
+        describe('given there is an onBlur prop', () => {
+            beforeEach(() => {
+                this.onBlur = sinon.spy();
+                this.actual = mount(applyTheme(<TextEntryField onBlur={this.onBlur} />, this.theme));
+            });
+            describe('when blurring the text field', () => {
+                beforeEach(() => {
+                    this.actual.find('input').simulate('blur');
+                });
+                it('it should call the onBlur prop', () => {
+                    this.onBlur.called.should.be.true;
+                });
+            });
+        });
+    });
     describe('when rendering with an error message', () => {
         // Where? top, below, right/left, etc?
         it('it should render the error message', () => {

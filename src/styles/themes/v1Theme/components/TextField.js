@@ -1,7 +1,11 @@
-import {white} from './../colors';
+import {white, lightBlack} from './../colors';
 import {desktopGutterMini} from './../spacing';
 
 export default {
     backgroundColor: white,
-    padding: desktopGutterMini
+    padding: desktopGutterMini,
+    border: `1px solid ${lightBlack}`,
+    focused: {
+        outline: '1px solid blue'
+    }
 };

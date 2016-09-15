@@ -13,6 +13,8 @@ const getStyles = (theme, props, state) => {
     const padding = theme.TextField.padding || 0;
     const hintTextOffset = state.hintTextHeight - textFieldHeight - (2 * padding);
     const backgroundColor = theme.TextField.backgroundColor || 'transparent';
+    const border = theme.TextField.border || 'transparent';
+    const focusedStyles = theme.TextField.focused || {};
 
     const rootDefaultStyles = {
         position: 'relative',
@@ -24,7 +26,8 @@ const getStyles = (theme, props, state) => {
     };
     const hintTextDefaultStyles = {
         fontFamily,
-        fontSize: `${fontSize}px`
+        fontSize: `${fontSize}px`,
+        border
     };
     const inputDefaultStyles = {
         flex: 1,
@@ -53,7 +56,8 @@ const getStyles = (theme, props, state) => {
         top: hintTextOffset > 0 ? `-${hintTextOffset}px` : 0,
         padding,
         backgroundColor,
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        width: '100%'
     };
     const inputWrapperRequiredStyles = {
         padding,
@@ -84,7 +88,9 @@ class TextEntryField extends Component {
         fullWidth: PropTypes.bool,
         hintText: PropTypes.string,
         hintTextStyle: CustomPropTypes.style,
+        onBlur: PropTypes.func,
         onChange: PropTypes.func,
+        onFocus: PropTypes.func,
         required: PropTypes.bool,
         width: PropTypes.number,
         value: PropTypes.string
@@ -94,7 +100,11 @@ class TextEntryField extends Component {
         disabled: false,
         fullWidth: false,
         hintTextStyle: {},
+        onBlur: () => {
+        },
         onChange: () => {
+        },
+        onFocus: () => {
         },
         required: false,
         width: 256,
@@ -109,7 +119,8 @@ class TextEntryField extends Component {
         super(props, ...rest);
         this.state = {
             hintTextHeight: 24,
-            hasValue: !!props.value
+            hasValue: !!props.value,
+            isFocused: false
         };
     }
 
@@ -136,11 +147,8 @@ class TextEntryField extends Component {
                 <HintText ref="hintText" text={hintText} style={styles.hintText} hidden={hasValue} onClick={this.focusInput} />
                 <div style={styles.inputWrapper}>
                     <input style={styles.input} type="text" ref="inputField" defaultValue={value} onChange={this.handleChange}
-                           disabled={disabled} />
+                           disabled={disabled} onFocus={this.handleFocus} onBlur={this.handleBlur} />
                     <RequiredIndicator hidden={!required} style={styles.requiredIndicator} />
-                </div>
-                <div>
-                    <hr style={styles.underline} />
                 </div>
             </div>
         );
@@ -150,7 +158,21 @@ class TextEntryField extends Component {
         this.setState({
             hasValue: !!evt.target.value
         });
-        this.props.onChange && this.props.onChange(evt.target.value);
+        this.props.onChange(evt.target.value);
+    };
+
+    handleFocus = (evt) => {
+        this.setState({
+            isFocused: true
+        });
+        this.props.onFocus(evt);
+    };
+
+    handleBlur = (evt) => {
+        this.setState({
+            isFocused: false
+        });
+        this.props.onBlur(evt);
     };
 
     focusInput = () => {

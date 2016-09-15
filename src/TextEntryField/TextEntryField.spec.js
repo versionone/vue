@@ -53,7 +53,8 @@ describe('<TextEntryField>', function() {
                                                            hintTextStyle={{
                                                                color: 'blue',
                                                                position: 'relative',
-                                                               top: '100px'
+                                                               top: '100px',
+                                                               width: '100px'
                                                            }} />));
         });
         it('it should not override the position of the hint text', () => {
@@ -61,6 +62,9 @@ describe('<TextEntryField>', function() {
         });
         it('it should not override the top offset of the hint text', () => {
             this.actual.find('HintText').should.have.style('top', '0px');
+        });
+        it('it should not override the width of the hint text', () => {
+            this.actual.find('HintText').should.have.style('width', '100%');
         });
         it('it should pass the other styles to the HintText', () => {
             this.actual.find('HintText').props().style.should.contain({color: 'blue'});

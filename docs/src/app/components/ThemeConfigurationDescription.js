@@ -125,18 +125,22 @@ class ThemeConfigurationDescription extends Component {
         const componentInfo = parse(code, resolver, [themePropHandler, themePropsDefaultHandler, themePropDocblockHandler, themeStatesHandler]);
 
         const text = `${header}
-${this.getThemeStatesText(componentInfo)}
-${this.getThemePropsText(componentInfo)}`;
+${componentInfo.props ? this.getThemeStatesText(componentInfo) : ''}
+${componentInfo.themedStates ? this.getThemePropsText(componentInfo) : ''}`;
 
-        const requiredProps = Object.keys(componentInfo.props).reduce((output, key) => output + componentInfo.props[key].required ? 1 : 0, 0);
+        const requiredProps = componentInfo.props ? Object.keys(componentInfo.props).reduce((output, key) => output + componentInfo.props[key].required ? 1 : 0, 0) : 0;
         const requiredPropFootnote = (requiredProps === 1) ? '* required property' :
             (requiredProps > 1) ? '* required properties' :
                 '';
 
         return (
             <div className="propTypeDescription">
-                <MarkdownElement text={text} />
-                <div style={{fontSize: '90%', paddingLeft: '15px'}}>{requiredPropFootnote}</div>
+                {(componentInfo.props || componentInfo.themedStates) && (
+                    <div>
+                        <MarkdownElement text={text} key={childKey} />
+                        <div style={{fontSize: '90%', paddingLeft: '15px'}}>{requiredPropFootnote}</div>
+                    </div>
+                )}
             </div>
         );
     }
@@ -144,7 +148,7 @@ ${this.getThemePropsText(componentInfo)}`;
     getThemeStatesText = (componentInfo) => `#### States
 | Name | Description |
 |:-----|:-----|
-${componentInfo.themedStates.map((state) => {
+${(componentInfo.themedStates || []).map((state) => {
         const description = '';
         return `| ${state} | ${description} |`;
     })
@@ -154,29 +158,31 @@ ${componentInfo.themedStates.map((state) => {
     getThemePropsText = (componentInfo) => `#### Theme Properties
 | Name | Type | Default | Description |
 |:-----|:-----|:-----|:-----|
-${Object.keys(componentInfo.props).map((key) => {
-        const prop = componentInfo.props[key];
-        const description = generateDescription(prop.required, prop.description, prop.type);
+${Object.keys(componentInfo.props)
+        .filter((key) => componentInfo.props[key].type)
+        .map((key, index) => {
+            const prop = componentInfo.props[key];
+            const description = generateDescription(prop.required, prop.description, prop.type);
 
-        if (description === null) return;
+            if (description === null) return;
 
-        let defaultValue = '';
+            let defaultValue = '';
 
-        if (prop.defaultValue) {
-            defaultValue = prop.defaultValue.value.replace(/\n/g, '');
-        }
-
-        if (prop.required) {
-            key = `<span style="color: #31a148">${key} \*</span>`;
-        }
-
-        if (prop.type.name === 'custom') {
-            if (getDeprecatedInfo(prop.type)) {
-                key = `~~${key}~~`;
+            if (prop.defaultValue) {
+                defaultValue = prop.defaultValue.value.replace(/\n/g, '');
             }
-        }
-        return `| ${key} | ${generatePropType(prop.type)} | ${defaultValue} | ${description} |`;
-    })
+
+            if (prop.required) {
+                key = `<span style="color: #31a148" key={index}>${key} \*</span>`;
+            }
+
+            if (prop.type.name === 'custom') {
+                if (getDeprecatedInfo(prop.type)) {
+                    key = `~~${key}~~`;
+                }
+            }
+            return `| ${key} | ${generatePropType(prop.type)} | ${defaultValue} | ${description} |`;
+        })
         .join('\n')}
 `;
 }

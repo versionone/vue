@@ -8,7 +8,7 @@ const addThemeStates = (documentation, path) => {
     if (!types.ArrayExpression.check(path.node)) {
         return;
     }
-    documentation.set('themedStates', path.value.elements.map((element) => element.rawValue));
+    documentation.set('themedStates', (path.value.elements || []).map((element) => element.rawValue));
 };
 
 export default (documentation, path) => {

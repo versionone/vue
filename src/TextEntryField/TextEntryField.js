@@ -208,7 +208,8 @@ class TextEntryField extends Component {
         this.props.onBlur(evt);
     };
 
-    focusInput = () => {
+    focusInput = (evt) => {
+        this.handleFocus(evt);
         this.refs.inputField.focus();
     };
 }

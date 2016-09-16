@@ -109,6 +109,24 @@ describe('<TextEntryField>', function() {
             });
         });
     });
+    describe('given I have hint text that is multiple lines long', () => {
+        beforeEach(() => {
+            this.onFocus = sinon.spy();
+            this.actual = mount(applyTheme(<TextEntryField
+                hintText="int text is super duper long, so long in fact, that it just may be unbelievable" onFocus={this.onFocus} />));
+        });
+        describe('when I click on the hint text', () => {
+            beforeEach(() => {
+                this.actual.find('HintText').simulate('click');
+            });
+            it('it should show focus the input of the text field', () => {
+                should.equal(this.actual.find('input').node, document.activeElement);
+            });
+            it('it should call the onFocus event handler prop', () => {
+                this.onFocus.called.should.be.true;
+            });
+        });
+    });
     describe('when typing text into the text field', () => {
         beforeEach(() => {
             this.handleChange = sinon.spy();

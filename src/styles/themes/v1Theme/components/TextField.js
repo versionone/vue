@@ -1,4 +1,4 @@
-import {white, lightBlack} from './../colors';
+import {white, lightBlack, pendingBackgroundColor} from './../colors';
 import {desktopGutterMini} from './../spacing';
 
 export default {
@@ -9,6 +9,6 @@ export default {
         outline: '1px solid blue'
     },
     pending: {
-        backgroundColor: 'yellow'
+        backgroundColor: pendingBackgroundColor
     }
 };

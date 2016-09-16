@@ -137,7 +137,7 @@ ${componentInfo.themedStates ? this.getThemePropsText(componentInfo) : ''}`;
             <div className="propTypeDescription">
                 {(componentInfo.props || componentInfo.themedStates) && (
                     <div>
-                        <MarkdownElement text={text} key={childKey} />
+                        <MarkdownElement text={text} />
                         <div style={{fontSize: '90%', paddingLeft: '15px'}}>{requiredPropFootnote}</div>
                     </div>
                 )}

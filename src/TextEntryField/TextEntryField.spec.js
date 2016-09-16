@@ -192,7 +192,7 @@ describe('<TextEntryField>', function() {
             this.actual.find('input').simulate('focus');
         });
         it('it should render in the focused state', () => {
-            this.actual.find('input').parent().should.have.style('outline', '1px solid blue');
+            this.actual.find('HintText').should.have.style('outline', '1px solid blue');
         });
     });
     describe('given I am focused on the text field', () => {
@@ -212,7 +212,7 @@ describe('<TextEntryField>', function() {
                 this.actual.find('input').simulate('blur');
             });
             it('it should render in the non-focused state', () => {
-                this.actual.find('input').parent().should.have.style('outline', TextEntryField.defaultThemeProps.outline);
+                this.actual.find('HintText').should.have.style('outline', TextEntryField.defaultThemeProps.outline);
             });
         });
         describe('given there is an onBlur prop', () => {

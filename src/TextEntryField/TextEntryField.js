@@ -37,11 +37,11 @@ const getDefaultStyles = (themeStyles, props) => ({
     hintText: {
         fontFamily,
         fontSize: `${fontSize}px`,
-        border: themeStyles.border
+        border: themeStyles.border,
+        outline: themeStyles.outline
     },
     inputWrapper: {
         backgroundColor: themeStyles.backgroundColor,
-        outline: themeStyles.outline,
         padding: `${themeStyles.padding}px`
     },
     input: {

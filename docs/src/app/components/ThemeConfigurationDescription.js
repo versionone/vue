@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {parse} from 'react-docgen';
-import resolver from 'react-docgen/dist/resolver/findExportedComponentDefinition';
+import resolver from 'react-docgen/dist/resolver/findAllComponentDefinitions';
 import {parse as parseDoctrine} from 'doctrine';
 import MarkdownElement from './MarkdownElement';
 import recast from 'recast';
@@ -122,7 +122,7 @@ class ThemeConfigurationDescription extends Component {
             header
         } = this.props;
 
-        const componentInfo = parse(code, resolver, [themePropHandler, themePropsDefaultHandler, themePropDocblockHandler, themeStatesHandler]);
+        const componentInfo = parse(code, resolver, [themePropHandler, themePropsDefaultHandler, themePropDocblockHandler, themeStatesHandler])[0];
 
         const text = `${header}
 ${componentInfo.props ? this.getThemeStatesText(componentInfo) : ''}

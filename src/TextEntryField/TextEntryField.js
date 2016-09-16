@@ -3,7 +3,7 @@ import {findDOMNode} from 'react-dom';
 import * as CustomPropTypes from './../utilities/PropTypes';
 import HintText from '../shared/HintText';
 import RequiredIndicator from '../shared/RequiredIndicator';
-import mergeStyles from './../Theme/mergeStyles';
+import themedComponent from './../Theme/themedComponent';
 
 // TODO: pull out into theme/css/etc.
 // Things that should probably go in a theme
@@ -12,16 +12,14 @@ const fontSize = 16;
 const fontFamily = 'Arial';
 const textFieldHeight = 24;
 
-// TODO: This can be a utility function
-const getThemeStyles = (defaultThemeValues, themeStyles, state, props) => {
+const getThemeStyles = (defaultThemeValues, {TextField}, props, state) => {
     // Themed styles based on state
-    const focusedStyles = state.focused ? {...defaultThemeValues.focused, ...(themeStyles.focused || {})} : {};
-    const pendingStyles = props.pending ? {...defaultThemeValues.pending, ...(themeStyles.pending || {})}: {};
-
+    const focusedStyles = state.focused ? {...defaultThemeValues.focused, ...(TextField.focused || {})} : {};
+    const pendingStyles = props.pending ? {...defaultThemeValues.pending, ...(TextField.pending || {})} : {};
     // Compose default theme values, then theme, then state based theme values;
     return {
         ...defaultThemeValues,
-        ...themeStyles,
+        ...TextField,
         ...focusedStyles,
         ...pendingStyles
     };
@@ -80,41 +78,29 @@ const getRequiredStyles = (themeStyles, props, state) => {
     };
 };
 
-const getCustomStyles = (props) => ({
-    hintText: props.hintTextStyle
-});
-
-const getStyles = (defaultThemeValues, theme, props, state) => {
-    // Theme styles to be used when generating default and required styles.
-    const themeStyles = getThemeStyles(defaultThemeValues, theme.TextField, state, props);
-
-    // Default, custom, required styles
-    const defaultStyles = getDefaultStyles(themeStyles, props, state);
-    const customStyles = getCustomStyles(props);
-    const requiredStyles = getRequiredStyles(themeStyles, props, state);
-
-    const styles = mergeStyles(defaultStyles, customStyles, requiredStyles);
-    return theme.prepareStyles(styles);
-};
-
 class TextEntryField extends Component {
     static propTypes = {
         disabled: PropTypes.bool,
         fullWidth: PropTypes.bool,
         hintText: PropTypes.string,
-        hintTextStyle: CustomPropTypes.style,
         onBlur: PropTypes.func,
         onChange: PropTypes.func,
         onFocus: PropTypes.func,
         required: PropTypes.bool,
         width: PropTypes.number,
-        value: PropTypes.string
+        value: PropTypes.string,
+        styles: PropTypes.shape({
+            root: CustomPropTypes.style,
+            hintText: CustomPropTypes.style,
+            inputWrapper: CustomPropTypes.style,
+            input: CustomPropTypes.style,
+            requiredIndicator: CustomPropTypes.style
+        })
     };
 
     static defaultProps = {
         disabled: false,
         fullWidth: false,
-        hintTextStyle: {},
         onBlur: () => {
         },
         onChange: () => {
@@ -123,7 +109,14 @@ class TextEntryField extends Component {
         },
         required: false,
         width: 256,
-        value: ''
+        value: '',
+        styles: {
+            root: {},
+            hintText: {},
+            inputWrapper: {},
+            input: {},
+            requiredIndicator: {}
+        }
     };
 
     static themedStates = ['focused', 'pending'];
@@ -175,9 +168,10 @@ class TextEntryField extends Component {
     }
 
     render() {
-        const styles = getStyles(TextEntryField.defaultThemeProps, this.context.theme, this.props, this.state);
+        // const styles = getStyles(TextEntryField.defaultThemeProps, this.context.theme, this.props, this.state);
         const {disabled, value, hintText, required} = this.props;
         const {hasValue} = this.state;
+        const styles = this.getStyles(this);
 
         return (
             <div style={styles.root}>
@@ -218,4 +212,4 @@ class TextEntryField extends Component {
         this.refs.inputField.focus();
     };
 }
-export default TextEntryField;
+export default themedComponent(getThemeStyles, getDefaultStyles, getRequiredStyles)(TextEntryField);

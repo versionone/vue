@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {parse} from 'react-docgen';
+import findAllComponentDefinitions from 'react-docgen/dist/resolver/findAllComponentDefinitions';
 import {parse as parseDoctrine} from 'doctrine';
 import MarkdownElement from './MarkdownElement';
 import recast from 'recast';
@@ -31,7 +32,7 @@ function generatePropType(type) {
 
       if (deprecatedInfo !== false) {
         return generatePropType({
-          name: deprecatedInfo.propTypes,
+          name: deprecatedInfo.propTypes
         });
       }
 
@@ -104,17 +105,17 @@ class PropTypeDescription extends Component {
 
   static propTypes = {
     code: PropTypes.string,
-    header: PropTypes.string.isRequired,
+    header: PropTypes.string.isRequired
   };
 
   static defaultProps = {
-    header: '### Properties',
+    header: '### Properties'
   };
 
   render() {
     const {
       code,
-      header,
+      header
     } = this.props;
 
     let requiredProps = 0;
@@ -123,8 +124,8 @@ class PropTypeDescription extends Component {
 | Name | Type | Default | Description |
 |:-----|:-----|:-----|:-----|\n`;
 
-    const componentInfo = parse(code);
-
+    const componentInfo = parse(code, findAllComponentDefinitions)[0];
+console.log(componentInfo)
     for (let key in componentInfo.props) {
       const prop = componentInfo.props[key];
 

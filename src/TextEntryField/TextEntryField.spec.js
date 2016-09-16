@@ -50,11 +50,13 @@ describe('<TextEntryField>', function() {
     describe('when rendering with hint text and custom hint text styles', () => {
         beforeEach(() => {
             this.actual = mount(applyTheme(<TextEntryField hintText="I should be blue"
-                                                           hintTextStyle={{
-                                                               color: 'blue',
-                                                               position: 'relative',
-                                                               top: '100px',
-                                                               width: '100px'
+                                                           styles={{
+                                                               hintText: {
+                                                                   color: 'blue',
+                                                                   position: 'relative',
+                                                                   top: '100px',
+                                                                   width: '100px'
+                                                               }
                                                            }} />));
         });
         it('it should not override the position of the hint text', () => {
@@ -190,7 +192,7 @@ describe('<TextEntryField>', function() {
             this.actual.find('input').simulate('focus');
         });
         it('it should render in the focused state', () => {
-           this.actual.find('input').parent().should.have.style('outline', '1px solid blue');
+            this.actual.find('input').parent().should.have.style('outline', '1px solid blue');
         });
     });
     describe('given I am focused on the text field', () => {

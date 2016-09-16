@@ -64,7 +64,10 @@ const getDefaultStyles = (themeStyles, props) => ({
 const getRequiredStyles = (themeStyles, props, state) => {
     const hintTextOffset = state.hintTextHeight - textFieldHeight - (2 * themeStyles.padding);
     return {
-        root: {marginTop: hintTextOffset > 0 ? `${textFieldHeight}px` : 0},
+        root: {
+            marginTop: hintTextOffset > 0 ? `${textFieldHeight}px` : 0,
+            background: 'transparent'
+        },
         hintText: {
             position: 'absolute',
             top: hintTextOffset > 0 ? `-${hintTextOffset}px` : 0,
@@ -74,7 +77,8 @@ const getRequiredStyles = (themeStyles, props, state) => {
             width: '100%'
         },
         inputWrapper: {
-            display: 'flex'
+            display: 'flex',
+            background: 'transparent'
         }
     };
 };

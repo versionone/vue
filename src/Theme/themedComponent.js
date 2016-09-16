@@ -1,7 +1,8 @@
 import mergeStyles from './mergeStyles';
 
 export default (getThemeStyles, getDefaultStyles, getRequiredStyles) => (Component) => class ThemedComponent extends Component {
-    getStyles = ({props, state, context: {theme}}) => {
+    getStyles({props, state, context: {theme}}) {
+        console.log(this.props)
         // Theme styles to be used when generating default and required styles.
         const themeStyles = getThemeStyles(Component.defaultThemeProps, theme, props, state);
 
@@ -11,5 +12,5 @@ export default (getThemeStyles, getDefaultStyles, getRequiredStyles) => (Compone
         const requiredStyles = getRequiredStyles(themeStyles, props, state);
 
         return theme.prepareStyles(mergeStyles(defaultStyles, customStyles, requiredStyles));
-    };
+    }
 }

@@ -6,8 +6,7 @@ storiesOf('TextEntryField')
     .addWithInfo('long hint text',
         ``,
         () => (
-            <TextEntryField hintText="hint text is super duper long, so long in fact, that it just may be unbelievable"
-                            required />
+            <TextEntryField hintText="hint text is super duper long, so long in fact, that it just may be unbelievable" required />
         )
     )
     .addWithInfo('disabled',

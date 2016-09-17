@@ -11,6 +11,7 @@ const getThemeValues = (defaultThemeValues, {TextField}, props, state) => {
     // Themed styles based on state
     const focusedStyles = state.focused ? {...defaultThemeValues.focused, ...(TextField.focused || {})} : {};
     const pendingStyles = props.pending ? {...defaultThemeValues.pending, ...(TextField.pending || {})} : {};
+    const errorStyles = props.errorText ? {...defaultThemeValues.hasError, ...(TextField.hasError || {})} : {};
     const disabledStyles = props.disabled ? {...defaultThemeValues.disabled, ...(TextField.disabled || {})} : {};
     // Compose default theme values, then theme, then state based theme values;
     return mergeStyles(
@@ -18,6 +19,7 @@ const getThemeValues = (defaultThemeValues, {TextField}, props, state) => {
         TextField,
         focusedStyles,
         pendingStyles,
+        errorStyles,
         disabledStyles
     );
 };
@@ -136,6 +138,7 @@ class TextEntryField extends Component {
 
     static themedStates = [
         'disabled',
+        "hasError",
         'focused',
         'pending'
     ];

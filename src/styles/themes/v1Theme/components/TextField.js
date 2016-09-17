@@ -1,15 +1,24 @@
-import {white, lightBlack, pendingBackgroundColor} from './../colors';
-import {desktopGutterMini} from './../spacing';
+import {white, lightBlack, minBlack, black, pendingBackground, hintText} from './../colors';
+import {formFieldFontFamily} from './../typography';
 
 export default {
     backgroundColor: white,
-    padding: desktopGutterMini,
     border: `1px solid ${lightBlack}`,
     borderRadius: 5,
+    fontFamily: formFieldFontFamily,
+    fontSize: 16,
+    height: 48,
+    hintTextColor: hintText,
+    textColor: black,
+
+    // --- states
+    disabled: {
+        border: `1px solid ${minBlack}`
+    },
     focused: {
-        outline: '1px solid blue'
+        border: '1px solid blue'
     },
     pending: {
-        backgroundColor: pendingBackgroundColor
+        backgroundColor: pendingBackground
     }
 };

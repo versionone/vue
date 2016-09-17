@@ -1,4 +1,4 @@
-import {basicFont} from './../typography';
+import {basicFontFamily} from './../typography';
 import {black, cerulean} from './../colors';
 
 export default {
@@ -6,5 +6,5 @@ export default {
     textColor: black,
     backgroundColor: cerulean,
     horizontalGutter: 5,
-    fontFamily: basicFont
+    fontFamily: basicFontFamily
 };

@@ -7,51 +7,49 @@ import themedComponent from './../Theme/themedComponent';
 
 // TODO: pull out into theme/css/etc.
 // Things that should probably go in a theme
-const height = 48;
-const fontSize = 16;
-const fontFamily = 'Arial';
-const textFieldHeight = 24;
 
-const getThemeStyles = (defaultThemeValues, {TextField}, props, state) => {
+const getThemeValues = (defaultThemeValues, {TextField}, props, state) => {
     // Themed styles based on state
     const focusedStyles = state.focused ? {...defaultThemeValues.focused, ...(TextField.focused || {})} : {};
     const pendingStyles = props.pending ? {...defaultThemeValues.pending, ...(TextField.pending || {})} : {};
+    const disabledStyles = props.disabled ? {...defaultThemeValues.disabled, ...(TextField.disabled || {})} : {};
     // Compose default theme values, then theme, then state based theme values;
     return {
         ...defaultThemeValues,
         ...TextField,
         ...focusedStyles,
-        ...pendingStyles
+        ...pendingStyles,
+        ...disabledStyles
     };
 };
 
-const getDefaultStyles = (themeStyles, props) => ({
+const getDefaultStyles = (themeValues, props) => ({
     root: {
         position: 'relative',
-        width: props.fullWidth ? '100%' : props.width ? `${props.width}px` : `${themeStyles.width}px`,
-        height: `${height}px`,
-        lineHeight: `${textFieldHeight}px`,
         display: 'inline-block',
         transition: 'height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'
     },
     hintText: {
-        border: themeStyles.border,
-        borderRadius: themeStyles.borderRadius,
-        fontFamily,
-        fontSize: `${fontSize}px`,
-        outline: themeStyles.outline
+        color: themeValues.hintTextColor,
+        border: themeValues.border,
+        borderRadius: themeValues.borderRadius,
+        fontFamily: themeValues.fontFamily,
+        fontSize: `${themeValues.fontSize}px`,
+        outline: themeValues.outline,
+        padding: `${themeValues.padding}px`
     },
     inputWrapper: {
-        backgroundColor: themeStyles.backgroundColor,
-        padding: `${themeStyles.padding}px`
+        backgroundColor: themeValues.backgroundColor,
+        padding: `${themeValues.padding}px`
     },
     input: {
+        color: themeValues.textColor,
         flex: 1,
         width: '100%',
         background: 'rgba(0, 0, 0, 0)',
         border: '1px solid transparent',
-        fontFamily,
-        fontSize: `${fontSize}px`,
+        fontFamily: themeValues.fontFamily,
+        fontSize: `${themeValues.fontSize}px`,
         position: 'relative',
         cursor: props.disabled ? 'not-allowed' : 'initial',
         outline: 'none'
@@ -61,24 +59,32 @@ const getDefaultStyles = (themeStyles, props) => ({
     }
 });
 
-const getRequiredStyles = (themeStyles, props, state) => {
-    const hintTextOffset = state.hintTextHeight - textFieldHeight - (2 * themeStyles.padding);
+const getRequiredStyles = (themeValues, props, state) => {
+    const height = themeValues.height;
+    const lineHeight = height - themeValues.fontSize;
+    const hintTextOffset = height - state.hintTextHeight;
+    const marginTop = hintTextOffset < 0 ? `${Math.abs(hintTextOffset)}px` : 0;
+    const width = props.fullWidth ? '100%' : props.width ? `${props.width}px` : `${themeValues.width}px`;
     return {
         root: {
-            marginTop: hintTextOffset > 0 ? `${textFieldHeight}px` : 0,
-            background: 'transparent'
+            background: 'transparent',
+            height: `${height}px`,
+            lineHeight: `${lineHeight}px`,
+            marginTop,
+            width
         },
         hintText: {
-            position: 'absolute',
-            top: hintTextOffset > 0 ? `-${hintTextOffset}px` : 0,
-            padding: `${themeStyles.padding}px`,
-            backgroundColor: themeStyles.backgroundColor,
+            backgroundColor: themeValues.backgroundColor,
             boxSizing: 'border-box',
+            position: 'absolute',
+            top: hintTextOffset < 0 ? `${hintTextOffset}px` : 0,
             width: '100%'
         },
         inputWrapper: {
+            background: 'transparent',
+            boxSizing: 'border-box',
             display: 'flex',
-            background: 'transparent'
+            height: '100%'
         }
     };
 };
@@ -92,15 +98,9 @@ class TextEntryField extends Component {
         onChange: PropTypes.func,
         onFocus: PropTypes.func,
         required: PropTypes.bool,
+        theme: PropTypes.object,
         width: PropTypes.number,
-        value: PropTypes.string,
-        styles: PropTypes.shape({
-            root: CustomPropTypes.style,
-            hintText: CustomPropTypes.style,
-            inputWrapper: CustomPropTypes.style,
-            input: CustomPropTypes.style,
-            requiredIndicator: CustomPropTypes.style
-        })
+        value: PropTypes.string
     };
 
     static defaultProps = {
@@ -113,32 +113,36 @@ class TextEntryField extends Component {
         onFocus: () => {
         },
         required: false,
+        theme: {},
         width: 256,
-        value: '',
-        styles: {
-            root: {},
-            hintText: {},
-            inputWrapper: {},
-            input: {},
-            requiredIndicator: {}
-        }
+        value: ''
     };
 
-    static themedStates = ['focused', 'pending'];
+    static themedStates = ['focused', 'pending', 'disabled'];
     static themeProps = {
         backgroundColor: PropTypes.string,
         border: PropTypes.string,
         borderRadius: PropTypes.number,
+        fontFamily: PropTypes.string,
+        fontSize: PropTypes.string,
+        height: PropTypes.number,
+        hintTextColor: PropTypes.string,
         padding: PropTypes.number,
         outline: PropTypes.string,
+        textColor: PropTypes.string,
         width: PropTypes.number
     };
     static defaultThemeProps = {
         backgroundColor: 'transparent',
         border: '1px solid transparent',
         borderRadius: 0,
-        padding: 6,
+        fontFamily: 'Arial',
+        fontSize: 16,
+        height: 48,
+        hintTextColor: 'gray',
+        padding: 8,
         outline: '1px solid transparent',
+        textColor: 'black',
         width: 256,
         focused: {
             outline: '1px solid transparent'
@@ -175,7 +179,6 @@ class TextEntryField extends Component {
     }
 
     render() {
-        // const styles = getStyles(TextEntryField.defaultThemeProps, this.context.theme, this.props, this.state);
         const {disabled, value, hintText, required} = this.props;
         const {hasValue} = this.state;
         const styles = this.getStyles(this);
@@ -220,4 +223,4 @@ class TextEntryField extends Component {
         this.refs.inputField.focus();
     };
 }
-export default themedComponent(getThemeStyles, getDefaultStyles, getRequiredStyles)(TextEntryField);
+export default themedComponent(getThemeValues, getDefaultStyles, getRequiredStyles)(TextEntryField);

@@ -24,6 +24,9 @@ describe('<TextEntryField>', function() {
         it('it should not auto-adjust its height', () => {
             this.actual.should.have.style('marginTop', '0px');
         });
+        it('should use the background color of the hint text as the background of the text field', () => {
+            this.actual.find('input').parent().should.have.style('backgroundColor', 'transparent');
+        });
     });
     describe('when rendering without a value and with hint text', () => {
         beforeEach(() => {
@@ -50,13 +53,8 @@ describe('<TextEntryField>', function() {
     describe('when rendering with hint text and custom hint text styles', () => {
         beforeEach(() => {
             this.actual = mount(applyTheme(<TextEntryField hintText="I should be blue"
-                                                           styles={{
-                                                               hintText: {
-                                                                   color: 'blue',
-                                                                   position: 'relative',
-                                                                   top: '100px',
-                                                                   width: '100px'
-                                                               }
+                                                           theme={{
+                                                               hintTextColor: 'blue'
                                                            }} />));
         });
         it('it should not override the position of the hint text', () => {
@@ -113,7 +111,8 @@ describe('<TextEntryField>', function() {
         beforeEach(() => {
             this.onFocus = sinon.spy();
             this.actual = mount(applyTheme(<TextEntryField
-                hintText="int text is super duper long, so long in fact, that it just may be unbelievable" onFocus={this.onFocus} />));
+                hintText="int text is super duper long, so long in fact, that it just may be unbelievable"
+                onFocus={this.onFocus} />));
         });
         describe('when I click on the hint text', () => {
             beforeEach(() => {
@@ -266,7 +265,6 @@ describe('<TextEntryField>', function() {
             this.actual = mount(applyTheme(<TextEntryField pending />, this.theme));
         });
         it('it should render the text field with the pending state styles', () => {
-            this.actual.find('input').parent().should.have.style('backgroundColor', 'yellow');
             this.actual.find('HintText').should.have.style('backgroundColor', 'yellow');
         });
     });

@@ -3,7 +3,7 @@ import * as CustomPropTypes from '../utilities/PropTypes';
 
 const getStyles = (theme, props) => {
     // TODO: pull out into theme/css/etc.
-    const color = 'rgba(0, 0, 0, 0.298039)';
+    const color = props.style.color || 'rgba(0, 0, 0, 0.298039)';
 
     return {
         root: {

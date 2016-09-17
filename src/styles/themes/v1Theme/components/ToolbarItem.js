@@ -1,7 +1,7 @@
-import {basicFont, labelFontSize} from './../typography';
+import {basicFontFamily, labelFontSize} from './../typography';
 
 export default {
-    fontFamily: basicFont,
+    fontFamily: basicFontFamily,
     horizontalGutter: 8,
     labelFontSize,
     labelGutter: 8

@@ -4,5 +4,5 @@ import * as typography from './../typography';
 export default {
     color: colors.black,
     backgroundColor: colors.white,
-    fontFamily: typography.basicFont
+    fontFamily: typography.basicFontFamily
 };

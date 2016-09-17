@@ -118,7 +118,11 @@ class TextEntryField extends Component {
         value: ''
     };
 
-    static themedStates = ['focused', 'pending', 'disabled'];
+    static themedStates = [
+        'disabled',
+        'focused',
+        'pending'
+    ];
     static themeProps = {
         backgroundColor: PropTypes.string,
         border: PropTypes.string,

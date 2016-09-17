@@ -13,7 +13,8 @@ describe('themedComponent', function() {
             };
             this.themeFromProvider = getTheme(this.theme);
             this.props = {
-                styles: {
+                theme: {
+                    color: 'red',
                     fontSize: '12px',
                     border: '1px solid black',
                     padding: '12px'
@@ -24,9 +25,12 @@ describe('themedComponent', function() {
                 state: 'something'
             };
             this.themeStyles = {
-                color: 'blue'
+                color: 'red',
+                fontSize: '12px',
+                border: '1px solid black',
+                padding: '12px'
             };
-            this.getThemeStyles = sinon.stub().returns(this.themeStyles);
+            this.getThemeStyles = sinon.stub().returns(this.theme);
             this.getDefaultStyles = sinon.stub().returns({
                 color: 'green',
                 background: 'blue',
@@ -43,7 +47,7 @@ describe('themedComponent', function() {
                 beforeEach(() => {
                     this.actualComponent = themedComponent(this.getThemeStyles, this.getDefaultStyles, this.getRequiredStyles)(TestComponent);
                     this.actual = mount(<ThemeProvider theme={this.themeFromProvider}>
-                        <this.actualComponent styles={this.props.styles}
+                        <this.actualComponent theme={this.props.theme}
                                               test={true} />
                     </ThemeProvider>);
                 });
@@ -55,22 +59,19 @@ describe('themedComponent', function() {
                         this.state
                     ).should.be.true
                 });
-                it('it should provide the component\'s props, state, and styles from the getThemeStyles to getDefaultStyles', () => {
+                it('it should provide the component\'s props, state, and merged theme values (from props.theme and theme) to the getDefaultStyles', () => {
                     this.getDefaultStyles.calledWith(this.themeStyles, this.props, this.state).should.be.true;
                 });
-                it('it should provide the component\'s props, state, and styles from the getThemeStyles to getRequiredStyles', () => {
+                it('it should provide the component\'s props, state, and merged theme values (from props.theme and theme) to the getRequiredStyles', () => {
                     this.getRequiredStyles.calledWith(this.themeStyles, this.props, this.state).should.be.true;
                 });
-                it('it apply and override styles in the following order: default styles, prop styles, required styles', () => {
+                it('it apply and override styles in the following order: default styles then required styles', () => {
                     // Required Styles
                     this.actual.should.have.style('background', 'green');
                     this.actual.should.have.style('fontSize', '16px');
 
-                    // Custom Styles
-                    this.actual.should.have.style('border', '1px solid black');
-                    this.actual.should.have.style('padding', '12px');
-
                     // Default styles
+                    this.actual.should.have.style('border', '1px solid gray');
                     this.actual.should.have.style('color', 'green');
                     this.actual.should.have.style('outline', '1px solid blue');
                 });

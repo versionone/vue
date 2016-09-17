@@ -4,6 +4,7 @@ import * as CustomPropTypes from './../utilities/PropTypes';
 import HintText from '../shared/HintText';
 import RequiredIndicator from '../shared/RequiredIndicator';
 import themedComponent from './../Theme/themedComponent';
+import mergeStyles from './../Theme/mergeStyles';
 
 // TODO: pull out into theme/css/etc.
 // Things that should probably go in a theme
@@ -14,13 +15,13 @@ const getThemeValues = (defaultThemeValues, {TextField}, props, state) => {
     const pendingStyles = props.pending ? {...defaultThemeValues.pending, ...(TextField.pending || {})} : {};
     const disabledStyles = props.disabled ? {...defaultThemeValues.disabled, ...(TextField.disabled || {})} : {};
     // Compose default theme values, then theme, then state based theme values;
-    return {
-        ...defaultThemeValues,
-        ...TextField,
-        ...focusedStyles,
-        ...pendingStyles,
-        ...disabledStyles
-    };
+    return mergeStyles(
+        defaultThemeValues,
+        TextField,
+        focusedStyles,
+        pendingStyles,
+        disabledStyles
+    );
 };
 
 const getDefaultStyles = (themeValues, props) => ({
@@ -65,6 +66,7 @@ const getRequiredStyles = (themeValues, props, state) => {
     const hintTextOffset = height - state.hintTextHeight;
     const marginTop = hintTextOffset < 0 ? `${Math.abs(hintTextOffset)}px` : 0;
     const width = props.fullWidth ? '100%' : props.width ? `${props.width}px` : `${themeValues.width}px`;
+
     return {
         root: {
             background: 'transparent',
@@ -75,6 +77,7 @@ const getRequiredStyles = (themeValues, props, state) => {
         },
         hintText: {
             backgroundColor: themeValues.backgroundColor,
+            boxShadow: themeValues.boxShadow,
             boxSizing: 'border-box',
             position: 'absolute',
             top: hintTextOffset < 0 ? `${hintTextOffset}px` : 0,
@@ -127,6 +130,7 @@ class TextEntryField extends Component {
         backgroundColor: PropTypes.string,
         border: PropTypes.string,
         borderRadius: PropTypes.number,
+        boxShadow: PropTypes.string,
         fontFamily: PropTypes.string,
         fontSize: PropTypes.string,
         height: PropTypes.number,
@@ -140,6 +144,7 @@ class TextEntryField extends Component {
         backgroundColor: 'transparent',
         border: '1px solid transparent',
         borderRadius: 0,
+        boxShadow: 'none',
         fontFamily: 'Arial',
         fontSize: 16,
         height: 48,

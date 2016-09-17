@@ -1,4 +1,4 @@
-import {white, lightBlack, minBlack, black, pendingBackground, hintText} from './../colors';
+import {white, lightBlack, minBlack, black, pendingBackground, hintText, cerulean} from './../colors';
 import {formFieldFontFamily} from './../typography';
 
 export default {
@@ -16,7 +16,7 @@ export default {
         border: `1px solid ${minBlack}`
     },
     focused: {
-        border: '1px solid blue'
+        boxShadow: `0 0 7px ${cerulean}`
     },
     pending: {
         backgroundColor: pendingBackground

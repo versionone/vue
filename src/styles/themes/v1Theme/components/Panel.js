@@ -1,5 +1,5 @@
-import * as colors from './../colors';
-import * as typography from './../typography';
+import * as colors from './../foundations/colors';
+import * as typography from './../foundations/typography';
 
 export default {
     color: colors.black,

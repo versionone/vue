@@ -1,5 +1,5 @@
-import {white, lightBlack, minBlack, black, pendingBackground, hintText, cerulean} from './../colors';
-import {formFieldFontFamily} from './../typography';
+import {white, lightBlack, minBlack, black, pendingBackground, hintText, cerulean} from './../foundations/colors';
+import {formFieldFontFamily} from './../foundations/typography';
 
 export default {
     backgroundColor: white,

@@ -1,4 +1,4 @@
-import {basicFontFamily, labelFontSize} from './../typography';
+import {basicFontFamily, labelFontSize} from './../foundations/typography';
 
 export default {
     fontFamily: basicFontFamily,

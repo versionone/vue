@@ -1,5 +1,5 @@
-import {desktopGutter} from './../spacing';
-import {titleFontSize} from './../typography';
+import {desktopGutter} from './../foundations/spacing';
+import {titleFontSize} from './../foundations/typography';
 
 export default {
     gutter: desktopGutter,

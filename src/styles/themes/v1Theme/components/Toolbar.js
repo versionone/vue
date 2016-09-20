@@ -1,5 +1,5 @@
-import {basicFontFamily} from './../typography';
-import {black, cerulean} from './../colors';
+import {basicFontFamily} from './../foundations/typography';
+import {black, cerulean} from './../foundations/colors';
 
 export default {
     height: 56,

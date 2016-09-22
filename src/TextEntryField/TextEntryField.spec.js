@@ -3,6 +3,8 @@ import {mount, shallow} from 'enzyme';
 import sinon from 'sinon';
 import {applyTheme} from './../../specHelpers';
 import TextEntryField from './TextEntryField';
+import HintText from './../internal/HintText';
+import ErrorMessage from './../internal/ErrorMessage';
 
 describe('<TextEntryField>', function() {
     beforeEach(() => {
@@ -62,9 +64,6 @@ describe('<TextEntryField>', function() {
         });
         it('it should not override the top offset of the hint text', () => {
             this.actual.find('HintText').should.have.style('top', '0px');
-        });
-        it('it should not override the width of the hint text', () => {
-            this.actual.find('HintText').should.have.style('width', '100%');
         });
         it('it should pass the other styles to the HintText', () => {
             this.actual.find('HintText').props().style.should.contain({color: 'blue'});
@@ -141,7 +140,8 @@ describe('<TextEntryField>', function() {
             this.actual = mount(applyTheme(<TextEntryField width={250} />));
         });
         it('it should render the text field with the specified width in pixels', () => {
-            this.actual.should.have.style('width', '250px');
+            this.actual.find(HintText).should.have.style('width', '250px');
+            this.actual.find('input').parent().should.have.style('width', '250px');
         });
     });
     describe('when rendering without a set width', () => {
@@ -149,7 +149,8 @@ describe('<TextEntryField>', function() {
             this.actual = mount(applyTheme(<TextEntryField />));
         });
         it('it should render the text field with the default width', () => {
-            this.actual.should.have.style('width', '256px');
+            this.actual.find(HintText).should.have.style('width', '256px');
+            this.actual.find('input').parent().should.have.style('width', '256px');
         });
     });
     describe('when rendering full width and providing a set width', () => {
@@ -248,9 +249,23 @@ describe('<TextEntryField>', function() {
         });
     });
     describe('when rendering with an error message', () => {
+        beforeEach(() => {
+            this.actual = mount(applyTheme(<TextEntryField errorText="required" />, this.theme));
+        });
         // Where? top, below, right/left, etc?
-        it('it should render the error message', () => {
-            throw new Error('Not Implemented Error');
+        it('it should render the error message to the right of the input field', () => {
+           this.actual.find(ErrorMessage).should.have.text('required');
+            this.actual.find(ErrorMessage).props().hidden.should.be.false;
+        });
+    });
+    describe('when rendering without an error message', () => {
+        beforeEach(() => {
+            this.actual = mount(applyTheme(<TextEntryField />, this.theme));
+        });
+        // Where? top, below, right/left, etc?
+        it('it should render an invisible, blank error message', () => {
+           this.actual.find(ErrorMessage).should.have.text('');
+            this.actual.find(ErrorMessage).props().hidden.should.be.true;
         });
     });
     describe('when rendering a text field that is in a pending state', () => {

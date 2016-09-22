@@ -3,11 +3,9 @@ import {findDOMNode} from 'react-dom';
 import * as CustomPropTypes from './../utilities/PropTypes';
 import HintText from './../internal/HintText';
 import RequiredIndicator from './../internal/RequiredIndicator';
+import ErrorMessage from './../internal/ErrorMessage';
 import themedComponent from './../Theme/themedComponent';
 import mergeStyles from './../Theme/mergeStyles';
-
-// TODO: pull out into theme/css/etc.
-// Things that should probably go in a theme
 
 const getThemeValues = (defaultThemeValues, {TextField}, props, state) => {
     // Themed styles based on state
@@ -27,7 +25,6 @@ const getThemeValues = (defaultThemeValues, {TextField}, props, state) => {
 const getDefaultStyles = (themeValues, props) => ({
     root: {
         position: 'relative',
-        display: 'inline-block',
         transition: 'height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'
     },
     hintText: {
@@ -67,13 +64,12 @@ const getRequiredStyles = (themeValues, props, state) => {
     const marginTop = hintTextOffset < 0 ? `${Math.abs(hintTextOffset)}px` : 0;
     const width = props.fullWidth ? '100%' : props.width ? `${props.width}px` : `${themeValues.width}px`;
 
-    return {
+    const styles = {
         root: {
+            display: 'inline-flex',
             background: 'transparent',
-            height: `${height}px`,
             lineHeight: `${lineHeight}px`,
-            marginTop,
-            width
+            marginTop
         },
         hintText: {
             backgroundColor: themeValues.backgroundColor,
@@ -81,20 +77,37 @@ const getRequiredStyles = (themeValues, props, state) => {
             boxSizing: 'border-box',
             position: 'absolute',
             top: hintTextOffset < 0 ? `${hintTextOffset}px` : 0,
-            width: '100%'
+            width
         },
         inputWrapper: {
             background: 'transparent',
             boxSizing: 'border-box',
-            display: 'flex',
-            height: '100%'
+            display: 'inline-flex',
+            height: '100%',
+            width,
+            minWidth: width
+        },
+        errorMessage: {
+            alignSelf: 'center',
+            lineHeight: `${themeValues.fontSize}px`,
+            marginTop: `-${marginTop}`,
+            padding: `${themeValues.padding}px`
         }
     };
+
+    if (props.fullWidth) {
+        styles.root.width = '100%';
+        styles.root.display = 'block';
+        styles.errorMessage.display = 'block';
+        styles.errorMessage.padding = `${themeValues.padding}px 0`;
+    }
+    return styles
 };
 
 class TextEntryField extends Component {
     static propTypes = {
         disabled: PropTypes.bool,
+        errorText: PropTypes.string,
         fullWidth: PropTypes.bool,
         hintText: PropTypes.string,
         onBlur: PropTypes.func,
@@ -188,7 +201,7 @@ class TextEntryField extends Component {
     }
 
     render() {
-        const {disabled, value, hintText, required} = this.props;
+        const {disabled, errorText, value, hintText, required} = this.props;
         const {hasValue} = this.state;
         const styles = this.getStyles(this);
 
@@ -202,6 +215,7 @@ class TextEntryField extends Component {
                            disabled={disabled} onFocus={this.handleFocus} onBlur={this.handleBlur} />
                     <RequiredIndicator hidden={!required} style={styles.requiredIndicator} />
                 </div>
+                <div style={styles.errorMessage}><ErrorMessage text={errorText} hidden={!errorText} /></div>
             </div>
         );
     }

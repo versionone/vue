@@ -1,8 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import {findDOMNode} from 'react-dom';
 import * as CustomPropTypes from './../utilities/PropTypes';
-import HintText from '../shared/HintText';
-import RequiredIndicator from '../shared/RequiredIndicator';
+import HintText from './../internal/HintText';
+import RequiredIndicator from './../internal/RequiredIndicator';
 import themedComponent from './../Theme/themedComponent';
 import mergeStyles from './../Theme/mergeStyles';
 

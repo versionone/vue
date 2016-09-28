@@ -5,7 +5,7 @@ import withWidth, {LARGE} from 'material-ui/utils/withWidth';
 import spacing from 'material-ui/styles/spacing';
 import typography from 'material-ui/styles/typography';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import {gunSmoke, grey200, darkWhite} from 'vue/styles/themes/v1Theme/colors';
+import {gunSmoke, grey200, darkWhite} from 'vue/styles/themes/v1Theme/foundations/colors';
 
 class HomePage extends Component {
     static propTypes = {

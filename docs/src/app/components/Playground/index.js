@@ -1,8 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import Drawer from 'material-ui/Drawer';
 import {spacing, typography, zIndex} from 'material-ui/styles';
-import {cerulean, gunSmoke} from 'vue/styles/themes/v1Theme/colors';
-import {desktopGutter} from 'vue/styles/themes/v1Theme/spacing';
+import {cerulean, gunSmoke} from 'vue/styles/themes/v1Theme/foundations/colors';
+import {desktopGutter} from 'vue/styles/themes/v1Theme/foundations/spacing';
 import Editor from './Editor';
 import Preview from './Preview';
 

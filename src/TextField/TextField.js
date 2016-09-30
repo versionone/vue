@@ -109,6 +109,7 @@ const getRequiredStyles = (themeValues, props, state) => {
 class TextEntryField extends Component {
     static propTypes = {
         disabled: PropTypes.bool,
+        defaultValue: PropTypes.string,
         errorText: PropTypes.string,
         fullWidth: PropTypes.bool,
         hintText: PropTypes.string,
@@ -132,8 +133,7 @@ class TextEntryField extends Component {
         },
         required: false,
         theme: {},
-        width: 256,
-        value: ''
+        width: 256
     };
 
     static themedStates = [
@@ -185,7 +185,7 @@ class TextEntryField extends Component {
         super(props, ...rest);
         this.state = {
             hintTextHeight: 24,
-            hasValue: !!props.value,
+            hasValue: !!props.value || !!props.defaultValue,
             focused: false
         };
     }
@@ -204,7 +204,7 @@ class TextEntryField extends Component {
     }
 
     render() {
-        const {disabled, errorText, value, hintText, required} = this.props;
+        const {disabled, defaultValue, errorText, hintText, required, value} = this.props;
         const {hasValue} = this.state;
         const styles = this.getStyles(this);
 
@@ -213,12 +213,12 @@ class TextEntryField extends Component {
                 <HintText ref="hintText" text={hintText} style={styles.hintText} hidden={hasValue}
                           onClick={this.focusInput} />
                 <div style={styles.inputWrapper} ref="inputWrapper">
-                    <input style={styles.input} type="text" ref="inputField" defaultValue={value}
+                    <input style={styles.input} type="text" ref="inputField" defaultValue={defaultValue} value={value} disabled={disabled}
                            onChange={this.handleChange}
-                           disabled={disabled} onFocus={this.handleFocus} onBlur={this.handleBlur} />
+                           onFocus={this.handleFocus}onBlur={this.handleBlur} />
                     <RequiredIndicator hidden={!required} style={styles.requiredIndicator} />
                 </div>
-                <div style={styles.errorMessage}><ErrorMessage text={errorText} hidden={!errorText} /></div>
+                {errorText && <div style={styles.errorMessage}><ErrorMessage text={errorText} hidden={!errorText} /></div>}
             </div>
         );
     }

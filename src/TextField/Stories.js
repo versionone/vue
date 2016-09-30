@@ -6,10 +6,10 @@ storiesOf('TextEntryField')
     .addWithInfo('with value',
         ``,
         () => (
-            <TextField hintText="hint text" value="" />
+            <TextField hintText="hint text" value="no typing can change me!" />
         )
     )
-    .addWithInfo('with default Value',
+    .addWithInfo('without value & default Value',
         ``,
         () => (
             <TextField hintText="hint text" defaultValue="alpha-numeric!" />

@@ -9,5 +9,5 @@ export default (getThemeValues, getDefaultStyles, getRequiredStyles) => ({props,
     const defaultStyles = getDefaultStyles(computedThemeValues, props, state);
     const requiredStyles = getRequiredStyles(computedThemeValues, props, state);
 
-    return theme.prepareStyles(mergeStyles(defaultStyles, requiredStyles));
+    return mergeStyles(defaultStyles, requiredStyles);
 };

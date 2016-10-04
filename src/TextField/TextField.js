@@ -93,7 +93,7 @@ const getRequiredStyles = (themeValues, props, state) => {
         errorMessage: {
             alignSelf: 'center',
             lineHeight: `${themeValues.fontSize}px`,
-            marginTop: `-${marginTop}`,
+            marginTop: `-${marginTop}px`,
             padding: `${themeValues.padding}px`
         }
     };
@@ -209,19 +209,20 @@ class TextField extends Component {
     render() {
         const {disabled, defaultValue, errorText, hintText, required, value} = this.props;
         const {hasValue} = this.state;
+        const {prepareStyles} = this.context.theme;
         const styles = getStyles(this);
 
         return (
-            <div style={styles.root}>
+            <div style={prepareStyles(styles.root)}>
                 <HintText ref="hintText" text={hintText} style={styles.hintText} hidden={hasValue}
                           onClick={this.focusInput} />
-                <div style={styles.inputWrapper} ref="inputWrapper">
-                    <input style={styles.input} type="text" ref="inputField" defaultValue={defaultValue} value={value} disabled={disabled}
+                <div style={prepareStyles(styles.inputWrapper)} ref="inputWrapper">
+                    <input style={prepareStyles(styles.input)} type="text" ref="inputField" defaultValue={defaultValue} value={value} disabled={disabled}
                            onChange={this.handleChange}
                            onFocus={this.handleFocus}onBlur={this.handleBlur} />
                     <RequiredIndicator hidden={!required} style={styles.requiredIndicator} />
                 </div>
-                {errorText && <div style={styles.errorMessage}><ErrorMessage text={errorText} hidden={!errorText} /></div>}
+                {errorText && <div style={prepareStyles(styles.errorMessage)}><ErrorMessage text={errorText} hidden={!errorText} /></div>}
             </div>
         );
     }

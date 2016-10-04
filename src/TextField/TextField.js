@@ -82,6 +82,7 @@ const getRequiredStyles = (themeValues, props, state) => {
         },
         inputWrapper: {
             background: 'transparent',
+            border: '1px solid transparent',
             boxSizing: 'border-box',
             display: 'inline-flex',
             height: '100%',

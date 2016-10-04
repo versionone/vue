@@ -44,15 +44,16 @@ const getDefaultStyles = (themeValues, props) => ({
         padding: `${themeValues.padding}px`
     },
     input: {
-        color: themeValues.textColor,
-        flex: 1,
-        width: '100%',
         background: 'rgba(0, 0, 0, 0)',
+        color: themeValues.textColor,
+        cursor: props.disabled ? 'not-allowed' : 'initial',
+        flex: 1,
         fontFamily: themeValues.fontFamily,
         fontSize: `${themeValues.fontSize}px`,
+        outline: 'none',
+        padding: 0,
         position: 'relative',
-        cursor: props.disabled ? 'not-allowed' : 'initial',
-        outline: 'none'
+        width: '100%'
     },
     requiredIndicator: {
         alignSelf: 'center'
@@ -189,7 +190,7 @@ class TextField extends Component {
     constructor(props, ...rest) {
         super(props, ...rest);
         this.state = {
-            hintTextHeight: 24,
+            hintTextHeight: 32,
             hasValue: !!props.value || !!props.defaultValue,
             focused: false
         };

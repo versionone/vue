@@ -51,7 +51,7 @@ class ErrorMessage extends Component {
 
     render() {
         // eslint-disable-next-line no-unused-vars
-        const {text, hidden, ...rest} = this.props;
+        const {text, hidden, theme, ...rest} = this.props;
         const styles = getStyles(this);
 
         return (

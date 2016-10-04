@@ -201,7 +201,7 @@ class TextField extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            hasValue: !!nextProps.value,
+            hasValue: !!nextProps.value || !!nextProps.defaultValue,
             hintTextHeight: findDOMNode(this.refs.hintText).getBoundingClientRect().height
         });
     }

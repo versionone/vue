@@ -17,7 +17,7 @@ const getThemeValues = (theme, props, state) => {
     // Compose default theme values, then theme, then state based theme values;
     return mergeStyles(
         defaultThemeValues,
-        TextField,
+        theme.TextField,
         focusedStyles,
         pendingStyles,
         errorStyles,

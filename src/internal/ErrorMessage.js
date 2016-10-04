@@ -13,6 +13,8 @@ const getDefaultStyles = (themeValues) => ({
 });
 const getRequiredStyles = (themeValues, props) => ({
     text: {
+        display: 'block',
+        lineHeight: 1.5,
         opacity: props.hidden ? 0 : 1
     }
 });

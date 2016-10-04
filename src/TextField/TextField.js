@@ -48,7 +48,6 @@ const getDefaultStyles = (themeValues, props) => ({
         flex: 1,
         width: '100%',
         background: 'rgba(0, 0, 0, 0)',
-        border: '1px solid transparent',
         fontFamily: themeValues.fontFamily,
         fontSize: `${themeValues.fontSize}px`,
         position: 'relative',
@@ -61,8 +60,9 @@ const getDefaultStyles = (themeValues, props) => ({
 });
 
 const getRequiredStyles = (themeValues, props, state) => {
-    const height = themeValues.height;
-    const lineHeight = height - themeValues.fontSize;
+    const fontSizeAdjustedHeight = themeValues.fontSize * 1.5;
+    // font size adjusted height + top & bottom padding + top & bottom border
+    const height = fontSizeAdjustedHeight + themeValues.padding * 2 + 2;
     const hintTextOffset = height - state.hintTextHeight;
     const marginTop = hintTextOffset < 0 ? `${Math.abs(hintTextOffset)}px` : 0;
     const width = props.fullWidth ? '100%' : props.width ? `${props.width}px` : `${themeValues.width}px`;
@@ -70,16 +70,14 @@ const getRequiredStyles = (themeValues, props, state) => {
     const styles = {
         root: {
             display: 'inline-flex',
-            background: 'transparent',
-            lineHeight: `${lineHeight}px`,
-            marginTop
+            background: 'transparent'
         },
         hintText: {
             backgroundColor: themeValues.backgroundColor,
             boxShadow: themeValues.boxShadow,
             boxSizing: 'border-box',
             position: 'absolute',
-            top: hintTextOffset < 0 ? `${hintTextOffset}px` : 0,
+            top: 0,
             width
         },
         inputWrapper: {
@@ -87,8 +85,13 @@ const getRequiredStyles = (themeValues, props, state) => {
             boxSizing: 'border-box',
             display: 'inline-flex',
             height: '100%',
+            marginTop,
             width,
             minWidth: width
+        },
+        input: {
+            border: '0px solid transparent',
+            height: `${fontSizeAdjustedHeight}px`
         },
         errorMessage: {
             alignSelf: 'center',
@@ -152,7 +155,6 @@ class TextField extends Component {
         boxShadow: PropTypes.string,
         fontFamily: PropTypes.string,
         fontSize: PropTypes.string,
-        height: PropTypes.number,
         hintTextColor: PropTypes.string,
         padding: PropTypes.number,
         outline: PropTypes.string,
@@ -166,7 +168,6 @@ class TextField extends Component {
         boxShadow: 'none',
         fontFamily: 'Arial',
         fontSize: 16,
-        height: 48,
         hintTextColor: 'gray',
         padding: 8,
         outline: '1px solid transparent',

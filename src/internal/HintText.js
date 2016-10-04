@@ -12,6 +12,8 @@ const getStyles = (theme, props) => {
         },
         text: {
             color,
+            display: 'block',
+            lineHeight: 1.5,
             opacity: props.hidden ? 0 : 1,
             transition: 'opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'
         }

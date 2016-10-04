@@ -16,9 +16,6 @@ describe('<TextField>', function() {
         beforeEach(() => {
             this.actual = mount(applyTheme(<TextField />));
         });
-        it('it should not auto-adjust the height of the text field', () => {
-            this.actual.should.have.style('marginTop', '0px');
-        });
         it('it should have a transparent background on the input, so that the hint text background color shows as the field\'s background color', () => {
             this.actual.find('input').parent().should.have.style('backgroundColor', 'transparent');
         });
@@ -159,11 +156,8 @@ describe('<TextField>', function() {
                         .setState({hintTextHeight: 72});
                 });
                 describe('when rendering the text field', () => {
-                    it('it should align the bottom of the hint text with the bottom of the input', () => {
-                        this.actual.find(HintText).props().style.top.should.equal('-24px');
-                    });
                     it('it should auto adjust the height of the text field to accommodate the extra long hint text', () => {
-                        this.actual.should.have.style('marginTop', '24px');
+                        this.actual.find('input').parent().should.have.style('marginTop', '37px');
                     });
                 });
                 describe('when I click on the hint text', () => {

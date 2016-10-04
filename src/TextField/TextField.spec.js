@@ -6,6 +6,7 @@ import TextField from './TextField';
 import HintText from './../internal/HintText';
 import RequiredIndicator from './../internal/RequiredIndicator';
 import ErrorMessage from './../internal/ErrorMessage';
+import getTheme from './../Theme/getTheme';
 
 describe('<TextField>', function() {
     beforeEach(() => {
@@ -35,7 +36,7 @@ describe('<TextField>', function() {
                 this.actual.find('input').should.have.value(this.value);
             });
         });
-        describe.skip('when typing into the text field', () => {
+        describe('when typing into the text field', () => {
             beforeEach(() => {
                 this.actual = mount(applyTheme(<TextField value={this.value} />));
                 this.actual.find('input').simulate('keydown', {which: 64});
@@ -133,18 +134,36 @@ describe('<TextField>', function() {
                         this.actual.find(HintText).children().should.have.style('opacity', '0');
                     });
                 });
-            });
-            describe('given a multi-line length hint text value', () => {
-                beforeEach(() => {
-                    this.actual = mount(applyTheme(<TextField
-                        hintText="hint text is super duper long, so long in fact, that it just may be unbelievable" />));
+                describe('when re-rendering the text field with a value', () => {
+                    beforeEach(() => {
+                        this.value = 'I am a value';
+                        this.context = {
+                            theme: getTheme()
+                        };
+                        this.actual = mount(<TextField hintText={this.hintText} />, {context: this.context});
+                        this.actual.setProps({value: this.value});
+                    });
+
+                    it('it should set the state that the text field has a value', () => {
+                        this.actual.state('hasValue').should.be.true;
+                    });
                 });
-                describe.skip('when rendering the text field', () => {
+            });
+            describe('given a multi-line length hint text value (72px tall)', () => {
+                beforeEach(() => {
+                    this.context = {
+                        theme: getTheme()
+                    };
+                    this.actual = mount(<TextField
+                        hintText="fake content that is '72px' tall" />, {context: this.context})
+                        .setState({hintTextHeight: 72});
+                });
+                describe('when rendering the text field', () => {
                     it('it should align the bottom of the hint text with the bottom of the input', () => {
-                        this.actual.find(HintText).should.have.style({top: '-48px'});
+                        this.actual.find(HintText).props().style.top.should.equal('-24px');
                     });
                     it('it should auto adjust the height of the text field to accommodate the extra long hint text', () => {
-                        this.actual.setState({hintTextHeight: 72}).should.have.style('marginTop', '24px');
+                        this.actual.should.have.style('marginTop', '24px');
                     });
                 });
                 describe('when I click on the hint text', () => {
@@ -281,7 +300,7 @@ describe('<TextField>', function() {
                 this.focus.called.should.be.true;
             });
             it('it should render in the focused state', () => {
-                this.actual.find('HintText').should.have.style('outline', '1px solid blue');
+                this.actual.find(HintText).should.have.style('outline', '1px solid blue');
             });
         });
     });

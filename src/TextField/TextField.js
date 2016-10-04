@@ -4,15 +4,16 @@ import * as CustomPropTypes from './../utilities/PropTypes';
 import HintText from './../internal/HintText';
 import RequiredIndicator from './../internal/RequiredIndicator';
 import ErrorMessage from './../internal/ErrorMessage';
-import themedComponent from './../Theme/themedComponent';
+import gettingStyles from '../Theme/gettingStyles';
 import mergeStyles from './../Theme/mergeStyles';
 
-const getThemeValues = (defaultThemeValues, {TextField}, props, state) => {
+const getThemeValues = (theme, props, state) => {
+    const defaultThemeValues = TextField.defaultThemeProps;
     // Themed styles based on state
-    const focusedStyles = state.focused ? {...defaultThemeValues.focused, ...(TextField.focused || {})} : {};
-    const pendingStyles = props.pending ? {...defaultThemeValues.pending, ...(TextField.pending || {})} : {};
-    const errorStyles = props.errorText ? {...defaultThemeValues.hasError, ...(TextField.hasError || {})} : {};
-    const disabledStyles = props.disabled ? {...defaultThemeValues.disabled, ...(TextField.disabled || {})} : {};
+    const focusedStyles = state.focused ? {...defaultThemeValues.focused, ...(theme.TextField.focused || {})} : {};
+    const pendingStyles = props.pending ? {...defaultThemeValues.pending, ...(theme.TextField.pending || {})} : {};
+    const errorStyles = props.errorText ? {...defaultThemeValues.hasError, ...(theme.TextField.hasError || {})} : {};
+    const disabledStyles = props.disabled ? {...defaultThemeValues.disabled, ...(theme.TextField.disabled || {})} : {};
     // Compose default theme values, then theme, then state based theme values;
     return mergeStyles(
         defaultThemeValues,
@@ -106,7 +107,9 @@ const getRequiredStyles = (themeValues, props, state) => {
     return styles
 };
 
-class TextEntryField extends Component {
+const getStyles = gettingStyles(getThemeValues, getDefaultStyles, getRequiredStyles);
+
+class TextField extends Component {
     static propTypes = {
         disabled: PropTypes.bool,
         defaultValue: PropTypes.string,
@@ -196,7 +199,7 @@ class TextEntryField extends Component {
         });
     }
 
-    componentDidReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps) {
         this.setState({
             hasValue: !!nextProps.value,
             hintTextHeight: findDOMNode(this.refs.hintText).getBoundingClientRect().height
@@ -206,7 +209,7 @@ class TextEntryField extends Component {
     render() {
         const {disabled, defaultValue, errorText, hintText, required, value} = this.props;
         const {hasValue} = this.state;
-        const styles = this.getStyles(this);
+        const styles = getStyles(this);
 
         return (
             <div style={styles.root}>
@@ -249,4 +252,4 @@ class TextEntryField extends Component {
         this.refs.inputField.focus();
     };
 }
-export default themedComponent(getThemeValues, getDefaultStyles, getRequiredStyles)(TextEntryField);
+export default TextField;

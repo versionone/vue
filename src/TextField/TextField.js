@@ -160,7 +160,7 @@ class TextField extends Component {
         width: PropTypes.number
     };
     static defaultThemeProps = {
-        backgroundColor: 'transparent',
+        backgroundColor: '#fff',
         border: '1px solid transparent',
         borderRadius: 0,
         boxShadow: 'none',
@@ -176,7 +176,7 @@ class TextField extends Component {
             outline: '1px solid transparent'
         },
         pending: {
-            backgroundColor: 'transparent'
+            backgroundColor: '#fff'
         }
     };
 

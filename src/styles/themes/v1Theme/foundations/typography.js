@@ -16,7 +16,8 @@ export const fontWeightMedium = 500;
 export const basicFontFamily = `'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif`;
 export const formFieldFontFamily = basicFontFamily;
 
-export const labelFontSize = 16;
+export const labelFontSize = 8;
+export const formFieldFontSize = 14;
 export const buttonFontSize = 16;
 export const titleFontSize = 22;
 export const titleFontSizeSmall = 18;

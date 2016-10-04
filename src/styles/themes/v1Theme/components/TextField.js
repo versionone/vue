@@ -1,15 +1,16 @@
-import {white, lightBlack, minBlack, black, pendingBackground, hintText, cerulean} from './../foundations/colors';
-import {formFieldFontFamily} from './../foundations/typography';
+import {white, aluminum, forge, minBlack, pendingBackground, hintText, cerulean} from './../foundations/colors';
+import {formFieldFontFamily, formFieldFontSize} from './../foundations/typography';
+import {formFieldPadding} from './../foundations/spacing';
 
 export default {
     backgroundColor: white,
-    border: `1px solid ${lightBlack}`,
-    borderRadius: 5,
+    border: `1px solid ${aluminum}`,
+    borderRadius: 3,
     fontFamily: formFieldFontFamily,
-    fontSize: 16,
-    height: 48,
+    fontSize: formFieldFontSize,
+    padding: formFieldPadding,
     hintTextColor: hintText,
-    textColor: black,
+    textColor: forge,
 
     // --- states
     disabled: {
@@ -20,5 +21,9 @@ export default {
     },
     pending: {
         backgroundColor: pendingBackground
+    },
+    hasError: {
+        boxShadow: `0 0 2px 2px rgba(213, 33, 1, 0.5)`,
+        border: '1px solid red'
     }
 };

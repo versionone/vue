@@ -8,12 +8,13 @@ const getStyles = (theme, props) => {
     return {
         root: {
             width: '100%',
-            ...props.style
+            ...props.style,
+            lineHeight: 'normal'
         },
         text: {
             color,
             display: 'block',
-            lineHeight: 1.5,
+            lineHeight: props.lineHeight,
             opacity: props.hidden ? 0 : 1,
             transition: 'opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'
         }
@@ -30,6 +31,7 @@ class HintText extends Component {
 
     static defaultProps = {
         hidden: false,
+        lineHeight: 1.5,
         onClick: () => {
         },
         text: '',
@@ -40,6 +42,7 @@ class HintText extends Component {
         // eslint-disable-next-line no-unused-vars
         const {text, onClick, hidden, ...rest} = this.props;
         const styles = getStyles(this.context.theme, this.props);
+
         return (
             <div style={styles.root} onClick={onClick} {...rest}><span style={styles.text}>{text}</span></div>
         );

@@ -61,7 +61,7 @@ const getDefaultStyles = (themeValues, props) => ({
 });
 
 const getRequiredStyles = (themeValues, props, state) => {
-    const fontSizeAdjustedHeight = themeValues.fontSize * 1.5;
+    const fontSizeAdjustedHeight = themeValues.fontSize * themeValues.lineHeight;
     // font size adjusted height + top & bottom padding + top & bottom border
     const height = fontSizeAdjustedHeight + themeValues.padding * 2 + 2;
     const hintTextOffset = height - state.hintTextHeight;
@@ -81,6 +81,9 @@ const getRequiredStyles = (themeValues, props, state) => {
             top: 0,
             width
         },
+        hintTextProps: {
+            lineHeight: themeValues.lineHeight,
+        },
         inputWrapper: {
             background: 'transparent',
             border: '1px solid transparent',
@@ -95,19 +98,22 @@ const getRequiredStyles = (themeValues, props, state) => {
             border: '0px solid transparent',
             height: `${fontSizeAdjustedHeight}px`
         },
-        errorMessage: {
+        errorMessageWrapper: {
             alignSelf: 'center',
             lineHeight: `${themeValues.fontSize}px`,
             marginTop: `-${marginTop}px`,
             padding: `${themeValues.padding}px`
+        },
+        errorMessageTheme: {
+            lineHeight: themeValues.lineHeight
         }
     };
 
     if (props.fullWidth) {
         styles.root.width = '100%';
         styles.root.display = 'block';
-        styles.errorMessage.display = 'block';
-        styles.errorMessage.padding = `${themeValues.padding}px 0`;
+        styles.errorMessageWrapper.display = 'block';
+        styles.errorMessageWrapper.padding = `${themeValues.padding}px 0`;
     }
     return styles
 };
@@ -158,6 +164,7 @@ class TextField extends Component {
         fontFamily: PropTypes.string,
         fontSize: PropTypes.string,
         hintTextColor: PropTypes.string,
+        lineHeight: PropTypes.number,
         padding: PropTypes.number,
         outline: PropTypes.string,
         textColor: PropTypes.string,
@@ -171,6 +178,7 @@ class TextField extends Component {
         fontFamily: 'Arial',
         fontSize: 16,
         hintTextColor: 'gray',
+        lineHeight: 1.5,
         padding: 8,
         outline: '1px solid transparent',
         textColor: 'black',
@@ -218,14 +226,14 @@ class TextField extends Component {
         return (
             <div style={prepareStyles(styles.root)}>
                 <HintText ref="hintText" text={hintText} style={styles.hintText} hidden={hasValue}
-                          onClick={this.focusInput} />
+                          onClick={this.focusInput} {...styles.hintTextProps} />
                 <div style={prepareStyles(styles.inputWrapper)} ref="inputWrapper">
                     <input style={prepareStyles(styles.input)} type="text" ref="inputField" defaultValue={defaultValue} value={value} disabled={disabled}
                            onChange={this.handleChange}
                            onFocus={this.handleFocus}onBlur={this.handleBlur} />
                     <RequiredIndicator hidden={!required} style={styles.requiredIndicator} />
                 </div>
-                {errorText && <div style={prepareStyles(styles.errorMessage)}><ErrorMessage text={errorText} hidden={!errorText} /></div>}
+                {errorText && <div style={prepareStyles(styles.errorMessageWrapper)}><ErrorMessage text={errorText} hidden={!errorText} theme={styles.errorMessageTheme} /></div>}
             </div>
         );
     }

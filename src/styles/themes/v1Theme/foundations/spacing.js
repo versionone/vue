@@ -10,4 +10,4 @@ export const desktopDrawerMenuItemHeight = 48;
 export const desktopSubheaderHeight = 48;
 export const desktopToolbarHeight = 56;
 
-export const formFieldPadding = 6;
+export const formFieldPadding = 3;

@@ -1,3 +1,5 @@
-export default {
+import {errorColor} from './../foundations/colors';
 
+export default {
+    textColor: errorColor
 };

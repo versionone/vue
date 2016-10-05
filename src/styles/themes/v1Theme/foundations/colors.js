@@ -1,3 +1,5 @@
+import {lighten} from './../../../colorManipulator';
+
 // # Color definitions
 
 // ## Black, whites, and grays // Examples
@@ -20,7 +22,8 @@ export const cerulean = '#00a9e0';
 export const forge = '#474c54';
 export const gunSmoke = '#31363e';
 export const pale = 'dde2e9';
-export const shuttle = '##61666e';
+export const shuttle = '#61666e';
+export const sunset = '#d52101';
 
 // ## Controls
 export const hintText = 'rgba(0, 0, 0, 0.298039)';
@@ -28,3 +31,7 @@ export const hintText = 'rgba(0, 0, 0, 0.298039)';
 // ## States
 // ### Pending
 export const pendingBackground = '#FFF4A3';
+
+// ### Has Error
+export const errorColor = sunset;
+export const errorColorBackground = lighten(sunset, 0.67);

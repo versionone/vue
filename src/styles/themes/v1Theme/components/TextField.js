@@ -1,4 +1,4 @@
-import {white, aluminum, forge, minBlack, pendingBackground, hintText, cerulean} from './../foundations/colors';
+import {white, aluminum, forge, errorColor, errorColorBackground, minBlack, pendingBackground, hintText, cerulean} from './../foundations/colors';
 import {formFieldFontFamily, formFieldFontSize} from './../foundations/typography';
 import {formFieldPadding} from './../foundations/spacing';
 
@@ -10,6 +10,7 @@ export default {
     fontSize: formFieldFontSize,
     padding: formFieldPadding,
     hintTextColor: hintText,
+    lineHeight: 1.285,
     textColor: forge,
 
     // --- states
@@ -23,7 +24,7 @@ export default {
         backgroundColor: pendingBackground
     },
     hasError: {
-        boxShadow: `0 0 2px 2px rgba(213, 33, 1, 0.5)`,
-        border: '1px solid red'
+        boxShadow: `0 0 2px 2px ${errorColorBackground}`,
+        border: `1px solid ${errorColor}`
     }
 };

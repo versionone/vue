@@ -11,9 +11,6 @@ describe('<RequiredIndicator />', function() {
         it('it should render as visible', () => {
             this.actual.should.have.style('opacity', '1');
         });
-        it('it should have a transition on its opacity', () => {
-            this.actual.should.have.style('transition', 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms');
-        });
     });
     describe('when rendering as hidden', () => {
         beforeEach(() => {

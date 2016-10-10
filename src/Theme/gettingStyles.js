@@ -1,13 +1,10 @@
 import mergeStyles from './mergeStyles';
 
-export default (getThemeValues, getDefaultStyles, getRequiredStyles) => ({props, state, context: {theme}}) => {
+export default (getThemeValues, getStylesFromTheme) => ({props, state, context: {theme}}) => {
     // Theme styles to be used when generating default and required styles.
-    const themeStyles = getThemeValues(theme, props, state);
-    const computedThemeValues = mergeStyles(themeStyles, props.theme);
+    const themeValues = getThemeValues(theme, props, state);
+    const computedThemeValues = mergeStyles(themeValues, props.defaultTheme);
 
     // Default, custom, required styles
-    const defaultStyles = getDefaultStyles(computedThemeValues, props, state);
-    const requiredStyles = getRequiredStyles(computedThemeValues, props, state);
-
-    return mergeStyles(defaultStyles, requiredStyles);
+    return getStylesFromTheme(computedThemeValues, props, state);
 };

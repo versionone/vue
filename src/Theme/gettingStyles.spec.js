@@ -1,36 +1,35 @@
 import sinon from 'sinon';
-import getTheme from './getTheme';
 import gettingStyles from './gettingStyles';
 
 describe('themedComponent', function() {
-    describe('given functions to get theme styles, default styles, and the required style of a component', () => {
+    describe('given function to consolidate theme values and a function to get styles from theme', () => {
         beforeEach(() => {
             this.getThemeValues = sinon.stub();
-            this.getDefaultStyles = sinon.stub();
-            this.getRequiredStyles = sinon.stub();
+            this.getStylesFromTheme = sinon.stub();
         });
         describe('when getting the getStyles', () => {
             beforeEach(() => {
-                this.actual = gettingStyles(this.getThemeValues, this.getDefaultStyles, this.getRequiredStyles);
+                this.actual = gettingStyles(this.getThemeValues, this.getStylesFromTheme);
             });
             it('it should return a function', () => {
-                this.actual.should.be.a.function;
+                (typeof this.actual).should.be.equal('function');
             });
         });
-    });
-    describe('given the getStyles function', () => {
-        describe('given a component\'s context with a theme, props, and state', () => {
+
+        describe('given a component\'s context with a theme, default theme in props, and state', () => {
             describe('when getting the styles for the component', () => {
                 beforeEach(() => {
-                    this.theme = {
-                        color: 'blue'
+                    this.globalThemeValues = {
+                        color: 'blue',
+                        backgroundColor: 'blue'
                     };
-                    this.themeValues = getTheme(this.theme);
+                    this.themeValues = {
+                        color: 'blue',
+                        backgroundColor: 'blue'
+                    };
                     this.props = {
-                        theme: {
+                        defaultTheme: {
                             color: 'red',
-                            fontSize: '12px',
-                            border: '1px solid black',
                             padding: '12px'
                         },
                         test: true
@@ -38,34 +37,36 @@ describe('themedComponent', function() {
                     this.state = {
                         state: 'something'
                     };
-                    this.getThemeValues = sinon.stub().withArgs(this.theme, this.props, this.state).returns(this.themeValues);
-                    this.getDefaultStyles = sinon.stub().withArgs(this.themeValues, this.props, this.state).returns({
+                    this.getThemeValues = sinon.stub().returns(this.themeValues);
+                    this.getStylesFromTheme = sinon.stub().returns({
                         color: 'green',
                         background: 'blue',
                         border: '1px solid gray',
                         outline: '1px solid blue'
                     });
-                    this.getRequiredStyles = sinon.stub().withArgs(this.themeValues, this.props, this.state).returns({
-                        background: 'green',
-                        fontSize: '16px'
-                    });
-                    this.getStyles = gettingStyles(this.getThemeValues, this.getDefaultStyles, this.getRequiredStyles);
+                    this.getStyles = gettingStyles(this.getThemeValues, this.getStylesFromTheme);
                     this.actual = this.getStyles({
                         props: this.props,
                         state: this.state,
                         context: {
-                            theme: this.themeValues
+                            theme: this.globalThemeValues
                         }
                     });
                 });
-                it('it should use the computed theme values to combine the default styles and required styles into the final styles output', () => {
-                    // Required Styles
-                    this.actual.background.should.equal('green');
-                    this.actual.fontSize.should.equal('16px');
-
-                    // Default styles
-                    this.actual.border.should.equal('1px solid gray');
+                it('it should reduce the default theme and global theme (context) to a single set of theme values', () => {
+                    this.getThemeValues.calledWith(this.themeValues, this.props, this.state).should.be.true;
+                });
+                it('it should apply the props defaultTheme on top of the reduced theme values to produce a final set of theme values and use this to compute component styles', () => {
+                    this.getStylesFromTheme.calledWith({
+                        color: 'red',
+                        backgroundColor: 'blue',
+                        padding: '12px'
+                    }, this.props, this.state).should.be.true;
+                });
+                it('it should compute the component styles using the final set of theme values, props, and state', () => {
                     this.actual.color.should.equal('green');
+                    this.actual.background.should.equal('blue');
+                    this.actual.border.should.equal('1px solid gray');
                     this.actual.outline.should.equal('1px solid blue');
                 });
             });

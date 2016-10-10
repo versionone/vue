@@ -152,12 +152,12 @@ describe('<TextField>', function() {
                         theme: getTheme()
                     };
                     this.actual = mount(<TextField
-                        hintText="fake content that is '72px' tall" />, {context: this.context})
-                        .setState({hintTextHeight: 72});
+                        hintText="fake content that is '51px' tall" />, {context: this.context})
+                        .setState({hintTextHeight: 51});
                 });
                 describe('when rendering the text field', () => {
                     it('it should auto adjust the height of the text field to accommodate the extra long hint text', () => {
-                        this.actual.find('input').parent().should.have.style('marginTop', '37px');
+                        this.actual.find('input').parent().should.have.style('marginTop', '34px');
                     });
                 });
                 describe('when I click on the hint text', () => {
@@ -170,6 +170,37 @@ describe('<TextField>', function() {
                     });
                     it('it should focus the input of the text field', () => {
                         should.equal(this.actual.find('input').node, document.activeElement);
+                    });
+                });
+
+                describe('given the text field is marked as required', () => {
+                    describe('given the text field is not full width', () => {
+                        describe('when rendering the text field', () => {
+                            beforeEach(() => {
+                                this.actual = mount(<TextField hintText="fake content that is '51px' tall"
+                                                               required />, {context: this.context})
+                                    .setState({hintTextHeight: 51});
+                            });
+                            it('it should position the required indicator inline with the text entry', () => {
+                                this.actual.children(RequiredIndicator).should.have.style('marginTop', '34px');
+                            });
+                        });
+                    });
+                });
+
+                describe('given error text', () => {
+                    beforeEach(() => {
+                        this.errorText = 'error text';
+                    });
+                    describe('when rendering the text field', () => {
+                        beforeEach(() => {
+                            this.actual = mount(<TextField hintText="fake content that is '51px' tall"
+                                                           required errorText={this.errorText} />, {context: this.context})
+                                .setState({hintTextHeight: 51});
+                        });
+                        it('it should render the error message in alignment with the text entry', () => {
+                            this.actual.find(ErrorMessage).parent().should.have.style('marginTop', '34px');
+                        });
                     });
                 });
             });
@@ -200,7 +231,7 @@ describe('<TextField>', function() {
                 this.actual = mount(applyTheme(<TextField width={this.width} />));
             });
             it('it should render the text field with the specified width in pixels', () => {
-                this.actual.find(HintText).should.have.style('width', `${this.width}px`);
+                this.actual.find(HintText).parent().should.have.style('width', `${this.width}px`);
                 this.actual.find('input').parent().should.have.style('width', `${this.width}px`);
             });
         });
@@ -222,7 +253,7 @@ describe('<TextField>', function() {
                 this.actual = mount(applyTheme(<TextField />));
             });
             it('it should render the text field with the default width', () => {
-                this.actual.find(HintText).should.have.style('width', `${TextField.defaultProps.width}px`);
+                this.actual.find(HintText).parent().should.have.style('width', `${TextField.defaultProps.width}px`);
                 this.actual.find('input').parent().should.have.style('width', `${TextField.defaultProps.width}px`);
             });
         });
@@ -260,8 +291,22 @@ describe('<TextField>', function() {
             beforeEach(() => {
                 this.actual = mount(applyTheme(<TextField required />));
             });
-            it('it should show the required indicator', () => {
-                this.actual.find(RequiredIndicator).should.have.style('opacity', '1');
+            it('it should render the required indicator outside the text field', () => {
+                this.actual.children(RequiredIndicator).should.have.style('opacity', '1');
+            });
+        });
+
+        describe('given the text field is full width', () => {
+            describe('when rendering the text field', () => {
+                beforeEach(() => {
+                    this.actual = mount(applyTheme(<TextField required fullWidth />));
+                });
+                it('it should render the required indicator inside the text field', () => {
+                    this.actual.find('input').parent().children(RequiredIndicator).should.have.style('opacity', '1');
+                });
+                it('it should not render the required indicator outside the text field', () => {
+                    should.not.exist(this.actual.children(RequiredIndicator).node);
+                });
             });
         });
     });
@@ -270,8 +315,8 @@ describe('<TextField>', function() {
             beforeEach(() => {
                 this.actual = mount(applyTheme(<TextField />));
             });
-            it('it should hide the required indicator', () => {
-                this.actual.find(RequiredIndicator).should.have.style('opacity', '0');
+            it('it should not render the required indicator', () => {
+                should.not.exist(this.actual.find(RequiredIndicator).node);
             });
         });
     });
@@ -282,6 +327,7 @@ describe('<TextField>', function() {
             beforeEach(() => {
                 this.theme = {
                     TextField: {
+                        default: {},
                         focused: {
                             outline: '1px solid blue'
                         }
@@ -294,7 +340,7 @@ describe('<TextField>', function() {
                 this.focus.called.should.be.true;
             });
             it('it should render in the focused state', () => {
-                this.actual.find(HintText).should.have.style('outline', '1px solid blue');
+                this.actual.find(HintText).parent().should.have.style('outline', '1px solid blue');
             });
         });
     });
@@ -302,6 +348,7 @@ describe('<TextField>', function() {
         beforeEach(() => {
             this.theme = {
                 TextField: {
+                    default: {},
                     focused: {
                         outline: '1px solid blue'
                     }
@@ -315,7 +362,7 @@ describe('<TextField>', function() {
                 this.actual.find('input').simulate('blur');
             });
             it('it should render in the non-focused state', () => {
-                this.actual.find(HintText).should.have.style('outline', TextField.defaultThemeProps.outline);
+                this.actual.find(HintText).parent().should.have.style('outline', TextField.defaultThemeProps.outline);
             });
         });
         describe('given there is an blur event handler', () => {
@@ -339,6 +386,7 @@ describe('<TextField>', function() {
             beforeEach(() => {
                 this.theme = {
                     TextField: {
+                        default: {},
                         hasError: {
                             outline: '1px solid blue'
                         }
@@ -350,10 +398,11 @@ describe('<TextField>', function() {
                 should.not.exist(this.actual.find(ErrorMessage).node);
             });
             it('it should not render in the error state', () => {
-                this.actual.find(HintText).should.have.style('outline', TextField.defaultThemeProps.outline);
+                this.actual.find(HintText).parent().should.have.style('outline', TextField.defaultThemeProps.outline);
             });
         });
     });
+
     describe('given error text', () => {
         beforeEach(() => {
             this.errorText = 'error text';
@@ -362,6 +411,7 @@ describe('<TextField>', function() {
             beforeEach(() => {
                 this.theme = {
                     TextField: {
+                        default: {},
                         hasError: {
                             outline: '1px solid blue'
                         }
@@ -373,7 +423,7 @@ describe('<TextField>', function() {
                 this.actual.find(ErrorMessage).should.have.text(this.errorText);
             });
             it('it should render in the error state', () => {
-                this.actual.find(HintText).should.have.style('outline', '1px solid blue');
+                this.actual.find(HintText).parent().should.have.style('outline', '1px solid blue');
             });
         });
     });
@@ -383,6 +433,7 @@ describe('<TextField>', function() {
             beforeEach(() => {
                 this.theme = {
                     TextField: {
+                        default: {},
                         pending: {
                             outline: '1px solid yellow'
                         }
@@ -391,7 +442,7 @@ describe('<TextField>', function() {
                 this.actual = mount(applyTheme(<TextField pending />, this.theme));
             });
             it('it should render the text field in the pending state', () => {
-                this.actual.find(HintText).should.have.style('outline', '1px solid yellow');
+                this.actual.find(HintText).parent().should.have.style('outline', '1px solid yellow');
             });
         });
     });
@@ -400,6 +451,7 @@ describe('<TextField>', function() {
             beforeEach(() => {
                 this.theme = {
                     TextField: {
+                        default: {},
                         pending: {
                             outline: '1px solid yellow'
                         }
@@ -408,7 +460,7 @@ describe('<TextField>', function() {
                 this.actual = mount(applyTheme(<TextField />, this.theme));
             });
             it('it should render the text field in the pending state', () => {
-                this.actual.find(HintText).should.have.style('outline', TextField.defaultThemeProps.outline);
+                this.actual.find(HintText).parent().should.have.style('outline', TextField.defaultThemeProps.outline);
             });
         });
     });

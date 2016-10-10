@@ -46,7 +46,7 @@ describe('<ErrorMessage />', function() {
     describe('when rendering with a custom theme', () => {
         beforeEach(() => {
             this.actual = mount(applyTheme(<ErrorMessage hidden
-                                                         theme={{textColor: 'blue', opacity: '1'}} />));
+                                                         defaultTheme={{textColor: 'blue', opacity: '1'}} />));
         });
         it('it should not override the opacity', () => {
             this.actual.find('span').should.have.style('opacity', '0');

@@ -62,7 +62,14 @@ storiesOf('TextEntryField')
                     <TextField
                         hintText="hint text is super duper long, so long in fact, that it just may be unbelievable"
                         required
-                        errorText="this field is of the utmost importance and, therefore, is required" /></div>
+                        errorText="this field is of the utmost importance and, therefore, is required" />
+                </div>
+                <div style={{marginBottom: '16px'}}>
+                    <TextField
+                        hintText="hint text is super duper long, so long in fact, that it just may be unbelievable"
+                        required
+                        errorText="this field is of the utmost importance and, therefore, is required" />
+                </div>
                 <div>
                     <TextField hintText="hint text" required
                                errorText="this field is of the utmost importance and, therefore, is required" />

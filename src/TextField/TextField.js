@@ -8,81 +8,52 @@ import gettingStyles from '../Theme/gettingStyles';
 import mergeStyles from './../Theme/mergeStyles';
 
 const getThemeValues = (theme, props, state) => {
-    const defaultThemeValues = TextField.defaultThemeProps;
-    // Themed styles based on state
-    const focusedStyles = state.focused ? {...defaultThemeValues.focused, ...(theme.TextField.focused || {})} : {};
-    const pendingStyles = props.pending ? {...defaultThemeValues.pending, ...(theme.TextField.pending || {})} : {};
-    const errorStyles = props.errorText ? {...defaultThemeValues.hasError, ...(theme.TextField.hasError || {})} : {};
-    const disabledStyles = props.disabled ? {...defaultThemeValues.disabled, ...(theme.TextField.disabled || {})} : {};
-    // Compose default theme values, then theme, then state based theme values;
+    // Themed values based on state
+    const focusedThemeValues = state.focused ? {...TextField.defaultThemeProps.focused, ...(theme.TextField.focused || {})} : {};
+    const pendingThemeValues = props.pending ? {...TextField.defaultThemeProps.pending, ...(theme.TextField.pending || {})} : {};
+    const hasErrorThemeValues = props.errorText ? {...TextField.defaultThemeProps.hasError, ...(theme.TextField.hasError || {})} : {};
+    const disabledThemeValues = props.disabled ? {...TextField.defaultThemeProps.disabled, ...(theme.TextField.disabled || {})} : {};
+
+    // Merge default theme values, then theme's default, then state based theme values;
     return mergeStyles(
-        defaultThemeValues,
-        theme.TextField,
-        focusedStyles,
-        pendingStyles,
-        errorStyles,
-        disabledStyles
+        TextField.defaultThemeProps.default,
+        theme.TextField.default,
+        focusedThemeValues,
+        pendingThemeValues,
+        hasErrorThemeValues,
+        disabledThemeValues
     );
 };
-
-const getDefaultStyles = (themeValues, props) => ({
-    root: {
-        position: 'relative',
-        transition: 'height 200ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'
-    },
-    hintText: {
-        color: themeValues.hintTextColor,
-        border: themeValues.border,
-        borderRadius: themeValues.borderRadius,
-        fontFamily: themeValues.fontFamily,
-        fontSize: `${themeValues.fontSize}px`,
-        outline: themeValues.outline,
-        padding: `${themeValues.padding}px`
-    },
-    inputWrapper: {
-        backgroundColor: themeValues.backgroundColor,
-        padding: `${themeValues.padding}px`
-    },
-    input: {
-        background: 'rgba(0, 0, 0, 0)',
-        color: themeValues.textColor,
-        cursor: props.disabled ? 'not-allowed' : 'initial',
-        flex: 1,
-        fontFamily: themeValues.fontFamily,
-        fontSize: `${themeValues.fontSize}px`,
-        outline: 'none',
-        padding: 0,
-        position: 'relative',
-        width: '100%'
-    },
-    requiredIndicator: {
-        alignSelf: 'center'
-    }
-});
-
-const getRequiredStyles = (themeValues, props, state) => {
-    const fontSizeAdjustedHeight = themeValues.fontSize * themeValues.lineHeight;
-    // font size adjusted height + top & bottom padding + top & bottom border
-    const height = fontSizeAdjustedHeight + themeValues.padding * 2 + 2;
-    const hintTextOffset = height - state.hintTextHeight;
+const getStylesFromTheme = (themeValues, props, state) => {
+    const textHeight = Math.floor(themeValues.fontSize * themeValues.lineHeight);
+    const hintTextOffset = textHeight - state.hintTextHeight;
     const marginTop = hintTextOffset < 0 ? `${Math.abs(hintTextOffset)}px` : 0;
     const width = props.fullWidth ? '100%' : props.width ? `${props.width}px` : `${themeValues.width}px`;
 
     const styles = {
         root: {
+            background: 'transparent',
             display: 'inline-flex',
-            background: 'transparent'
+            position: 'relative'
         },
-        hintText: {
+        hintTextWrapper: {
             backgroundColor: themeValues.backgroundColor,
             boxShadow: themeValues.boxShadow,
             boxSizing: 'border-box',
+            color: themeValues.hintTextColor,
+            border: themeValues.border,
+            borderRadius: themeValues.borderRadius,
+            fontFamily: themeValues.fontFamily,
+            fontSize: `${themeValues.fontSize}px`,
+            outline: themeValues.outline,
+            padding: `${themeValues.padding}px`,
             position: 'absolute',
             top: 0,
             width
         },
-        hintTextProps: {
-            lineHeight: themeValues.lineHeight,
+        hintTextTheme: {
+            color: themeValues.hintTextColor,
+            lineHeight: themeValues.lineHeight
         },
         inputWrapper: {
             background: 'transparent',
@@ -91,21 +62,39 @@ const getRequiredStyles = (themeValues, props, state) => {
             display: 'inline-flex',
             height: '100%',
             marginTop,
-            width,
-            minWidth: width
+            minWidth: width,
+            padding: `${themeValues.padding}px`,
+            width
         },
         input: {
+            background: 'rgba(0, 0, 0, 0)',
             border: '0px solid transparent',
-            height: `${fontSizeAdjustedHeight}px`
+            color: themeValues.textColor,
+            cursor: props.disabled ? 'not-allowed' : 'initial',
+            flex: 1,
+            fontFamily: themeValues.fontFamily,
+            fontSize: `${themeValues.fontSize}px`,
+            height: `${textHeight}px`,
+            outline: 'none',
+            padding: 0,
+            position: 'relative',
+            width: '100%'
+        },
+        requiredIndicator: {
+            alignSelf: 'center',
+            color: themeValues.errorTextColor,
+            marginTop: !props.fullWidth ? marginTop : '0px',
+            marginLeft: '6px'
         },
         errorMessageWrapper: {
             alignSelf: 'center',
             lineHeight: `${themeValues.fontSize}px`,
-            marginTop: `-${marginTop}px`,
-            padding: `${themeValues.padding}px`
+            marginTop: marginTop,
+            marginLeft: '6px'
         },
         errorMessageTheme: {
-            lineHeight: themeValues.lineHeight
+            lineHeight: themeValues.lineHeight,
+            textColor: themeValues.errorTextColor
         }
     };
 
@@ -117,50 +106,51 @@ const getRequiredStyles = (themeValues, props, state) => {
     }
     return styles
 };
-
-const getStyles = gettingStyles(getThemeValues, getDefaultStyles, getRequiredStyles);
+const getStyles = gettingStyles(getThemeValues, getStylesFromTheme);
 
 class TextField extends Component {
     static propTypes = {
-        disabled: PropTypes.bool,
         defaultValue: PropTypes.string,
+        defaultTheme: PropTypes.shape(TextField.themePropTypes),
+        disabled: PropTypes.bool,
+        disabledTheme: PropTypes.shape(TextField.themePropTypes),
         errorText: PropTypes.string,
+        focusedTheme: PropTypes.shape(TextField.themePropTypes),
         fullWidth: PropTypes.bool,
+        hasErrorTheme: PropTypes.shape(TextField.themePropTypes),
         hintText: PropTypes.string,
         onBlur: PropTypes.func,
         onChange: PropTypes.func,
         onFocus: PropTypes.func,
+        pending: PropTypes.bool,
+        pendingTheme: PropTypes.shape(TextField.themePropTypes),
         required: PropTypes.bool,
-        theme: PropTypes.object,
         width: PropTypes.number,
         value: PropTypes.string
     };
-
     static defaultProps = {
+        defaultTheme: {},
         disabled: false,
+        disabledTheme: {},
+        focusedTheme: {},
         fullWidth: false,
+        hasErrorTheme: {},
         onBlur: () => {
         },
         onChange: () => {
         },
         onFocus: () => {
         },
+        pendingTheme: {},
         required: false,
-        theme: {},
         width: 256
     };
-
-    static themedStates = [
-        'disabled',
-        "hasError",
-        'focused',
-        'pending'
-    ];
-    static themeProps = {
+    static themePropTypes = {
         backgroundColor: PropTypes.string,
         border: PropTypes.string,
         borderRadius: PropTypes.number,
         boxShadow: PropTypes.string,
+        errorTextColor: PropTypes.string,
         fontFamily: PropTypes.string,
         fontSize: PropTypes.string,
         hintTextColor: PropTypes.string,
@@ -171,26 +161,22 @@ class TextField extends Component {
         width: PropTypes.number
     };
     static defaultThemeProps = {
-        backgroundColor: '#fff',
-        border: '1px solid transparent',
-        borderRadius: 0,
-        boxShadow: 'none',
-        fontFamily: 'Arial',
-        fontSize: 16,
-        hintTextColor: 'gray',
-        lineHeight: 1.5,
-        padding: 8,
-        outline: '1px solid transparent',
-        textColor: 'black',
-        width: 256,
-        focused: {
-            outline: '1px solid transparent'
-        },
-        pending: {
-            backgroundColor: '#fff'
+        default: {
+            backgroundColor: '#fff',
+            border: '1px solid transparent',
+            borderRadius: 0,
+            boxShadow: 'none',
+            errorTextColor: 'red',
+            fontFamily: 'Arial',
+            fontSize: 16,
+            hintTextColor: 'gray',
+            lineHeight: 1.5,
+            padding: 8,
+            outline: '1px solid transparent',
+            textColor: 'black',
+            width: 256
         }
     };
-
     static contextTypes = {
         theme: CustomPropTypes.theme
     };
@@ -218,22 +204,28 @@ class TextField extends Component {
     }
 
     render() {
-        const {disabled, defaultValue, errorText, hintText, required, value} = this.props;
+        const {disabled, defaultValue, errorText, fullWidth, hintText, required, value} = this.props;
         const {hasValue} = this.state;
         const {prepareStyles} = this.context.theme;
         const styles = getStyles(this);
 
         return (
             <div style={prepareStyles(styles.root)}>
-                <HintText ref="hintText" text={hintText} style={styles.hintText} hidden={hasValue}
-                          onClick={this.focusInput} {...styles.hintTextProps} />
-                <div style={prepareStyles(styles.inputWrapper)} ref="inputWrapper">
-                    <input style={prepareStyles(styles.input)} type="text" ref="inputField" defaultValue={defaultValue} value={value} disabled={disabled}
-                           onChange={this.handleChange}
-                           onFocus={this.handleFocus}onBlur={this.handleBlur} />
-                    <RequiredIndicator hidden={!required} style={styles.requiredIndicator} />
+                <div style={prepareStyles(styles.hintTextWrapper)}>
+                    <HintText ref="hintText" text={hintText} defaultTheme={styles.hintTextTheme} hidden={hasValue}
+                              onClick={this.focusInput} />
                 </div>
-                {errorText && <div style={prepareStyles(styles.errorMessageWrapper)}><ErrorMessage text={errorText} hidden={!errorText} theme={styles.errorMessageTheme} /></div>}
+                <div style={prepareStyles(styles.inputWrapper)} ref="inputWrapper">
+                    <input style={prepareStyles(styles.input)} type="text" ref="inputField" defaultValue={defaultValue}
+                           value={value} disabled={disabled}
+                           onChange={this.handleChange} onFocus={this.handleFocus} onBlur={this.handleBlur} />
+                    {required && fullWidth &&  <RequiredIndicator style={styles.requiredIndicator} /> }
+                </div>
+                {required && !fullWidth &&  <RequiredIndicator style={styles.requiredIndicator} /> }
+                {errorText && <div style={prepareStyles(styles.errorMessageWrapper)}><ErrorMessage text={errorText}
+                                                                                                   hidden={!errorText}
+                                                                                                   defaultTheme={styles.errorMessageTheme} />
+                </div>}
             </div>
         );
     }

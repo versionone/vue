@@ -3,17 +3,18 @@ import {formFieldFontFamily, formFieldFontSize} from './../foundations/typograph
 import {formFieldPadding} from './../foundations/spacing';
 
 export default {
-    backgroundColor: white,
-    border: `1px solid ${aluminum}`,
-    borderRadius: 3,
-    fontFamily: formFieldFontFamily,
-    fontSize: formFieldFontSize,
-    padding: formFieldPadding,
-    hintTextColor: hintText,
-    lineHeight: 1.285,
-    textColor: forge,
-
-    // --- states
+    default: {
+        backgroundColor: white,
+        border: `1px solid ${aluminum}`,
+        borderRadius: 3,
+        errorTextColor: errorColor,
+        fontFamily: formFieldFontFamily,
+        fontSize: formFieldFontSize,
+        padding: formFieldPadding,
+        hintTextColor: hintText,
+        lineHeight: 1.285,
+        textColor: forge
+    },
     disabled: {
         border: `1px solid ${minBlack}`
     },

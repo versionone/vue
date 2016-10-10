@@ -10,8 +10,7 @@ const getStyles = (theme, props) => {
             color,
             ...props.style,
             opacity: props.hidden ? 0 : 1,
-            zIndex: 1,
-            transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'
+            zIndex: 1
         }
     };
 };

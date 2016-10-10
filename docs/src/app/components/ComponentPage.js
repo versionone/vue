@@ -45,16 +45,19 @@ export default class ComponentPage extends Component {
                     <StatusBadge status={status} />
                     <h1>{name}</h1>
                     <MarkdownElement text={readme} />
-                    {examples.length > 0 && examples.map((example, index) => (
-                        <CodeExample
-                            title={example.title}
-                            description={example.description}
-                            code={example.code}
-                            openInPlayground={this.openPlayground}
-                            key={index}>
-                            <example.component />
-                        </CodeExample>
-                    ))}
+                    {examples.map((example, index) => {
+                        const ExampleComponent = example.component;
+                        return (
+                            <CodeExample
+                                title={example.title}
+                                description={example.description}
+                                code={example.code}
+                                openInPlayground={this.openPlayground}
+                                key={index}>
+                                <ExampleComponent />
+                            </CodeExample>
+                        );
+                    })}
                     <h2>PropTypes</h2>
                     {componentsSources.map((componentCode, index) => (
                         <PropTypeDescription header={`### ${componentCode.name}`} code={componentCode.code} key={index} />

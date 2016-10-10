@@ -10,37 +10,37 @@ import FullWidthSection from './FullWidthSection';
 import withWidth from 'material-ui/utils/withWidth';
 import v1Theme from 'vue/styles/themes/v1Theme';
 import ThemeProvider, {getTheme} from 'vue/Theme';
-import {gunSmoke} from 'vue/styles/themes/v1Theme/colors';
+import {gunSmoke} from 'vue/styles/themes/v1Theme/foundations/colors';
 import componentRoutes from '../routes/menuItems';
 
 class Master extends Component {
     static propTypes = {
         children: PropTypes.node,
         location: PropTypes.object,
-        width: PropTypes.number.isRequired,
+        width: PropTypes.number.isRequired
     };
 
     static contextTypes = {
-        router: PropTypes.object.isRequired,
+        router: PropTypes.object.isRequired
     };
 
     static childContextTypes = {
-        muiTheme: PropTypes.object,
+        muiTheme: PropTypes.object
     };
 
     state = {
-        navDrawerOpen: false,
+        navDrawerOpen: false
     };
 
     getChildContext() {
         return {
-            muiTheme: this.state.muiTheme,
+            muiTheme: this.state.muiTheme
         };
     }
 
     componentWillMount() {
         this.setState({
-            muiTheme: getMuiTheme(v1Theme),
+            muiTheme: getMuiTheme(v1Theme)
         });
     }
 
@@ -62,23 +62,23 @@ class Master extends Component {
             },
             root: {
                 paddingTop: spacing.desktopKeylineIncrement,
-                minHeight: 400,
+                minHeight: 400
             },
             footer: {
                 backgroundColor: grey900,
-                textAlign: 'center',
+                textAlign: 'center'
             },
             a: {
-                color: darkWhite,
+                color: darkWhite
             },
             p: {
                 margin: '0 auto',
                 padding: 0,
                 color: lightWhite,
-                maxWidth: 356,
+                maxWidth: 356
             },
             iconButton: {
-                color: darkWhite,
+                color: darkWhite
             },
             children: {}
         }
@@ -86,26 +86,26 @@ class Master extends Component {
 
     handleTouchTapLeftIconButton = () => {
         this.setState({
-            navDrawerOpen: !this.state.navDrawerOpen,
+            navDrawerOpen: !this.state.navDrawerOpen
         });
     };
 
     handleChangeRequestNavDrawer = (open) => {
         this.setState({
-            navDrawerOpen: open,
+            navDrawerOpen: open
         });
     };
 
     handleChangeList = (event, value) => {
         this.context.router.push(value);
         this.setState({
-            navDrawerOpen: false,
+            navDrawerOpen: false
         });
     };
 
     handleChangeMuiTheme = (muiTheme) => {
         this.setState({
-            muiTheme: muiTheme,
+            muiTheme: muiTheme
         });
     };
 
@@ -120,13 +120,13 @@ class Master extends Component {
                 path: rootMenuItem.path,
                 nestedMenuItems: rootMenuItem.nestedMenuItems.map((menuItem) => ({
                     title: menuItem.meta.title,
-                    path: menuItem.path,
+                    path: menuItem.path
                 }))
             })
         ));
 
         const {
-            prepareStyles,
+            prepareStyles
         } = this.state.muiTheme;
 
         const router = this.context.router;
@@ -143,7 +143,7 @@ class Master extends Component {
         const showMenuIconButton = false;
 
         styles.navDrawer = {
-            zIndex: styles.appBar.zIndex - 1,
+            zIndex: styles.appBar.zIndex - 1
         };
         styles.children.paddingLeft = 256;
         styles.footer.paddingLeft = 256;

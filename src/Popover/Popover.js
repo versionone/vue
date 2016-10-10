@@ -8,7 +8,7 @@ import {findDOMNode} from 'react-dom';
 import PopoverAnimationDefault from './PopoverAnimationDefault';
 
 const getStyles = (props, context) => ({
-    padding: context.theme.popover.padding
+    padding: context.theme.Popover.padding
 });
 
 class Popover extends Component {

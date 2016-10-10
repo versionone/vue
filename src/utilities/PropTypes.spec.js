@@ -1,5 +1,5 @@
 import React from 'react';
-import {componentType, oneOfComponentType} from './PropTypes';
+import {componentType, oneOfComponentType, style} from './PropTypes';
 import {Toolbar, ToolbarGroup, ToolbarTitle} from './../Toolbar';
 
 describe('utilities/PropTypes/componentType', function() {
@@ -155,3 +155,41 @@ describe('utilities/PropTypes/oneOfComponentType', function() {
         });
     });
 });
+
+describe('utilities/PropTypes/style', function() {
+    describe('given any valid CSS styles as a prop', () => {
+        beforeEach(() => {
+            this.props = {
+                prop: {
+                    fontFamily: 'fontFamily'
+                }
+            };
+        });
+        describe('when checking if the provided prop is valid', () => {
+            beforeEach(() => {
+               this.actual =  (() => style(this.props, 'prop', 'My Custom Component'));
+            });
+            it('it should not return an error', () => {
+               this.actual.should.not.throw();
+            });
+        });
+    });
+    describe('given an invalid CSS styles as a prop', () => {
+        beforeEach(() => {
+            this.props = {
+                prop: {
+                    notAValidStyle: 'notAValidStyle'
+                }
+            };
+        });
+        describe('when checking if the provided prop is valid', () => {
+            beforeEach(() => {
+               this.actual =  (() => style(this.props, 'prop', 'My Custom Component'));
+            });
+            it('it should not return an error', () => {
+               this.actual.should.throw('Prop prop passed to My Custom Component. Has invalid keys notAValidStyle');
+            });
+        });
+    });
+});
+

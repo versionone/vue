@@ -9,3 +9,5 @@ export const desktopDropDownMenuFontSize = 15;
 export const desktopDrawerMenuItemHeight = 48;
 export const desktopSubheaderHeight = 48;
 export const desktopToolbarHeight = 56;
+
+export const formFieldPadding = 3;

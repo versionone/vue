@@ -1,37 +1,32 @@
 import React, {Component, PropTypes} from 'react';
 import * as CustomPropTypes from './../utilities/PropTypes';
 import classNames from 'classnames';
-import {zIndex} from './../Theme';
 import ToolbarTitle from './ToolbarTitle';
 import ToolbarGroup from './ToolbarGroup';
 import ToolbarItem from './ToolbarItem';
 import ToolbarSeparator from './ToolbarSeparator';
 import ToolbarSpacer from './ToolbarSpacer';
 
-const getStyles = (props, context) => {
-    const {
-        spacing, typography, palette
-    } = context.theme;
-
+const getStyles = (props, theme) => {
     const height = props.height
         ? props.height
-        : spacing.desktopToolbarHeight;
+        : theme.Toolbar.height;
 
     const background = props.background
         ? props.background
-        : palette.primary3Color;
+        : theme.Toolbar.backgroundColor;
 
     return {
         root: {
             height,
             boxSizing: 'border-box',
-            fontFamily: typography.fontFamily,
+            fontFamily: theme.Toolbar.fontFamily,
             display: 'flex',
-            paddingLeft: spacing.desktopGutter,
-            paddingRight: spacing.desktopGutter,
+            paddingLeft: theme.Toolbar.sidePadding,
+            paddingRight: theme.Toolbar.sidePadding,
             background: background,
-            color: palette.textColor,
-            zIndex: zIndex.toolbar,
+            color: theme.Toolbar.textColor,
+            zIndex: 1100,
             position: 'relative'
         },
         children: {
@@ -70,7 +65,7 @@ class Toolbar extends Component {
             style
         } = this.props;
         const {prepareStyles} = this.context.theme;
-        const styles = getStyles(this.props, this.context);
+        const styles = getStyles(this.props, this.context.theme);
 
         return (
             <div className={classNames('toolbar', className)}

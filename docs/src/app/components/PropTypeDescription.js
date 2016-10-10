@@ -15,7 +15,7 @@ function getDeprecatedInfo(type) {
   if (indexStart !== -1) {
     return {
       propTypes: type.raw.substring(indexStart + deprecatedPropType.length, type.raw.indexOf(',')),
-      explanation: recast.parse(type.raw).program.body[0].expression.arguments[1].value,
+      explanation: recast.parse(type.raw).program.body[0].expression.arguments[1].value
     };
   }
 
@@ -125,7 +125,6 @@ class PropTypeDescription extends Component {
 |:-----|:-----|:-----|:-----|\n`;
 
     const componentInfo = parse(code, findAllComponentDefinitions)[0];
-console.log(componentInfo)
     for (let key in componentInfo.props) {
       const prop = componentInfo.props[key];
 

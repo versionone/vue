@@ -175,6 +175,14 @@ class TextField extends Component {
             outline: '1px solid transparent',
             textColor: 'black',
             width: 256
+        },
+        disabled: {},
+        focused: {},
+        hasError: {
+            backgroundColor: 'pink'
+        },
+        pending: {
+            backgroundColor: 'yellow'
         }
     };
     static contextTypes = {

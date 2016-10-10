@@ -7,7 +7,6 @@ import recast from 'recast';
 import themePropHandler from './../themePropHandler';
 import themePropsDefaultHandler from './../themePropsDefaultHandler';
 import themePropDocblockHandler from './../themePropDocblockHandler';
-import themeStatesHandler from './../themeStatesHandler';
 
 require('./prop-type-description.css');
 
@@ -122,20 +121,37 @@ class ThemeConfigurationDescription extends Component {
             header
         } = this.props;
 
-        const componentInfo = parse(code, resolver, [themePropHandler, themePropsDefaultHandler, themePropDocblockHandler, themeStatesHandler])[0];
+        const componentThemePropTypes = parse(code, resolver, [themePropHandler, themePropDocblockHandler])[0];
+
+        // Pull in all theme values for all theme states and consolidate into a single object. Will be used to display default theme values for all theme-able states in future.
+        // const componentDefaultThemePropTypes = parse(code, resolver, [themePropsDefaultHandler])[0];
+        // const defaultThemeProps = Object.keys(componentDefaultThemePropTypes.props).reduce((output, stateThemeKey) => ({
+        //     ...output,
+        //     [stateThemeKey]: {
+        //         ...componentDefaultThemePropTypes.props[stateThemeKey].values,
+        //         ...Object.keys(componentThemePropTypes.props)
+        //             .filter((propTypeKey) => Object.keys(componentDefaultThemePropTypes.props[stateThemeKey].values).indexOf(propTypeKey) < 0)
+        //             .reduce((propTypeOutput, propTypeKey) => ({
+        //                 ...propTypeOutput,
+        //                 [propTypeKey]: {
+        //                     value: null,
+        //                     computed: true
+        //                 }
+        //             }), {})
+        //     }
+        // }), {});
 
         const text = `${header}
-${componentInfo.props ? this.getThemeStatesText(componentInfo) : ''}
-${componentInfo.themedStates ? this.getThemePropsText(componentInfo) : ''}`;
+${componentThemePropTypes.props ? this.getThemePropsText(componentThemePropTypes) : ''}`;
 
-        const requiredProps = componentInfo.props ? Object.keys(componentInfo.props).reduce((output, key) => output + componentInfo.props[key].required ? 1 : 0, 0) : 0;
+        const requiredProps = componentThemePropTypes.props ? Object.keys(componentThemePropTypes.props).reduce((output, key) => output + componentThemePropTypes.props[key].required ? 1 : 0, 0) : 0;
         const requiredPropFootnote = (requiredProps === 1) ? '* required property' :
             (requiredProps > 1) ? '* required properties' :
                 '';
 
         return (
             <div className="propTypeDescription">
-                {(componentInfo.props || componentInfo.themedStates) && (
+                {(componentThemePropTypes.props || componentThemePropTypes.themedStates) && (
                     <div>
                         <MarkdownElement text={text} />
                         <div style={{fontSize: '90%', paddingLeft: '15px'}}>{requiredPropFootnote}</div>
@@ -144,16 +160,6 @@ ${componentInfo.themedStates ? this.getThemePropsText(componentInfo) : ''}`;
             </div>
         );
     }
-
-    getThemeStatesText = (componentInfo) => `#### States
-| Name | Description |
-|:-----|:-----|
-${(componentInfo.themedStates || []).map((state) => {
-        const description = '';
-        return `| ${state} | ${description} |`;
-    })
-        .join('\n')}
-`;
 
     getThemePropsText = (componentInfo) => `#### Theme Properties
 | Name | Type | Default | Description |

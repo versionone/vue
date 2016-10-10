@@ -6,11 +6,23 @@ import resolveToValue from 'react-docgen/dist/utils/resolveToValue';
 
 var {types: {namedTypes: types, visit}} = recast;
 
-const getDefaultValue = (path) => {
+const getDefaultValue = (path, documentation) => {
     var node = path.node;
     var defaultValue;
     if (types.Literal.check(node)) {
         defaultValue = node.raw;
+    } else if (types.ObjectExpression.check(node)) {
+        return path.get('properties')
+            .filter(propertyPath => types.Property.check(propertyPath.node))
+            .map(function(propertyPath) {
+                const name = getPropertyName(propertyPath);
+                var defaultValue = getDefaultValue(propertyPath.get('value'));
+                return {
+                    name,
+                    defaultValue
+                };
+            })
+            .reduce((output, themeProp) => ({...output, [themeProp.name]: themeProp.defaultValue}), {});
     } else {
         path = resolveToValue(path);
         if (types.ImportDeclaration.check(path.node)) {
@@ -41,21 +53,6 @@ export default (documentation, path) => {
         return;
     }
 
-    if (types.FunctionExpression.check(defaultPropsPath.node)) {
-        // Find the value that is returned from the function and process it if it is
-        // an object literal.
-        visit(defaultPropsPath.get('body'), {
-            visitFunction: () => false,
-            visitReturnStatement: function(path) {
-                var resolvedPath = resolveToValue(path.get('argument'));
-                if (types.ObjectExpression.check(resolvedPath.node)) {
-                    defaultPropsPath = resolvedPath;
-                }
-                return false;
-            }
-        });
-    }
-
     if (types.ObjectExpression.check(defaultPropsPath.node)) {
         defaultPropsPath.get('properties')
             .filter(propertyPath => types.Property.check(propertyPath.node))
@@ -63,9 +60,9 @@ export default (documentation, path) => {
                 var propDescriptor = documentation.getPropDescriptor(
                     getPropertyName(propertyPath)
                 );
-                var defaultValue = getDefaultValue(propertyPath.get('value'));
-                if (defaultValue) {
-                    propDescriptor.defaultValue = defaultValue;
+                var values = getDefaultValue(propertyPath.get('value'), documentation);
+                if (values) {
+                    propDescriptor.values = values;
                 }
             });
     }

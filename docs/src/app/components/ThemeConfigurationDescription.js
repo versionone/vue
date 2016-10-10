@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {parse} from 'react-docgen';
+import Collapse, {Panel} from 'rc-collapse';
 import resolver from 'react-docgen/dist/resolver/findAllComponentDefinitions';
 import {parse as parseDoctrine} from 'doctrine';
 import MarkdownElement from './MarkdownElement';
@@ -9,6 +10,7 @@ import themePropsDefaultHandler from './../themePropsDefaultHandler';
 import themePropDocblockHandler from './../themePropDocblockHandler';
 
 require('./prop-type-description.css');
+require('./accordion.css');
 
 function getDeprecatedInfo(type) {
     const deprecatedPropType = 'deprecated(PropTypes.';
@@ -115,34 +117,37 @@ class ThemeConfigurationDescription extends Component {
         header: '### Properties'
     };
 
+    state = {
+        activeKey: ['0']
+    };
+
     render() {
         const {
             code,
             header
         } = this.props;
+        const {activeKey} = this.state;
 
         const componentThemePropTypes = parse(code, resolver, [themePropHandler, themePropDocblockHandler])[0];
 
         // Pull in all theme values for all theme states and consolidate into a single object. Will be used to display default theme values for all theme-able states in future.
-        // const componentDefaultThemePropTypes = parse(code, resolver, [themePropsDefaultHandler])[0];
-        // const defaultThemeProps = Object.keys(componentDefaultThemePropTypes.props).reduce((output, stateThemeKey) => ({
-        //     ...output,
-        //     [stateThemeKey]: {
-        //         ...componentDefaultThemePropTypes.props[stateThemeKey].values,
-        //         ...Object.keys(componentThemePropTypes.props)
-        //             .filter((propTypeKey) => Object.keys(componentDefaultThemePropTypes.props[stateThemeKey].values).indexOf(propTypeKey) < 0)
-        //             .reduce((propTypeOutput, propTypeKey) => ({
-        //                 ...propTypeOutput,
-        //                 [propTypeKey]: {
-        //                     value: null,
-        //                     computed: true
-        //                 }
-        //             }), {})
-        //     }
-        // }), {});
-
-        const text = `${header}
-${componentThemePropTypes.props ? this.getThemePropsText(componentThemePropTypes) : ''}`;
+        const componentDefaultThemePropTypes = parse(code, resolver, [themePropsDefaultHandler])[0];
+        const defaultThemeProps = Object.keys(componentDefaultThemePropTypes.props)
+            .reduce((output, stateThemeKey) => ({
+                ...output,
+                [stateThemeKey]: {
+                    // ...componentDefaultThemePropTypes.props[stateThemeKey].values,
+                    ...Object.keys(componentThemePropTypes.props)
+                        // .filter((propTypeKey) => Object.keys(componentDefaultThemePropTypes.props[stateThemeKey].values).indexOf(propTypeKey) < 0)
+                        .reduce((propTypeOutput, propTypeKey) => ({
+                            ...propTypeOutput,
+                            [propTypeKey]: {
+                                ...componentDefaultThemePropTypes.props[stateThemeKey].values[propTypeKey],
+                                ...componentThemePropTypes.props[propTypeKey]
+                            }
+                        }), {})
+                }
+            }), {});
 
         const requiredProps = componentThemePropTypes.props ? Object.keys(componentThemePropTypes.props).reduce((output, key) => output + componentThemePropTypes.props[key].required ? 1 : 0, 0) : 0;
         const requiredPropFootnote = (requiredProps === 1) ? '* required property' :
@@ -151,9 +156,17 @@ ${componentThemePropTypes.props ? this.getThemePropsText(componentThemePropTypes
 
         return (
             <div className="propTypeDescription">
-                {(componentThemePropTypes.props || componentThemePropTypes.themedStates) && (
+                {!!defaultThemeProps && (
                     <div>
-                        <MarkdownElement text={text} />
+                        <MarkdownElement text={header} />
+                        <Collapse accordion={true} activeKey={activeKey} onChange={this.setActivePanel}>
+                            {Object.keys(defaultThemeProps).map((themeStateKey, index) => (
+                                <Panel header={themeStateKey} key={index}>
+                                    <MarkdownElement
+                                        text={this.getThemePropTypesText(defaultThemeProps[themeStateKey])} />
+                                </Panel>
+                            ))}
+                        </Collapse>
                         <div style={{fontSize: '90%', paddingLeft: '15px'}}>{requiredPropFootnote}</div>
                     </div>
                 )}
@@ -161,36 +174,40 @@ ${componentThemePropTypes.props ? this.getThemePropsText(componentThemePropTypes
         );
     }
 
-    getThemePropsText = (componentInfo) => `#### Theme Properties
+    setActivePanel = (activeKey) => {
+        this.setState({
+            activeKey
+        });
+    };
+
+    getThemePropTypesText = (themeProps) => {
+        return `#### Theme Properties
 | Name | Type | Default | Description |
 |:-----|:-----|:-----|:-----|
-${Object.keys(componentInfo.props)
-        .filter((key) => componentInfo.props[key].type)
-        .map((key, index) => {
-            const prop = componentInfo.props[key];
-            const description = generateDescription(prop.required, prop.description, prop.type);
+${Object.keys(themeProps)
+            .filter((key) => themeProps[key].type)
+            .map((key, index) => {
+                const prop = themeProps[key];
+                const description = generateDescription(false, prop.description, prop.type);
 
-            if (description === null) return;
+                if (description === null) return;
 
-            let defaultValue = '';
+                let defaultValue = '';
 
-            if (prop.defaultValue) {
-                defaultValue = prop.defaultValue.value.replace(/\n/g, '');
-            }
-
-            if (prop.required) {
-                key = `<span style="color: #31a148" key={index}>${key} \*</span>`;
-            }
-
-            if (prop.type.name === 'custom') {
-                if (getDeprecatedInfo(prop.type)) {
-                    key = `~~${key}~~`;
+                if (prop.value) {
+                    defaultValue = prop.value.replace(/\n/g, '');
                 }
-            }
-            return `| ${key} | ${generatePropType(prop.type)} | ${defaultValue} | ${description} |`;
-        })
-        .join('\n')}
+
+                if (prop.type.name === 'custom') {
+                    if (getDeprecatedInfo(prop.type)) {
+                        key = `~~${key}~~`;
+                    }
+                }
+                return `| ${key} | ${generatePropType(prop.type)} | ${defaultValue} | ${description} |`;
+            })
+            .join('\n')}
 `;
+    }
 }
 
 export default ThemeConfigurationDescription;

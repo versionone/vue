@@ -31,8 +31,7 @@ class HintText extends Component {
         hidden: false,
         onClick: () => {
         },
-        text: '',
-        style: {}
+        text: ''
     };
     static themePropTypes = {
         lineHeight: PropTypes.number,
@@ -48,12 +47,13 @@ class HintText extends Component {
 
     render() {
         // eslint-disable-next-line no-unused-vars
-        const {text, hidden, defaultTheme, style, ...rest} = this.props;
+        const {text, hidden, defaultTheme, ...rest} = this.props;
         const {theme} = this.context;
         const styles = getStyles(this);
+        const otherProps = {...rest, style: undefined};
 
         return (
-            <div style={theme.prepareStyles(styles.root)} {...rest}><span style={theme.prepareStyles(styles.text)}>{text}</span></div>
+            <div style={theme.prepareStyles(styles.root)} {...otherProps}><span style={theme.prepareStyles(styles.text)}>{text}</span></div>
         );
     }
 }

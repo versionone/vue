@@ -45,7 +45,7 @@ export default class ComponentPage extends Component {
                     <StatusBadge status={status} />
                     <h1>{name}</h1>
                     <MarkdownElement text={readme} />
-                    {examples.map((example, index) => (
+                    {examples.length > 0 && examples.map((example, index) => (
                         <CodeExample
                             title={example.title}
                             description={example.description}

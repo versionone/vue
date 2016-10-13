@@ -104,3 +104,6 @@ Each component's `_meta.js` must be registered with the docs site. This is done 
 // other exports
 export {default as compnentName} from './ComponentName/_meta';
 ```
+
+## Submitting a New Component
+Please ensure the above requirements are met. Once done, submit a PR from your component's branch to the current version under development's branch.

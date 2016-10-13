@@ -105,5 +105,41 @@ Each component's `_meta.js` must be registered with the docs site. This is done 
 export {default as compnentName} from './ComponentName/_meta';
 ```
 
+## Requirement for Components
+In addition to the above items, evey component should be [theme-enabled](/pages/Theming-Components) and contain all appropriate `propTypes` and `defaultProps` values. Each `propTypes` should contain a comment description above it and deprecated `propTypes` should be marked via a comment as well. Here are a few examples (including deprecated `propTypes`):
+
+```js
+static propTypes = {
+    /**
+     * This is the point on the popover which will attach to
+     * the anchor's origin.
+     * Options:
+     * vertical: [top, middle, bottom];
+     * horizontal: [left, center, right].
+     */
+    targetOrigin: CustomPropTypes.origin,
+    /**
+     * If true, the popover (potentially) ignores `targetOrigin`
+     * and `anchorOrigin` to make itself fit on screen,
+     * which is useful for mobile devices.
+     */
+    shouldAutoAdjustPosition: PropTypes.bool,
+    /**
+     * Callback function fired when the popover is requested to be closed.
+     *
+     * @param {string} reason The reason for the close request. Possibles values
+     * are 'clickAway' and 'offScreen'.
+     */
+    onRequestClose: PropTypes.func,
+    /**
+     * The function to call when the user presses the Enter key.
+     */
+    onEnterKeyDown: deprecated(PropTypes.func,
+      'Use onKeyDown and check for keycode instead. It will be removed with v0.16.0.'),
+    /** @ignore */
+    onFocus: PropTypes.func,
+};
+```
+
 ## Submitting a New Component
 Please ensure the above requirements are met. Once done, submit a PR from your component's branch to the current version under development's branch.

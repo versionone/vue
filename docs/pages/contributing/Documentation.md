@@ -5,7 +5,8 @@ status: draft
 keywords:
   - create
   - new
-  - document
+  - page
+  - guide
 ---
 
 This guide will aid in creating new documentation; consisting of new or updating existing pages and adding new menu categories.
@@ -59,7 +60,7 @@ export default [
     require('./contributing/Sample Page.md'), // first category among all pages
 
     // Other menu category pages
-    require('./patterns/another page.md')  
+    require('./patterns/another page.md')
 ];
 ```
 

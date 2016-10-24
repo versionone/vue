@@ -130,6 +130,7 @@ class TextField extends Component {
     };
     static defaultProps = {
         defaultTheme: {},
+        defaultValue: '',
         disabled: false,
         disabledTheme: {},
         focusedTheme: {},
@@ -212,7 +213,7 @@ class TextField extends Component {
     }
 
     render() {
-        const {disabled, defaultValue, errorText, fullWidth, hintText, required, value} = this.props;
+        const {disabled, defaultValue, errorText, fullWidth, hintText, required} = this.props;
         const {hasValue} = this.state;
         const {prepareStyles} = this.context.theme;
         const styles = getStyles(this);
@@ -224,12 +225,13 @@ class TextField extends Component {
                               onClick={this.focusInput} />
                 </div>
                 <div style={prepareStyles(styles.inputWrapper)} ref="inputWrapper">
-                    <input style={prepareStyles(styles.input)} type="text" ref="inputField" defaultValue={defaultValue}
-                           value={value} disabled={disabled}
+                    <input style={prepareStyles(styles.input)} type="text" ref="inputField"
+                           defaultValue={defaultValue}
+                           disabled={disabled}
                            onChange={this.handleChange} onFocus={this.handleFocus} onBlur={this.handleBlur} />
-                    {required && fullWidth &&  <RequiredIndicator style={styles.requiredIndicator} /> }
+                    {required && fullWidth && <RequiredIndicator style={styles.requiredIndicator} /> }
                 </div>
-                {required && !fullWidth &&  <RequiredIndicator style={styles.requiredIndicator} /> }
+                {required && !fullWidth && <RequiredIndicator style={styles.requiredIndicator} /> }
                 {errorText && <div style={prepareStyles(styles.errorMessageWrapper)}><ErrorMessage text={errorText}
                                                                                                    hidden={!errorText}
                                                                                                    defaultTheme={styles.errorMessageTheme} />

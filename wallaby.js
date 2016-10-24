@@ -41,7 +41,8 @@ module.exports = function(wallaby) {
             runner: 'node'
         },
         testFramework: 'mocha',
-        bootstrap: function() {
+        bootstrap: function(wallaby) {
+            wallaby.testFramework.ui('tdd');
             var path = require('path');
             require('./specSetup');
         },

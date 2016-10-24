@@ -1,8 +1,10 @@
+var mocha = require('mocha');
 var chai = require('chai');
 var chaiEnzyme = require('chai-enzyme');
 
 chai.use(chaiEnzyme());
 global.should = chai.should();
+global.expect = chai.expect;
 
 var jsdom = require('jsdom').jsdom;
 var exposedProperties = ['window', 'navigator', 'document'];

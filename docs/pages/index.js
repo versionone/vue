@@ -13,5 +13,6 @@ export default [
 
     // Contributing pages
     require('./contributing/Documentation.md'),
-    require('./contributing/Components.md')
+    require('./contributing/Components.md'),
+    require('./contributing/Theming-Components.md')
 ];

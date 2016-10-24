@@ -1,14 +1,15 @@
 ---
 title: Documentation
 menuCategory: Contributing
-status: draft
+status: stable
 keywords:
   - create
   - new
-  - document
+  - page
+  - guide
 ---
 
-This guide will aid in creating new documentation; consisting of new or updating existing pages and adding new menu categories.
+This guide will aid in creating new documentation. This consists of creating new pages, updating existing pages and adding pages within new menu categories.
 
 ## Creating a new Sample Documentation Page
 
@@ -59,7 +60,7 @@ export default [
     require('./contributing/Sample Page.md'), // first category among all pages
 
     // Other menu category pages
-    require('./patterns/another page.md')  
+    require('./patterns/another page.md')
 ];
 ```
 

@@ -1,7 +1,7 @@
 ---
 title: Components
 menuCategory: Contributing
-status: draft
+status: stable
 keywords:
   - create
   - new
@@ -11,7 +11,16 @@ keywords:
 
 This guide details the the structure of components an the process to submit a new component. To learn more about component implementation and theming, then checkout the [component theming guide](/pages/Theming-Components).
 
-## Component Structure
+## TL;DR
+
+1. [Component Structure](#component-structure)
+2. [Register with Docs](#register-with-docs)
+3. [Theming Components](/pages/Theming-Components)
+4. [Other Component Requirements](#component-requirements)
+4. [Submission](#component-submission)
+
+
+## Component Structure <a name="component-structure"></a>
 
 Every major component is grouped into its own directory under `./src`. It, at the minimum, must contain the following files; each of which will be explained in further detail below:
 
@@ -97,7 +106,7 @@ export default [
 ];
 ```
 
-## Registering with Docs Site
+## Registering with Docs Site <a name="register-with-docs"></a>
 Each component's `_meta.js` must be registered with the docs site. This is done by exporting the `_meta.js` within the `./src/_meta.js` file. See below:
 
 ```js
@@ -105,7 +114,7 @@ Each component's `_meta.js` must be registered with the docs site. This is done 
 export {default as compnentName} from './ComponentName/_meta';
 ```
 
-## Requirement for Components
+## Requirement for Components <a name="component-requirements"></a>
 In addition to the above items, evey component should be [theme-enabled](/pages/Theming-Components) and contain all appropriate `propTypes` and `defaultProps` values. Each `propTypes` should contain a comment description above it and deprecated `propTypes` should be marked via a comment as well. Here are a few examples (including deprecated `propTypes`):
 
 ```js
@@ -141,5 +150,5 @@ static propTypes = {
 };
 ```
 
-## Submitting a New Component
+## Submitting a New Component <a name="component-submission"></a>
 Please ensure the above requirements are met. Once done, submit a PR from your component's branch to the current version under development's branch.

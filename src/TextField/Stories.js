@@ -2,23 +2,38 @@ import React from 'react';
 import {storiesOf} from '@kadira/storybook';
 import TextField from './';
 
-storiesOf('TextEntryField')
-    .addWithInfo('with value',
+storiesOf('TextField')
+    .addWithInfo('explicit value',
         ``,
         () => (
-            <TextField hintText="hint text" value="no typing can change me!" />
+            <TextField hintText="hint text" value="explicitly set value" />
         )
     )
-    .addWithInfo('without value & default Value',
+    .addWithInfo('default value only',
         ``,
         () => (
-            <TextField hintText="hint text" defaultValue="alpha-numeric!" />
+            <TextField hintText="hint text" defaultValue="default value" />
+        )
+    )
+    .addWithInfo('hint text',
+        ``,
+        () => (
+            <TextField hintText="hint text" />
         )
     )
     .addWithInfo('long hint text',
         ``,
         () => (
-            <TextField hintText="hint text is super duper long, so long in fact, that it just may be unbelievable" required />
+            <TextField
+                hintText="hint text. This hint text is not just lengthy, but absurdly long. Why would anyone do this anyway?" />
+        )
+    )
+    .addWithInfo('long hint text; required',
+        ``,
+        () => (
+            <TextField
+                hintText="hint text. This hint text is not just lengthy, but absurdly long. Why would anyone do this anyway?"
+                required />
         )
     )
     .addWithInfo('disabled',
@@ -36,24 +51,37 @@ storiesOf('TextEntryField')
     .addWithInfo('pending',
         ``,
         () => (
-            <TextField hintText="hint text" required pending />
+            <TextField hintText="hint text" pending />
         )
     )
     .addWithInfo('invalid',
         ``,
         () => (
-            <TextField hintText="hint text" required errorText="required field" />
+            <TextField hintText="hint text" required errorText="error text" />
         )
     )
     .addWithInfo('full width',
         ``,
         () => (
-            <TextField fullWidth hintText="hint text" required errorText="required field" />
+            <TextField fullWidth hintText="hint text" />
+        )
+    )
+    .addWithInfo('full width; required',
+        ``,
+        () => (
+            <TextField fullWidth hintText="hint text" required />
+        )
+    )
+    .addWithInfo('full width; invalid',
+        ``,
+        () => (
+            <TextField fullWidth hintText="hint text" errorText="error text" />
         )
     )
     .addWithInfo('stacked',
         ``,
-        () => (<div>
+        () => (
+            <div>
                 <div style={{marginBottom: '16px'}}>
                     <TextField hintText="hint text" required
                                errorText="this field is of the utmost importance and, therefore, is required" />

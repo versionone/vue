@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {unmountComponentAtNode, render} from 'react-dom';
 import * as Vue from 'vue/';
-import * as materialUi from 'material-ui';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {transform} from 'babel-standalone';
 import {babel} from './../../../../package.json';
@@ -17,7 +16,7 @@ class Preview extends Component {
     };
 
     static defaultProps = {
-        scope: {React, ...Vue, ...Vue.Toolbar, ...materialUi}
+        scope: {React, ...Vue, ...Vue.Toolbar}
     };
 
     state = {

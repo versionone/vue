@@ -93,8 +93,8 @@ const getStylesFromTheme = (themeValues, props, state) => {
         errorMessageWrapper: {
             alignSelf: 'center',
             lineHeight: `${themeValues.fontSize}px`,
-            marginTop,
-            marginLeft: '6px'
+            marginTop: props.fullWidth ? '-8px' : 0,
+            marginLeft: props.fullWidth ? 0 : '6px'
         },
         errorMessageTheme: {
             lineHeight: themeValues.lineHeight,

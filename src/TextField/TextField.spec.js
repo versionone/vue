@@ -85,6 +85,11 @@ suite('TextField', () => {
         expect(hintTextIsDisplayed(textFieldWithDeletedValue)).to.be.true;
     });
 
+    test('the text field renders with a height when there is no hint text or value', () => {
+        const textFieldWithoutValue = mountTextField();
+        expect(textFieldHasHeight(textFieldWithoutValue, '25px')).to.be.true;
+    });
+
     test('clicking the hint text focuses the input field', () => {
         const textField = mountTextField();
         clickHintText(textField);
@@ -126,7 +131,10 @@ suite('TextField', () => {
         const textField = mountTextField().setState({hintTextHeight: 51});
         expect(textFieldHasAdjustedHeightBy(textField, '34px')).to.be.true;
 
-        const requiredTextField = mountTextField({required: true, errorText: 'error message'}).setState({hintTextHeight: 51});
+        const requiredTextField = mountTextField({
+            required: true,
+            errorText: 'error message'
+        }).setState({hintTextHeight: 51});
         expect(requiredIndicatorIsAlignedWithText(requiredTextField)).to.be.true;
         expect(errorTextIsAlignedWithText(requiredTextField)).to.be.true;
     });
@@ -144,7 +152,9 @@ function getTestTheme() {
     return {
         TextField: {
             default: {
-                backgroundColor: 'blue'
+                backgroundColor: 'blue',
+                padding: 8,
+                lineHeight: 1.5
             },
             hasError: {
                 backgroundColor: 'pink'
@@ -253,4 +263,8 @@ function textFieldHasBackground(wrapper, backgroundColor) {
 
 function textFieldHasAdjustedHeightBy(wrapper, adjustment) {
     return wrapper.find('input').parent().props().style.marginTop === adjustment;
+}
+
+function textFieldHasHeight(wrapper, height) {
+    return wrapper.find('HintText').parent().props().style.height === height;
 }

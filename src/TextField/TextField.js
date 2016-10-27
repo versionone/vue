@@ -26,8 +26,11 @@ const getThemeValues = (theme, props, state) => {
 };
 const getStylesFromTheme = (themeValues, props, state) => {
     const textHeight = Math.floor(themeValues.fontSize * themeValues.lineHeight);
-    const hintTextOffset = textHeight - state.hintTextHeight;
-    const marginTop = hintTextOffset < 0 ? `${Math.abs(hintTextOffset)}px` : 0;
+    // text height + top/bottom padding + top/bottom border width
+    const textFieldHeight = textHeight + themeValues.padding * 2 + 2;
+    const isHintTextTallerThanInput = state.hintTextHeight > textFieldHeight;
+    const marginTop = isHintTextTallerThanInput ? `${state.hintTextHeight - textHeight}px` : '0px';
+    const hintTextWrapperHeight = isHintTextTallerThanInput ? (state.hintTextHeight + themeValues.padding * 2 + 2) : textFieldHeight;
     const width = props.fullWidth ? '100%' : props.width ? `${props.width}px` : `${themeValues.width}px`;
 
     const styles = {
@@ -45,6 +48,7 @@ const getStylesFromTheme = (themeValues, props, state) => {
             borderRadius: themeValues.borderRadius,
             fontFamily: themeValues.fontFamily,
             fontSize: `${themeValues.fontSize}px`,
+            height: `${hintTextWrapperHeight}px`,
             outline: themeValues.outline,
             padding: `${themeValues.padding}px`,
             position: 'absolute',
@@ -89,7 +93,7 @@ const getStylesFromTheme = (themeValues, props, state) => {
         errorMessageWrapper: {
             alignSelf: 'center',
             lineHeight: `${themeValues.fontSize}px`,
-            marginTop: marginTop,
+            marginTop,
             marginLeft: '6px'
         },
         errorMessageTheme: {
@@ -170,6 +174,7 @@ class TextField extends Component {
             errorTextColor: 'red',
             fontFamily: 'Arial',
             fontSize: 16,
+            hintText: '',
             hintTextColor: 'gray',
             lineHeight: 1.5,
             padding: 8,
@@ -201,14 +206,14 @@ class TextField extends Component {
 
     componentDidMount() {
         this.setState({
-            hintTextHeight: findDOMNode(this.refs.hintText).getBoundingClientRect().height
+            hintTextHeight: this.getHeight(this.props)
         });
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({
             hasValue: !!nextProps.value || !!nextProps.defaultValue,
-            hintTextHeight: findDOMNode(this.refs.hintText).getBoundingClientRect().height
+            hintTextHeight: this.getHeight()
         });
     }
 
@@ -264,6 +269,12 @@ class TextField extends Component {
     focusInput = (evt) => {
         this.handleFocus(evt);
         this.refs.inputField.focus();
+    };
+
+    getHeight = () => {
+        const inputWrapperHeight = findDOMNode(this.refs.inputWrapper).getBoundingClientRect().height;
+        const hintTextHeight = findDOMNode(this.refs.hintText).getBoundingClientRect().height;
+        return Math.max(inputWrapperHeight, hintTextHeight);
     };
 }
 export default TextField;

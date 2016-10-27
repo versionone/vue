@@ -45,6 +45,7 @@ export default class ComponentPage extends Component {
                     <StatusBadge status={status} />
                     <h1>{name}</h1>
                     <MarkdownElement text={readme} />
+                    <h2>Examples</h2>
                     {examples.map((example, index) => {
                         const ExampleComponent = example.component;
                         return (

@@ -1,467 +1,256 @@
 import React from 'react';
 import {mount} from 'enzyme';
-import sinon from 'sinon';
-import {applyTheme} from './../../specHelpers';
+import {spy} from 'sinon';
 import TextField from './TextField';
-import HintText from './../internal/HintText';
-import RequiredIndicator from './../internal/RequiredIndicator';
-import ErrorMessage from './../internal/ErrorMessage';
-import getTheme from './../Theme/getTheme';
+import {getTheme} from './../Theme';
 
-describe('<TextField>', function() {
-    beforeEach(() => {
-        this.actual = undefined;
-    });
-    describe('when rendering the text field', () => {
-        beforeEach(() => {
-            this.actual = mount(applyTheme(<TextField />));
-        });
-        it('it should have a transparent background on the input, so that the hint text background color shows as the field\'s background color', () => {
-            this.actual.find('input').parent().should.have.style('backgroundColor', 'transparent');
-        });
+suite('TextField', () => {
+    test('the text field applies the default theme', ()=> {
+        const textField = mountTextField({}, getTestTheme());
+        expect(textFieldHasBackground(textField, 'blue')).to.be.true;
     });
 
-    describe('given a value', () => {
-        beforeEach(() => {
-            this.value = 'a value';
-        });
-        describe('when rendering the text field', () => {
-            beforeEach(() => {
-                this.actual = mount(applyTheme(<TextField value={this.value} />));
-            });
-            it('it should render with the value in the input', () => {
-                this.actual.find('input').should.have.value(this.value);
-            });
-        });
-        describe('when typing into the text field', () => {
-            beforeEach(() => {
-                this.actual = mount(applyTheme(<TextField value={this.value} />));
-                this.actual.find('input').simulate('keydown', {which: 64});
-                this.actual.find('input').simulate('keyup', {which: 64});
-                this.actual.find('input').simulate('input', {target: {value: 'a'}});
-            });
-            it('it should use the provided value as the value of the input and not the user typed text', () => {
-                this.actual.find('input').should.have.value(this.value);
-            });
-        });
-        describe('given hint text', () => {
-            beforeEach(() => {
-                this.hintText = 'hint text';
-            });
-            describe('when rendering the text field', () => {
-                beforeEach(() => {
-                    this.actual = mount(applyTheme(<TextField value={this.value} hintText={this.hintText} />));
-                });
-                it('it should hide the hint text', () => {
-                    this.actual.find(HintText).children().should.have.style('opacity', '0');
-                });
-            });
-        });
-    });
-    describe('given no value', () => {
-        describe('when rendering the text field', () => {
-            beforeEach(() => {
-                this.actual = mount(applyTheme(<TextField />));
-            });
-            it('it should render a text field with no value', () => {
-                this.actual.find('input').should.have.value('');
-            });
-        });
-
-        describe('given a default value', () => {
-            beforeEach(() => {
-                this.defaultValue = 'default value';
-            });
-            describe('when rendering the text field', () => {
-                beforeEach(() => {
-                    this.actual = mount(applyTheme(<TextField defaultValue={this.defaultValue} />));
-                });
-                it('it should render with a value equal to the default value', () => {
-                    this.actual.find('input').should.have.value(this.defaultValue);
-                });
-            });
-
-            describe('given hint text', () => {
-                beforeEach(() => {
-                    this.hintText = 'hint text';
-                });
-                describe('when rendering the text field', () => {
-                    beforeEach(() => {
-                        this.actual = mount(applyTheme(<TextField defaultValue={this.defaultValue}
-                                                                  hintText={this.hintText} />));
-                    });
-                    it('it should hide the hint text', () => {
-                        this.actual.find(HintText).children().should.have.style('opacity', '0');
-                    });
-                });
-                describe('when deleting all text from the input', () => {
-                    beforeEach(() => {
-                        this.actual = mount(applyTheme(<TextField defaultValue={this.defaultValue}
-                                                                  hintText={this.hintText} />));
-                        this.actual.find('input').simulate('change', {target: {value: ''}});
-                    });
-                    it('it should show the hint text', () => {
-                        this.actual.find(HintText).children().should.have.style('opacity', '1');
-                        this.actual.find(HintText).should.have.text(this.hintText);
-                    });
-                });
-            });
-        });
-
-        describe('given no default value', () => {
-            describe('given hint text', () => {
-                beforeEach(() => {
-                    this.hintText = 'hint text';
-                });
-                describe('when rendering the text field', () => {
-                    beforeEach(() => {
-                        this.actual = mount(applyTheme(<TextField hintText={this.hintText} />));
-                    });
-                    it('it should show the hint text', () => {
-                        this.actual.find(HintText).children().should.have.style('opacity', '1');
-                        this.actual.find(HintText).should.have.text(this.hintText);
-                    });
-                });
-                describe('when typing into the input field', () => {
-                    beforeEach(() => {
-                        this.actual = mount(applyTheme(<TextField hintText={this.hintText} />));
-                        this.actual.find('input').simulate('change', {target: {value: 'a'}});
-                    });
-                    it('it should hide the hint text', () => {
-                        this.actual.find(HintText).children().should.have.style('opacity', '0');
-                    });
-                });
-                describe('when re-rendering the text field with a value', () => {
-                    beforeEach(() => {
-                        this.value = 'I am a value';
-                        this.context = {
-                            theme: getTheme()
-                        };
-                        this.actual = mount(<TextField hintText={this.hintText} />, {context: this.context});
-                        this.actual.setProps({value: this.value});
-                    });
-
-                    it('it should set the state that the text field has a value', () => {
-                        this.actual.state('hasValue').should.be.true;
-                    });
-                });
-            });
-            describe('given a multi-line length hint text value (72px tall)', () => {
-                beforeEach(() => {
-                    this.context = {
-                        theme: getTheme()
-                    };
-                    this.actual = mount(<TextField
-                        hintText="fake content that is '51px' tall" />, {context: this.context})
-                        .setState({hintTextHeight: 51});
-                });
-                describe('when rendering the text field', () => {
-                    it('it should auto adjust the height of the text field to accommodate the extra long hint text', () => {
-                        this.actual.find('input').parent().should.have.style('marginTop', '34px');
-                    });
-                });
-                describe('when I click on the hint text', () => {
-                    beforeEach(() => {
-                        this.focus = sinon.spy();
-                        this.actual = mount(applyTheme(<TextField
-                            hintText="hint text is super duper long, so long in fact, that it just may be unbelievable"
-                            onFocus={this.focus} />));
-                        this.actual.find(HintText).simulate('click');
-                    });
-                    it('it should focus the input of the text field', () => {
-                        should.equal(this.actual.find('input').node, document.activeElement);
-                    });
-                });
-
-                describe('given the text field is marked as required', () => {
-                    describe('given the text field is not full width', () => {
-                        describe('when rendering the text field', () => {
-                            beforeEach(() => {
-                                this.actual = mount(<TextField hintText="fake content that is '51px' tall"
-                                                               required />, {context: this.context})
-                                    .setState({hintTextHeight: 51});
-                            });
-                            it('it should position the required indicator inline with the text entry', () => {
-                                this.actual.children(RequiredIndicator).should.have.style('marginTop', '34px');
-                            });
-                        });
-                    });
-                });
-
-                describe('given error text', () => {
-                    beforeEach(() => {
-                        this.errorText = 'error text';
-                    });
-                    describe('when rendering the text field', () => {
-                        beforeEach(() => {
-                            this.actual = mount(<TextField hintText="fake content that is '51px' tall"
-                                                           required errorText={this.errorText} />, {context: this.context})
-                                .setState({hintTextHeight: 51});
-                        });
-                        it('it should render the error message in alignment with the text entry', () => {
-                            this.actual.find(ErrorMessage).parent().should.have.style('marginTop', '34px');
-                        });
-                    });
-                });
-            });
-        });
+    test('the text field can render with a default value', () => {
+        const textField = mountTextField({defaultValue: 'a default value'});
+        expect(textFieldHasValue(textField, 'a default value')).to.be.true;
     });
 
-    describe('given an change event handler', () => {
-        beforeEach(() => {
-            this.change = sinon.spy();
-        });
-        describe('when typing text into the text field', () => {
-            beforeEach(() => {
-                this.actual = mount(applyTheme(<TextField onChange={this.change} />));
-                this.actual.find('input').simulate('change', {target: {value: 'a'}});
-            });
-            it('it should execute the onChange callback with the new value of the field', () => {
-                this.change.calledWith('a').should.be.true;
-            });
-        });
+    test('the text field has an onChange event handler', () => {
+        const onChange = spy();
+        const textField = mountTextField({onChange});
+        typeInTextField(textField, 'a');
+        expect(onChange.calledOnce).to.be.true;
     });
 
-    describe('given a specified width', () => {
-        beforeEach(() => {
-            this.width = 250;
-        });
-        describe('when rendering the text field', () => {
-            beforeEach(() => {
-                this.actual = mount(applyTheme(<TextField width={this.width} />));
-            });
-            it('it should render the text field with the specified width in pixels', () => {
-                this.actual.find(HintText).parent().should.have.style('width', `${this.width}px`);
-                this.actual.find('input').parent().should.have.style('width', `${this.width}px`);
-            });
-        });
-
-        describe('given full width rendering', () => {
-            describe('when rendering the text field', () => {
-                beforeEach(() => {
-                    this.actual = mount(applyTheme(<TextField width={this.width} fullWidth />));
-                });
-                it('it should render the text field with 100% width', () => {
-                    this.actual.should.have.style('width', '100%');
-                });
-            });
-        });
-    });
-    describe('given no specified width', () => {
-        describe('when rendering the text field', () => {
-            beforeEach(() => {
-                this.actual = mount(applyTheme(<TextField />));
-            });
-            it('it should render the text field with the default width', () => {
-                this.actual.find(HintText).parent().should.have.style('width', `${TextField.defaultProps.width}px`);
-                this.actual.find('input').parent().should.have.style('width', `${TextField.defaultProps.width}px`);
-            });
-        });
+    test('the text field is not disabled', () => {
+        const textField = mountTextField({});
+        expect(textFieldIsNotDisabled(textField)).to.be.true;
     });
 
-    describe('given the text field is marked as disabled', () => {
-        describe('when rendering the text field', () => {
-            beforeEach(() => {
-                this.actual = mount(applyTheme(<TextField disabled />));
-            });
-            it('it should render the input field as disabled', () => {
-                this.actual.find('input').should.be.disabled();
-            });
-            it('it should render the not-allowed cursor to indicate it is disabled', () => {
-                this.actual.find('input').should.have.style('cursor', 'not-allowed');
-            });
-        });
-    });
-    describe('given the text field is not marked as disabled', () => {
-        describe('when rendering the text field', () => {
-            beforeEach(() => {
-                this.actual = mount(applyTheme(<TextField />));
-            });
-            it('it should not render the input field as disabled', () => {
-                this.actual.find('input').should.not.be.disabled();
-            });
-            it('it should render the not-allowed cursor to indicate it is disabled', () => {
-                this.actual.find('input').should.have.style('cursor', 'initial');
-            });
-        });
+    test('the text field can be disabled and is theme-enabled for disabled state', () => {
+        const disabledTextField = mountTextField({disabled: true}, getTestTheme());
+        expect(textFieldIsDisabled(disabledTextField)).to.be.true;
+        expect(textFieldHasBackground(disabledTextField, 'gray')).to.be.true;
     });
 
-    describe('given the text field is marked as required', () => {
-        describe('when rendering the text field', () => {
-            beforeEach(() => {
-                this.actual = mount(applyTheme(<TextField required />));
-            });
-            it('it should render the required indicator outside the text field', () => {
-                this.actual.children(RequiredIndicator).should.have.style('opacity', '1');
-            });
-        });
+    test('the text field can be marked as required or not required', () => {
+        const notRequiredTextField = mountTextField();
+        expect(requiredIndicatorIsHidden(notRequiredTextField)).to.be.true;
 
-        describe('given the text field is full width', () => {
-            describe('when rendering the text field', () => {
-                beforeEach(() => {
-                    this.actual = mount(applyTheme(<TextField required fullWidth />));
-                });
-                it('it should render the required indicator inside the text field', () => {
-                    this.actual.find('input').parent().children(RequiredIndicator).should.have.style('opacity', '1');
-                });
-                it('it should not render the required indicator outside the text field', () => {
-                    should.not.exist(this.actual.children(RequiredIndicator).node);
-                });
-            });
-        });
-    });
-    describe('given the text field is not marked as required', () => {
-        describe('when rendering the text field', () => {
-            beforeEach(() => {
-                this.actual = mount(applyTheme(<TextField />));
-            });
-            it('it should not render the required indicator', () => {
-                should.not.exist(this.actual.find(RequiredIndicator).node);
-            });
-        });
+        const requiredTextField = mountTextField({required: true});
+        expect(requiredIndicatorIsDisplayed(requiredTextField)).to.be.true;
     });
 
-    describe('given a focus event handler', () => {
-        this.focus = sinon.spy();
-        describe('when focusing the text field', () => {
-            beforeEach(() => {
-                this.theme = {
-                    TextField: {
-                        default: {},
-                        focused: {
-                            outline: '1px solid blue'
-                        }
-                    }
-                };
-                this.actual = mount(applyTheme(<TextField onFocus={this.focus} />, this.theme));
-                this.actual.find('input').simulate('focus');
-            });
-            it('it should call the onFocus event handler prop', () => {
-                this.focus.called.should.be.true;
-            });
-            it('it should render in the focused state', () => {
-                this.actual.find(HintText).parent().should.have.style('outline', '1px solid blue');
-            });
-        });
-    });
-    describe('given I am focused on the text field', () => {
-        beforeEach(() => {
-            this.theme = {
-                TextField: {
-                    default: {},
-                    focused: {
-                        outline: '1px solid blue'
-                    }
-                }
-            };
-            this.actual = mount(applyTheme(<TextField />, this.theme));
-            this.actual.find('input').simulate('focus');
-        });
-        describe('when losing focus on the text field', () => {
-            beforeEach(() => {
-                this.actual.find('input').simulate('blur');
-            });
-            it('it should render in the non-focused state', () => {
-                this.actual.find(HintText).parent().should.have.style('outline', TextField.defaultThemeProps.outline);
-            });
-        });
-        describe('given there is an blur event handler', () => {
-            beforeEach(() => {
-                this.blur = sinon.spy();
-                this.actual = mount(applyTheme(<TextField onBlur={this.blur} />, this.theme));
-            });
-            describe('when losing focus on the text field', () => {
-                beforeEach(() => {
-                    this.actual.find('input').simulate('blur');
-                });
-                it('it should call the blur event handler', () => {
-                    this.blur.called.should.be.true;
-                });
-            });
-        });
+    test('the text field\'s required indicator is inside the text field when set to full width', () => {
+        const fullWidthTextField = mountTextField({fullWidth: true, required: true});
+        expect(requiredIndicatorIsInsideTextField(fullWidthTextField)).to.be.true;
     });
 
-    describe('given no error text', () => {
-        describe('when rendering the text field', () => {
-            beforeEach(() => {
-                this.theme = {
-                    TextField: {
-                        default: {},
-                        hasError: {
-                            outline: '1px solid blue'
-                        }
-                    }
-                };
-                this.actual = mount(applyTheme(<TextField />, this.theme));
-            });
-            it('it should not render the error text', () => {
-                should.not.exist(this.actual.find(ErrorMessage).node);
-            });
-            it('it should not render in the error state', () => {
-                this.actual.find(HintText).parent().should.have.style('outline', TextField.defaultThemeProps.outline);
-            });
-        });
+    test('the text field renders with the default width when no width is specified', () => {
+        const textField = mountTextField();
+        expect(textFieldHasWidth(textField, `${TextField.defaultProps.width}px`)).to.be.true;
     });
 
-    describe('given error text', () => {
-        beforeEach(() => {
-            this.errorText = 'error text';
-        });
-        describe('when rendering the text field', () => {
-            beforeEach(() => {
-                this.theme = {
-                    TextField: {
-                        default: {},
-                        hasError: {
-                            outline: '1px solid blue'
-                        }
-                    }
-                };
-                this.actual = mount(applyTheme(<TextField errorText={this.errorText} />, this.theme));
-            });
-            it('it should render the error message', () => {
-                this.actual.find(ErrorMessage).should.have.text(this.errorText);
-            });
-            it('it should render in the error state', () => {
-                this.actual.find(HintText).parent().should.have.style('outline', '1px solid blue');
-            });
-        });
+    test('the text field can render with a specified width', () => {
+        const textField = mountTextField({width: 100});
+        expect(textFieldHasWidth(textField, '100px')).to.be.true;
     });
 
-    describe('given the text field is marked as pending', () => {
-        describe('when rendering the text field', () => {
-            beforeEach(() => {
-                this.theme = {
-                    TextField: {
-                        default: {},
-                        pending: {
-                            outline: '1px solid yellow'
-                        }
-                    }
-                };
-                this.actual = mount(applyTheme(<TextField pending />, this.theme));
-            });
-            it('it should render the text field in the pending state', () => {
-                this.actual.find(HintText).parent().should.have.style('outline', '1px solid yellow');
-            });
-        });
+    test('the text field can render as full width', () => {
+        const textFieldWithWidth = mountTextField({width: 100, fullWidth: true});
+        expect(textFieldHasWidth(textFieldWithWidth, '100%')).to.be.true;
+
+        const textField = mountTextField({fullWidth: true});
+        expect(textFieldHasWidth(textField, '100%')).to.be.true;
     });
-    describe('given the text field is not marked as pending', () => {
-        describe('when rendering the text field', () => {
-            beforeEach(() => {
-                this.theme = {
-                    TextField: {
-                        default: {},
-                        pending: {
-                            outline: '1px solid yellow'
-                        }
-                    }
-                };
-                this.actual = mount(applyTheme(<TextField />, this.theme));
-            });
-            it('it should render the text field in the pending state', () => {
-                this.actual.find(HintText).parent().should.have.style('outline', TextField.defaultThemeProps.outline);
-            });
-        });
+
+    test('the text field displays hint text only when there is no value or default value', () => {
+        const textFieldWithoutValue = mountTextField({hintText: 'hint text'});
+        expect(hintTextIsDisplayed(textFieldWithoutValue)).to.be.true;
+        textFieldWithoutValue.setProps({value: 'a'});
+        expect(hintTextIsHidden(textFieldWithoutValue)).to.be.true;
+
+        const textFieldWithValue = mountTextField({hintText: 'hint text', value: 'a value'});
+        expect(hintTextIsHidden(textFieldWithValue)).to.be.true;
+
+        const textFieldWithDefaultValue = mountTextField({hintText: 'hint text', defaultValue: 'a default value'});
+        expect(hintTextIsHidden(textFieldWithDefaultValue)).to.be.true;
+
+        const textFieldWithTypedValue = mountTextField({hintText: 'hint text'});
+        typeInTextField(textFieldWithTypedValue);
+        expect(hintTextIsHidden(textFieldWithTypedValue)).to.be.true;
+
+        const textFieldWithDeletedValue = mountTextField({hintText: 'hint text', defaultValue: 'a default value'});
+        deleteAllText(textFieldWithDeletedValue);
+        expect(hintTextIsDisplayed(textFieldWithDeletedValue)).to.be.true;
+    });
+
+    test('clicking the hint text focuses the input field', () => {
+        const textField = mountTextField();
+        clickHintText(textField);
+        expect(inputIsFocused(textField)).to.be.true;
+    });
+
+    test('the text field can have an error message and is theme-enabled for an hasError state', () => {
+        const textFieldWithoutErrorText = mountTextField({}, getTestTheme());
+        expect(errorTextIsHidden(textFieldWithoutErrorText)).to.be.true;
+
+        const textFieldErrorText = mountTextField({errorText: 'error: required'}, getTestTheme());
+        expect(textFieldHasErrorText(textFieldErrorText, 'error: required')).to.be.true;
+        expect(textFieldHasBackground(textFieldErrorText, 'pink')).to.be.true;
+    });
+
+    test('the text field can be in a pending state and it is theme-enabled for a pending state', () => {
+        const pendingTextField = mountTextField({pending: true}, getTestTheme());
+        expect(textFieldHasBackground(pendingTextField, 'yellow')).to.be.true;
+    });
+
+    test('the text field can be focused and is theme-enabled for a focus state', () => {
+        const onFocus = spy();
+        const textField = mountTextField({onFocus}, getTestTheme());
+        focusTextField(textField);
+        expect(onFocus.calledOnce).to.be.true;
+        expect(textFieldHasBackground(textField, 'green')).to.be.true;
+    });
+
+    test('the text field can lose its focused state', () => {
+        const onBlur = spy();
+        const textField = mountTextField({onBlur}, getTestTheme());
+        focusTextField(textField);
+        blurTextField(textField);
+        expect(onBlur.calledOnce).to.be.true;
+        expect(textFieldHasBackground(textField, 'blue')).to.be.true;
+    });
+
+    test('the text field auto-expands its height to accommodate hint text that is too large for the text field', () => {
+        const textField = mountTextField().setState({hintTextHeight: 51});
+        expect(textFieldHasAdjustedHeightBy(textField, '34px')).to.be.true;
+
+        const requiredTextField = mountTextField({required: true, errorText: 'error message'}).setState({hintTextHeight: 51});
+        expect(requiredIndicatorIsAlignedWithText(requiredTextField)).to.be.true;
+        expect(errorTextIsAlignedWithText(requiredTextField)).to.be.true;
     });
 });
+
+function mountTextField(props = {}, theme = {}) {
+    return mount(<TextField {...props} />, {
+        context: {
+            theme: getTheme(theme)
+        }
+    });
+}
+
+function getTestTheme() {
+    return {
+        TextField: {
+            default: {
+                backgroundColor: 'blue'
+            },
+            hasError: {
+                backgroundColor: 'pink'
+            },
+            disabled: {
+                backgroundColor: 'gray'
+            },
+            pending: {
+                backgroundColor: 'yellow'
+            },
+            focused: {
+                backgroundColor: 'green'
+            }
+        }
+    };
+}
+
+function textFieldHasValue(wrapper, value) {
+    return wrapper.find('input').first().props().value === value
+        || wrapper.find('input').first().props().defaultValue === value;
+}
+
+function textFieldIsNotDisabled(wrapper) {
+    return wrapper.find('input').first().props().disabled === false
+        && wrapper.find('input').first().props().style.cursor === 'initial';
+}
+
+function textFieldIsDisabled(wrapper) {
+    return wrapper.find('input').first().props().disabled === true
+        && wrapper.find('input').first().props().style.cursor === 'not-allowed';
+}
+
+function requiredIndicatorIsHidden(wrapper) {
+    return wrapper.find('RequiredIndicator').node === undefined;
+}
+
+function requiredIndicatorIsDisplayed(wrapper) {
+    return !requiredIndicatorIsHidden(wrapper);
+}
+
+function requiredIndicatorIsAlignedWithText(wrapper) {
+    return wrapper.find('RequiredIndicator').first().props().style.marginTop === '34px';
+}
+function errorTextIsAlignedWithText(wrapper) {
+    return wrapper.find('ErrorMessage').first().parent().props().style.marginTop === '34px';
+}
+
+function requiredIndicatorIsInsideTextField(wrapper) {
+    return wrapper.children('RequiredIndicator').node === undefined
+        && wrapper.find('input').parent().children('RequiredIndicator').node !== undefined;
+}
+
+function textFieldHasWidth(wrapper, width) {
+    return wrapper.find('HintText').parent().props().style.width === width
+        && wrapper.find('input').parent().props().style.width === width;
+}
+
+function hintTextIsHidden(wrapper) {
+    return wrapper.find('HintText').first().props().hidden;
+}
+
+function hintTextIsDisplayed(wrapper) {
+    return !hintTextIsHidden(wrapper);
+}
+
+function inputIsFocused(wrapper) {
+    return wrapper.find('input').node === document.activeElement;
+}
+
+function clickHintText(wrapper) {
+    wrapper.find('HintText').simulate('click');
+}
+
+function typeInTextField(wrapper, value = 'a') {
+    const backspaceKeyCode = 8;
+    const which = value === '' ? backspaceKeyCode : value.charCodeAt(0);
+    wrapper.find('input').simulate('keydown', {which});
+    wrapper.find('input').simulate('keyup', {which});
+    wrapper.find('input').simulate('input', {target: {value}});
+    wrapper.find('input').first().simulate('change', {target: {value}});
+}
+
+function deleteAllText(wrapper) {
+    typeInTextField(wrapper, '');
+}
+
+function focusTextField(wrapper) {
+    wrapper.find('input').simulate('focus');
+}
+
+function blurTextField(wrapper) {
+    wrapper.find('input').simulate('blur');
+}
+
+function errorTextIsHidden(wrapper) {
+    return wrapper.find('ErrorMessage').node === undefined;
+}
+
+function textFieldHasErrorText(wrapper, text) {
+    return wrapper.find('ErrorMessage').text() === text;
+}
+
+function textFieldHasBackground(wrapper, backgroundColor) {
+    return wrapper.find('HintText').parent().props().style.backgroundColor === backgroundColor;
+}
+
+function textFieldHasAdjustedHeightBy(wrapper, adjustment) {
+    return wrapper.find('input').parent().props().style.marginTop === adjustment;
+}

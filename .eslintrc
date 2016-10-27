@@ -22,6 +22,7 @@
         }
     },
     "globals": {
+        "expect": true,
         "should": true
     },
     "extends": [

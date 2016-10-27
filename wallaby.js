@@ -1,26 +1,6 @@
 process.env.NODE_ENV = 'test';
 process.env.BABEL_ENV = 'test';
 
-var wallabyWebpack = require('wallaby-webpack');
-var webpackConfig = {
-    externals: {
-        'react': 'React',
-        'react/addons': true,
-        'react/lib/ExecutionEnvironment': true,
-        'react/lib/ReactContext': true
-    },
-    resolve: {
-        extensions: ['', '.js', '.json']
-    },
-    module: {
-        loaders: [
-            {
-                test: /\.json/, loader: 'json'
-            }
-        ]
-    }
-};
-
 module.exports = function(wallaby) {
     return {
         files: [
@@ -41,7 +21,8 @@ module.exports = function(wallaby) {
             runner: 'node'
         },
         testFramework: 'mocha',
-        bootstrap: function() {
+        bootstrap: function(wallaby) {
+            wallaby.testFramework.ui('tdd');
             var path = require('path');
             require('./specSetup');
         },

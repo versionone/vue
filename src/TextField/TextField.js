@@ -114,22 +114,73 @@ const getStyles = gettingStyles(getThemeValues, getStylesFromTheme);
 
 class TextField extends Component {
     static propTypes = {
+        /**
+         * Text string to use for the default value
+         */
         defaultValue: PropTypes.string,
+        /**
+         * Override the theme for the default state
+         */
         defaultTheme: PropTypes.shape(TextField.themePropTypes),
+        /**
+         * Disables the text field
+         */
         disabled: PropTypes.bool,
+        /**
+         * Override the theme when text field is disabled
+         */
         disabledTheme: PropTypes.shape(TextField.themePropTypes),
+        /**
+         * Error content to display
+         */
         errorText: PropTypes.string,
+        /**
+         * Override the theme when text field is focused
+         */
         focusedTheme: PropTypes.shape(TextField.themePropTypes),
+        /**
+         * If true, the field is 100% width
+         */
         fullWidth: PropTypes.bool,
+        /**
+         * Override the theme when text field has error text
+         */
         hasErrorTheme: PropTypes.shape(TextField.themePropTypes),
+        /**
+         * Placeholder text
+         */
         hintText: PropTypes.string,
+        /**
+         * Callback fired when text field looses focus
+         */
         onBlur: PropTypes.func,
+        /**
+         * Callback fired when text field value changes
+         */
         onChange: PropTypes.func,
+        /**
+         * Callback fired when text field is focused
+         */
         onFocus: PropTypes.func,
+        /**
+         * Text field state; used when value has changed, but not persisted
+         */
         pending: PropTypes.bool,
+        /**
+         * Override the theme when text field is pending
+         */
         pendingTheme: PropTypes.shape(TextField.themePropTypes),
+        /**
+         * Indicate the text field is required for user input
+         */
         required: PropTypes.bool,
+        /**
+         * Width of the text field
+         */
         width: PropTypes.number,
+        /**
+         * The value of the text field
+         */
         value: PropTypes.string
     };
     static defaultProps = {
@@ -151,18 +202,57 @@ class TextField extends Component {
         width: 256
     };
     static themePropTypes = {
+        /**
+         * Background color of text field
+         */
         backgroundColor: PropTypes.string,
+        /**
+         * Border (width, style and color) of text field
+         */
         border: PropTypes.string,
+        /**
+         * Border radius of text field
+         */
         borderRadius: PropTypes.number,
+        /**
+         * Box shadow of text field
+         */
         boxShadow: PropTypes.string,
+        /**
+         * Text color of error text content
+         */
         errorTextColor: PropTypes.string,
+        /**
+         * Font family for text field, hint text
+         */
         fontFamily: PropTypes.string,
+        /**
+         * Font size for text field, hint text
+         */
         fontSize: PropTypes.string,
+        /**
+         * Text color of hint text
+         */
         hintTextColor: PropTypes.string,
+        /**
+         * Set the line-height of the text field and hint text
+         */
         lineHeight: PropTypes.number,
+        /**
+         * Padding between text field/hint text content and border
+         */
         padding: PropTypes.number,
+        /**
+         * Outline applied to text field
+         */
         outline: PropTypes.string,
+        /**
+         * Text color of user input content
+         */
         textColor: PropTypes.string,
+        /**
+         * Width of the text field; ignored when fullWidth is true
+         */
         width: PropTypes.number
     };
     static defaultThemeProps = {

@@ -199,7 +199,7 @@ function requiredIndicatorIsAlignedWithText(wrapper) {
     return wrapper.find('RequiredIndicator').first().props().style.marginTop === '34px';
 }
 function errorTextIsAlignedWithText(wrapper) {
-    return wrapper.find('ErrorMessage').first().parent().props().style.marginTop === '34px';
+    return wrapper.find('ErrorMessage').first().parent().props().style.marginTop === 0;
 }
 
 function requiredIndicatorIsInsideTextField(wrapper) {

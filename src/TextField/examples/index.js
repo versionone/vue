@@ -1,13 +1,13 @@
 export default [
     {
         title: 'Simple Examples',
-        description: 'Examples demonstrating key features of a TextField',
+        description: 'Examples demonstrating key features of a TextField.',
         code: require('!raw!./SimpleExamples'),
         component: require('./SimpleExamples').default
     },
     {
         title: 'Error Examples',
-        description: 'Examples demonstrating required and error text properties of a TextField',
+        description: 'These examples demonstrate text fields marked as required and its error state triggered by the existence of error text.',
         code: require('!raw!./ErrorExamples'),
         component: require('./ErrorExamples').default
     }

@@ -6,13 +6,13 @@ storiesOf('TextField')
     .addWithInfo('explicit value',
         ``,
         () => (
-            <TextField hintText="hint text" value="explicitly set value" />
+            <TextField value="explicitly set value" />
         )
     )
     .addWithInfo('default value only',
         ``,
         () => (
-            <TextField hintText="hint text" defaultValue="default value" />
+            <TextField defaultValue="default value" />
         )
     )
     .addWithInfo('hint text',

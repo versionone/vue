@@ -178,6 +178,7 @@ class AppNavDrawer extends Component {
                     <ListItem primaryText="GitHub" value="https://github.com/versionone/vue/" />
                     <ListItem primaryText="React" value="http://facebook.github.io/react" />
                     <ListItem primaryText="VersionOne" value="http://VersionOne.com" />
+                    <ListItem primaryText="Markdown Cheatsheet" value="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" />
                 </SelectableList>
             </Drawer>
         );

@@ -1,4 +1,3 @@
-var mocha = require('mocha');
 var chai = require('chai');
 var chaiEnzyme = require('chai-enzyme');
 

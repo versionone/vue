@@ -95,6 +95,7 @@
     "webpack": "^1.13.1"
   },
   "peerDependencies": {
+    "radium": "^0.18.1",
     "react": "^15.1.0",
     "react-dom": "^15.1.0"
   },
@@ -102,6 +103,7 @@
     "classnames": "^2.2.5",
     "inline-style-prefixer": "^1.0.4",
     "invariant": "^2.2.1",
+    "radium": "^0.18.1",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "react-event-listener": "^0.2.1",

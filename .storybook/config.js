@@ -1,23 +1,21 @@
 import {configure, setAddon, addDecorator} from '@kadira/storybook';
 import infoAddon from '@kadira/react-storybook-addon-info';
 import addStoriesGroup from 'react-storybook-addon-add-stories-group';
-import ThemeProvider, {getTheme} from './../src/Theme';
+import {ThemeProvider} from './../src/Theme';
 import v1Theme from './../src/styles/themes/v1Theme';
 import React from 'react';
 import './index.css';
-import withState from './withState';
 
 setAddon(infoAddon);
 setAddon(addStoriesGroup);
 
 addDecorator((story) => (
     <div style={{marginTop: '30px'}}>
-        <ThemeProvider theme={getTheme(v1Theme)}>
+        <ThemeProvider theme={v1Theme}>
             {story()}
         </ThemeProvider>
     </div>
 ));
-addDecorator(withState);
 
 const req = require.context('./../', true, /Stories\.js$/);
 

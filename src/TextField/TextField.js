@@ -1,116 +1,10 @@
 import React, {Component, PropTypes} from 'react';
-import {findDOMNode} from 'react-dom';
 import * as CustomPropTypes from './../utilities/PropTypes';
+import {findDOMNode} from 'react-dom';
+import {withTheme} from './../Theme';
 import HintText from './../internal/HintText';
 import RequiredIndicator from './../internal/RequiredIndicator';
 import ErrorMessage from './../internal/ErrorMessage';
-import gettingStyles from '../Theme/gettingStyles';
-import mergeStyles from './../Theme/mergeStyles';
-
-const getThemeValues = (theme, props, state) => {
-    // Themed values based on state
-    const focusedThemeValues = state.focused ? {...TextField.defaultThemeProps.focused, ...(theme.TextField.focused || {})} : {};
-    const pendingThemeValues = props.pending ? {...TextField.defaultThemeProps.pending, ...(theme.TextField.pending || {})} : {};
-    const hasErrorThemeValues = props.errorText ? {...TextField.defaultThemeProps.hasError, ...(theme.TextField.hasError || {})} : {};
-    const disabledThemeValues = props.disabled ? {...TextField.defaultThemeProps.disabled, ...(theme.TextField.disabled || {})} : {};
-
-    // Merge default theme values, then theme's default, then state based theme values;
-    return mergeStyles(
-        TextField.defaultThemeProps.default,
-        theme.TextField.default,
-        focusedThemeValues,
-        pendingThemeValues,
-        hasErrorThemeValues,
-        disabledThemeValues
-    );
-};
-const getStylesFromTheme = (themeValues, props, state) => {
-    const textHeight = Math.floor(themeValues.fontSize * themeValues.lineHeight);
-    // text height + top/bottom padding + top/bottom border width
-    const textFieldHeight = textHeight + themeValues.padding * 2 + 2;
-    const isHintTextTallerThanInput = state.hintTextHeight > textFieldHeight;
-    const marginTop = isHintTextTallerThanInput ? `${state.hintTextHeight - textHeight}px` : '0px';
-    const hintTextWrapperHeight = isHintTextTallerThanInput ? (state.hintTextHeight + themeValues.padding * 2 + 2) : textFieldHeight;
-    const width = props.fullWidth ? '100%' : props.width ? `${props.width}px` : `${themeValues.width}px`;
-
-    const styles = {
-        root: {
-            background: 'transparent',
-            display: 'inline-flex',
-            position: 'relative'
-        },
-        hintTextWrapper: {
-            backgroundColor: themeValues.backgroundColor,
-            boxShadow: themeValues.boxShadow,
-            boxSizing: 'border-box',
-            color: themeValues.hintTextColor,
-            border: themeValues.border,
-            borderRadius: themeValues.borderRadius,
-            fontFamily: themeValues.fontFamily,
-            fontSize: `${themeValues.fontSize}px`,
-            height: `${hintTextWrapperHeight}px`,
-            outline: themeValues.outline,
-            padding: `${themeValues.padding}px`,
-            position: 'absolute',
-            top: 0,
-            width
-        },
-        hintTextTheme: {
-            color: themeValues.hintTextColor,
-            lineHeight: themeValues.lineHeight
-        },
-        inputWrapper: {
-            background: 'transparent',
-            border: '1px solid transparent',
-            boxSizing: 'border-box',
-            display: 'inline-flex',
-            height: '100%',
-            marginTop,
-            minWidth: width,
-            padding: `${themeValues.padding}px`,
-            width
-        },
-        input: {
-            background: 'rgba(0, 0, 0, 0)',
-            border: '0px solid transparent',
-            color: themeValues.textColor,
-            cursor: props.disabled ? 'not-allowed' : 'initial',
-            flex: 1,
-            fontFamily: themeValues.fontFamily,
-            fontSize: `${themeValues.fontSize}px`,
-            height: `${textHeight}px`,
-            outline: 'none',
-            padding: 0,
-            position: 'relative',
-            width: '100%'
-        },
-        requiredIndicator: {
-            alignSelf: 'center',
-            color: themeValues.errorTextColor,
-            marginTop: !props.fullWidth ? marginTop : '0px',
-            marginLeft: '6px'
-        },
-        errorMessageWrapper: {
-            alignSelf: 'center',
-            lineHeight: `${themeValues.fontSize}px`,
-            marginTop: props.fullWidth ? '-8px' : 0,
-            marginLeft: props.fullWidth ? 0 : '6px'
-        },
-        errorMessageTheme: {
-            lineHeight: themeValues.lineHeight,
-            textColor: themeValues.errorTextColor
-        }
-    };
-
-    if (props.fullWidth) {
-        styles.root.width = '100%';
-        styles.root.display = 'block';
-        styles.errorMessageWrapper.display = 'block';
-        styles.errorMessageWrapper.padding = `${themeValues.padding}px 0`;
-    }
-    return styles
-};
-const getStyles = gettingStyles(getThemeValues, getStylesFromTheme);
 
 class TextField extends Component {
     static propTypes = {
@@ -119,33 +13,17 @@ class TextField extends Component {
          */
         defaultValue: PropTypes.string,
         /**
-         * Override the theme for the default state
-         */
-        defaultTheme: PropTypes.shape(TextField.themePropTypes),
-        /**
          * Disables the text field
          */
         disabled: PropTypes.bool,
-        /**
-         * Override the theme when text field is disabled
-         */
-        disabledTheme: PropTypes.shape(TextField.themePropTypes),
         /**
          * Error content to display
          */
         errorText: PropTypes.string,
         /**
-         * Override the theme when text field is focused
-         */
-        focusedTheme: PropTypes.shape(TextField.themePropTypes),
-        /**
          * If true, the field is 100% width
          */
         fullWidth: PropTypes.bool,
-        /**
-         * Override the theme when text field has error text
-         */
-        hasErrorTheme: PropTypes.shape(TextField.themePropTypes),
         /**
          * Placeholder text
          */
@@ -167,13 +45,45 @@ class TextField extends Component {
          */
         pending: PropTypes.bool,
         /**
-         * Override the theme when text field is pending
-         */
-        pendingTheme: PropTypes.shape(TextField.themePropTypes),
-        /**
          * Indicate the text field is required for user input
          */
         required: PropTypes.bool,
+        /**
+         * Theme used to style the component
+         */
+        theme: PropTypes.shape({
+            field: PropTypes.shape({
+                background: PropTypes.string,
+                border: PropTypes.string,
+                borderRadius: PropTypes.number,
+                boxShadow: PropTypes.string,
+                color: PropTypes.string,
+                font: CustomPropTypes.font,
+                fontSize: PropTypes.number,
+                lineHeight: PropTypes.number,
+                outline: PropTypes.string,
+                padding: PropTypes.number,
+                disabled: PropTypes.shape({
+                    border: PropTypes.string
+                }),
+                focused: PropTypes.shape({
+                    boxShadow: PropTypes.string
+                }),
+                invalid: PropTypes.shape({
+                    background: PropTypes.string,
+                    border: PropTypes.string
+                }),
+                pending: PropTypes.shape({
+                    background: PropTypes.string
+                }),
+            }),
+            errorMessage: PropTypes.shape({
+                color: PropTypes.string
+            }),
+            hintText: PropTypes.shape({
+                color: PropTypes.string
+            })
+        }),
         /**
          * Width of the text field
          */
@@ -184,111 +94,23 @@ class TextField extends Component {
         value: PropTypes.string
     };
     static defaultProps = {
-        defaultTheme: {},
         defaultValue: '',
         disabled: false,
-        disabledTheme: {},
-        focusedTheme: {},
         fullWidth: false,
-        hasErrorTheme: {},
         onBlur: () => {
         },
         onChange: () => {
         },
         onFocus: () => {
         },
-        pendingTheme: {},
         required: false,
         width: 256
-    };
-    static themePropTypes = {
-        /**
-         * Background color of text field
-         */
-        backgroundColor: PropTypes.string,
-        /**
-         * Border (width, style and color) of text field
-         */
-        border: PropTypes.string,
-        /**
-         * Border radius of text field
-         */
-        borderRadius: PropTypes.number,
-        /**
-         * Box shadow of text field
-         */
-        boxShadow: PropTypes.string,
-        /**
-         * Text color of error text content
-         */
-        errorTextColor: PropTypes.string,
-        /**
-         * Font family for text field, hint text
-         */
-        fontFamily: PropTypes.string,
-        /**
-         * Font size for text field, hint text
-         */
-        fontSize: PropTypes.string,
-        /**
-         * Text color of hint text
-         */
-        hintTextColor: PropTypes.string,
-        /**
-         * Set the line-height of the text field and hint text
-         */
-        lineHeight: PropTypes.number,
-        /**
-         * Padding between text field/hint text content and border
-         */
-        padding: PropTypes.number,
-        /**
-         * Outline applied to text field
-         */
-        outline: PropTypes.string,
-        /**
-         * Text color of user input content
-         */
-        textColor: PropTypes.string,
-        /**
-         * Width of the text field; ignored when fullWidth is true
-         */
-        width: PropTypes.number
-    };
-    static defaultThemeProps = {
-        default: {
-            backgroundColor: '#fff',
-            border: '1px solid transparent',
-            borderRadius: 0,
-            boxShadow: 'none',
-            errorTextColor: 'red',
-            fontFamily: 'Arial',
-            fontSize: 16,
-            hintText: '',
-            hintTextColor: 'gray',
-            lineHeight: 1.5,
-            padding: 8,
-            outline: '1px solid transparent',
-            textColor: 'black',
-            width: 256
-        },
-        disabled: {},
-        focused: {},
-        hasError: {
-            backgroundColor: 'pink'
-        },
-        pending: {
-            backgroundColor: 'yellow'
-        }
-    };
-    static contextTypes = {
-        theme: CustomPropTypes.theme
     };
 
     constructor(props, ...rest) {
         super(props, ...rest);
         this.state = {
-            hintTextHeight: 32,
+            hintTextHeight: 0,
             hasValue: !!props.value || !!props.defaultValue,
             focused: false
         };
@@ -310,27 +132,29 @@ class TextField extends Component {
     render() {
         const {disabled, defaultValue, errorText, fullWidth, hintText, required} = this.props;
         const {hasValue} = this.state;
-        const {prepareStyles} = this.context.theme;
-        const styles = getStyles(this);
+        const styles = this.getStyles();
 
         return (
-            <div style={prepareStyles(styles.root)}>
-                <div style={prepareStyles(styles.hintTextWrapper)}>
-                    <HintText ref="hintText" text={hintText} defaultTheme={styles.hintTextTheme} hidden={hasValue}
+            <div style={styles.root}>
+                <div style={styles.hintTextWrapper}>
+                    <HintText ref="hintText" theme={styles.hintTextTheme} text={hintText} hidden={hasValue}
                               onClick={this.focusInput} />
                 </div>
-                <div style={prepareStyles(styles.inputWrapper)} ref="inputWrapper">
-                    <input style={prepareStyles(styles.input)} type="text" ref="inputField"
+                <div style={styles.inputWrapper} ref="inputWrapper">
+                    <input style={styles.input} type="text" ref="inputField"
                            defaultValue={defaultValue}
                            disabled={disabled}
                            onChange={this.handleChange} onFocus={this.handleFocus} onBlur={this.handleBlur} />
                     {required && fullWidth && <RequiredIndicator style={styles.requiredIndicator} /> }
                 </div>
                 {required && !fullWidth && <RequiredIndicator style={styles.requiredIndicator} /> }
-                {errorText && <div style={prepareStyles(styles.errorMessageWrapper)}><ErrorMessage text={errorText}
-                                                                                                   hidden={!errorText}
-                                                                                                   defaultTheme={styles.errorMessageTheme} />
-                </div>}
+                {errorText && (
+                    <div style={styles.errorMessageWrapper}>
+                        <ErrorMessage text={errorText}
+                                      hidden={!errorText}
+                                      theme={styles.errorMessageTheme} />
+                    </div>
+                )}
             </div>
         );
     }
@@ -366,5 +190,123 @@ class TextField extends Component {
         const hintTextHeight = findDOMNode(this.refs.hintText).getBoundingClientRect().height;
         return Math.max(inputWrapperHeight, hintTextHeight);
     };
+
+    getStyles = () => {
+        const {hintTextHeight, focused} = this.state;
+        const {disabled, errorText, fullWidth, pending, width, theme} = this.props;
+        const {
+            background,
+            border,
+            borderRadius,
+            boxShadow,
+            color,
+            font,
+            fontSize,
+            lineHeight,
+            outline,
+            padding,
+            disabled: {
+                border: disabledBorder
+            },
+            focused: {
+                boxShadow: focusedBoxShadow
+            },
+            invalid: {
+                background: invalidBackground,
+                border: invalidBorder,
+                boxShadow: invalidBoxShadow
+            },
+            pending: {
+                background: pendingBackground
+            }
+        } = theme.field;
+        const {color: hintTextColor} = theme.hintText;
+        const {color: errorTextColor} = theme.errorMessage;
+
+        const borderHeight = 2;
+        const paddingHeightMultiplier = 2;
+        const paddingHeight = padding * paddingHeightMultiplier;
+
+        const textHeight = Math.floor(fontSize * lineHeight);
+        const textFieldHeight = textHeight + paddingHeight + borderHeight;
+        const isHintTextTallerThanInput = hintTextHeight > textFieldHeight;
+        const marginTop = isHintTextTallerThanInput ? `${hintTextHeight - textHeight}px` : '0px';
+        const hintTextWrapperHeight = isHintTextTallerThanInput ? (hintTextHeight + paddingHeight + borderHeight) : textFieldHeight;
+        const computedWidth = fullWidth ? '100%' : `${width}px`;
+
+        return {
+            root: {
+                background: 'transparent',
+                display: fullWidth ? 'block' : 'inline-flex',
+                position: 'relative'
+            },
+            hintTextWrapper: {
+                background: errorText ? invalidBackground : pending ? pendingBackground : background,
+                boxShadow: errorText ? invalidBoxShadow : focused ? focusedBoxShadow : boxShadow,
+                boxSizing: 'border-box',
+                color,
+                border: disabled ? disabledBorder : errorText ? invalidBorder : border,
+                borderRadius,
+                font,
+                height: `${hintTextWrapperHeight}px`,
+                outline,
+                padding: `${padding}px`,
+                position: 'absolute',
+                top: 0,
+                width: computedWidth
+            },
+            hintTextTheme: {
+                hintText: {
+                    color: hintTextColor,
+                    lineHeight
+                }
+            },
+            inputWrapper: {
+                background: 'transparent',
+                border: '1px solid transparent',
+                boxSizing: 'border-box',
+                display: 'inline-flex',
+                height: '100%',
+                marginTop,
+                minWidth: computedWidth,
+                padding: `${padding}px`,
+                width: computedWidth
+            },
+            input: {
+                background: 'rgba(0, 0, 0, 0)',
+                border: '0px solid transparent',
+                color,
+                cursor: disabled ? 'not-allowed' : 'initial',
+                flex: 1,
+                font,
+                height: `${textHeight}px`,
+                outline: 'none',
+                padding: 0,
+                position: 'relative',
+                width: '100%'
+            },
+            requiredIndicator: {
+                alignSelf: 'center',
+                color: errorTextColor,
+                marginTop: !fullWidth ? marginTop : '0px',
+                marginLeft: '6px'
+            },
+            errorMessageWrapper: {
+                alignSelf: 'center',
+                display: fullWidth && 'block',
+                marginTop: fullWidth ? '-8px' : 0,
+                marginLeft: fullWidth ? 0 : '6px',
+                padding: fullWidth && `${padding}px 0`
+            },
+            errorMessageTheme: {
+                errorMessage: {
+                    color: errorTextColor,
+                    lineHeight
+                }
+            }
+        };
+    };
 }
-export default TextField;
+
+export const WithoutTheme = TextField;
+export default withTheme()(TextField);

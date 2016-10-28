@@ -1,5 +1,4 @@
 import {Component, PropTypes} from 'react';
-import getTheme from './getTheme';
 
 class ThemeProvider extends Component {
     static propTypes = {
@@ -13,7 +12,7 @@ class ThemeProvider extends Component {
 
     getChildContext() {
         return {
-            theme: this.props.theme || getTheme()
+            theme: this.props.theme
         };
     }
 

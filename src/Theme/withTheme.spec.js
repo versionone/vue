@@ -12,7 +12,25 @@ suite('withTheme', () => {
     test('wrapping a themed component enables Radium support', () => {
         const renderedComponent = mountComponentWithTheme(withTheme()(TestComponent), getTheme());
         focus(renderedComponent);
-        expect(renderedComponent.find('h1').node.style.backgroundColor).to.equal('green');
+        expect(backgroundColorToBe(renderedComponent, 'green')).to.be.true;
+    });
+
+    test('props pass through to the wrapped component', () => {
+        const renderedComponent = mountComponentWithTheme(withTheme()(TestComponent), getTheme(), {test: true});
+        expect(renderedComponent.find('TestComponent').props().test).to.be.true;
+    });
+
+    test('the theme is override-able by passing in a partial theme', () => {
+        const renderedComponent = mountComponentWithTheme(withTheme(getOverrideTheme())(TestComponent), getTheme(), {test: true});
+        expect(componentProps(renderedComponent)).to.deep.equal({
+            color: {
+                pendingColor: 'green',
+                disabledColor: 'gray'
+            },
+            font: {
+                size: 12
+            }
+        });
     });
 });
 
@@ -31,16 +49,28 @@ const TestComponent = () => {
 };
 TestComponent.propTypes = {theme: PropTypes.object};
 
-function mountComponentWithTheme(Component, theme = {}) {
-    return mount(<ThemeProvider theme={theme}><Component /></ThemeProvider>);
+function mountComponentWithTheme(Component, theme = {}, props = {}) {
+    return mount(<ThemeProvider theme={theme}><Component {...props} /></ThemeProvider>);
 }
 
 function getTheme() {
     return {
         color: {
-            pendingColor: 'yellow'
+            pendingColor: 'yellow',
+            disabledColor: 'gray'
         }
     };
+}
+
+function getOverrideTheme() {
+    return {
+        color: {
+            pendingColor: 'green'
+        },
+        font: {
+            size: 12
+        }
+    }
 }
 
 function componentProps(wrapper) {
@@ -49,4 +79,8 @@ function componentProps(wrapper) {
 
 function focus(wrapper) {
     wrapper.find('h1').simulate('mouseenter');
+}
+
+function backgroundColorToBe(wrapper, backgroundColor) {
+    return wrapper.find('h1').props().style.backgroundColor === backgroundColor;
 }

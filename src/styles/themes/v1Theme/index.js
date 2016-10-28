@@ -1,11 +1,34 @@
-export {default as TextField} from './components/TextField';
-export {default as HintText} from './components/HintText';
-export {default as ErrorMessage} from './components/ErrorMessage';
-
-// Need updates still
-export {default as Panel} from './components/Panel';
-export {default as Popover} from './components/Popover';
-export {default as Toolbar} from './components/Toolbar';
-export {default as ToolbarItem} from './components/ToolbarItem';
-export {default as ToolbarSeparator} from './components/ToolbarSeparator';
-export {default as ToolbarTitle} from './components/ToolbarTitle';
+export default {
+    field: {
+        background: 'white',
+        border: '1px solid black',
+        borderRadius: 5,
+        boxShadow: 'none',
+        color: 'black',
+        font: {},
+        fontSize: 14,
+        lineHeight: 1.285,
+        outline: 'none',
+        padding: 3,
+        disabled: {
+            border: '1px solid gray'
+        },
+        focused: {
+            boxShadow: '0 0 7px blue'
+        },
+        invalid: {
+            background: 'pink',
+            border: '1px solid red',
+            boxShadow: '0 0 2px 2px pink'
+        },
+        pending: {
+            background: 'yellow'
+        }
+    },
+    errorMessage: {
+        color: 'red'
+    },
+    hintText: {
+        color: 'gray'
+    }
+};

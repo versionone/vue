@@ -1,7 +1,8 @@
 import React, {Component, PropTypes} from 'react';
 import Radium from 'radium';
+import {recursive as merge} from 'merge';
 
-export default () => (ComponentToTheme) => {
+export default (themeOverride) => (ComponentToTheme) => {
     const RadiumEnabledComponent = Radium(ComponentToTheme);
     class ComponentWithThemeEnabled extends Component {
         static contextTypes = {
@@ -10,7 +11,7 @@ export default () => (ComponentToTheme) => {
 
         render() {
             return (
-                <RadiumEnabledComponent theme={this.context.theme} />
+                <RadiumEnabledComponent theme={merge(this.context.theme, themeOverride)} {...this.props} />
             );
         }
     }

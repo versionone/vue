@@ -1,12 +1,11 @@
 import React from 'react';
 import {mount} from 'enzyme';
 import {spy} from 'sinon';
-import TextField from './TextField';
-import {getTheme} from './../Theme';
+import TextField, {WithoutTheme} from './TextField';
 
 suite('TextField', () => {
     test('the text field applies the default theme', ()=> {
-        const textField = mountTextField({}, getTestTheme());
+        const textField = mountTextField();
         expect(textFieldHasBackground(textField, 'blue')).to.be.true;
     });
 
@@ -28,9 +27,9 @@ suite('TextField', () => {
     });
 
     test('the text field can be disabled and is theme-enabled for disabled state', () => {
-        const disabledTextField = mountTextField({disabled: true}, getTestTheme());
+        const disabledTextField = mountTextField({disabled: true});
         expect(textFieldIsDisabled(disabledTextField)).to.be.true;
-        expect(textFieldHasBackground(disabledTextField, 'gray')).to.be.true;
+        expect(textFieldHasBorder(disabledTextField, '1px solid gray')).to.be.true;
     });
 
     test('the text field can be marked as required or not required', () => {
@@ -48,7 +47,7 @@ suite('TextField', () => {
 
     test('the text field renders with the default width when no width is specified', () => {
         const textField = mountTextField();
-        expect(textFieldHasWidth(textField, `${TextField.defaultProps.width}px`)).to.be.true;
+        expect(textFieldHasWidth(textField, '256px')).to.be.true;
     });
 
     test('the text field can render with a specified width', () => {
@@ -97,30 +96,32 @@ suite('TextField', () => {
     });
 
     test('the text field can have an error message and is theme-enabled for an hasError state', () => {
-        const textFieldWithoutErrorText = mountTextField({}, getTestTheme());
+        const textFieldWithoutErrorText = mountTextField({});
         expect(errorTextIsHidden(textFieldWithoutErrorText)).to.be.true;
 
-        const textFieldErrorText = mountTextField({errorText: 'error: required'}, getTestTheme());
+        const textFieldErrorText = mountTextField({errorText: 'error: required'});
         expect(textFieldHasErrorText(textFieldErrorText, 'error: required')).to.be.true;
         expect(textFieldHasBackground(textFieldErrorText, 'pink')).to.be.true;
+        expect(textFieldHasBorder(textFieldErrorText, 'red')).to.be.true;
+        expect(textFieldHasBoxShadow(textFieldErrorText, '0 2px 2px pink')).to.be.true;
     });
 
     test('the text field can be in a pending state and it is theme-enabled for a pending state', () => {
-        const pendingTextField = mountTextField({pending: true}, getTestTheme());
+        const pendingTextField = mountTextField({pending: true});
         expect(textFieldHasBackground(pendingTextField, 'yellow')).to.be.true;
     });
 
     test('the text field can be focused and is theme-enabled for a focus state', () => {
         const onFocus = spy();
-        const textField = mountTextField({onFocus}, getTestTheme());
+        const textField = mountTextField({onFocus});
         focusTextField(textField);
         expect(onFocus.calledOnce).to.be.true;
-        expect(textFieldHasBackground(textField, 'green')).to.be.true;
+        expect(textFieldHasBoxShadow(textField, 'green')).to.be.true;
     });
 
     test('the text field can lose its focused state', () => {
         const onBlur = spy();
-        const textField = mountTextField({onBlur}, getTestTheme());
+        const textField = mountTextField({onBlur});
         focusTextField(textField);
         blurTextField(textField);
         expect(onBlur.calledOnce).to.be.true;
@@ -128,10 +129,10 @@ suite('TextField', () => {
     });
 
     test('the text field auto-expands its height to accommodate hint text that is too large for the text field', () => {
-        const textField = mountTextField().setState({hintTextHeight: 51});
+        const textField = mountTextFieldWithoutTheme().setState({hintTextHeight: 51});
         expect(textFieldHasAdjustedHeightBy(textField, '34px')).to.be.true;
 
-        const requiredTextField = mountTextField({
+        const requiredTextField = mountTextFieldWithoutTheme({
             required: true,
             errorText: 'error message'
         }).setState({hintTextHeight: 51});
@@ -140,33 +141,43 @@ suite('TextField', () => {
     });
 });
 
-function mountTextField(props = {}, theme = {}) {
-    return mount(<TextField {...props} />, {
-        context: {
-            theme: getTheme(theme)
-        }
-    });
+function mountTextField(props = {}) {
+    return mount(<TextField theme={getTestTheme()} {...props} />);
+}
+
+function mountTextFieldWithoutTheme(props = {}) {
+    return mount(<WithoutTheme theme={getTestTheme()} {...props} />);
 }
 
 function getTestTheme() {
     return {
-        TextField: {
-            default: {
-                backgroundColor: 'blue',
-                padding: 8,
-                lineHeight: 1.5
+        field: {
+            background: 'blue',
+            padding: 3,
+            lineHeight: 1.285,
+            border: '1px solid black',
+            fontSize: 14,
+            focused: {
+                boxShadow: 'green'
             },
-            hasError: {
-                backgroundColor: 'pink'
+            invalid: {
+                background: 'pink',
+                border: 'red',
+                boxShadow: '0 2px 2px pink'
             },
             disabled: {
-                backgroundColor: 'gray'
+                border: '1px solid gray'
             },
             pending: {
-                backgroundColor: 'yellow'
-            },
-            focused: {
-                backgroundColor: 'green'
+                background: 'yellow'
+            }
+        },
+        hintText: {
+            color: 'gray'
+        },
+        errorMessage: {
+            font: {
+                fontSize: 14
             }
         }
     };
@@ -188,7 +199,7 @@ function textFieldIsDisabled(wrapper) {
 }
 
 function requiredIndicatorIsHidden(wrapper) {
-    return wrapper.find('RequiredIndicator').node === undefined;
+    return !wrapper.find('RequiredIndicator').node;
 }
 
 function requiredIndicatorIsDisplayed(wrapper) {
@@ -199,16 +210,16 @@ function requiredIndicatorIsAlignedWithText(wrapper) {
     return wrapper.find('RequiredIndicator').first().props().style.marginTop === '34px';
 }
 function errorTextIsAlignedWithText(wrapper) {
-    return wrapper.find('ErrorMessage').first().parent().props().style.marginTop === 0;
+    return wrapper.childAt(3).props().style.marginTop === 0;
 }
 
 function requiredIndicatorIsInsideTextField(wrapper) {
     return wrapper.children('RequiredIndicator').node === undefined
-        && wrapper.find('input').parent().children('RequiredIndicator').node !== undefined;
+        && !!wrapper.find('input').parent().children('RequiredIndicator').node;
 }
 
 function textFieldHasWidth(wrapper, width) {
-    return wrapper.find('HintText').parent().props().style.width === width
+    return wrapper.childAt(0).props().style.width === width
         && wrapper.find('input').parent().props().style.width === width;
 }
 
@@ -250,7 +261,7 @@ function blurTextField(wrapper) {
 }
 
 function errorTextIsHidden(wrapper) {
-    return wrapper.find('ErrorMessage').node === undefined;
+    return !wrapper.find('ErrorMessage').node;
 }
 
 function textFieldHasErrorText(wrapper, text) {
@@ -258,7 +269,11 @@ function textFieldHasErrorText(wrapper, text) {
 }
 
 function textFieldHasBackground(wrapper, backgroundColor) {
-    return wrapper.find('HintText').parent().props().style.backgroundColor === backgroundColor;
+    return wrapper.childAt(0).props().style.background === backgroundColor;
+}
+
+function textFieldHasBoxShadow(wrapper, boxShadow) {
+    return wrapper.childAt(0).props().style.boxShadow === boxShadow;
 }
 
 function textFieldHasAdjustedHeightBy(wrapper, adjustment) {
@@ -266,5 +281,9 @@ function textFieldHasAdjustedHeightBy(wrapper, adjustment) {
 }
 
 function textFieldHasHeight(wrapper, height) {
-    return wrapper.find('HintText').parent().props().style.height === height;
+    return wrapper.childAt(0).props().style.height === height;
+}
+
+function textFieldHasBorder(wrapper, border) {
+    return wrapper.childAt(0).props().style.border === border;
 }

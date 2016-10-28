@@ -80,6 +80,15 @@ export const theme = PropTypes.shape({
     prepareStyles: PropTypes.func.isRequired
 });
 
+export const font = PropTypes.shape({
+    fontWeight: PropTypes.number,
+    fontStyle: PropTypes.string,
+    fontFamily: PropTypes.oneOf([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.string)
+    ])
+});
+
 let warned = {};
 export const deprecated = (validator, reason) => (props, propName, componentName, location, propFullName, ...args) => {
     const componentNameSafe = componentName || '<<anonymous>>';

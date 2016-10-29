@@ -1,10 +1,11 @@
 import React, {Component, PropTypes} from 'react';
-import * as CustomPropTypes from './../utilities/PropTypes';
 import {findDOMNode} from 'react-dom';
-import {withTheme} from './../Theme';
+import Radium from 'radium';
 import HintText from './../internal/HintText';
 import RequiredIndicator from './../internal/RequiredIndicator';
 import ErrorMessage from './../internal/ErrorMessage';
+import {decomposeColor} from './../styles/colorManipulator';
+
 
 class TextField extends Component {
     static propTypes = {
@@ -49,41 +50,6 @@ class TextField extends Component {
          */
         required: PropTypes.bool,
         /**
-         * Theme used to style the component
-         */
-        theme: PropTypes.shape({
-            field: PropTypes.shape({
-                background: PropTypes.string,
-                border: PropTypes.string,
-                borderRadius: PropTypes.number,
-                boxShadow: PropTypes.string,
-                color: PropTypes.string,
-                font: CustomPropTypes.font.isRequired,
-                lineHeight: PropTypes.number.isRequired,
-                outline: PropTypes.string,
-                padding: PropTypes.number.isRequired,
-                disabled: PropTypes.shape({
-                    border: PropTypes.string
-                }),
-                focused: PropTypes.shape({
-                    boxShadow: PropTypes.string
-                }),
-                invalid: PropTypes.shape({
-                    background: PropTypes.string,
-                    border: PropTypes.string
-                }),
-                pending: PropTypes.shape({
-                    background: PropTypes.string
-                }),
-            }),
-            errorMessage: PropTypes.shape({
-                color: PropTypes.string
-            }),
-            hintText: PropTypes.shape({
-                color: PropTypes.string
-            })
-        }),
-        /**
          * Width of the text field
          */
         width: PropTypes.number,
@@ -104,6 +70,32 @@ class TextField extends Component {
         },
         required: false,
         width: 256
+    };
+    static contextTypes = {
+        theme: PropTypes.shape({
+            typography: PropTypes.shape({
+                basicFamily: PropTypes.string,
+                small: PropTypes.number.isRequired,
+                lineHeightNormal: PropTypes.number.isRequired
+            }).isRequired,
+            spacing: PropTypes.shape({
+                xxSmallGutter: PropTypes.number.isRequired
+            }),
+            color: PropTypes.shape({
+                transparent: PropTypes.string,
+                textPrimary: PropTypes.string,
+                focusedPrimary: PropTypes.string,
+                disabledPrimary: PropTypes.string,
+                errorPrimary: PropTypes.string,
+                errorSecondary: PropTypes.string,
+                pendingPrimary: PropTypes.string,
+                normalBackground: PropTypes.string,
+                fieldBorder: PropTypes.string
+            }),
+            border: PropTypes.shape({
+                normalRadius: PropTypes.number
+            })
+        }),
     };
 
     constructor(props, ...rest) {
@@ -136,7 +128,7 @@ class TextField extends Component {
         return (
             <div style={styles.root}>
                 <div style={styles.hintTextWrapper}>
-                    <HintText ref="hintText" theme={styles.hintTextTheme} text={hintText} hidden={hasValue}
+                    <HintText ref="hintText" text={hintText} hidden={hasValue}
                               onClick={this.focusInput} />
                 </div>
                 <div style={styles.inputWrapper} ref="inputWrapper">
@@ -150,8 +142,7 @@ class TextField extends Component {
                 {errorText && (
                     <div style={styles.errorMessageWrapper}>
                         <ErrorMessage text={errorText}
-                                      hidden={!errorText}
-                                      theme={styles.errorMessageTheme} />
+                                      hidden={!errorText} />
                     </div>
                 )}
             </div>
@@ -192,94 +183,82 @@ class TextField extends Component {
 
     getStyles = () => {
         const {hintTextHeight, focused} = this.state;
-        const {disabled, errorText, fullWidth, pending, required, width, theme} = this.props;
+        const {disabled, errorText, fullWidth, pending, required, width} = this.props;
         const {
-            background,
-            border,
-            borderRadius,
-            boxShadow,
-            color,
-            font,
-            lineHeight,
-            outline,
-            padding,
-            disabled: {
-                border: disabledBorder
+            typography: {
+                basicFamily,
+                small,
+                lineHeightNormal
             },
-            focused: {
-                boxShadow: focusedBoxShadow
+            spacing: {
+                xxSmallGutter
             },
-            invalid: {
-                background: invalidBackground,
-                border: invalidBorder,
-                boxShadow: invalidBoxShadow
+            color: {
+                transparent,
+                textPrimary,
+                focusedPrimary,
+                disabledPrimary,
+                errorPrimary,
+                errorSecondary,
+                pendingPrimary,
+                normalBackground,
+                fieldBorder
             },
-            pending: {
-                background: pendingBackground
+            border: {
+                normalRadius
             }
-        } = theme.field;
-        const {color: hintTextColor} = theme.hintText;
-        const {color: errorTextColor} = theme.errorMessage;
+        } = this.context.theme;
 
         const borderHeight = 2;
         const paddingHeightMultiplier = 2;
-        const paddingHeight = padding * paddingHeightMultiplier;
+        const paddingHeight = xxSmallGutter * paddingHeightMultiplier;
 
-        const textHeight = Math.floor(font.size * lineHeight);
+        const textHeight = Math.floor(small * lineHeightNormal);
         const textFieldHeight = textHeight + paddingHeight + borderHeight;
         const isHintTextMultipleLines = hintTextHeight > textFieldHeight;
         const marginTop = isHintTextMultipleLines ? `${hintTextHeight - textHeight}px` : '0px';
         const hintTextWrapperHeight = isHintTextMultipleLines ? (hintTextHeight + paddingHeight + borderHeight) : textFieldHeight;
         const computedWidth = fullWidth ? '100%' : `${width}px`;
 
+        const borderColor = disabled ? disabledPrimary : errorText ? errorPrimary : fieldBorder;
         return {
             root: {
-                background: 'transparent',
+                background: transparent,
                 display: fullWidth ? 'block' : 'inline-flex',
                 position: 'relative'
             },
             hintTextWrapper: {
-                background: errorText ? invalidBackground : pending ? pendingBackground : background,
-                boxShadow: errorText ? invalidBoxShadow : focused ? focusedBoxShadow : boxShadow,
+                background: errorText ? errorSecondary : pending ? pendingPrimary : normalBackground,
+                boxShadow: errorText ? `0 0 2px 2px ${errorSecondary}` : focused ? `0 0 2px 2px ${focusedPrimary}` : 'none',
                 boxSizing: 'border-box',
-                color,
-                border: disabled ? disabledBorder : errorText ? invalidBorder : border,
-                borderRadius,
-                fontFamily: font.family,
-                fontSize: font.size,
+                border: `1px solid ${borderColor}`,
+                borderRadius: normalRadius,
                 height: `${hintTextWrapperHeight}px`,
-                outline,
-                padding: `${padding}px`,
-                paddingRight: isHintTextMultipleLines && required ? '13px' : 0,
+                outline: 'none',
+                padding: `${xxSmallGutter}px ${isHintTextMultipleLines && required ? '13px' : 0} ${xxSmallGutter}px ${xxSmallGutter}px`,
                 position: 'absolute',
                 top: 0,
                 width: computedWidth
             },
-            hintTextTheme: {
-                hintText: {
-                    color: hintTextColor,
-                    lineHeight
-                }
-            },
             inputWrapper: {
-                background: 'transparent',
-                border: '1px solid transparent',
+                background: transparent,
+                border: `1px solid ${transparent}`,
                 boxSizing: 'border-box',
                 display: 'inline-flex',
                 height: '100%',
                 marginTop,
                 minWidth: computedWidth,
-                padding: `${padding}px`,
+                padding: `${xxSmallGutter}px`,
                 width: computedWidth
             },
             input: {
                 background: 'rgba(0, 0, 0, 0)',
-                border: '0px solid transparent',
-                color,
+                border: `0px solid ${transparent}`,
+                color: textPrimary,
                 cursor: disabled ? 'not-allowed' : 'initial',
                 flex: 1,
-                fontFamily: font.family,
-                fontSize: font.size,
+                fontFamily: basicFamily,
+                fontSize: small,
                 height: `${textHeight}px`,
                 outline: 'none',
                 padding: 0,
@@ -288,28 +267,19 @@ class TextField extends Component {
             },
             requiredIndicator: {
                 alignSelf: 'center',
-                color: errorTextColor,
-                fontSize: font.size,
-                lineHeight,
-                marginTop: !fullWidth ? marginTop : '0px',
-                marginLeft: '6px'
+                color: errorPrimary,
+                fontSize: small,
+                lineHeight: lineHeightNormal,
+                margin: `${!fullWidth ? marginTop : '0px'} 0 0 6px`
             },
             errorMessageWrapper: {
                 alignSelf: 'center',
                 display: fullWidth && 'block',
-                marginTop: 0,
-                marginLeft: fullWidth ? 0 : '6px',
-                padding: fullWidth && `${padding}px 0`
-            },
-            errorMessageTheme: {
-                errorMessage: {
-                    color: errorTextColor,
-                    lineHeight
-                }
+                margin: `0 0 0 ${fullWidth ? 0 : '6px'}`,
+                padding: fullWidth && `${xxSmallGutter}px 0`
             }
         };
     };
 }
 
-export const WithoutTheme = TextField;
-export default withTheme()(TextField);
+export default Radium(TextField);

@@ -1,20 +1,11 @@
 import React, {Component, PropTypes} from 'react';
-import * as CustomPropTypes from './../utilities/PropTypes';
-import withTheme from './../Theme/withTheme';
+import Radium from 'radium';
 
 class ErrorMessage extends Component {
     static propTypes = {
-        defaultTheme: PropTypes.shape(ErrorMessage.themePropTypes),
         hidden: PropTypes.bool,
         onClick: PropTypes.func,
         text: PropTypes.string,
-        theme: PropTypes.shape({
-            errorMessage: PropTypes.shape({
-                color: PropTypes.string,
-                font: CustomPropTypes.font,
-                lineHeight: PropTypes.number
-            })
-        })
     };
     static defaultProps = {
         hidden: false,
@@ -22,10 +13,22 @@ class ErrorMessage extends Component {
         },
         text: ''
     };
+    static contextTypes = {
+        theme: PropTypes.shape({
+            typography: PropTypes.shape({
+                basicFamily: PropTypes.string,
+                small: PropTypes.number.isRequired,
+                lineHeightNormal: PropTypes.number.isRequired
+            }),
+            color: PropTypes.shape({
+                errorPrimary: PropTypes.string,
+            })
+        }).isRequired
+    };
 
     render() {
         // eslint-disable-next-line no-unused-vars
-        const {text, theme, hidden, ...rest} = this.props;
+        const {text, hidden, ...rest} = this.props;
         const styles = this.getStyles();
 
         return (
@@ -34,19 +37,29 @@ class ErrorMessage extends Component {
     }
 
     getStyles = () => {
-        const {hidden, theme} = this.props;
-        const {color, font, lineHeight} = theme.errorMessage;
+        const {hidden} = this.props;
+        const {
+            typography: {
+                basicFamily,
+                small,
+                lineHeightNormal
+            },
+            color: {
+                errorPrimary
+            }
+        } = this.context.theme;
 
         return {
             text: {
-                color,
+                color: errorPrimary,
                 display: 'block',
-                font,
-                lineHeight: lineHeight,
+                fontFamily: basicFamily,
+                fontSize: small,
+                lineHeight: lineHeightNormal,
                 opacity: hidden ? 0 : 1,
                 transition: 'opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'
             }
         };
     };
 }
-export default withTheme()(ErrorMessage);
+export default Radium(ErrorMessage);

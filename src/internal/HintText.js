@@ -1,17 +1,11 @@
 import React, {Component, PropTypes} from 'react';
-import {withTheme} from './../Theme';
+import Radium from 'radium';
 
 class HintText extends Component {
     static propTypes = {
         hidden: PropTypes.bool,
         onClick: PropTypes.func,
         text: PropTypes.string,
-        theme: PropTypes.shape({
-            hintText: PropTypes.shape({
-                color: PropTypes.string,
-                lineHeight: PropTypes.number
-            })
-        }).isRequired
     };
     static defaultProps = {
         hidden: false,
@@ -19,10 +13,22 @@ class HintText extends Component {
         },
         text: ''
     };
+    static contextTypes = {
+        theme: PropTypes.shape({
+            typography: PropTypes.shape({
+                basicFamily: PropTypes.string,
+                small: PropTypes.number.isRequired,
+                lineHeightNormal: PropTypes.number.isRequired
+            }),
+            color: PropTypes.shape({
+                textSecondary: PropTypes.string
+            })
+        }).isRequired
+    };
 
     render() {
         // eslint-disable-next-line no-unused-vars
-        const {text, theme, hidden, ...rest} = this.props;
+        const {text, hidden, ...rest} = this.props;
         const styles = this.getStyles();
 
         return (
@@ -33,25 +39,33 @@ class HintText extends Component {
     }
 
     getStyles = () => {
-        const {hidden, theme} = this.props;
+        const {hidden} = this.props;
         const {
-            color,
-            lineHeight
-        } = theme.hintText;
+            typography: {
+                basicFamily,
+                small,
+                lineHeightNormal
+            },
+            color:{
+                textSecondary
+            }
+        } = this.context.theme;
+
         return {
             root: {
                 boxSizing: 'border-box',
                 width: '100%'
             },
             text: {
-                color,
+                color: textSecondary,
                 display: 'block',
-                lineHeight,
+                fontFamily: basicFamily,
+                fontSize: small,
+                lineHeight: lineHeightNormal,
                 opacity: hidden ? 0 : 1,
                 transition: 'opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'
             }
         };
     };
-
 }
-export default withTheme()(HintText);
+export default Radium(HintText);

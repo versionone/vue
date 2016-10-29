@@ -156,7 +156,7 @@ function getTestTheme() {
             padding: 3,
             lineHeight: 1.285,
             border: '1px solid black',
-            fontSize: 14,
+            font: {size: 14},
             focused: {
                 boxShadow: 'green'
             },

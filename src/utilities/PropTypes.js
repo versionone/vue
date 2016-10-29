@@ -81,12 +81,13 @@ export const theme = PropTypes.shape({
 });
 
 export const font = PropTypes.shape({
-    fontWeight: PropTypes.number,
-    fontStyle: PropTypes.string,
-    fontFamily: PropTypes.oneOf([
+    family: PropTypes.oneOf([
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.string)
-    ])
+    ]),
+    size: PropTypes.number,
+    style: PropTypes.string,
+    weight: PropTypes.number
 });
 
 let warned = {};

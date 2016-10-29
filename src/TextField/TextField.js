@@ -58,9 +58,8 @@ class TextField extends Component {
                 borderRadius: PropTypes.number,
                 boxShadow: PropTypes.string,
                 color: PropTypes.string,
-                font: CustomPropTypes.font,
-                fontSize: PropTypes.number,
-                lineHeight: PropTypes.number,
+                font: CustomPropTypes.font.isRequired,
+                lineHeight: PropTypes.number.isRequired,
                 outline: PropTypes.string,
                 padding: PropTypes.number,
                 disabled: PropTypes.shape({
@@ -201,7 +200,6 @@ class TextField extends Component {
             boxShadow,
             color,
             font,
-            fontSize,
             lineHeight,
             outline,
             padding,
@@ -227,7 +225,7 @@ class TextField extends Component {
         const paddingHeightMultiplier = 2;
         const paddingHeight = padding * paddingHeightMultiplier;
 
-        const textHeight = Math.floor(fontSize * lineHeight);
+        const textHeight = Math.floor(font.size * lineHeight);
         const textFieldHeight = textHeight + paddingHeight + borderHeight;
         const isHintTextMultipleLines = hintTextHeight > textFieldHeight;
         const marginTop = isHintTextMultipleLines ? `${hintTextHeight - textHeight}px` : '0px';
@@ -247,8 +245,8 @@ class TextField extends Component {
                 color,
                 border: disabled ? disabledBorder : errorText ? invalidBorder : border,
                 borderRadius,
-                font,
-                fontSize,
+                fontFamily: font.family,
+                fontSize: font.size,
                 height: `${hintTextWrapperHeight}px`,
                 outline,
                 padding: `${padding}px`,
@@ -280,7 +278,8 @@ class TextField extends Component {
                 color,
                 cursor: disabled ? 'not-allowed' : 'initial',
                 flex: 1,
-                font,
+                fontFamily: font.family,
+                fontSize: font.size,
                 height: `${textHeight}px`,
                 outline: 'none',
                 padding: 0,
@@ -290,7 +289,7 @@ class TextField extends Component {
             requiredIndicator: {
                 alignSelf: 'center',
                 color: errorTextColor,
-                fontSize,
+                fontSize: font.size,
                 lineHeight,
                 marginTop: !fullWidth ? marginTop : '0px',
                 marginLeft: '6px'

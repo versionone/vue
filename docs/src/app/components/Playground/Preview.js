@@ -1,13 +1,11 @@
 import React, {Component, PropTypes} from 'react';
 import {unmountComponentAtNode, render} from 'react-dom';
-import * as Vue from 'vue/';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import * as Vue from 'vue';
 import {transform} from 'babel-standalone';
 import {babel} from './../../../../package.json';
 import v1Theme from 'vue/styles/themes/v1Theme';
 
 const ERROR_TIMEOUT = 500;
-const theme = Vue.Theme.getTheme(v1Theme);
 
 class Preview extends Component {
     static propTypes = {
@@ -61,11 +59,9 @@ class Preview extends Component {
         const ComponentFromCode = eval(compiledCode)(...fnInput);
         try {
             render(
-                <MuiThemeProvider theme={theme}>
-                    <Vue.Theme.default theme={theme}>
+                    <Vue.ThemeProvider theme={v1Theme}>
                         <ComponentFromCode />
-                    </Vue.Theme.default>
-                </MuiThemeProvider>
+                    </Vue.ThemeProvider>
                 , mountNode);
             if (this.state.error) {
                 this.setState({error: null});

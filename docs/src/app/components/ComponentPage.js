@@ -3,7 +3,6 @@ import Title from 'react-title-component';
 import CodeExample from './CodeExample';
 import MarkdownElement from './MarkdownElement';
 import PropTypeDescription from './PropTypeDescription';
-import ThemeConfigurationDescription from './ThemeConfigurationDescription';
 import StatusBadge from './StatusBadge';
 import PlaygroundDrawer from './Playground';
 
@@ -61,11 +60,8 @@ export default class ComponentPage extends Component {
                     })}
                     <h2>PropTypes</h2>
                     {componentsSources.map((componentCode, index) => (
-                        <PropTypeDescription header={`### ${componentCode.name}`} code={componentCode.code} key={index} />
-                    ))}
-                    <h2>Theme Configuration</h2>
-                    {componentsSources.map((componentCode, index) => (
-                        <ThemeConfigurationDescription header={`### ${componentCode.name}`} code={componentCode.code} key={index} />
+                        <PropTypeDescription header={`### ${componentCode.name}`} code={componentCode.code}
+                                             key={index} />
                     ))}
                 </div>
             </div>

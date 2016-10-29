@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react';
 import Drawer from 'material-ui/Drawer';
 import {spacing, typography, zIndex} from 'material-ui/styles';
 import {cerulean, gunSmoke} from 'vue/styles/themes/v1Theme/foundations/colors';
-import {desktopGutter} from 'vue/styles/themes/v1Theme/foundations/spacing';
 import Editor from './Editor';
 import Preview from './Preview';
 
@@ -28,7 +27,7 @@ const styles = {
     section: {
         flex: 1,
         display: 'flex',
-        padding: desktopGutter
+        padding: 12
     }
 };
 

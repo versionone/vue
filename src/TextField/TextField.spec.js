@@ -236,7 +236,7 @@ function inputIsFocused(wrapper) {
 }
 
 function clickHintText(wrapper) {
-    wrapper.find('HintText').simulate('click');
+    wrapper.find('HintText').at(1).simulate('click');
 }
 
 function typeInTextField(wrapper, value = 'a') {
@@ -265,7 +265,7 @@ function errorTextIsHidden(wrapper) {
 }
 
 function textFieldHasErrorText(wrapper, text) {
-    return wrapper.find('ErrorMessage').text() === text;
+    return wrapper.find('ErrorMessage').at(1).text() === text;
 }
 
 function textFieldHasBackground(wrapper, backgroundColor) {

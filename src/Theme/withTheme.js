@@ -5,6 +5,9 @@ import {recursive as merge} from 'merge';
 export default (themeOverride) => (ComponentToTheme) => {
     const RadiumEnabledComponent = Radium(ComponentToTheme);
     class ComponentWithThemeEnabled extends Component {
+        static displayName = ComponentToTheme.name;
+        static propTypes = ComponentToTheme.propTypes;
+        static defaultProps = ComponentToTheme.defaultProps;
         static contextTypes = {
             theme: PropTypes.object.isRequired
         };

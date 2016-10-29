@@ -1,42 +1,52 @@
 import * as colors from './foundations/colors';
-import * as typography from './foundations/typography';
-import * as spacing from './foundations/spacing';
 
 export default {
-    typography,
-    spacing,
-    field: {
-        background: colors.white,
-        border: `1px solid ${colors.aluminum}`,
-        borderRadius: 3,
-        boxShadow: 'none',
-        color: colors.forge,
-        font: {
-            family: typography.fontFamily.basic,
-            size: typography.fontSize.small
-        },
-        lineHeight: 1.285,
-        outline: 'none',
-        padding: spacing.xxSmallGutter,
-        disabled: {
-            border: `1px solid ${colors.minBlack}`
-        },
-        focused: {
-            boxShadow: `0 0 7px ${colors.cerulean}`
-        },
-        invalid: {
-            background: `${colors.lightSunset}`,
-            border: `1px solid ${colors.sunset}`,
-            boxShadow: `0 0 2px 2px ${colors.lightSunset}`
-        },
-        pending: {
-            background: colors.yellowAccent
-        }
+    typography: {
+        // Font families
+        basicFamily: `'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif`,
+
+        // Sizes
+        xSmall: 8,
+        small: 14,
+        medium: 16,
+        xMedium: 18,
+        large: 22,
+        xLarge: 24,
+
+        // Other
+        lineHeightNormal: 1.285
     },
-    errorMessage: {
-        color: colors.sunset
+    spacing: {
+        xxSmallGutter: 3
     },
-    hintText: {
-        color: colors.mediumGray
+    color: {
+        transparent: colors.transparent,
+
+        // Text content colors
+        textPrimary: colors.forge,
+        textSecondary: colors.mediumGray,
+
+        // Focused
+        focusedPrimary: colors.cerulean,
+
+        // Disabled
+        disabledPrimary: colors.minBlack,
+
+        // Error
+        errorPrimary: colors.sunset,
+        errorSecondary: colors.lightSunset,
+
+        // Pending
+        pendingPrimary: colors.yellowAccent,
+
+        // Backgrounds
+        normalBackground: colors.white,
+
+        // Borders
+        fieldBorder: colors.aluminum
+    },
+    // Borders, radius, box shadows, etc.
+    border: {
+        normalRadius: 3
     }
 };

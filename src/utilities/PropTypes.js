@@ -81,7 +81,7 @@ export const theme = PropTypes.shape({
 });
 
 export const font = PropTypes.shape({
-    family: PropTypes.oneOf([
+    family: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.string)
     ]),

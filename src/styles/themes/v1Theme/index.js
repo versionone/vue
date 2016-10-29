@@ -1,34 +1,42 @@
+import * as colors from './foundations/colors';
+import * as typography from './foundations/typography';
+import * as spacing from './foundations/spacing';
+
 export default {
+    typography,
+    spacing,
     field: {
-        background: 'white',
-        border: '1px solid black',
-        borderRadius: 5,
+        background: colors.white,
+        border: `1px solid ${colors.aluminum}`,
+        borderRadius: 3,
         boxShadow: 'none',
-        color: 'black',
-        font: {},
-        fontSize: 14,
+        color: colors.forge,
+        font: {
+            family: typography.fontFamily.basic,
+            size: typography.fontSize.small
+        },
         lineHeight: 1.285,
         outline: 'none',
-        padding: 3,
+        padding: spacing.xxSmallGutter,
         disabled: {
-            border: '1px solid gray'
+            border: `1px solid ${colors.minBlack}`
         },
         focused: {
-            boxShadow: '0 0 7px blue'
+            boxShadow: `0 0 7px ${colors.cerulean}`
         },
         invalid: {
-            background: 'pink',
-            border: '1px solid red',
-            boxShadow: '0 0 2px 2px pink'
+            background: `${colors.lightSunset}`,
+            border: `1px solid ${colors.sunset}`,
+            boxShadow: `0 0 2px 2px ${colors.lightSunset}`
         },
         pending: {
-            background: 'yellow'
+            background: colors.yellowAccent
         }
     },
     errorMessage: {
-        color: 'red'
+        color: colors.sunset
     },
     hintText: {
-        color: 'gray'
+        color: colors.mediumGray
     }
 };

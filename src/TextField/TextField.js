@@ -61,7 +61,7 @@ class TextField extends Component {
                 font: CustomPropTypes.font.isRequired,
                 lineHeight: PropTypes.number.isRequired,
                 outline: PropTypes.string,
-                padding: PropTypes.number,
+                padding: PropTypes.number.isRequired,
                 disabled: PropTypes.shape({
                     border: PropTypes.string
                 }),
@@ -297,7 +297,7 @@ class TextField extends Component {
             errorMessageWrapper: {
                 alignSelf: 'center',
                 display: fullWidth && 'block',
-                marginTop: fullWidth ? '-8px' : 0,
+                marginTop: 0,
                 marginLeft: fullWidth ? 0 : '6px',
                 padding: fullWidth && `${padding}px 0`
             },

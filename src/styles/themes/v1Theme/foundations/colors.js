@@ -13,25 +13,17 @@ export const minBlack = 'rgba(0, 0, 0, 0.26)';
 export const faintBlack = 'rgba(0, 0, 0, 0.12)';
 export const fullWhite = 'rgba(255, 255, 255, 1)';
 export const darkWhite = 'rgba(255, 255, 255, 0.87)';
+export const mediumGray = 'rgba(0, 0, 0, 0.298039)';
 export const lightWhite = 'rgba(255, 255, 255, 0.5)';
 
 // ## Named Colors
 export const aluminum = '#878c94';
-
 export const cerulean = '#00a9e0';
 export const forge = '#474c54';
 export const gunSmoke = '#31363e';
 export const pale = 'dde2e9';
 export const shuttle = '#61666e';
 export const sunset = '#d52101';
+export const lightSunset = lighten(sunset, 0.67);
 
-// ## Controls
-export const hintText = 'rgba(0, 0, 0, 0.298039)';
-
-// ## States
-// ### Pending
-export const pendingBackground = '#FFF4A3';
-
-// ### Has Error
-export const errorColor = sunset;
-export const errorColorBackground = lighten(sunset, 0.67);
+export const yellowAccent = '#FFF4A3';

@@ -4,8 +4,6 @@ import Radium from 'radium';
 import HintText from './../internal/HintText';
 import RequiredIndicator from './../internal/RequiredIndicator';
 import ErrorMessage from './../internal/ErrorMessage';
-import {decomposeColor} from './../styles/colorManipulator';
-
 
 class TextField extends Component {
     static propTypes = {
@@ -84,7 +82,7 @@ class TextField extends Component {
             color: PropTypes.shape({
                 transparent: PropTypes.string,
                 textPrimary: PropTypes.string,
-                focusedPrimary: PropTypes.string,
+                focusedSecondary: PropTypes.string,
                 disabledPrimary: PropTypes.string,
                 errorPrimary: PropTypes.string,
                 errorSecondary: PropTypes.string,
@@ -196,7 +194,7 @@ class TextField extends Component {
             color: {
                 transparent,
                 textPrimary,
-                focusedPrimary,
+                focusedSecondary,
                 disabledPrimary,
                 errorPrimary,
                 errorSecondary,
@@ -229,7 +227,7 @@ class TextField extends Component {
             },
             hintTextWrapper: {
                 background: errorText ? errorSecondary : pending ? pendingPrimary : normalBackground,
-                boxShadow: errorText ? `0 0 2px 2px ${errorSecondary}` : focused ? `0 0 2px 2px ${focusedPrimary}` : 'none',
+                boxShadow: errorText ? `0 0 2px 2px ${errorSecondary}` : focused ? `0 0 2px 2px ${focusedSecondary}` : 'none',
                 boxSizing: 'border-box',
                 border: `1px solid ${borderColor}`,
                 borderRadius: normalRadius,

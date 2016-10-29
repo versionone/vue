@@ -1,4 +1,4 @@
-import {lighten} from './../../../colorManipulator';
+import {lighten} from 'vue/utilities/colorManipulator';
 
 // # Color definitions
 

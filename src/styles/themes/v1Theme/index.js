@@ -1,4 +1,5 @@
 import * as colors from './foundations/colors';
+import {changeOpacity} from 'vue/utilities/colorManipulator';
 
 export default {
     typography: {
@@ -28,6 +29,7 @@ export default {
 
         // Focused
         focusedPrimary: colors.cerulean,
+        focusedSecondary: changeOpacity(colors.cerulean, 0.5),
 
         // Disabled
         disabledPrimary: colors.minBlack,

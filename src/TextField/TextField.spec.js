@@ -177,7 +177,7 @@ function getTestTheme() {
             textSecondary: 'lightgray',
 
             // Focused
-            focusedPrimary: 'blue',
+            focusedSecondary: 'blue',
 
             // Disabled
             disabledPrimary: 'gray',

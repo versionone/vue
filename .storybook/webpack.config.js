@@ -17,6 +17,11 @@ module.exports = {
             }
         ]
     },
+    resolve: {
+        alias: {
+            'vue': path.resolve(__dirname, '../src'),
+        }
+    },
     postcss: function () {
         return [precss, autoprefixer];
     }

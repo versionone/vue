@@ -193,7 +193,7 @@ class TextField extends Component {
 
     getStyles = () => {
         const {hintTextHeight, focused} = this.state;
-        const {disabled, errorText, fullWidth, pending, width, theme} = this.props;
+        const {disabled, errorText, fullWidth, pending, required, width, theme} = this.props;
         const {
             background,
             border,
@@ -229,9 +229,9 @@ class TextField extends Component {
 
         const textHeight = Math.floor(fontSize * lineHeight);
         const textFieldHeight = textHeight + paddingHeight + borderHeight;
-        const isHintTextTallerThanInput = hintTextHeight > textFieldHeight;
-        const marginTop = isHintTextTallerThanInput ? `${hintTextHeight - textHeight}px` : '0px';
-        const hintTextWrapperHeight = isHintTextTallerThanInput ? (hintTextHeight + paddingHeight + borderHeight) : textFieldHeight;
+        const isHintTextMultipleLines = hintTextHeight > textFieldHeight;
+        const marginTop = isHintTextMultipleLines ? `${hintTextHeight - textHeight}px` : '0px';
+        const hintTextWrapperHeight = isHintTextMultipleLines ? (hintTextHeight + paddingHeight + borderHeight) : textFieldHeight;
         const computedWidth = fullWidth ? '100%' : `${width}px`;
 
         return {
@@ -248,9 +248,11 @@ class TextField extends Component {
                 border: disabled ? disabledBorder : errorText ? invalidBorder : border,
                 borderRadius,
                 font,
+                fontSize,
                 height: `${hintTextWrapperHeight}px`,
                 outline,
                 padding: `${padding}px`,
+                paddingRight: isHintTextMultipleLines && required ? '13px' : 0,
                 position: 'absolute',
                 top: 0,
                 width: computedWidth
@@ -288,6 +290,8 @@ class TextField extends Component {
             requiredIndicator: {
                 alignSelf: 'center',
                 color: errorTextColor,
+                fontSize,
+                lineHeight,
                 marginTop: !fullWidth ? marginTop : '0px',
                 marginLeft: '6px'
             },

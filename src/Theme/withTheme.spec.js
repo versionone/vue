@@ -11,7 +11,7 @@ suite('withTheme', () => {
 
     test('the original component propTypes are applied to the wrapped component', () => {
         const wrappedComponent = withTheme()(TestComponent);
-        expect(wrappedComponent.propTypes).to.deep.equal({theme: PropTypes.object});
+        expect(wrappedComponent.propTypes).to.deep.equal({theme: PropTypes.object, test: PropTypes.bool});
     });
 
     test('the original component defaultProps are applied to the wrapped component', () => {
@@ -56,7 +56,7 @@ const TestComponent = (props) => {
         <h1 style={[styles.base]}>Hello world</h1>
     );
 };
-TestComponent.propTypes = {theme: PropTypes.object};
+TestComponent.propTypes = {theme: PropTypes.object, test: PropTypes.bool};
 TestComponent.defaultProps = {defaultProp: true};
 
 function mountComponentWithTheme(Component, theme = {}, props = {}) {

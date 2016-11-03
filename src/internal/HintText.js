@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import Radium from 'radium';
+import Radium from './../utilities/Radium';
 
 class HintText extends Component {
     static propTypes = {

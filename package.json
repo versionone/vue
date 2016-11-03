@@ -104,6 +104,7 @@
     "invariant": "^2.2.1",
     "merge": "^1.2.0",
     "radium": "^0.18.1",
+    "radium-plugin-prefix-all": "^1.0.1",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "warning": "^3.0.0"

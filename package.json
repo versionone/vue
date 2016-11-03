@@ -95,6 +95,7 @@
     "webpack": "^1.13.1"
   },
   "peerDependencies": {
+    "classnames": "^2.2.5",
     "radium": "^0.18.1",
     "react": "^15.1.0",
     "react-dom": "^15.1.0"

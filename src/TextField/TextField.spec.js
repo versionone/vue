@@ -66,10 +66,10 @@ suite('TextField', () => {
     test('the text field displays hint text only when there is no value or default value', () => {
         const textFieldWithoutValue = mountTextField({hintText: 'hint text'});
         expect(hintTextIsDisplayed(textFieldWithoutValue)).to.be.true;
-        textFieldWithoutValue.setProps({value: 'a'});
+        textFieldWithoutValue.setProps({defaultValue: 'a'});
         expect(hintTextIsHidden(textFieldWithoutValue)).to.be.true;
 
-        const textFieldWithValue = mountTextField({hintText: 'hint text', value: 'a value'});
+        const textFieldWithValue = mountTextField({hintText: 'hint text', defaultValue: 'a value'});
         expect(hintTextIsHidden(textFieldWithValue)).to.be.true;
 
         const textFieldWithDefaultValue = mountTextField({hintText: 'hint text', defaultValue: 'a default value'});

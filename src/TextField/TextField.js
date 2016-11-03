@@ -50,22 +50,20 @@ class TextField extends Component {
         /**
          * Width of the text field
          */
-        width: PropTypes.number,
-        /**
-         * The value of the text field
-         */
-        value: PropTypes.string
+        width: PropTypes.number
     };
     static defaultProps = {
         defaultValue: '',
         disabled: false,
         fullWidth: false,
+        hintText: '',
         onBlur: () => {
         },
         onChange: () => {
         },
         onFocus: () => {
         },
+        pending: false,
         required: false,
         width: 256
     };
@@ -93,14 +91,14 @@ class TextField extends Component {
             border: PropTypes.shape({
                 normalRadius: PropTypes.number
             })
-        }),
+        })
     };
 
     constructor(props, ...rest) {
         super(props, ...rest);
         this.state = {
             hintTextHeight: 0,
-            hasValue: !!props.value || !!props.defaultValue,
+            hasValue: !!props.defaultValue,
             focused: false
         };
     }
@@ -113,7 +111,7 @@ class TextField extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            hasValue: !!nextProps.value || !!nextProps.defaultValue,
+            hasValue: this.state.hasValue || !!nextProps.defaultValue,
             hintTextHeight: this.getHeight()
         });
     }

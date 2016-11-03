@@ -5,7 +5,7 @@ class ErrorMessage extends Component {
     static propTypes = {
         hidden: PropTypes.bool,
         onClick: PropTypes.func,
-        text: PropTypes.string,
+        text: PropTypes.string
     };
     static defaultProps = {
         hidden: false,
@@ -21,7 +21,7 @@ class ErrorMessage extends Component {
                 lineHeightNormal: PropTypes.number.isRequired
             }),
             color: PropTypes.shape({
-                errorPrimary: PropTypes.string,
+                errorPrimary: PropTypes.string
             })
         }).isRequired
     };

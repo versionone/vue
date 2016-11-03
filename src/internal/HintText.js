@@ -5,7 +5,7 @@ class HintText extends Component {
     static propTypes = {
         hidden: PropTypes.bool,
         onClick: PropTypes.func,
-        text: PropTypes.string,
+        text: PropTypes.string
     };
     static defaultProps = {
         hidden: false,

@@ -9,22 +9,26 @@ module.exports = {
         'eslint-config-andrew-codes/specs'
     ],
     globals: {
-        suite: true,
-        test: true,
         expect: true,
-        should: true
+        should: true,
+        suite: true,
+        test: true
     },
     parser: 'babel-eslint',
     parserOptions: {
         sourceType: 'module',
-        ecmaFeatures: {jsx: true}
+        ecmaFeatures: {
+            jsx: true
+        }
     },
     plugins: [
         'babel',
         'import',
         'react'
     ],
-    rules: {'react/no-did-mount-set-state': 0},
+    rules: {
+        'react/no-did-mount-set-state': 0
+    },
     settings: {
         react: {
             pragma: 'React',

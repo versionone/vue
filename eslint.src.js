@@ -8,12 +8,6 @@ module.exports = {
         'eslint-config-andrew-codes/base',
         'plugin:react/recommended'
     ],
-    globals: {
-        suite: true,
-        test: true,
-        expect: true,
-        should: true
-    },
     parser: 'babel-eslint',
     parserOptions: {
         sourceType: 'module',

@@ -6,7 +6,6 @@ import MarkdownElement from '../MarkdownElement';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import CodeIcon from 'material-ui/svg-icons/action/code';
-import {desktopGutter} from 'vue/styles/themes/v1Theme/foundations/spacing';
 
 class CodeExample extends Component {
     static propTypes = {
@@ -73,7 +72,7 @@ ${code}
                         <MarkdownElement style={descriptionStyle} text={description} />
                     </Tab>
                     <Tab label="Example Code" value={1}>
-                        <FloatingActionButton onMouseUp={() => openInPlayground(this.props.code)} style={{position: 'absolute', right: desktopGutter, top: desktopGutter}}><CodeIcon /></FloatingActionButton>
+                        <FloatingActionButton onMouseUp={() => openInPlayground(this.props.code)} style={{position: 'absolute', right: 12, top: 12}}><CodeIcon /></FloatingActionButton>
                         <MarkdownElement style={codeStyle} text={text} />
                         <MarkdownElement style={descriptionStyle} text={description} />
                     </Tab>

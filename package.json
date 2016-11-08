@@ -72,7 +72,7 @@
     "chai-enzyme": "^0.4.2",
     "cross-env": "^1.0.8",
     "css-loader": "^0.23.1",
-    "enzyme": "^2.3.0",
+    "enzyme": "^2.5.1",
     "eslint": "^2.13.1",
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-react": "^5.2.2",
@@ -95,18 +95,19 @@
     "webpack": "^1.13.1"
   },
   "peerDependencies": {
+    "classnames": "^2.2.5",
+    "radium": "^0.18.1",
     "react": "^15.1.0",
     "react-dom": "^15.1.0"
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "inline-style-prefixer": "^1.0.4",
     "invariant": "^2.2.1",
+    "merge": "^1.2.0",
+    "radium": "^0.18.1",
+    "radium-plugin-prefix-all": "^1.0.1",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
-    "react-event-listener": "^0.2.1",
-    "recompose": "^0.20.0",
-    "throttle-debounce": "^1.0.1",
     "warning": "^3.0.0"
   }
 }

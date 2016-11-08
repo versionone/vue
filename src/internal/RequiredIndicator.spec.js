@@ -3,7 +3,7 @@ import {mount} from 'enzyme';
 import {applyTheme} from './../../specHelpers';
 import RequiredIndicator from './RequiredIndicator';
 
-describe('<RequiredIndicator />', function() {
+describe.skip('<RequiredIndicator />', function() {
     describe('when rendering a required indicator', () => {
         beforeEach(() => {
             this.actual = mount(applyTheme(<RequiredIndicator />));

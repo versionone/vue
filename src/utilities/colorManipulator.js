@@ -135,3 +135,13 @@ export function lighten(color, coefficient) {
     return convertColorToString(color);
 }
 
+export const changeOpacity = (color, opacity) => {
+    const colorValues = decomposeColor(color);
+    colorValues.type = 'rgba';
+    if (colorValues.values.length > 3) {
+        colorValues.values[3] = opacity;
+    } else {
+        colorValues.values.push(opacity);
+    }
+    return convertColorToString(colorValues);
+};

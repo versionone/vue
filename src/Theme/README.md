@@ -1,0 +1,1 @@
+Enable application of a common theme across all Vue components, as well as override specific instances with different themes.

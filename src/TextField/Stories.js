@@ -78,6 +78,16 @@ storiesOf('TextField')
             <TextField fullWidth hintText="hint text" errorText="error text" />
         )
     )
+    .addWithInfo('full width; required; long hint text',
+        `Fills full width of wrapper div set to 300px wide to illustrate long hint text with full width and required indicator`,
+        () => (
+            <div style={{width: '300px'}}>
+                <TextField fullWidth
+                           required
+                           hintText="hint text. This hint text is not just lengthy, but absurdly long. Why would anyone do this anyway?" />
+            </div>
+        )
+    )
     .addWithInfo('stacked',
         ``,
         () => (

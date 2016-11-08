@@ -9,7 +9,7 @@ import AppNavDrawer from './AppNavDrawer';
 import FullWidthSection from './FullWidthSection';
 import withWidth from 'material-ui/utils/withWidth';
 import v1Theme from 'vue/styles/themes/v1Theme';
-import ThemeProvider, {getTheme} from 'vue/Theme';
+import {ThemeProvider} from 'vue';
 import {gunSmoke} from 'vue/styles/themes/v1Theme/foundations/colors';
 import componentRoutes from '../routes/menuItems';
 
@@ -125,10 +125,6 @@ class Master extends Component {
             })
         ));
 
-        const {
-            prepareStyles
-        } = this.state.muiTheme;
-
         const router = this.context.router;
         const styles = this.getStyles();
         const title =
@@ -149,7 +145,7 @@ class Master extends Component {
         styles.footer.paddingLeft = 256;
 
         return (
-            <ThemeProvider theme={getTheme(v1Theme)}>
+            <ThemeProvider theme={v1Theme}>
                 <div>
                     <Title render="Vue - VersionOne" />
                     <AppBar

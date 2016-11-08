@@ -4,7 +4,7 @@ import {applyTheme} from './../../specHelpers';
 import ErrorMessage from './ErrorMessage';
 import sinon from 'sinon';
 
-describe('<ErrorMessage />', function() {
+describe.skip('<ErrorMessage />', function() {
     beforeEach(() => {
         this.actual = undefined;
     });

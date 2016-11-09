@@ -1,4 +1,7 @@
-export default [
+/* eslint-disable */
+const lowestStyleIndex = 0;
+
+const isValidCssStyle = (style) => [
     'additiveSymbols',
     'MozAdditiveSymbols',
     'WebKitAdditiveSymbols',
@@ -1645,4 +1648,24 @@ export default [
     'WebKitZoom',
     'MSZoom',
     'OZoom'
-];
+].indexOf(style) >= lowestStyleIndex;
+
+export default (props, propName, componentName) => {
+    const styles = props[propName];
+    if (!styles) {
+        return null;
+    }
+
+    const failures = Object.keys(styles)
+        .reduce((output, key) => {
+            if (!isValidCssStyle(key)) {
+                output.push(key);
+            }
+            return output;
+        }, []);
+
+    if (!failures.length) {
+        return null;
+    }
+    return new Error(`Prop \`${propName}\` passed to \`${componentName}\`. Has invalid keys ${failures.join(', ')}`);
+};

@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import * as Opacity from './../utilities/Opacity';
+import {fullyVisible as opacityFullyVisible, hidden as opacityHidden} from './../utilities/Opacity';
 import Radium from './../utilities/Radium';
 
 class HintText extends Component {
@@ -64,7 +64,7 @@ class HintText extends Component {
                 fontFamily: basicFamily,
                 fontSize: small,
                 lineHeight: lineHeightNormal,
-                opacity: hidden ? Opacity.hidden : Opacity.fullyVisible,
+                opacity: hidden ? opacityHidden : opacityFullyVisible,
                 transition: 'opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'
             }
         };

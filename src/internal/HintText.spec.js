@@ -5,7 +5,7 @@ import {spy} from 'sinon';
 
 suite('HintText', () => {
     test('the hint text can display text content', () => {
-        const actual = mountHintText({text: "hint text"});
+        const actual = mountHintText({text: 'hint text'});
         expect(hasTextContent(actual, 'hint text')).to.be.true;
     });
 

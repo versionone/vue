@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import {fullyVisible as opacityFullyVisible, hidden as opacityHidden} from './../utilities/Opacity';
 import Radium from './../utilities/Radium';
 
 class ErrorMessage extends Component {
@@ -15,16 +16,19 @@ class ErrorMessage extends Component {
     };
     static contextTypes = {
         theme: PropTypes.shape({
+            color: PropTypes.shape({errorPrimary: PropTypes.string}),
             typography: PropTypes.shape({
                 basicFamily: PropTypes.string,
-                small: PropTypes.number.isRequired,
-                lineHeightNormal: PropTypes.number.isRequired
-            }),
-            color: PropTypes.shape({
-                errorPrimary: PropTypes.string
+                lineHeightNormal: PropTypes.number.isRequired,
+                small: PropTypes.number.isRequired
             })
         }).isRequired
     };
+
+    constructor(...args) {
+        super(...args);
+        this.getStyles = this.getStyles.bind(this);
+    }
 
     render() {
         // eslint-disable-next-line no-unused-vars
@@ -36,16 +40,14 @@ class ErrorMessage extends Component {
         );
     }
 
-    getStyles = () => {
+    getStyles() {
         const {hidden} = this.props;
         const {
+            color: {errorPrimary},
             typography: {
                 basicFamily,
                 small,
                 lineHeightNormal
-            },
-            color: {
-                errorPrimary
             }
         } = this.context.theme;
 
@@ -56,10 +58,10 @@ class ErrorMessage extends Component {
                 fontFamily: basicFamily,
                 fontSize: small,
                 lineHeight: lineHeightNormal,
-                opacity: hidden ? 0 : 1,
+                opacity: hidden ? opacityHidden : opacityFullyVisible,
                 transition: 'opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'
             }
         };
-    };
+    }
 }
 export default Radium(ErrorMessage);

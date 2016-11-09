@@ -132,9 +132,9 @@ class TextField extends Component {
                            defaultValue={defaultValue}
                            disabled={disabled}
                            onChange={this.handleChange} onFocus={this.handleFocus} onBlur={this.handleBlur} />
-                    {required && fullWidth && <RequiredIndicator style={styles.requiredIndicator} /> }
+                    {required && fullWidth && <div style={styles.requiredIndicator}><RequiredIndicator /></div> }
                 </div>
-                {required && !fullWidth && <RequiredIndicator style={styles.requiredIndicator} /> }
+                {required && !fullWidth && <div style={styles.requiredIndicator}><RequiredIndicator style={styles.requiredIndicator} /></div> }
                 {errorText && (
                     <div style={styles.errorMessageWrapper}>
                         <ErrorMessage text={errorText}
@@ -263,9 +263,6 @@ class TextField extends Component {
             },
             requiredIndicator: {
                 alignSelf: 'center',
-                color: errorPrimary,
-                fontSize: small,
-                lineHeight: lineHeightNormal,
                 margin: `${!fullWidth ? marginTop : '0px'} 0 0 6px`
             },
             errorMessageWrapper: {

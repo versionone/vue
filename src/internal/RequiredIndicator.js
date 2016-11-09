@@ -1,36 +1,56 @@
 import React, {Component, PropTypes} from 'react';
-import * as CustomPropTypes from '../utilities/PropTypes';
-
-const getStyles = (theme, props) => {
-    // TODO: pull out into theme/css/etc.
-    const color = 'red';
-
-    return {
-        root: {
-            color,
-            ...props.style,
-            opacity: props.hidden ? 0 : 1,
-            zIndex: 1
-        }
-    };
-};
+import Radium from './../utilities/Radium';
 
 class RequiredIndicator extends Component {
-    static propTypes = {
-        hidden: PropTypes.bool,
-        style: CustomPropTypes.style
+    static propTypes = {hidden: PropTypes.bool};
+
+    static defaultProps = {hidden: false};
+
+    static contextTypes = {
+        theme: PropTypes.shape({
+            color: PropTypes.shape({requiredPrimary: PropTypes.string}),
+            typography: PropTypes.shape({
+                lineHeightNormal: PropTypes.number,
+                small: PropTypes.number
+            })
+        })
     };
 
-    static defaultProps = {
-        hidden: false,
-        style: {}
-    };
+    constructor(...args) {
+        super(...args);
+        this.getStyles = this.getStyles.bind(this);
+    }
 
     render() {
-        const styles = getStyles(this.context.theme, this.props);
+        const styles = this.getStyles();
         return (
             <div style={styles.root}>*</div>
         );
     }
+
+    getStyles() {
+        const {
+            color: {requiredPrimary},
+            typography: {
+                lineHeightNormal,
+                small
+            }
+        } = this.context.theme;
+        const {hidden} = this.props;
+        const opacityHidden = 0;
+        const opacityShown = 1;
+        const zIndex = 1;
+
+        return {
+            root: {
+                alignSelf: 'center',
+                color: requiredPrimary,
+                fontSize: small,
+                lineHeight: lineHeightNormal,
+                opacity: hidden ? opacityHidden : opacityShown,
+                zIndex
+            }
+        };
+    }
 }
-export default RequiredIndicator;
+export default Radium(RequiredIndicator);

@@ -1,4 +1,5 @@
 import React, {Component, PropTypes} from 'react';
+import * as Opacity from './../utilities/Opacity';
 import Radium from './../utilities/Radium';
 
 class RequiredIndicator extends Component {
@@ -37,8 +38,6 @@ class RequiredIndicator extends Component {
             }
         } = this.context.theme;
         const {hidden} = this.props;
-        const opacityHidden = 0;
-        const opacityShown = 1;
         const zIndex = 1;
 
         return {
@@ -47,7 +46,7 @@ class RequiredIndicator extends Component {
                 color: requiredPrimary,
                 fontSize: small,
                 lineHeight: lineHeightNormal,
-                opacity: hidden ? opacityHidden : opacityShown,
+                opacity: hidden ? Opacity.hidden : Opacity.fullyVisible,
                 zIndex
             }
         };

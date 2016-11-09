@@ -4,7 +4,7 @@ import {spy} from 'sinon';
 import TextField from './TextField';
 
 suite('TextField', () => {
-    test('the text field applies the default theme', ()=> {
+    test('the text field applies the default theme', () => {
         const textField = mountTextField();
         expect(textFieldHasBackground(textField, 'white')).to.be.true;
     });
@@ -142,18 +142,14 @@ suite('TextField', () => {
 });
 
 function mountTextField(props = {}) {
-    return mount(<TextField {...props} />, {
-        context: {
-            theme: getTestTheme()
-        }
-    });
+    return mount(<TextField {...props} />, {context: {theme: getTestTheme()}});
 }
 
 function getTestTheme() {
     return {
         typography: {
             // Font families
-            basicFamily: `'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif`,
+            basicFamily: '\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif',
 
             // Sizes
             xSmall: 8,
@@ -166,9 +162,7 @@ function getTestTheme() {
             // Other
             lineHeightNormal: 1.285
         },
-        spacing: {
-            xxSmallGutter: 3
-        },
+        spacing: {xxSmallGutter: 3},
         color: {
             transparent: 'transparent',
 
@@ -196,9 +190,7 @@ function getTestTheme() {
             fieldBorder: 'mediumgray'
         },
         // Borders, radius, box shadows, etc.
-        border: {
-            normalRadius: 3
-        }
+        border: {normalRadius: 3}
     };
 }
 
@@ -226,7 +218,7 @@ function requiredIndicatorIsDisplayed(wrapper) {
 }
 
 function requiredIndicatorIsAlignedWithText(wrapper) {
-    return wrapper.find('RequiredIndicator').first().props().style.margin === '34px 0 0 6px';
+    return wrapper.find('RequiredIndicator').parent().first().props().style.margin === '34px 0 0 6px';
 }
 function errorTextIsAlignedWithText(wrapper) {
     return wrapper.find('ErrorMessage').parent().props().style.margin === '0 0 0 6px';

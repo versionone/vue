@@ -4,7 +4,7 @@ import {changeOpacity} from 'vue/utilities/colorManipulator';
 export default {
     typography: {
         // Font families
-        basicFamily: `'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif`,
+        basicFamily: '\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif',
 
         // Sizes
         xSmall: 8,
@@ -17,9 +17,7 @@ export default {
         // Other
         lineHeightNormal: 1.285
     },
-    spacing: {
-        xxSmallGutter: 3
-    },
+    spacing: {xxSmallGutter: 3},
     color: {
         transparent: colors.transparent,
 
@@ -48,7 +46,5 @@ export default {
         fieldBorder: colors.aluminum
     },
     // Borders, radius, box shadows, etc.
-    border: {
-        normalRadius: 3
-    }
+    border: {normalRadius: 3}
 };

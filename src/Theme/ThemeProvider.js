@@ -6,18 +6,10 @@ class ThemeProvider extends Component {
         theme: PropTypes.object
     };
 
-    static childContextTypes = {
-        theme: PropTypes.object.isRequired
-    };
+    static childContextTypes = {theme: PropTypes.object.isRequired};
 
     getChildContext() {
-        return {
-            theme: this.props.theme
-        };
-    }
-
-    constructor(props, ...rest) {
-        super(props, ...rest);
+        return {theme: this.props.theme};
     }
 
     render() {

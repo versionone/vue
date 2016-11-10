@@ -1,36 +1,43 @@
 function clamp(value, min, max) {
-    if (value < min) {
-        return min;
-    }
+    if (value < min) { return min; }
+
     if (value > max) {
         return max;
     }
+
     return value;
 }
 
 export function convertColorToString(color) {
     const {type, values} = color;
 
-    if (type.indexOf('rgb') > -1) {
+    if (type.indexOf('rgb') > -1)
         // Only convert the first 3 values to int (i.e. not alpha)
+        {
         for (let i = 0; i < 3; i++) {
             values[i] = parseInt(values[i]);
-        }
-    }
+        } }
+
 
     let colorString;
 
     if (type.indexOf('hsl') > -1) {
         colorString = `${color.type}(${values[0]}, ${values[1]}%, ${values[2]}%`;
-    } else {
+    }
+
+    else {
         colorString = `${color.type}(${values[0]}, ${values[1]}, ${values[2]}`;
     }
 
+
     if (values.length === 4) {
         colorString += `, ${color.values[3]})`;
-    } else {
+    }
+
+    else {
         colorString += ')';
     }
+
 
     return colorString;
 }
@@ -38,9 +45,8 @@ export function convertColorToString(color) {
 export function convertHexToRGB(color) {
     if (color.length === 4) {
         let extendedColor = '#';
-        for (let i = 1; i < color.length; i++) {
-            extendedColor += color.charAt(i) + color.charAt(i);
-        }
+        for (let i = 1; i < color.length; i++) { extendedColor += color.charAt(i) + color.charAt(i); }
+
         color = extendedColor;
     }
 
@@ -58,12 +64,13 @@ export function decomposeColor(color) {
         return decomposeColor(convertHexToRGB(color));
     }
 
+
     const marker = color.indexOf('(');
     const type = color.substring(0, marker);
     let values = color.substring(marker + 1, color.length - 1).split(',');
-    values = values.map((value) => parseFloat(value));
+    values = values.map(value => parseFloat(value));
 
-    return {type: type, values: values};
+    return {type, values};
 }
 
 export function getContrastRatio(foreground, background) {
@@ -83,7 +90,8 @@ export function getLuminance(color) {
             return val <= 0.03928 ? val / 12.92 : Math.pow((val + 0.055) / 1.055, 2.4);
         });
         return Number((0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]).toFixed(3)); // Truncate at 3 digits
-    } else if (color.type.indexOf('hsl') > -1) {
+    }
+    else if (color.type.indexOf('hsl') > -1) {
         return color.values[2] / 100;
     }
 }
@@ -101,6 +109,7 @@ export function fade(color, value) {
     if (color.type === 'rgb' || color.type === 'hsl') {
         color.type += 'a';
     }
+
     color.values[3] = value;
 
     return convertColorToString(color);
@@ -112,11 +121,14 @@ export function darken(color, coefficient) {
 
     if (color.type.indexOf('hsl') > -1) {
         color.values[2] *= 1 - coefficient;
-    } else if (color.type.indexOf('rgb') > -1) {
+    }
+
+    else if (color.type.indexOf('rgb') > -1) {
         for (let i = 0; i < 3; i++) {
             color.values[i] *= 1 - coefficient;
-        }
-    }
+        } }
+
+
     return convertColorToString(color);
 }
 
@@ -126,11 +138,13 @@ export function lighten(color, coefficient) {
 
     if (color.type.indexOf('hsl') > -1) {
         color.values[2] += (100 - color.values[2]) * coefficient;
-    } else if (color.type.indexOf('rgb') > -1) {
+    }
+
+    else if (color.type.indexOf('rgb') > -1) {
         for (let i = 0; i < 3; i++) {
             color.values[i] += (255 - color.values[i]) * coefficient;
-        }
-    }
+        } }
+
 
     return convertColorToString(color);
 }
@@ -140,8 +154,9 @@ export const changeOpacity = (color, opacity) => {
     colorValues.type = 'rgba';
     if (colorValues.values.length > 3) {
         colorValues.values[3] = opacity;
-    } else {
-        colorValues.values.push(opacity);
     }
+
+    else { colorValues.values.push(opacity); }
+
     return convertColorToString(colorValues);
 };

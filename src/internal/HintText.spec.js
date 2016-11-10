@@ -31,7 +31,6 @@ suite('HintText', () => {
 
         simulateBlur(actual);
         expect(onBlur.calledOnce).to.be.true;
-
     });
 });
 

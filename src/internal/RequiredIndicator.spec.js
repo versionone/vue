@@ -9,7 +9,7 @@ suite('RequiredIndicator', () => {
 
         const shownComponent = mountIndicator();
         expect(indicatorIsShown(shownComponent)).to.be.true;
-    })
+    });
 });
 
 function mountIndicator(props = {}, context = getContext()) {
@@ -20,12 +20,8 @@ function getContext() {
     return {
         context: {
             theme: {
-                color: {
-                    requiredPrimary: 'black'
-                },
-                typography: {
-                    lineHeightNormal: 1.5
-                }
+                color: {requiredPrimary: 'black'},
+                typography: {lineHeightNormal: 1.5}
             }
         }
     };

@@ -35,15 +35,11 @@ function getContext() {
     return {
         context: {
             theme: {
-                color: {
-                    errorPrimary: 'red'
-                },
-                typography: {
-                    basicFamily: 'Arial'
-                }
+                color: {errorPrimary: 'red'},
+                typography: {basicFamily: 'Arial'}
             }
         }
-    }
+    };
 }
 
 function isAnimated(wrapper) {

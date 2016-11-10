@@ -46,9 +46,7 @@ const TestComponent = (props) => {
     const styles = {
         base: {
             backgroundColor: color.pendingColor,
-            ':hover': {
-                backgroundColor: 'green'
-            },
+            ':hover': {backgroundColor: 'green'},
             color: props.test && 'yellow'
         }
     };
@@ -74,13 +72,9 @@ function getTheme() {
 
 function getOverrideTheme() {
     return {
-        color: {
-            pendingColor: 'green'
-        },
-        font: {
-            size: 12
-        }
-    }
+        color: {pendingColor: 'green'},
+        font: {size: 12}
+    };
 }
 
 function componentToRenderWithThemeValues(wrapper) {

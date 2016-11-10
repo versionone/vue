@@ -1,91 +1,24 @@
-import {create, easeOut, easeOutFunction} from './Transitions';
+import {create, easeInOutFunction, easeOut, easeOutFunction} from './Transitions';
 
-describe('styles/Transitions/create', function() {
-    beforeEach(() => {
-        this.actual = undefined;
+suite('Transitions', () => {
+    test('it exports easing functions', () => {
+        expect(easeInOutFunction).to.not.be.null;
+        expect(easeOutFunction).to.not.be.null;
     });
-    describe('given no duration, property to animate, delay, or ease function', () => {
-        describe('when creating a transition', () => {
-            beforeEach(() => {
-                this.actual = create();
-            });
-            it('it should create a transition style with default values', () => {
-                this.actual.should.equal('all 450ms linear 0ms');
-            });
-        });
-    });
-    describe('given a duration, property to animate, delay, and ease function', () => {
-        beforeEach(() => {
-            this.duration = '500ms';
-            this.property = 'background';
-            this.delay = '1s';
-            this.easeFunction = 'easeOut';
-        });
-        describe('when creating a transition', () => {
-            beforeEach(() => {
-                this.actual = create(this.duration, this.property, this.delay, this.easeFunction);
-            });
-            it('it should return a CSS transition style for the provided inputs', () => {
-                this.actual.should.equal(`${this.property} ${this.duration} ${this.easeFunction} ${this.delay}`);
-            });
-        });
-    });
-});
 
-describe('styles/Transitions/easeOut', function() {
-    beforeEach(() => {
-        this.actual = undefined;
+    test('easing CSS styles can be created', () => {
+        const defaultEasingCss = create();
+        expect(defaultEasingCss).to.equal('all 450ms linear 0ms');
+
+        const customEasingCss = create('500ms', 'background', '5ms', 'customEase');
+        expect(customEasingCss).to.equal('background 500ms customEase 5ms');
     });
-    describe('given no inputs', () => {
-        describe('when creating an easeOut transition', () => {
-            beforeEach(() => {
-                this.actual = easeOut();
-            });
-            it('it should return a single transition style for easeOut on all properties with default transition values', () => {
-                this.actual.should.equal(`all 450ms ${easeOutFunction} 0ms`);
-            });
-        });
-    });
-    describe('given a single property', () => {
-        beforeEach(() => {
-            this.property = 'background';
-        });
-        describe('when creating an easeOut transition', () => {
-            beforeEach(() => {
-                this.actual = easeOut('500ms', this.property)
-            });
-            it('it should return a single transition style on the provided property', () => {
-                this.actual.should.equal(`${this.property} 500ms ${easeOutFunction} 0ms`);
-            });
-        });
-    });
-    describe('given multiple properties', () => {
-        beforeEach(() => {
-            this.property = ['background', 'color'];
-        });
-        describe('when creating an easeOut transition', () => {
-            beforeEach(() => {
-                this.actual = easeOut('500ms', this.property);
-            });
-            it('it should return a transition style containing a style for each provided property', () => {
-                this.actual.should.equal(`background 500ms ${easeOutFunction} 0ms,color 500ms ${easeOutFunction} 0ms`);
-            });
-        });
-    });
-    describe('given a duration, a property, a delay, and an easeFunction', () => {
-        beforeEach(() => {
-            this.duration = '550ms';
-            this.property = 'background';
-            this.delay = '1ms';
-            this.easeFunction = 'linear';
-        });
-        describe('when creating an easeOut transition', () => {
-            beforeEach(() => {
-                this.actual = easeOut(this.duration, this.property, this.easeFunction, this.delay);
-            });
-            it('it should return a transition style containing a style for each provided property', () => {
-                this.actual.should.equal(`${this.property} ${this.duration} ${this.delay} ${this.easeFunction}`);
-            });
-        });
+
+    test('easeOut CSS styles can be created for one or more property at a time', () => {
+        const singlePropertyEaseOutCss = easeOut('500ms', 'background');
+        expect(singlePropertyEaseOutCss).to.equal('background 500ms cubic-bezier(0.23, 1, 0.32, 1) 0ms');
+
+        const multiplePropertyEaseOutCss = easeOut('400ms', ['color', 'background']);
+        expect(multiplePropertyEaseOutCss).to.equal('color 400ms cubic-bezier(0.23, 1, 0.32, 1) 0ms,background 400ms cubic-bezier(0.23, 1, 0.32, 1) 0ms');
     });
 });

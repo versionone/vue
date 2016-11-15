@@ -89,8 +89,8 @@ export function decomposeColor(color) {
     values = values.map(parseFloat);
 
     if (type === 'hsl') {
-        values[1] = values[1] / hslPercentDivisor;
-        values[2] = values[2] / hslPercentDivisor;
+        values[1] /= hslPercentDivisor;
+        values[2] /= hslPercentDivisor;
     }
 
     return {
@@ -110,7 +110,7 @@ export function getLuminance(colorString) {
                 ? normalizedValue / 12.92
                 : Math.pow((normalizedValue + 0.055) / 1.055, 2.4);
         });
-        return Number((0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2])
+        return Number((0.2126 * rgb[0]) + (0.7152 * rgb[1]) + (0.0722 * rgb[2])
             .toFixed(allowedLuminanceDecimalPlaces));
     }
     return color.values[2];
@@ -179,7 +179,7 @@ export function darken(color, coefficient) {
 
 export function lighten(color, coefficient) {
     const {type, values} = decomposeColor(color);
-    const clampedCoefficient = clamp(coefficient, lightMin, darkenMax);
+    const clampedCoefficient = clamp(coefficient, lightenMin, darkenMax);
     const contains = getContainsFor(type);
 
     if (contains('hsl')) {

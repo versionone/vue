@@ -1,3 +1,4 @@
+/* eslint no-magic-numbers: off */
 import * as Opacity from './Opacity';
 
 function clamp(value, min, max) {

@@ -111,8 +111,8 @@ export function getLuminance(colorString) {
                 ? normalizedValue / 12.92
                 : Math.pow((normalizedValue + 0.055) / 1.055, 2.4);
         });
-        return Number((0.2126 * rgb[0]) + (0.7152 * rgb[1]) + (0.0722 * rgb[2])
-            .toFixed(allowedLuminanceDecimalPlaces));
+        const rgbLuminanceCalculation = (0.2126 * rgb[0]) + (0.7152 * rgb[1]) + (0.0722 * rgb[2]);
+        return Number(rgbLuminanceCalculation.toFixed(allowedLuminanceDecimalPlaces));
     }
     return color.values[2];
 }
@@ -184,16 +184,16 @@ export function lighten(color, coefficient) {
     const contains = getContainsFor(type);
 
     if (contains('hsl')) {
-        values[2] += (1 - color.values[2]) * clampedCoefficient;
+        values[2] += Math.floor((1 - values[2]) * clampedCoefficient);
     }
 
     else if (contains('rgb')) {
         for (let i = colorValuesStartIndex; i < rgbNumberOfValues; i += indexIncrement) {
-            values[i] += (rgbColorNormalizationValue - color.values[i]) * clampedCoefficient;
+            values[i] += Math.floor((rgbColorNormalizationValue - values[i]) * clampedCoefficient);
         }
     }
 
-    return convertColorToString(color);
+    return convertColorToString({type, values});
 }
 
 export function emphasize(color, coefficient = defaultEmphasizeCoefficient) {

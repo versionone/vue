@@ -216,15 +216,17 @@ class TextField extends Component {
                 border: `1px solid ${transparent}`,
                 boxSizing: 'border-box',
                 display: 'inline-flex',
-                height: '100%',
+                height: `${textFieldHeight}px`,
                 marginTop,
                 minWidth: computedWidth,
                 padding: `${xxSmallGutter}px`,
-                width: computedWidth
+                width: computedWidth,
+                zIndex: '1'
             },
             requiredIndicatorWrapper: {
                 alignSelf: 'center',
-                margin: `${fullWidth ? '0px' : marginTop} 0 0 6px`
+                margin: `${fullWidth ? '0px' : marginTop} 0 0 6px`,
+                zIndex: '1'
             },
             root: {
                 background: transparent,

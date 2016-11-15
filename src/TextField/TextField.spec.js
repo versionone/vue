@@ -288,7 +288,10 @@ function textFieldHasBoxShadow(wrapper, boxShadowColor) {
 }
 
 function textFieldHasAdjustedHeightBy(wrapper, adjustment) {
-    return wrapper.find('input').parent().props().style.marginTop === adjustment;
+    return wrapper.find('input')
+        .props()
+        .style
+        .marginTop === adjustment;
 }
 
 function textFieldHasHeight(wrapper, height) {

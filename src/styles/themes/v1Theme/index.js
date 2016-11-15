@@ -1,5 +1,5 @@
-import * as colors from './foundations/colors';
 import {changeOpacity} from 'vue/utilities/colorManipulator';
+import * as colors from './foundations/colors';
 
 export default {
     typography: {
@@ -35,6 +35,7 @@ export default {
         // Error
         errorPrimary: colors.sunset,
         errorSecondary: colors.lightSunset,
+        requiredPrimary: colors.sunset,
 
         // Pending
         pendingPrimary: colors.yellowAccent,

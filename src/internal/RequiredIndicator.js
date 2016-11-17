@@ -1,36 +1,55 @@
 import React, {Component, PropTypes} from 'react';
-import * as CustomPropTypes from '../utilities/PropTypes';
-
-const getStyles = (theme, props) => {
-    // TODO: pull out into theme/css/etc.
-    const color = 'red';
-
-    return {
-        root: {
-            color,
-            ...props.style,
-            opacity: props.hidden ? 0 : 1,
-            zIndex: 1
-        }
-    };
-};
+import {fullyVisible as opacityFullyVisible, hidden as opacityHidden} from './../utilities/Opacity';
+import Radium from './../utilities/Radium';
 
 class RequiredIndicator extends Component {
-    static propTypes = {
-        hidden: PropTypes.bool,
-        style: CustomPropTypes.style
+    static propTypes = {hidden: PropTypes.bool};
+
+    static contextTypes = {
+        theme: PropTypes.shape({
+            color: PropTypes.shape({requiredPrimary: PropTypes.string}),
+            typography: PropTypes.shape({
+                lineHeightNormal: PropTypes.number,
+                small: PropTypes.number
+            })
+        })
     };
 
-    static defaultProps = {
-        hidden: false,
-        style: {}
-    };
+    static defaultProps = {hidden: false};
+
+    constructor(...args) {
+        super(...args);
+        this.getStyles = this.getStyles.bind(this);
+    }
+
+    getStyles() {
+        const {
+            color: {requiredPrimary},
+            typography: {
+                lineHeightNormal,
+                small
+            }
+        } = this.context.theme;
+        const {hidden} = this.props;
+        const zIndex = 1;
+
+        return {
+            root: {
+                alignSelf: 'center',
+                color: requiredPrimary,
+                fontSize: small,
+                lineHeight: lineHeightNormal,
+                opacity: hidden ? opacityHidden : opacityFullyVisible,
+                zIndex
+            }
+        };
+    }
 
     render() {
-        const styles = getStyles(this.context.theme, this.props);
+        const styles = this.getStyles();
         return (
             <div style={styles.root}>*</div>
         );
     }
 }
-export default RequiredIndicator;
+export default Radium(RequiredIndicator);

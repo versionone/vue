@@ -11,7 +11,10 @@ suite('withTheme', () => {
 
     test('the original component propTypes are applied to the wrapped component', () => {
         const wrappedComponent = withTheme()(TestComponent);
-        expect(wrappedComponent.propTypes).to.deep.equal({theme: PropTypes.object, test: PropTypes.bool});
+        expect(wrappedComponent.propTypes).to.deep.equal({
+            test: PropTypes.bool,
+            theme: PropTypes.object
+        });
     });
 
     test('the original component defaultProps are applied to the wrapped component', () => {
@@ -20,23 +23,27 @@ suite('withTheme', () => {
     });
 
     test('wrapping a themed component provides the theme to it as a prop', () => {
-        const renderedComponent = mountComponentWithTheme(withTheme()(TestComponent), getTheme());
+        const component = withTheme()(TestComponent);
+        const renderedComponent = mountComponentWithTheme(component, getTheme());
         expect(componentToRenderWithThemeValues(renderedComponent)).to.be.true;
     });
 
     test('wrapping a themed component enables Radium support', () => {
-        const renderedComponent = mountComponentWithTheme(withTheme()(TestComponent), getTheme());
+        const component = withTheme()(TestComponent);
+        const renderedComponent = mountComponentWithTheme(component, getTheme());
         focus(renderedComponent);
         expect(backgroundColorToBe(renderedComponent, 'green')).to.be.true;
     });
 
     test('props pass through to the wrapped component', () => {
-        const renderedComponent = mountComponentWithTheme(withTheme()(TestComponent), getTheme(), {test: true});
+        const component = withTheme()(TestComponent);
+        const renderedComponent = mountComponentWithTheme(component, getTheme(), {test: true});
         expect(componentRenderedWithProps(renderedComponent)).to.be.true;
     });
 
     test('the theme is override-able by passing in a partial theme', () => {
-        const renderedComponent = mountComponentWithTheme(withTheme(getOverrideTheme())(TestComponent), getTheme(), {test: true});
+        const component = withTheme(getOverrideTheme())(TestComponent);
+        const renderedComponent = mountComponentWithTheme(component, getTheme(), {test: true});
         expect(backgroundColorToBe(renderedComponent, 'green')).to.be.true;
     });
 });
@@ -45,10 +52,8 @@ const TestComponent = (props) => {
     const {color} = props.theme;
     const styles = {
         base: {
+            ':hover': {backgroundColor: 'green'},
             backgroundColor: color.pendingColor,
-            ':hover': {
-                backgroundColor: 'green'
-            },
             color: props.test && 'yellow'
         }
     };
@@ -56,31 +61,34 @@ const TestComponent = (props) => {
         <h1 style={[styles.base]}>Hello world</h1>
     );
 };
-TestComponent.propTypes = {theme: PropTypes.object, test: PropTypes.bool};
+TestComponent.propTypes = {
+    test: PropTypes.bool,
+    theme: PropTypes.object
+};
 TestComponent.defaultProps = {defaultProp: true};
 
 function mountComponentWithTheme(Component, theme = {}, props = {}) {
-    return mount(<ThemeProvider theme={theme}><Component {...props} /></ThemeProvider>);
+    return mount(
+        <ThemeProvider theme={theme}>
+            <Component {...props} />
+        </ThemeProvider>
+    );
 }
 
 function getTheme() {
     return {
         color: {
-            pendingColor: 'blue',
-            disabledColor: 'gray'
+            disabledColor: 'gray',
+            pendingColor: 'blue'
         }
     };
 }
 
 function getOverrideTheme() {
     return {
-        color: {
-            pendingColor: 'green'
-        },
-        font: {
-            size: 12
-        }
-    }
+        color: {pendingColor: 'green'},
+        font: {size: 12}
+    };
 }
 
 function componentToRenderWithThemeValues(wrapper) {

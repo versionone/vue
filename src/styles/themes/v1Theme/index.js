@@ -1,10 +1,10 @@
-import * as colors from './foundations/colors';
 import {changeOpacity} from 'vue/utilities/colorManipulator';
+import * as colors from './foundations/colors';
 
 export default {
     typography: {
         // Font families
-        basicFamily: `'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif`,
+        basicFamily: '\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif',
 
         // Sizes
         xSmall: 8,
@@ -17,9 +17,7 @@ export default {
         // Other
         lineHeightNormal: 1.285
     },
-    spacing: {
-        xxSmallGutter: 3
-    },
+    spacing: {xxSmallGutter: 3},
     color: {
         transparent: colors.transparent,
 
@@ -37,6 +35,7 @@ export default {
         // Error
         errorPrimary: colors.sunset,
         errorSecondary: colors.lightSunset,
+        requiredPrimary: colors.sunset,
 
         // Pending
         pendingPrimary: colors.yellowAccent,
@@ -48,7 +47,5 @@ export default {
         fieldBorder: colors.aluminum
     },
     // Borders, radius, box shadows, etc.
-    border: {
-        normalRadius: 3
-    }
+    border: {normalRadius: 3}
 };

@@ -3,6 +3,12 @@ import {storiesOf} from '@kadira/storybook';
 import TextField from './';
 
 storiesOf('TextField')
+    .addWithInfo('blank',
+        ``,
+        () => (
+            <TextField />
+        )
+    )
     .addWithInfo('explicit value',
         ``,
         () => (

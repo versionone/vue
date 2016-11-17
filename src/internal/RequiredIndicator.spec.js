@@ -1,34 +1,36 @@
 import React from 'react';
 import {mount} from 'enzyme';
-import {applyTheme} from './../../specHelpers';
 import RequiredIndicator from './RequiredIndicator';
 
-describe.skip('<RequiredIndicator />', function() {
-    describe('when rendering a required indicator', () => {
-        beforeEach(() => {
-            this.actual = mount(applyTheme(<RequiredIndicator />));
-        });
-        it('it should render as visible', () => {
-            this.actual.should.have.style('opacity', '1');
-        });
-    });
-    describe('when rendering as hidden', () => {
-        beforeEach(() => {
-            this.actual = mount(applyTheme(<RequiredIndicator hidden />));
-        });
-        it('it should not show the indicator and render it as opacity 0', () => {
-            this.actual.should.have.style('opacity', '0');
-        });
-    });
-    describe('when rendering with a custom style', () => {
-        beforeEach(() => {
-            this.actual = mount(applyTheme(<RequiredIndicator style={{opacity: '0', color: 'blue'}} />));
-        });
-        it('it should not override the opacity', () => {
-            this.actual.should.have.style('opacity', '1');
-        });
-        it('it should apply the other styles', () => {
-            this.actual.should.have.style('color', 'blue');
-        });
+suite('RequiredIndicator', () => {
+    test('the required indicator can be hidden and shown', () => {
+        const hiddenComponent = mountIndicator({hidden: true}, getContext());
+        expect(indicatorIsHidden(hiddenComponent)).to.be.true;
+
+        const shownComponent = mountIndicator();
+        expect(indicatorIsShown(shownComponent)).to.be.true;
     });
 });
+
+function mountIndicator(props = {}, context = getContext()) {
+    return mount(<RequiredIndicator {...props} />, context);
+}
+
+function getContext() {
+    return {
+        context: {
+            theme: {
+                color: {requiredPrimary: 'black'},
+                typography: {lineHeightNormal: 1.5}
+            }
+        }
+    };
+}
+
+function indicatorIsHidden(wrapper) {
+    return wrapper.find('div').props().style.opacity === 0;
+}
+
+function indicatorIsShown(wrapper) {
+    return wrapper.find('div').props().style.opacity === 1;
+}

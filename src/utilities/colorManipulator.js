@@ -1,69 +1,120 @@
+/* eslint no-magic-numbers: off */
+import * as Opacity from './Opacity';
+
 function clamp(value, min, max) {
     if (value < min) {
         return min;
     }
+
     if (value > max) {
         return max;
     }
+
     return value;
 }
 
-export function convertColorToString(color) {
-    const {type, values} = color;
+const indexIncrement = 1;
+const shortRgbHexLength = 4;
+const rgbNumberOfValues = 3;
+const rgbMarkerIncrement = 1;
+const hexColorLength = 2;
+const hexStartIndex = 1;
+const colorValuesStartIndex = 0;
+const colorValuesWithAlphaLength = 4;
+const hslPercentDivisor = 100;
+const rgbColorNormalizationValue = 255;
+const allowedLuminanceDecimalPlaces = 3;
+const allowedContrastRatioDecimalPlaces = 2;
+const defaultEmphasizeCoefficient = 0.15;
+const lightenMin = 0;
+const darkenMax = 1;
+const getContainsFor = stringToSearch =>
+    searchTerm => stringToSearch.indexOf(searchTerm) >= colorValuesStartIndex;
 
-    if (type.indexOf('rgb') > -1) {
-        // Only convert the first 3 values to int (i.e. not alpha)
-        for (let i = 0; i < 3; i++) {
-            values[i] = parseInt(values[i]);
-        }
-    }
+const hasAlpha = values => values.length === colorValuesWithAlphaLength;
+const isHex = color => color.indexOf('#') === colorValuesStartIndex;
+
+export const convertColorToString = (color) => {
+    const {
+        type,
+        values
+    } = color;
+    const contains = getContainsFor(type);
 
     let colorString;
-
-    if (type.indexOf('hsl') > -1) {
-        colorString = `${color.type}(${values[0]}, ${values[1]}%, ${values[2]}%`;
-    } else {
-        colorString = `${color.type}(${values[0]}, ${values[1]}, ${values[2]}`;
+    if (contains('hsl')) {
+        colorString = `${type}(${values[0]},${values[1] * hslPercentDivisor}%,${values[2] * hslPercentDivisor}%`;
+    }
+    else {
+        colorString = `${type}(${values[0]},${values[1]},${values[2]}`;
     }
 
-    if (values.length === 4) {
-        colorString += `, ${color.values[3]})`;
-    } else {
+    if (hasAlpha(values)) {
+        colorString += `,${values[3]})`;
+    }
+    else {
         colorString += ')';
     }
 
     return colorString;
-}
+};
 
 export function convertHexToRGB(color) {
-    if (color.length === 4) {
+    let expandedColor = color;
+    if (color.length === shortRgbHexLength) {
         let extendedColor = '#';
-        for (let i = 1; i < color.length; i++) {
+        for (let i = hexStartIndex; i < color.length; i += indexIncrement) {
             extendedColor += color.charAt(i) + color.charAt(i);
         }
-        color = extendedColor;
+
+        expandedColor = extendedColor;
     }
 
-    const values = {
-        r: parseInt(color.substr(1, 2), 16),
-        g: parseInt(color.substr(3, 2), 16),
-        b: parseInt(color.substr(5, 2), 16)
-    };
+    const values = [];
+    for (let i = hexStartIndex; i < expandedColor.length; i += hexColorLength) {
+        values.push(parseInt(expandedColor.substr(i, hexColorLength), 16));
+    }
 
-    return `rgb(${values.r}, ${values.g}, ${values.b})`;
+    return `rgb(${values[0]},${values[1]},${values[2]})`;
 }
 
 export function decomposeColor(color) {
-    if (color.charAt(0) === '#') {
-        return decomposeColor(convertHexToRGB(color));
+    let rgbColor = color;
+    if (isHex(color)) {
+        rgbColor = convertHexToRGB(color);
     }
 
-    const marker = color.indexOf('(');
-    const type = color.substring(0, marker);
-    let values = color.substring(marker + 1, color.length - 1).split(',');
-    values = values.map((value) => parseFloat(value));
+    const marker = rgbColor.indexOf('(');
+    const type = rgbColor.substring(colorValuesStartIndex, marker);
+    let values = rgbColor.substring(marker + rgbMarkerIncrement, rgbColor.length - rgbMarkerIncrement).split(',');
+    values = values.map(parseFloat);
 
-    return {type: type, values: values};
+    if (type === 'hsl') {
+        values[1] /= hslPercentDivisor;
+        values[2] /= hslPercentDivisor;
+    }
+
+    return {
+        type,
+        values
+    };
+}
+
+export function getLuminance(colorString) {
+    const color = decomposeColor(colorString);
+    const contains = getContainsFor(color.type);
+
+    if (contains('rgb')) {
+        const rgb = color.values.map((val) => {
+            const normalizedValue = val / rgbColorNormalizationValue;
+            return normalizedValue <= 0.03928
+                ? normalizedValue / 12.92
+                : Math.pow((normalizedValue + 0.055) / 1.055, 2.4);
+        });
+        const rgbLuminanceCalculation = (0.2126 * rgb[0]) + (0.7152 * rgb[1]) + (0.0722 * rgb[2]);
+        return Number(rgbLuminanceCalculation.toFixed(allowedLuminanceDecimalPlaces));
+    }
+    return color.values[2];
 }
 
 export function getContrastRatio(foreground, background) {
@@ -71,77 +122,99 @@ export function getContrastRatio(foreground, background) {
     const lumB = getLuminance(background);
     const contrastRatio = (Math.max(lumA, lumB) + 0.05) / (Math.min(lumA, lumB) + 0.05);
 
-    return Number(contrastRatio.toFixed(2)); // Truncate at two digits
-}
-
-export function getLuminance(color) {
-    color = decomposeColor(color);
-
-    if (color.type.indexOf('rgb') > -1) {
-        const rgb = color.values.map((val) => {
-            val /= 255; // normalized
-            return val <= 0.03928 ? val / 12.92 : Math.pow((val + 0.055) / 1.055, 2.4);
-        });
-        return Number((0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]).toFixed(3)); // Truncate at 3 digits
-    } else if (color.type.indexOf('hsl') > -1) {
-        return color.values[2] / 100;
-    }
-}
-
-export function emphasize(color, coefficient = 0.15) {
-    return getLuminance(color) > 0.5 ?
-        darken(color, coefficient) :
-        lighten(color, coefficient);
+    return Number(contrastRatio.toFixed(allowedContrastRatioDecimalPlaces));
 }
 
 export function fade(color, value) {
-    color = decomposeColor(color);
-    value = clamp(value, 0, 1);
+    const {
+        type,
+        values
+    } = decomposeColor(color);
+    const clampedValue = clamp(value, Opacity.hidden, Opacity.fullyVisible);
 
-    if (color.type === 'rgb' || color.type === 'hsl') {
-        color.type += 'a';
+    if (isHex(color)) {
+        return convertColorToString({
+            type,
+            values: values.concat(clampedValue)
+        });
     }
-    color.values[3] = value;
 
-    return convertColorToString(color);
+    const contains = getContainsFor(type);
+    if (contains('rgba')) {
+        const newValues = values;
+        newValues[3] *= clampedValue;
+        return convertColorToString({
+            type: `${type}a`,
+            values: newValues
+        });
+    }
+    return convertColorToString({
+        type: `${type}a`,
+        values: values.concat(clampedValue)
+    });
 }
 
 export function darken(color, coefficient) {
-    color = decomposeColor(color);
-    coefficient = clamp(coefficient, 0, 1);
+    const {
+        type,
+        values
+    } = decomposeColor(color);
+    const clampedCoefficient = clamp(coefficient, lightenMin, darkenMax);
+    const contains = getContainsFor(type);
 
-    if (color.type.indexOf('hsl') > -1) {
-        color.values[2] *= 1 - coefficient;
-    } else if (color.type.indexOf('rgb') > -1) {
-        for (let i = 0; i < 3; i++) {
-            color.values[i] *= 1 - coefficient;
+    if (contains('hsl')) {
+        values[2] *= 1 - clampedCoefficient;
+    }
+
+    else if (contains('rgb')) {
+        for (let i = colorValuesStartIndex; i < rgbNumberOfValues; i += indexIncrement) {
+            values[i] *= 1 - clampedCoefficient;
         }
     }
-    return convertColorToString(color);
+
+    return convertColorToString({
+        type,
+        values
+    });
 }
 
 export function lighten(color, coefficient) {
-    color = decomposeColor(color);
-    coefficient = clamp(coefficient, 0, 1);
+    const {type, values} = decomposeColor(color);
+    const clampedCoefficient = clamp(coefficient, lightenMin, darkenMax);
+    const contains = getContainsFor(type);
 
-    if (color.type.indexOf('hsl') > -1) {
-        color.values[2] += (100 - color.values[2]) * coefficient;
-    } else if (color.type.indexOf('rgb') > -1) {
-        for (let i = 0; i < 3; i++) {
-            color.values[i] += (255 - color.values[i]) * coefficient;
+    if (contains('hsl')) {
+        values[2] += Math.floor((1 - values[2]) * clampedCoefficient);
+    }
+
+    else if (contains('rgb')) {
+        for (let i = colorValuesStartIndex; i < rgbNumberOfValues; i += indexIncrement) {
+            values[i] += Math.floor((rgbColorNormalizationValue - values[i]) * clampedCoefficient);
         }
     }
 
-    return convertColorToString(color);
+    return convertColorToString({
+        type,
+        values
+    });
+}
+
+export function emphasize(color, coefficient = defaultEmphasizeCoefficient) {
+    return getLuminance(color) > 0.5
+        ? darken(color, coefficient)
+        : lighten(color, coefficient);
 }
 
 export const changeOpacity = (color, opacity) => {
     const colorValues = decomposeColor(color);
     colorValues.type = 'rgba';
-    if (colorValues.values.length > 3) {
+    if (colorValues.values.length > rgbNumberOfValues) {
         colorValues.values[3] = opacity;
-    } else {
+    }
+
+    else {
         colorValues.values.push(opacity);
     }
+
     return convertColorToString(colorValues);
 };

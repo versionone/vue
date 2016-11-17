@@ -1,9 +1,8 @@
 import React, {Component, PropTypes} from 'react';
-import {findDOMNode} from 'react-dom';
-import Radium from './../utilities/Radium';
-import HintText from './../internal/HintText';
-import RequiredIndicator from './../internal/RequiredIndicator';
 import ErrorMessage from './../internal/ErrorMessage';
+import HintText from './../internal/HintText';
+import Radium from './../utilities/Radium';
+import RequiredIndicator from './../internal/RequiredIndicator';
 
 class TextField extends Component {
     static propTypes = {
@@ -28,18 +27,6 @@ class TextField extends Component {
          */
         hintText: PropTypes.string,
         /**
-         * Callback fired when text field looses focus
-         */
-        onBlur: PropTypes.func,
-        /**
-         * Callback fired when text field value changes
-         */
-        onChange: PropTypes.func,
-        /**
-         * Callback fired when text field is focused
-         */
-        onFocus: PropTypes.func,
-        /**
          * Text field state; used when value has changed, but not persisted
          */
         pending: PropTypes.bool,
@@ -50,7 +37,19 @@ class TextField extends Component {
         /**
          * Width of the text field
          */
-        width: PropTypes.number
+        width: PropTypes.number,
+        /**
+         * Callback fired when text field looses focus
+         */
+        onBlur: PropTypes.func,
+        /**
+         * Callback fired when text field value changes
+         */
+        onChange: PropTypes.func,
+        /**
+         * Callback fired when text field is focused
+         */
+        onFocus: PropTypes.func
     };
     static defaultProps = {
         defaultValue: '',
@@ -69,44 +68,47 @@ class TextField extends Component {
     };
     static contextTypes = {
         theme: PropTypes.shape({
-            typography: PropTypes.shape({
-                basicFamily: PropTypes.string,
-                small: PropTypes.number.isRequired,
-                lineHeightNormal: PropTypes.number.isRequired
-            }).isRequired,
-            spacing: PropTypes.shape({
-                xxSmallGutter: PropTypes.number.isRequired
-            }),
+            border: PropTypes.shape({normalRadius: PropTypes.number}),
             color: PropTypes.shape({
-                transparent: PropTypes.string,
-                textPrimary: PropTypes.string,
-                focusedSecondary: PropTypes.string,
                 disabledPrimary: PropTypes.string,
                 errorPrimary: PropTypes.string,
                 errorSecondary: PropTypes.string,
-                pendingPrimary: PropTypes.string,
+                fieldBorder: PropTypes.string,
+                focusedSecondary: PropTypes.string,
                 normalBackground: PropTypes.string,
-                fieldBorder: PropTypes.string
+                pendingPrimary: PropTypes.string,
+                textPrimary: PropTypes.string,
+                transparent: PropTypes.string
             }),
-            border: PropTypes.shape({
-                normalRadius: PropTypes.number
-            })
+            spacing: PropTypes.shape({xxSmallGutter: PropTypes.number.isRequired}),
+            typography: PropTypes.shape({
+                basicFamily: PropTypes.string,
+                lineHeightNormal: PropTypes.number.isRequired,
+                small: PropTypes.number.isRequired
+            }).isRequired
         })
     };
 
     constructor(props, ...rest) {
         super(props, ...rest);
         this.state = {
-            hintTextHeight: 0,
+            focused: false,
             hasValue: !!props.defaultValue,
-            focused: false
+            hintTextHeight: 0
         };
+        this.handleBlur = this.handleBlur.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleFocus = this.handleFocus.bind(this);
+        this.handleHintTextOnClick = this.handleHintTextOnClick.bind(this);
+        this.getHeight = this.getHeight.bind(this);
+        this.getStyles = this.getStyles.bind(this);
+        this.getBorderColor = this.getBorderColor.bind(this);
+        this.getHintTextWrapperBackground = this.getHintTextWrapperBackground.bind(this);
+        this.getHintTextBoxShadow = this.getHintTextBoxShadow.bind(this);
     }
 
     componentDidMount() {
-        this.setState({
-            hintTextHeight: this.getHeight(this.props)
-        });
+        this.setState({hintTextHeight: this.getHeight(this.props)});
     }
 
     componentWillReceiveProps(nextProps) {
@@ -116,93 +118,49 @@ class TextField extends Component {
         });
     }
 
-    render() {
-        const {disabled, defaultValue, errorText, fullWidth, hintText, required} = this.props;
-        const {hasValue} = this.state;
-        const styles = this.getStyles();
-
-        return (
-            <div style={styles.root}>
-                <div style={styles.hintTextWrapper}>
-                    <HintText ref="hintText" text={hintText} hidden={hasValue}
-                              onClick={this.focusInput} />
-                </div>
-                <div style={styles.inputWrapper} ref="inputWrapper">
-                    <input style={styles.input} type="text" ref="inputField"
-                           defaultValue={defaultValue}
-                           disabled={disabled}
-                           onChange={this.handleChange} onFocus={this.handleFocus} onBlur={this.handleBlur} />
-                    {required && fullWidth && <RequiredIndicator style={styles.requiredIndicator} /> }
-                </div>
-                {required && !fullWidth && <RequiredIndicator style={styles.requiredIndicator} /> }
-                {errorText && (
-                    <div style={styles.errorMessageWrapper}>
-                        <ErrorMessage text={errorText}
-                                      hidden={!errorText} />
-                    </div>
-                )}
-            </div>
-        );
+    handleChange(evt) {
+        this.setState({hasValue: !!evt.target.value});
+        this.props.onChange(evt.target.value);
     }
 
-    handleChange = (evt) => {
-        this.setState({
-            hasValue: !!evt.target.value
-        });
-        this.props.onChange(evt.target.value);
-    };
-
-    handleFocus = (evt) => {
-        this.setState({
-            focused: true
-        });
+    handleFocus(evt) {
+        this.setState({focused: true});
         this.props.onFocus(evt);
-    };
+    }
 
-    handleBlur = (evt) => {
-        this.setState({
-            focused: false
-        });
+    handleBlur(evt) {
+        this.setState({focused: false});
         this.props.onBlur(evt);
-    };
+    }
 
-    focusInput = (evt) => {
+    handleHintTextOnClick(evt) {
         this.handleFocus(evt);
-        this.refs.inputField.focus();
-    };
+        this.inputField.focus();
+    }
 
-    getHeight = () => {
-        const inputWrapperHeight = findDOMNode(this.refs.inputWrapper).getBoundingClientRect().height;
-        const hintTextHeight = findDOMNode(this.refs.hintText).getBoundingClientRect().height;
+    getHeight() {
+        const inputWrapperHeight = this.inputWrapper
+            .getBoundingClientRect()
+            .height;
+        const hintTextHeight = this.hintTextWrapper.getBoundingClientRect().height;
         return Math.max(inputWrapperHeight, hintTextHeight);
-    };
+    }
 
-    getStyles = () => {
-        const {hintTextHeight, focused} = this.state;
-        const {disabled, errorText, fullWidth, pending, required, width} = this.props;
+    getStyles() {
+        const {hintTextHeight} = this.state;
+        const {disabled, fullWidth, required, width} = this.props;
         const {
             typography: {
                 basicFamily,
                 small,
                 lineHeightNormal
             },
-            spacing: {
-                xxSmallGutter
-            },
+            spacing: {xxSmallGutter},
             color: {
                 transparent,
-                textPrimary,
-                focusedSecondary,
-                disabledPrimary,
-                errorPrimary,
-                errorSecondary,
-                pendingPrimary,
-                normalBackground,
-                fieldBorder
+                textPrimary
             },
-            border: {
-                normalRadius
-            }
+            border: {normalRadius}
         } = this.context.theme;
 
         const borderHeight = 2;
@@ -213,38 +171,30 @@ class TextField extends Component {
         const textFieldHeight = textHeight + paddingHeight + borderHeight;
         const isHintTextMultipleLines = hintTextHeight > textFieldHeight;
         const marginTop = isHintTextMultipleLines ? `${hintTextHeight - textHeight}px` : '0px';
-        const hintTextWrapperHeight = isHintTextMultipleLines ? (hintTextHeight + paddingHeight + borderHeight) : textFieldHeight;
+        const hintTextWrapperHeight = isHintTextMultipleLines
+            ? (hintTextHeight + paddingHeight + borderHeight)
+            : textFieldHeight;
         const computedWidth = fullWidth ? '100%' : `${width}px`;
+        const borderColor = this.getBorderColor();
 
-        const borderColor = disabled ? disabledPrimary : errorText ? errorPrimary : fieldBorder;
         return {
-            root: {
-                background: transparent,
-                display: fullWidth ? 'block' : 'inline-flex',
-                position: 'relative'
+            errorMessageWrapper: {
+                alignSelf: 'center',
+                display: fullWidth && 'block',
+                margin: `0 0 0 ${fullWidth ? '0px' : '6px'}`,
+                padding: fullWidth && `${xxSmallGutter}px 0`
             },
             hintTextWrapper: {
-                background: errorText ? errorSecondary : pending ? pendingPrimary : normalBackground,
-                boxShadow: errorText ? `0 0 2px 2px ${errorSecondary}` : focused ? `0 0 2px 2px ${focusedSecondary}` : 'none',
-                boxSizing: 'border-box',
+                background: this.getHintTextWrapperBackground(),
                 border: `1px solid ${borderColor}`,
                 borderRadius: normalRadius,
+                boxShadow: this.getHintTextBoxShadow(),
+                boxSizing: 'border-box',
                 height: `${hintTextWrapperHeight}px`,
                 outline: 'none',
-                padding: `${xxSmallGutter}px ${isHintTextMultipleLines && required ? '13px' : 0} ${xxSmallGutter}px ${xxSmallGutter}px`,
+                padding: `${xxSmallGutter}px ${isHintTextMultipleLines && required ? '13px' : '0px'} ${xxSmallGutter}px ${xxSmallGutter}px`,
                 position: 'absolute',
                 top: 0,
-                width: computedWidth
-            },
-            inputWrapper: {
-                background: transparent,
-                border: `1px solid ${transparent}`,
-                boxSizing: 'border-box',
-                display: 'inline-flex',
-                height: '100%',
-                marginTop,
-                minWidth: computedWidth,
-                padding: `${xxSmallGutter}px`,
                 width: computedWidth
             },
             input: {
@@ -261,21 +211,151 @@ class TextField extends Component {
                 position: 'relative',
                 width: '100%'
             },
-            requiredIndicator: {
-                alignSelf: 'center',
-                color: errorPrimary,
-                fontSize: small,
-                lineHeight: lineHeightNormal,
-                margin: `${!fullWidth ? marginTop : '0px'} 0 0 6px`
+            inputWrapper: {
+                background: transparent,
+                border: `1px solid ${transparent}`,
+                boxSizing: 'border-box',
+                display: 'inline-flex',
+                height: `${textFieldHeight}px`,
+                marginTop,
+                minWidth: computedWidth,
+                padding: `${xxSmallGutter}px`,
+                width: computedWidth,
+                zIndex: '1'
             },
-            errorMessageWrapper: {
+            requiredIndicatorWrapper: {
                 alignSelf: 'center',
-                display: fullWidth && 'block',
-                margin: `0 0 0 ${fullWidth ? 0 : '6px'}`,
-                padding: fullWidth && `${xxSmallGutter}px 0`
+                margin: `${fullWidth ? '0px' : marginTop} 0 0 6px`,
+                zIndex: '1'
+            },
+            root: {
+                background: transparent,
+                display: fullWidth ? 'block' : 'inline-flex',
+                position: 'relative'
             }
         };
-    };
-}
+    }
 
+    getBorderColor() {
+        const {
+            color: {
+                disabledPrimary,
+                errorPrimary,
+                fieldBorder
+            }
+        } = this.context.theme;
+        const {
+            disabled,
+            errorText
+        } = this.props;
+
+        if (disabled) {
+            return disabledPrimary;
+        }
+        else if (errorText) {
+            return errorPrimary;
+        }
+        return fieldBorder;
+    }
+
+    getHintTextWrapperBackground() {
+        const {
+            errorText,
+            pending
+        } = this.props;
+        const {
+            color: {
+                errorSecondary,
+                normalBackground,
+                pendingPrimary
+            }
+        } = this.context.theme;
+
+        if (errorText) {
+            return errorSecondary;
+        }
+        else if (pending) {
+            return pendingPrimary;
+        }
+        return normalBackground;
+    }
+
+    getHintTextBoxShadow() {
+        const {errorText} = this.props;
+        const {focused} = this.state;
+        const {
+            color: {
+                errorSecondary,
+                focusedSecondary
+            }
+        } = this.context.theme;
+        if (errorText) {
+            return `0 0 2px 2px ${errorSecondary}`;
+        }
+        else if (focused) {
+            return `0 0 2px 2px ${focusedSecondary}`;
+        }
+        return 'none';
+    }
+
+    render() {
+        const {disabled, defaultValue, errorText, fullWidth, hintText, required} = this.props;
+        const {hasValue} = this.state;
+        const styles = this.getStyles();
+
+        return (
+            <div style={styles.root}>
+                <div style={styles.hintTextWrapper}>
+                    <div ref={(el) => {
+                        this.hintTextWrapper = el;
+                    }}>
+                        <HintText
+                            hidden={hasValue}
+
+                            text={hintText}
+                            onClick={this.handleHintTextOnClick}
+                        />
+                    </div>
+                </div>
+                <div
+                    ref={(el) => {
+                        this.inputWrapper = el;
+                    }}
+                    style={styles.inputWrapper}
+                >
+                    <input
+                        defaultValue={defaultValue}
+                        disabled={disabled}
+                        ref={(el) => {
+                            this.inputField = el;
+                        }}
+                        style={styles.input}
+                        type="text"
+                        onBlur={this.handleBlur}
+                        onChange={this.handleChange}
+                        onFocus={this.handleFocus}
+                    />
+                    {required && fullWidth && (
+                        <div style={styles.requiredIndicatorWrapper}>
+                            <RequiredIndicator />
+                        </div>
+                    )}
+                </div>
+                {required && !fullWidth && (
+                    <div style={styles.requiredIndicatorWrapper}>
+                        <RequiredIndicator />
+                    </div>
+                )}
+                {errorText && (
+                    <div style={styles.errorMessageWrapper}>
+                        <ErrorMessage
+                            hidden={!errorText}
+                            text={errorText}
+                        />
+                    </div>
+                )}
+            </div>
+        );
+    }
+}
 export default Radium(TextField);

@@ -142,7 +142,7 @@ class TextField extends Component {
         const inputWrapperHeight = this.inputWrapper
             .getBoundingClientRect()
             .height;
-        const hintTextHeight = this.hintText.getBoundingClientRect().height;
+        const hintTextHeight = this.hintTextWrapper.getBoundingClientRect().height;
         return Math.max(inputWrapperHeight, hintTextHeight);
     }
 
@@ -306,14 +306,16 @@ class TextField extends Component {
         return (
             <div style={styles.root}>
                 <div style={styles.hintTextWrapper}>
-                    <HintText
-                        hidden={hasValue}
-                        ref={(el) => {
-                            this.hintText = el;
-                        }}
-                        text={hintText}
-                        onClick={this.handleHintTextOnClick}
-                    />
+                    <div ref={(el) => {
+                        this.hintTextWrapper = el;
+                    }}>
+                        <HintText
+                            hidden={hasValue}
+
+                            text={hintText}
+                            onClick={this.handleHintTextOnClick}
+                        />
+                    </div>
                 </div>
                 <div
                     ref={(el) => {

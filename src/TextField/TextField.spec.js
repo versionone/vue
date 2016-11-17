@@ -234,16 +234,16 @@ function requiredIndicatorIsDisplayed(wrapper) {
 
 function requiredIndicatorIsAlignedWithText(wrapper) {
     return wrapper.find('RequiredIndicator').parent()
-        .first()
-        .props()
-        .style
-        .margin === '34px 0 0 6px';
+            .first()
+            .props()
+            .style
+            .margin === '34px 0 0 6px';
 }
 function errorTextIsAlignedWithText(wrapper) {
     return wrapper.find('ErrorMessage').parent()
-        .props()
-        .style
-        .margin === '0 0 0 6px';
+            .props()
+            .style
+            .margin === '0 0 0 6px';
 }
 
 function requiredIndicatorIsInsideTextField(wrapper) {
@@ -257,11 +257,14 @@ function requiredIndicatorIsInsideTextField(wrapper) {
 
 function textFieldHasWidth(wrapper, width) {
     return (
-        wrapper.find('HintText').parent()
+        wrapper.find('HintText')
+            .parent()
+            .parent()
             .props()
             .style
             .width === width
-        && wrapper.find('input').parent()
+        && wrapper.find('input')
+            .parent()
             .props()
             .style
             .width === width
@@ -317,36 +320,45 @@ function textFieldHasErrorText(wrapper, text) {
 }
 
 function textFieldHasBackground(wrapper, backgroundColor) {
-    return wrapper.find('HintText').parent()
-        .props()
-        .style
-        .background === backgroundColor;
+    return wrapper.find('HintText')
+            .parent()
+            .parent()
+            .props()
+            .style
+            .background === backgroundColor;
 }
 
 function textFieldHasBoxShadow(wrapper, boxShadowColor) {
-    return wrapper.find('HintText').parent()
-        .props()
-        .style
-        .boxShadow === `0 0 2px 2px ${boxShadowColor}`;
+    return wrapper.find('HintText')
+            .parent()
+            .parent()
+            .props()
+            .style
+            .boxShadow === `0 0 2px 2px ${boxShadowColor}`;
 }
 
 function textFieldHasAdjustedHeightBy(wrapper, adjustment) {
     return wrapper.find('input')
-        .props()
-        .style
-        .marginTop === adjustment;
+            .parent()
+            .props()
+            .style
+            .marginTop === adjustment;
 }
 
 function textFieldHasHeight(wrapper, height) {
-    return wrapper.find('HintText').parent()
-        .props()
-        .style
-        .height === height;
+    return wrapper.find('HintText')
+            .parent()
+            .parent()
+            .props()
+            .style
+            .height === height;
 }
 
 function textFieldHasBorder(wrapper, borderColor) {
-    return wrapper.find('HintText').parent()
-        .props()
-        .style
-        .border === `1px solid ${borderColor}`;
+    return wrapper.find('HintText')
+            .parent()
+            .parent()
+            .props()
+            .style
+            .border === `1px solid ${borderColor}`;
 }

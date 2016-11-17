@@ -15,8 +15,8 @@ suite('CustomPropType/style', () => {
 
 function getProps() {
     return {
-        incorrect: {backgroundLineColor: 'blue'},
-        correct: {background: 'blue'}
+        correct: {background: 'blue'},
+        incorrect: {backgroundLineColor: 'blue'}
     };
 }
 

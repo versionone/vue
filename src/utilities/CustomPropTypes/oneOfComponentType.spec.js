@@ -11,8 +11,8 @@ suite('CustomPropTypes/componentType', () => {
     });
 
     test.skip('it validates children to ensure they all match the provided Component type', () => {
-        const matchingType = getMatchingType();
-        const actualWithError = oneOfComponentType(matchingType)(getProps(), 'children', 'My Custom Component');
+        // const matchingType = getMatchingType();
+        // const actualWithError = oneOfComponentType(matchingType)(getProps(), 'children', 'My Custom Component');
         // expect(isAnError(actualWithError, '')).to.be.true;
     });
 });

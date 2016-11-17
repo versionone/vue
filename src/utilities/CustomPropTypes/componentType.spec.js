@@ -11,8 +11,8 @@ suite('CustomPropTypes/componentType', () => {
     });
 
     test.skip('it validates children to ensure they all match the provided Component type', () => {
-        const matchingType = getMatchingType();
-        const actualWithError = componentType(matchingType)(getProps(), 'children', 'My Custom Component');
+        // const matchingType = getMatchingType();
+        // const actualWithError = componentType(matchingType)(getProps(), 'children', 'My Custom Component');
         // expect(isAnError(actualWithError, '')).to.be.true;
     });
 });
@@ -23,8 +23,8 @@ function getMatchingType() {
 
 function getProps() {
     return {
-        incorrectProp: 'prop',
-        correctProp: {name: 'TextField'}
+        correctProp: {name: 'TextField'},
+        incorrectProp: 'prop'
     };
 }
 

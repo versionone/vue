@@ -127,16 +127,18 @@ class TextField extends Component {
         return (
             <div style={styles.root}>
                 <div style={styles.hintTextWrapper}>
-                    <HintText ref="hintText" text={hintText} hidden={hasValue}
-                              onClick={this.focusInput} />
+                    <HintText
+                        ref="hintText" text={hintText} hidden={hasValue}
+                        onClick={this.focusInput} />
                 </div>
                 <div style={styles.inputWrapper} ref="inputWrapper">
-                    <input style={styles.input} type="text" ref="inputField"
-                           defaultValue={defaultValue}
-                           disabled={disabled}
-                           onChange={this.handleChange}
-                           onFocus={this.handleFocus}
-                           onBlur={this.handleBlur} />
+                    <input
+                        style={styles.input} type="text" ref="inputField"
+                        defaultValue={defaultValue}
+                        disabled={disabled}
+                        onChange={this.handleChange}
+                        onFocus={this.handleFocus}
+                        onBlur={this.handleBlur} />
                     {required && fullWidth && (
                         <div style={styles.requiredIndicatorWrapper}>
                             <RequiredIndicator />
@@ -150,8 +152,9 @@ class TextField extends Component {
                 )}
                 {errorText && (
                     <div style={styles.errorMessageWrapper}>
-                        <ErrorMessage text={errorText}
-                                      hidden={!errorText} />
+                        <ErrorMessage
+                            text={errorText}
+                            hidden={!errorText} />
                     </div>
                 )}
             </div>

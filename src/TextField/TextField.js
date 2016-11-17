@@ -1,5 +1,4 @@
 import React, {Component, PropTypes} from 'react';
-import {findDOMNode} from 'react-dom';
 import ErrorMessage from './../internal/ErrorMessage';
 import HintText from './../internal/HintText';
 import Radium from './../utilities/Radium';
@@ -28,18 +27,6 @@ class TextField extends Component {
          */
         hintText: PropTypes.string,
         /**
-         * Callback fired when text field looses focus
-         */
-        onBlur: PropTypes.func,
-        /**
-         * Callback fired when text field value changes
-         */
-        onChange: PropTypes.func,
-        /**
-         * Callback fired when text field is focused
-         */
-        onFocus: PropTypes.func,
-        /**
          * Text field state; used when value has changed, but not persisted
          */
         pending: PropTypes.bool,
@@ -50,7 +37,19 @@ class TextField extends Component {
         /**
          * Width of the text field
          */
-        width: PropTypes.number
+        width: PropTypes.number,
+        /**
+         * Callback fired when text field looses focus
+         */
+        onBlur: PropTypes.func,
+        /**
+         * Callback fired when text field value changes
+         */
+        onChange: PropTypes.func,
+        /**
+         * Callback fired when text field is focused
+         */
+        onFocus: PropTypes.func
     };
     static defaultProps = {
         defaultValue: '',
@@ -100,7 +99,7 @@ class TextField extends Component {
         this.handleBlur = this.handleBlur.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
-        this.focusInput = this.focusInput.bind(this);
+        this.handleHintTextOnClick = this.handleHintTextOnClick.bind(this);
         this.getHeight = this.getHeight.bind(this);
         this.getStyles = this.getStyles.bind(this);
         this.getBorderColor = this.getBorderColor.bind(this);
@@ -119,48 +118,6 @@ class TextField extends Component {
         });
     }
 
-    render() {
-        const {disabled, defaultValue, errorText, fullWidth, hintText, required} = this.props;
-        const {hasValue} = this.state;
-        const styles = this.getStyles();
-
-        return (
-            <div style={styles.root}>
-                <div style={styles.hintTextWrapper}>
-                    <HintText
-                        ref="hintText" text={hintText} hidden={hasValue}
-                        onClick={this.focusInput} />
-                </div>
-                <div style={styles.inputWrapper} ref="inputWrapper">
-                    <input
-                        style={styles.input} type="text" ref="inputField"
-                        defaultValue={defaultValue}
-                        disabled={disabled}
-                        onChange={this.handleChange}
-                        onFocus={this.handleFocus}
-                        onBlur={this.handleBlur} />
-                    {required && fullWidth && (
-                        <div style={styles.requiredIndicatorWrapper}>
-                            <RequiredIndicator />
-                        </div>
-                    )}
-                </div>
-                {required && !fullWidth && (
-                    <div style={styles.requiredIndicatorWrapper}>
-                        <RequiredIndicator />
-                    </div>
-                )}
-                {errorText && (
-                    <div style={styles.errorMessageWrapper}>
-                        <ErrorMessage
-                            text={errorText}
-                            hidden={!errorText} />
-                    </div>
-                )}
-            </div>
-        );
-    }
-
     handleChange(evt) {
         this.setState({hasValue: !!evt.target.value});
         this.props.onChange(evt.target.value);
@@ -176,16 +133,16 @@ class TextField extends Component {
         this.props.onBlur(evt);
     }
 
-    focusInput(evt) {
+    handleHintTextOnClick(evt) {
         this.handleFocus(evt);
-        this.refs.inputField.focus();
+        this.inputField.focus();
     }
 
     getHeight() {
-        const inputWrapperHeight = findDOMNode(this.refs.inputWrapper)
+        const inputWrapperHeight = this.inputWrapper
             .getBoundingClientRect()
             .height;
-        const hintTextHeight = findDOMNode(this.refs.hintText).getBoundingClientRect().height;
+        const hintTextHeight = this.hintText.getBoundingClientRect().height;
         return Math.max(inputWrapperHeight, hintTextHeight);
     }
 
@@ -285,7 +242,10 @@ class TextField extends Component {
                 fieldBorder
             }
         } = this.context.theme;
-        const {disabled, errorText} = this.props;
+        const {
+            disabled,
+            errorText
+        } = this.props;
 
         if (disabled) {
             return disabledPrimary;
@@ -297,7 +257,10 @@ class TextField extends Component {
     }
 
     getHintTextWrapperBackground() {
-        const {errorText, pending} = this.props;
+        const {
+            errorText,
+            pending
+        } = this.props;
         const {
             color: {
                 errorSecondary,
@@ -331,6 +294,64 @@ class TextField extends Component {
             return `0 0 2px 2px ${focusedSecondary}`;
         }
         return 'none';
+    }
+
+    render() {
+        const {disabled, defaultValue, errorText, fullWidth, hintText, required} = this.props;
+        const {hasValue} = this.state;
+        const styles = this.getStyles();
+
+        return (
+            <div style={styles.root}>
+                <div style={styles.hintTextWrapper}>
+                    <HintText
+                        hidden={hasValue}
+                        ref={(el) => {
+                            this.hintText = el;
+                        }}
+                        text={hintText}
+                        onClick={this.handleHintTextOnClick}
+                    />
+                </div>
+                <div
+                    ref={(el) => {
+                        this.inputWrapper = el;
+                    }}
+                    style={styles.inputWrapper}
+                >
+                    <input
+                        defaultValue={defaultValue}
+                        disabled={disabled}
+                        ref={(el) => {
+                            this.inputField = el;
+                        }}
+                        style={styles.input}
+                        type="text"
+                        onBlur={this.handleBlur}
+                        onChange={this.handleChange}
+                        onFocus={this.handleFocus}
+                    />
+                    {required && fullWidth && (
+                        <div style={styles.requiredIndicatorWrapper}>
+                            <RequiredIndicator />
+                        </div>
+                    )}
+                </div>
+                {required && !fullWidth && (
+                    <div style={styles.requiredIndicatorWrapper}>
+                        <RequiredIndicator />
+                    </div>
+                )}
+                {errorText && (
+                    <div style={styles.errorMessageWrapper}>
+                        <ErrorMessage
+                            hidden={!errorText}
+                            text={errorText}
+                        />
+                    </div>
+                )}
+            </div>
+        );
     }
 }
 export default Radium(TextField);

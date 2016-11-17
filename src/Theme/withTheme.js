@@ -14,7 +14,8 @@ export default themeOverride => (ComponentToTheme) => {
             return (
                 <RadiumEnabledComponent
                     theme={merge(this.context.theme, themeOverride)}
-                    {...this.props} />
+                    {...this.props}
+                />
             );
         }
     }

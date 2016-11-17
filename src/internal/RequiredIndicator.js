@@ -5,8 +5,6 @@ import Radium from './../utilities/Radium';
 class RequiredIndicator extends Component {
     static propTypes = {hidden: PropTypes.bool};
 
-    static defaultProps = {hidden: false};
-
     static contextTypes = {
         theme: PropTypes.shape({
             color: PropTypes.shape({requiredPrimary: PropTypes.string}),
@@ -17,16 +15,11 @@ class RequiredIndicator extends Component {
         })
     };
 
+    static defaultProps = {hidden: false};
+
     constructor(...args) {
         super(...args);
         this.getStyles = this.getStyles.bind(this);
-    }
-
-    render() {
-        const styles = this.getStyles();
-        return (
-            <div style={styles.root}>*</div>
-        );
     }
 
     getStyles() {
@@ -50,6 +43,13 @@ class RequiredIndicator extends Component {
                 zIndex
             }
         };
+    }
+
+    render() {
+        const styles = this.getStyles();
+        return (
+            <div style={styles.root}>*</div>
+        );
     }
 }
 export default Radium(RequiredIndicator);

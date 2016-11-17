@@ -5,7 +5,7 @@ module.exports = {
         node: true
     },
     extends: [
-        'eslint-config-andrew-codes/base',
+        'eslint-config-andrew-codes/react',
         'plugin:react/recommended'
     ],
     parser: 'babel-eslint',

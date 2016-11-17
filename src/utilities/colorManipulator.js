@@ -193,7 +193,10 @@ export function lighten(color, coefficient) {
         }
     }
 
-    return convertColorToString({type, values});
+    return convertColorToString({
+        type,
+        values
+    });
 }
 
 export function emphasize(color, coefficient = defaultEmphasizeCoefficient) {

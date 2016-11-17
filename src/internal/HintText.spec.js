@@ -1,7 +1,7 @@
 import React from 'react';
 import {mount} from 'enzyme';
-import HintText from './HintText';
 import {spy} from 'sinon';
+import HintText from './HintText';
 
 suite('HintText', () => {
     test('the hint text can display text content', () => {
@@ -25,7 +25,10 @@ suite('HintText', () => {
     test('the hint text can accept onClick and other standard event handlers', () => {
         const onClick = spy();
         const onBlur = spy();
-        const actual = mountHintText({onBlur, onClick});
+        const actual = mountHintText({
+            onBlur,
+            onClick
+        });
         simulateClick(actual);
         expect(onClick.calledOnce).to.be.true;
 

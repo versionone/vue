@@ -41,7 +41,10 @@ suite('TextField', () => {
     });
 
     test('the text field\'s required indicator is inside the text field when set to full width', () => {
-        const fullWidthTextField = mountTextField({fullWidth: true, required: true});
+        const fullWidthTextField = mountTextField({
+            fullWidth: true,
+            required: true
+        });
         expect(requiredIndicatorIsInsideTextField(fullWidthTextField)).to.be.true;
     });
 
@@ -56,7 +59,10 @@ suite('TextField', () => {
     });
 
     test('the text field can render as full width', () => {
-        const textFieldWithWidth = mountTextField({width: 100, fullWidth: true});
+        const textFieldWithWidth = mountTextField({
+            fullWidth: true,
+            width: 100
+        });
         expect(textFieldHasWidth(textFieldWithWidth, '100%')).to.be.true;
 
         const textField = mountTextField({fullWidth: true});
@@ -69,17 +75,26 @@ suite('TextField', () => {
         textFieldWithoutValue.setProps({defaultValue: 'a'});
         expect(hintTextIsHidden(textFieldWithoutValue)).to.be.true;
 
-        const textFieldWithValue = mountTextField({hintText: 'hint text', defaultValue: 'a value'});
+        const textFieldWithValue = mountTextField({
+            defaultValue: 'a value',
+            hintText: 'hint text'
+        });
         expect(hintTextIsHidden(textFieldWithValue)).to.be.true;
 
-        const textFieldWithDefaultValue = mountTextField({hintText: 'hint text', defaultValue: 'a default value'});
+        const textFieldWithDefaultValue = mountTextField({
+            defaultValue: 'a default value',
+            hintText: 'hint text'
+        });
         expect(hintTextIsHidden(textFieldWithDefaultValue)).to.be.true;
 
         const textFieldWithTypedValue = mountTextField({hintText: 'hint text'});
         typeInTextField(textFieldWithTypedValue);
         expect(hintTextIsHidden(textFieldWithTypedValue)).to.be.true;
 
-        const textFieldWithDeletedValue = mountTextField({hintText: 'hint text', defaultValue: 'a default value'});
+        const textFieldWithDeletedValue = mountTextField({
+            defaultValue: 'a default value',
+            hintText: 'hint text'
+        });
         deleteAllText(textFieldWithDeletedValue);
         expect(hintTextIsDisplayed(textFieldWithDeletedValue)).to.be.true;
     });
@@ -133,8 +148,8 @@ suite('TextField', () => {
         expect(textFieldHasAdjustedHeightBy(textField, '34px')).to.be.true;
 
         const requiredTextField = mountTextField({
-            required: true,
-            errorText: 'error message'
+            errorText: 'error message',
+            required: true
         }).setState({hintTextHeight: 51});
         expect(requiredIndicatorIsAlignedWithText(requiredTextField)).to.be.true;
         expect(errorTextIsAlignedWithText(requiredTextField)).to.be.true;
@@ -147,66 +162,66 @@ function mountTextField(props = {}) {
 
 function getTestTheme() {
     return {
-        typography: {
-            // Font families
-            basicFamily: '\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif',
-
-            // Sizes
-            xSmall: 8,
-            small: 14,
-            medium: 16,
-            xMedium: 18,
-            large: 22,
-            xLarge: 24,
-
-            // Other
-            lineHeightNormal: 1.285
-        },
-        spacing: {xxSmallGutter: 3},
+        border: {normalRadius: 3},
         color: {
-            transparent: 'transparent',
-
-            // Text content colors
-            textPrimary: 'black',
-            textSecondary: 'lightgray',
-
-            // Focused
-            focusedSecondary: 'blue',
-
-            // Disabled
             disabledPrimary: 'gray',
-
-            // Error
             errorPrimary: 'red',
             errorSecondary: 'pink',
-
-            // Pending
-            pendingPrimary: 'yellow',
-
-            // Backgrounds
+            fieldBorder: 'mediumgray',
+            focusedSecondary: 'blue',
             normalBackground: 'white',
-
-            // Borders
-            fieldBorder: 'mediumgray'
+            pendingPrimary: 'yellow',
+            textPrimary: 'black',
+            textSecondary: 'lightgray',
+            transparent: 'transparent'
         },
-        // Borders, radius, box shadows, etc.
-        border: {normalRadius: 3}
+        spacing: {xxSmallGutter: 3},
+        typography: {
+            basicFamily: '\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif',
+            large: 22,
+            lineHeightNormal: 1.285,
+            medium: 16,
+            small: 14,
+            xLarge: 24,
+            xMedium: 18,
+            xSmall: 8
+        }
     };
 }
 
 function textFieldHasValue(wrapper, value) {
-    return wrapper.find('input').first().props().value === value
-        || wrapper.find('input').first().props().defaultValue === value;
+    return (
+        wrapper.find('input').first()
+            .props()
+            .value === value
+        || wrapper.find('input').first()
+            .props()
+            .defaultValue === value
+    );
 }
 
 function textFieldIsNotDisabled(wrapper) {
-    return wrapper.find('input').first().props().disabled === false
-        && wrapper.find('input').first().props().style.cursor === 'initial';
+    return (
+        wrapper.find('input').first()
+            .props()
+            .disabled === false
+        && wrapper.find('input').first()
+            .props()
+            .style
+            .cursor === 'initial'
+    );
 }
 
 function textFieldIsDisabled(wrapper) {
-    return wrapper.find('input').first().props().disabled === true
-        && wrapper.find('input').first().props().style.cursor === 'not-allowed';
+    return (
+        wrapper.find('input').first()
+            .props()
+            .disabled === true
+        && wrapper.find('input').first()
+            .props()
+            .style
+            .cursor === 'not-allowed'
+    );
 }
 
 function requiredIndicatorIsHidden(wrapper) {
@@ -218,24 +233,45 @@ function requiredIndicatorIsDisplayed(wrapper) {
 }
 
 function requiredIndicatorIsAlignedWithText(wrapper) {
-    return wrapper.find('RequiredIndicator').parent().first().props().style.margin === '34px 0 0 6px';
+    return wrapper.find('RequiredIndicator').parent()
+            .first()
+            .props()
+            .style
+            .margin === '34px 0 0 6px';
 }
 function errorTextIsAlignedWithText(wrapper) {
-    return wrapper.find('ErrorMessage').parent().props().style.margin === '0 0 0 6px';
+    return wrapper.find('ErrorMessage').parent()
+            .props()
+            .style
+            .margin === '0 0 0 6px';
 }
 
 function requiredIndicatorIsInsideTextField(wrapper) {
-    return wrapper.children('RequiredIndicator').node === undefined
-        && !!wrapper.find('input').parent().children('RequiredIndicator').node;
+    return (
+        wrapper.children('RequiredIndicator').node === undefined
+        && !!wrapper.find('input').parent()
+            .children('RequiredIndicator')
+            .node
+    );
 }
 
 function textFieldHasWidth(wrapper, width) {
-    return wrapper.find('HintText').parent().props().style.width === width
-        && wrapper.find('input').parent().props().style.width === width;
+    return (
+        wrapper.find('HintText').parent()
+            .props()
+            .style
+            .width === width
+        && wrapper.find('input').parent()
+            .props()
+            .style
+            .width === width
+    );
 }
 
 function hintTextIsHidden(wrapper) {
-    return wrapper.find('HintText').first().props().hidden;
+    return wrapper.find('HintText').first()
+        .props()
+        .hidden;
 }
 
 function hintTextIsDisplayed(wrapper) {
@@ -256,7 +292,8 @@ function typeInTextField(wrapper, value = 'a') {
     wrapper.find('input').simulate('keydown', {which});
     wrapper.find('input').simulate('keyup', {which});
     wrapper.find('input').simulate('input', {target: {value}});
-    wrapper.find('input').first().simulate('change', {target: {value}});
+    wrapper.find('input').first()
+        .simulate('change', {target: {value}});
 }
 
 function deleteAllText(wrapper) {
@@ -280,24 +317,36 @@ function textFieldHasErrorText(wrapper, text) {
 }
 
 function textFieldHasBackground(wrapper, backgroundColor) {
-    return wrapper.find('HintText').parent().props().style.background === backgroundColor;
+    return wrapper.find('HintText').parent()
+            .props()
+            .style
+            .background === backgroundColor;
 }
 
 function textFieldHasBoxShadow(wrapper, boxShadowColor) {
-    return wrapper.find('HintText').parent().props().style.boxShadow === `0 0 2px 2px ${boxShadowColor}`;
+    return wrapper.find('HintText').parent()
+            .props()
+            .style
+            .boxShadow === `0 0 2px 2px ${boxShadowColor}`;
 }
 
 function textFieldHasAdjustedHeightBy(wrapper, adjustment) {
     return wrapper.find('input')
-        .props()
-        .style
-        .marginTop === adjustment;
+            .props()
+            .style
+            .marginTop === adjustment;
 }
 
 function textFieldHasHeight(wrapper, height) {
-    return wrapper.find('HintText').parent().props().style.height === height;
+    return wrapper.find('HintText').parent()
+            .props()
+            .style
+            .height === height;
 }
 
 function textFieldHasBorder(wrapper, borderColor) {
-    return wrapper.find('HintText').parent().props().style.border === `1px solid ${borderColor}`;
+    return wrapper.find('HintText').parent()
+            .props()
+            .style
+            .border === `1px solid ${borderColor}`;
 }

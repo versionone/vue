@@ -18,11 +18,11 @@ suite('CustomPropTypes/zDepth', () => {
 
 function getProps() {
     return {
+        five: 5,
         negativeOne: -1,
         overFive: 6,
-        five: 5,
         zero: 0
-    }
+    };
 }
 
 function isAnError(input, message) {

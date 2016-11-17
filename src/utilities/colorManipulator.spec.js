@@ -1,16 +1,32 @@
-import {changeOpacity, convertColorToString, convertHexToRGB, decomposeColor, emphasize, getLuminance} from './colorManipulator';
+import {
+    changeOpacity,
+    convertColorToString,
+    convertHexToRGB,
+    decomposeColor,
+    emphasize,
+    getLuminance
+} from './colorManipulator';
 
 suite('colorManipulator.convertColorToString', () => {
     test('a rgb color can be converted to a string', () => {
-        const actual = convertColorToString({type: 'rgb', values: [1, 0, 1]});
+        const actual = convertColorToString({
+            type: 'rgb',
+            values: [1, 0, 1]
+        });
         expect(actual).to.equal('rgb(1,0,1)');
     });
     test('a rgba color can be converted to a string', () => {
-        const actual = convertColorToString({type: 'rgba', values: [1, 4, 1, 0.5]});
+        const actual = convertColorToString({
+            type: 'rgba',
+            values: [1, 4, 1, 0.5]
+        });
         expect(actual).to.equal('rgba(1,4,1,0.5)');
     });
     test('a hsl color can be converted to a string', () => {
-        const actual = convertColorToString({type: 'hsl', values: [2, 0.3, 0.45]});
+        const actual = convertColorToString({
+            type: 'hsl',
+            values: [2, 0.3, 0.45]
+        });
         expect(actual).to.equal('hsl(2,30%,45%)');
     });
 });
@@ -29,23 +45,38 @@ suite('colorManipulator.convertHexToRGB', () => {
 suite('colorManipulator.decomposeColor', () => {
     test('a short hex color string can be decomposed into a valid color object', () => {
         const actual = decomposeColor('#000');
-        expect(actual).to.deep.equal({type: 'rgb', values: [0, 0, 0]});
+        expect(actual).to.deep.equal({
+            type: 'rgb',
+            values: [0, 0, 0]
+        });
     });
     test('a long hex color string can be decomposed into a valid color object', () => {
         const actual = decomposeColor('#ffffff');
-        expect(actual).to.deep.equal({type: 'rgb', values: [255, 255, 255]});
+        expect(actual).to.deep.equal({
+            type: 'rgb',
+            values: [255, 255, 255]
+        });
     });
     test('a rgb color string can be decomposed into a valid color object', () => {
         const actual = decomposeColor('rgb(0, 0,0)');
-        expect(actual).to.deep.equal({type: 'rgb', values: [0, 0, 0]});
+        expect(actual).to.deep.equal({
+            type: 'rgb',
+            values: [0, 0, 0]
+        });
     });
     test('a long rgba color string can be decomposed into a valid color object', () => {
         const actual = decomposeColor('rgba(0, 0,0, 0.25)');
-        expect(actual).to.deep.equal({type: 'rgba', values: [0, 0, 0, 0.25]});
+        expect(actual).to.deep.equal({
+            type: 'rgba',
+            values: [0, 0, 0, 0.25]
+        });
     });
     test('a long hsl color string can be decomposed into a valid color object', () => {
         const actual = decomposeColor('hsl(0, 11%,21.5%)');
-        expect(actual).to.deep.equal({type: 'hsl', values: [0, 0.11, 0.215]});
+        expect(actual).to.deep.equal({
+            type: 'hsl',
+            values: [0, 0.11, 0.215]
+        });
     });
 });
 

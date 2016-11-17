@@ -10,18 +10,14 @@ suite('CustomPropType/style', () => {
 
         const correct = style(getProps(), 'correct', 'My Custom Component');
         expect(isNotError(correct)).to.be.true;
-    })
+    });
 });
 
 function getProps() {
     return {
-        incorrect: {
-            'backgroundLineColor': 'blue'
-        },
-        correct: {
-            'background': 'blue'
-        }
-    }
+        incorrect: {backgroundLineColor: 'blue'},
+        correct: {background: 'blue'}
+    };
 }
 
 function isAnError(input, message) {

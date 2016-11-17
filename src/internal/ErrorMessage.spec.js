@@ -1,7 +1,7 @@
 import React from 'react';
 import {mount} from 'enzyme';
-import ErrorMessage from './ErrorMessage';
 import {spy} from 'sinon';
+import ErrorMessage from './ErrorMessage';
 
 suite('ErrorMessage', () => {
     test('the error message animates toggling show and hide of error text', () => {
@@ -10,7 +10,10 @@ suite('ErrorMessage', () => {
         expect(actual.text()).to.equal('required field');
         expect(isVisible(actual)).to.be.true;
 
-        const hiddenErrorMessage = mountErrorMessage({text: 'required field', hidden: true});
+        const hiddenErrorMessage = mountErrorMessage({
+            hidden: true,
+            text: 'required field'
+        });
         expect(hiddenErrorMessage.text()).to.equal('required field');
         expect(isHidden(hiddenErrorMessage)).to.be.true;
     });
@@ -18,7 +21,10 @@ suite('ErrorMessage', () => {
     test('the error message accepts standard event handlers', () => {
         const onBlur = spy();
         const onClick = spy();
-        const actual = mountErrorMessage({onBlur, onClick});
+        const actual = mountErrorMessage({
+            onBlur,
+            onClick
+        });
         simulateBlur(actual);
         expect(onBlur.calledOnce).to.be.true;
 

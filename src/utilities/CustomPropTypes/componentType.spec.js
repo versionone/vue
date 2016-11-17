@@ -18,18 +18,14 @@ suite('CustomPropTypes/componentType', () => {
 });
 
 function getMatchingType() {
-    return {
-        name: 'TextField'
-    };
+    return {name: 'TextField'};
 }
 
 function getProps() {
     return {
         incorrectProp: 'prop',
-        correctProp: {
-            name: 'TextField'
-        }
-    }
+        correctProp: {name: 'TextField'}
+    };
 }
 
 function isAnError(input, message) {

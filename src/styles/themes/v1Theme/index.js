@@ -14,8 +14,12 @@ export default {
         large: 22,
         xLarge: 24,
 
+        // Treatments
+        bold: 600,
+
         // Other
-        lineHeightNormal: 1.285
+        lineHeightNormal: 1.285,
+        lineHeightLarge: 2.285
     },
     spacing: {xxSmallGutter: 3},
     color: {
@@ -23,6 +27,7 @@ export default {
 
         // Text content colors
         textPrimary: colors.forge,
+        textPrimaryInverse: colors.white,
         textSecondary: colors.mediumGray,
 
         // Focused
@@ -42,6 +47,7 @@ export default {
 
         // Backgrounds
         normalBackground: colors.white,
+        normalBackgroundInverse: colors.forge,
 
         // Borders
         fieldBorder: colors.aluminum

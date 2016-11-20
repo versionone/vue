@@ -1,17 +1,21 @@
 import React, {Component, PropTypes} from 'react';
 import Radium from './../utilities/Radium';
 import {create} from './../styles/Transitions';
+import {darken} from './../utilities/colorManipulator';
 import * as ButtonSizes from './Sizes';
+import * as ButtonTypes from './Types';
 
 class Button extends Component {
     static propTypes = {
         size: PropTypes.number,
         text: PropTypes.string,
+        type: PropTypes.oneOf(ButtonTypes),
         onClick: PropTypes.func
     };
     static defaultProps = {
         size: ButtonSizes.normal,
         text: '',
+        type: ButtonTypes.standard,
         onClick: () => {
         }
     };
@@ -19,6 +23,7 @@ class Button extends Component {
         theme: PropTypes.shape({
             borders: PropTypes.shape({normalRadius: PropTypes.number.isRequired}),
             color: PropTypes.shape({
+                basic: PropTypes.string,
                 normalBackground: PropTypes.string,
                 normalBackgroundInverse: PropTypes.string,
                 textPrimary: PropTypes.string,
@@ -36,16 +41,14 @@ class Button extends Component {
     constructor(...rest) {
         super(...rest);
         this.getStyles = this.getStyles.bind(this);
+        this.getStylesBasedOnType = this.getStylesBasedOnType.bind(this);
     }
 
     getStyles() {
         const {
             border: {normalRadius},
             color: {
-                normalBackground,
-                normalBackgroundInverse,
                 textPrimary,
-                textPrimaryInverse
             },
             typography: {
                 basicFontFamily,
@@ -60,20 +63,14 @@ class Button extends Component {
         const height = Math.ceil(fontSize * lineHeightLarge);
         const borderRadiusMultiplier = 2;
         const borderRadius = normalRadius * borderRadiusMultiplier;
+        const typeStyles = this.getStylesBasedOnType();
 
         return {
             root: {
                 ':focus': {outline: 'none'},
-                ':hover': {
-                    background: normalBackgroundInverse,
-                    color: textPrimaryInverse
-                },
                 alignItems: 'flex-start',
-                background: normalBackground,
                 boxSizing: 'border-box',
-                border: `1px solid ${textPrimary}`,
                 borderRadius: `${borderRadius}px`,
-                color: textPrimary,
                 cursor: 'pointer',
                 display: 'inline-block',
                 fontFamily: basicFontFamily,
@@ -87,8 +84,46 @@ class Button extends Component {
                 textAlign: 'center',
                 textShadow: 'none',
                 transition: create('0.5s'),
-                whiteSpace: 'no-wrap'
+                whiteSpace: 'no-wrap',
+                ...typeStyles
             }
+        };
+    }
+
+    getStylesBasedOnType() {
+        const {
+            color: {
+                basic,
+                normalBackground,
+                normalBackgroundInverse,
+                textPrimary,
+                textPrimaryInverse
+            }
+        } = this.context.theme;
+        const {type} = this.props;
+
+        if (type === ButtonTypes.basic) {
+            const inverseBasicColorMultiplier = 0.35;
+            return {
+                ':hover': {
+                    background: darken(basic, inverseBasicColorMultiplier),
+                    border: `1px solid ${darken(basic, inverseBasicColorMultiplier)}`,
+                    color: textPrimaryInverse
+                },
+                background: basic,
+                border: `1px solid ${basic}`,
+                color: textPrimaryInverse
+            };
+        }
+
+        return {
+            ':hover': {
+                background: normalBackgroundInverse,
+                color: textPrimaryInverse
+            },
+            background: normalBackground,
+            border: `1px solid ${textPrimary}`,
+            color: textPrimary
         };
     }
 

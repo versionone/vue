@@ -50,7 +50,9 @@ export default {
         normalBackgroundInverse: colors.forge,
 
         // Borders
-        fieldBorder: colors.aluminum
+        fieldBorder: colors.aluminum,
+
+        basic: '#00a9e0'
     },
     // Borders, radius, box shadows, etc.
     border: {normalRadius: 3}

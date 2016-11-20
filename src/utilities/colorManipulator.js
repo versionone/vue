@@ -168,7 +168,7 @@ export function darken(color, coefficient) {
 
     else if (contains('rgb')) {
         for (let i = colorValuesStartIndex; i < rgbNumberOfValues; i += indexIncrement) {
-            values[i] *= 1 - clampedCoefficient;
+            values[i] = Math.round(values[i] * (1 - clampedCoefficient));
         }
     }
 

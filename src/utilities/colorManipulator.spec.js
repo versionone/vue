@@ -103,13 +103,13 @@ suite('colorManipulator.getLuminance', () => {
 suite('colorManipulator.emphasize', () => {
     test('emphasis works with a light color ', () => {
         const shortHex = emphasize('#fff');
-        expect(shortHex).to.equal('rgb(216.75,216.75,216.75)');
+        expect(shortHex).to.equal('rgb(217,217,217)');
         const longHex = emphasize('#ffffff');
-        expect(longHex).to.equal('rgb(216.75,216.75,216.75)');
+        expect(longHex).to.equal('rgb(217,217,217)');
         const rgb = emphasize('rgb(255,255, 255)');
-        expect(rgb).to.equal('rgb(216.75,216.75,216.75)');
+        expect(rgb).to.equal('rgb(217,217,217)');
         const rgba = emphasize('rgba(255, 255, 255, 0.5)');
-        expect(rgba).to.equal('rgba(216.75,216.75,216.75,0.5)');
+        expect(rgba).to.equal('rgba(217,217,217,0.5)');
         const hsl = emphasize('hsl(255, 10%, 100%)');
         expect(hsl).to.equal('hsl(255,10%,85%)');
     });

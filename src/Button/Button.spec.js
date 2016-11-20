@@ -85,29 +85,47 @@ suite('Button', () => {
 
     test('the button can be disabled', () => {
         const onClick = spy();
-        const disabledStandardButton = mountButton({disable: true, onClick});
+        const disabledStandardButton = mountButton({
+            disable: true,
+            onClick
+        });
         simulateClick(disabledStandardButton);
         expect(onClick.called).to.be.false;
         expect(buttonHasStyles(disabledStandardButton, color(changeOpacity('#000', 0.3), '#fff'))).to.be.true;
         expect(buttonHasStyles(disabledStandardButton, border('transparent'))).to.be.true;
 
-        const disabledBasicButton = mountButton({disable: true, type: ButtonTypes.basic});
+        const disabledBasicButton = mountButton({
+            disable: true,
+            type: ButtonTypes.basic
+        });
         expect(buttonHasStyles(disabledBasicButton, color(changeOpacity('#000', 0.3), '#fff'))).to.be.true;
         expect(buttonHasStyles(disabledBasicButton, border('transparent'))).to.be.true;
 
-        const disabledImportantButton = mountButton({disable: true, type: ButtonTypes.important});
+        const disabledImportantButton = mountButton({
+            disable: true,
+            type: ButtonTypes.important
+        });
         expect(buttonHasStyles(disabledImportantButton, color(changeOpacity('#000', 0.3), '#fff'))).to.be.true;
         expect(buttonHasStyles(disabledImportantButton, border('transparent'))).to.be.true;
 
-        const disabledAltButton = mountButton({disable: true, type: ButtonTypes.alt});
+        const disabledAltButton = mountButton({
+            disable: true,
+            type: ButtonTypes.alt
+        });
         expect(buttonHasStyles(disabledAltButton, color(changeOpacity('#000', 0.3), '#fff'))).to.be.true;
         expect(buttonHasStyles(disabledAltButton, border('transparent'))).to.be.true;
 
-        const disabledBasicAltButton = mountButton({disable: true, type: ButtonTypes.basicAlt});
+        const disabledBasicAltButton = mountButton({
+            disable: true,
+            type: ButtonTypes.basicAlt
+        });
         expect(buttonHasStyles(disabledBasicAltButton, color(changeOpacity('#000', 0.3), '#fff'))).to.be.true;
         expect(buttonHasStyles(disabledBasicAltButton, border('transparent'))).to.be.true;
 
-        const disabledSpecialButton = mountButton({disable: true, type: ButtonTypes.special});
+        const disabledSpecialButton = mountButton({
+            disable: true,
+            type: ButtonTypes.special
+        });
         expect(buttonHasStyles(disabledSpecialButton, color(changeOpacity('#000', 0.3), '#fff'))).to.be.true;
         expect(buttonHasStyles(disabledSpecialButton, border('transparent'))).to.be.true;
     });
@@ -119,9 +137,7 @@ function mountButton(props = {}, context = {theme: getTheme()}) {
 
 function getTheme() {
     return {
-        border: {
-            normalRadius: 3
-        },
+        border: {normalRadius: 3},
         color: {
             alt: '#eaab00',
             basic: '#00a9e0',
@@ -150,16 +166,16 @@ function buttonHasStyles(wrapper, matchStyles) {
         .style);
 }
 
-function fontSize(fontSize) {
-    return style => style.fontSize === fontSize;
+function fontSize(value) {
+    return style => style.fontSize === value;
 }
 
-function transition(transition) {
-    return style => style.transition === transition;
+function transition(value) {
+    return style => style.transition === value;
 }
 
-function height(height) {
-    return style => style.height === height;
+function height(value) {
+    return style => style.height === value;
 }
 
 function color(foreground, background) {

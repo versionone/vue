@@ -24,10 +24,11 @@ export default {
     spacing: {xxSmallGutter: 3},
     color: {
         transparent: colors.transparent,
+        darkInverse: colors.white,
+        lightInverse: colors.gunMetal,
 
         // Text content colors
-        textPrimary: colors.forge,
-        textPrimaryInverse: colors.white,
+        textPrimary: colors.gunMetal,
         textSecondary: colors.mediumGray,
 
         // Focused
@@ -47,12 +48,13 @@ export default {
 
         // Backgrounds
         normalBackground: colors.white,
-        normalBackgroundInverse: colors.forge,
 
         // Borders
         fieldBorder: colors.aluminum,
 
-        basic: '#00a9e0'
+        basic: colors.cerulean,
+        important: colors.mango,
+        alt: colors.sunglow
     },
     // Borders, radius, box shadows, etc.
     border: {normalRadius: 3}

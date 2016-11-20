@@ -1,9 +1,24 @@
 import React, {Component, PropTypes} from 'react';
 import Radium from './../utilities/Radium';
 import {create} from './../styles/Transitions';
-import {darken} from './../utilities/colorManipulator';
+import {darken, getForegroundForBackground} from './../utilities/colorManipulator';
 import * as ButtonSizes from './Sizes';
 import * as ButtonTypes from './Types';
+
+const darkenInvert = (foreground, background) => {
+    const inverseBasicColorMultiplier = 0.35;
+    const darkenedColor = darken(background, inverseBasicColorMultiplier);
+    return {
+        ':hover': {
+            background: darkenedColor,
+            border: `1px solid ${darkenedColor}`,
+            color: foreground
+        },
+        background,
+        border: `1px solid ${background}`,
+        color: foreground
+    };
+};
 
 class Button extends Component {
     static propTypes = {
@@ -23,11 +38,14 @@ class Button extends Component {
         theme: PropTypes.shape({
             borders: PropTypes.shape({normalRadius: PropTypes.number.isRequired}),
             color: PropTypes.shape({
+                alt: PropTypes.string,
                 basic: PropTypes.string,
+                darkInverse: PropTypes.string,
+                important: PropTypes.string,
+                lightInverse: PropTypes.string,
                 normalBackground: PropTypes.string,
-                normalBackgroundInverse: PropTypes.string,
                 textPrimary: PropTypes.string,
-                textPrimaryInverse: PropTypes.string
+                transparent: PropTypes.string
             }),
             typography: PropTypes.shape({
                 basicFontFamily: PropTypes.string,
@@ -47,9 +65,7 @@ class Button extends Component {
     getStyles() {
         const {
             border: {normalRadius},
-            color: {
-                textPrimary,
-            },
+            color: {transparent},
             typography: {
                 basicFontFamily,
                 bold,
@@ -69,8 +85,9 @@ class Button extends Component {
             root: {
                 ':focus': {outline: 'none'},
                 alignItems: 'flex-start',
-                boxSizing: 'border-box',
+                border: `1px solid ${transparent}`,
                 borderRadius: `${borderRadius}px`,
+                boxSizing: 'border-box',
                 cursor: 'pointer',
                 display: 'inline-block',
                 fontFamily: basicFontFamily,
@@ -93,33 +110,46 @@ class Button extends Component {
     getStylesBasedOnType() {
         const {
             color: {
+                alt,
                 basic,
+                important,
+                darkInverse,
+                lightInverse,
                 normalBackground,
-                normalBackgroundInverse,
-                textPrimary,
-                textPrimaryInverse
+                textPrimary
             }
         } = this.context.theme;
         const {type} = this.props;
+        const inverseColors = [darkInverse, lightInverse];
 
         if (type === ButtonTypes.basic) {
-            const inverseBasicColorMultiplier = 0.35;
+            return darkenInvert(darkInverse, basic);
+        }
+        if (type === ButtonTypes.important) {
+            return darkenInvert(darkInverse, important);
+        }
+        if (type === ButtonTypes.alt) {
+            return darkenInvert(darkInverse, alt);
+        }
+        if (type === ButtonTypes.basicAlt) {
             return {
                 ':hover': {
-                    background: darken(basic, inverseBasicColorMultiplier),
-                    border: `1px solid ${darken(basic, inverseBasicColorMultiplier)}`,
-                    color: textPrimaryInverse
+                    background: basic,
+                    border: `1px solid ${basic}`,
+                    color: darkInverse
                 },
-                background: basic,
-                border: `1px solid ${basic}`,
-                color: textPrimaryInverse
+                background: normalBackground,
+                border: `1px solid ${textPrimary}`,
+                color: textPrimary
             };
         }
 
+        const inverseBackground = getForegroundForBackground(normalBackground, inverseColors);
+        const inverseForeground = getForegroundForBackground(inverseBackground, inverseColors);
         return {
             ':hover': {
-                background: normalBackgroundInverse,
-                color: textPrimaryInverse
+                background: inverseBackground,
+                color: inverseForeground
             },
             background: normalBackground,
             border: `1px solid ${textPrimary}`,

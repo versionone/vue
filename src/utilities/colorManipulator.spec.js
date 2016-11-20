@@ -4,6 +4,7 @@ import {
     convertHexToRGB,
     decomposeColor,
     emphasize,
+    getForegroundForBackground,
     getLuminance
 } from './colorManipulator';
 
@@ -115,6 +116,21 @@ suite('colorManipulator.emphasize', () => {
     });
     test('emphasis works with a dark color', () => {
 
+    });
+});
+
+suite('colorManipulator.getFirstAppropriateForegroundColor', () => {
+    test('it can get an appropriate foreground color even none of the ones passed in match', () => {
+        const foregroundColor = getForegroundForBackground('#fff');
+        expect(foregroundColor).to.equal('rgb(0,0,0)');
+    });
+    test('it can get an appropriate foreground color for a light background when one exists', () => {
+        const invertedColor = getForegroundForBackground('#fff', ['#eee', '#000']);
+        expect(invertedColor).to.equal('#000');
+    });
+    test('it can get an appropriate foreground color for a dark background when one exists', () => {
+        const invertedColor = getForegroundForBackground('#000', ['#000', '#fff']);
+        expect(invertedColor).to.equal('#fff');
     });
 });
 

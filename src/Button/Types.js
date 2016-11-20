@@ -1,3 +1,6 @@
 export const standard = 'standard';
 export const basic = 'basic';
-export const all = [basic, standard];
+export const important = 'important';
+export const alt = 'alt';
+export const basicAlt = 'basic-alt';
+export const all = [standard, basic, important, alt, basicAlt];

@@ -205,6 +205,11 @@ export function emphasize(color, coefficient = defaultEmphasizeCoefficient) {
         : lighten(color, coefficient);
 }
 
+export function getForegroundForBackground(backgroundColor, foregroundColors = []) {
+    return foregroundColors.find(color => getContrastRatio(color, backgroundColor) >= 11)
+        || emphasize(backgroundColor, 100);
+}
+
 export const changeOpacity = (color, opacity) => {
     const colorValues = decomposeColor(color);
     colorValues.type = 'rgba';

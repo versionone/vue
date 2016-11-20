@@ -2,7 +2,7 @@ import React from 'react';
 import {mount} from 'enzyme';
 import {spy} from 'sinon';
 import Button from './Button';
-import {create} from './../Styles/Transitions';
+import {darken} from './../utilities/colorManipulator';
 import * as ButtonTypes from './Types';
 
 suite('Button', () => {
@@ -20,23 +20,58 @@ suite('Button', () => {
 
     test('a standard button is the default type of button', () => {
         const standardButton = mountButton({text: 'Click me'});
-        expect(buttonIsStandardButton(standardButton)).to.be.true;
+        expect(buttonHasStyles(standardButton, color('#000', '#fff'))).to.be.true;
+        expect(buttonHasStyles(standardButton, border('#000'))).to.be.true;
+        simulateHover(standardButton);
+        expect(buttonHasStyles(standardButton, color('#fff', '#000'))).to.be.true;
+        expect(buttonHasStyles(standardButton, border('#000'))).to.be.true;
     });
 
     test('the button has a background color transition applied', () => {
         const standardButton = mountButton({text: 'Click me'});
-        expect(buttonHasBackgroundTransitionApplied(standardButton, create('0.5s'))).to.be.true;
+        expect(buttonHasStyles(standardButton, transition('all 0.5s linear 0ms'))).to.be.true;
     });
 
     test('the button can be resized by a size multiplier', () => {
         const resizedBySetSizeComponent = mountButton({size: 0.75});
-        expect(buttonHasHeight(resizedBySetSizeComponent, '24px')).to.be.true;
-        expect(buttonHasFontSize(resizedBySetSizeComponent, '10.5px')).to.be.true;
+        expect(buttonHasStyles(resizedBySetSizeComponent, height('24px'))).to.be.true;
+        expect(buttonHasStyles(resizedBySetSizeComponent, fontSize('10.5px'))).to.be.true;
     });
 
     test('the button can be a basic type', () => {
         const basicButton = mountButton({type: ButtonTypes.basic});
-        expect(buttonIsBasicButton(basicButton)).to.be.true;
+        expect(buttonHasStyles(basicButton, color('#fff', '#00a9e0'))).to.be.true;
+        expect(buttonHasStyles(basicButton, border('#00a9e0'))).to.be.true;
+        simulateHover(basicButton);
+        expect(buttonHasStyles(basicButton, color('#fff', darken('#00a9e0', 0.35)))).to.be.true;
+        expect(buttonHasStyles(basicButton, border(darken('#00a9e0', 0.35)))).to.be.true;
+    });
+
+    test('the button can be an important type', () => {
+        const importantButton = mountButton({type: ButtonTypes.important});
+        expect(buttonHasStyles(importantButton, color('#fff', '#ea6c02'))).to.be.true;
+        expect(buttonHasStyles(importantButton, border('#ea6c02'))).to.be.true;
+        simulateHover(importantButton);
+        expect(buttonHasStyles(importantButton, color('#fff', darken('#ea6c02', 0.35)))).to.be.true;
+        expect(buttonHasStyles(importantButton, border(darken('#ea6c02', 0.35)))).to.be.true;
+    });
+
+    test('the button can be an alternative type', () => {
+        const altButton = mountButton({type: ButtonTypes.alt});
+        expect(buttonHasStyles(altButton, color('#fff', '#eaab00'))).to.be.true;
+        expect(buttonHasStyles(altButton, border('#eaab00'))).to.be.true;
+        simulateHover(altButton);
+        expect(buttonHasStyles(altButton, color('#fff', darken('#eaab00', 0.35)))).to.be.true;
+        expect(buttonHasStyles(altButton, border(darken('#eaab00', 0.35)))).to.be.true;
+    });
+
+    test('the button can be an basic alternative type', () => {
+        const basicAltButton = mountButton({type: ButtonTypes.basicAlt});
+        expect(buttonHasStyles(basicAltButton, color('#000', '#fff'))).to.be.true;
+        expect(buttonHasStyles(basicAltButton, border('#000'))).to.be.true;
+        simulateHover(basicAltButton);
+        expect(buttonHasStyles(basicAltButton, color('#fff', '#00a9e0', 0.35))).to.be.true;
+        expect(buttonHasStyles(basicAltButton, border('#00a9e0'))).to.be.true;
     });
 });
 
@@ -50,11 +85,14 @@ function getTheme() {
             normalRadius: 3
         },
         color: {
+            alt: '#eaab00',
             basic: '#00a9e0',
-            normalBackground: 'white',
-            normalBackgroundInverse: 'black',
-            textPrimary: 'black',
-            textPrimaryInverse: 'white'
+            darkInverse: '#fff',
+            important: '#ea6c02',
+            lightInverse: '#000',
+            normalBackground: '#fff',
+            textPrimary: '#000',
+            transparent: 'transparent'
         },
         typography: {
             basicFontFamily: 'Arial',
@@ -68,78 +106,38 @@ function buttonHasText(wrapper, text) {
     return wrapper.text() === text;
 }
 
-function buttonHasFontSize(wrapper, fontSize) {
-    return wrapper
-            .find('button')
-            .props()
-            .style
-            .fontSize === fontSize;
+function buttonHasStyles(wrapper, matchStyles) {
+    return matchStyles(wrapper.find('button')
+        .props()
+        .style);
 }
 
-function buttonIsStandardButton(wrapper) {
-    const normalRootStyles = wrapper.find('button')
-        .props()
-        .style;
-    const normalStateIsCorrect = (
-        normalRootStyles.color === 'black'
-        && normalRootStyles.border === '1px solid black'
-        && normalRootStyles.background === 'white'
-        && normalRootStyles.borderRadius === '6px'
-        && buttonHasHeight(wrapper, '32px')
-    );
-
-    simulateHover(wrapper);
-    const hoveredRootStyles = wrapper.find('button')
-        .props()
-        .style;
-    const hoverStateIsCorrect = (
-        hoveredRootStyles.color === 'white'
-        && hoveredRootStyles.background === 'black'
-    );
-
-    return normalStateIsCorrect && hoverStateIsCorrect;
+function fontSize(fontSize) {
+    return style => style.fontSize === fontSize;
 }
 
-function buttonIsBasicButton(wrapper) {
-    const normalRootStyles = wrapper.find('button')
-        .props()
-        .style;
-    const normalStateIsCorrect = (
-        normalRootStyles.color === 'white'
-        && normalRootStyles.border === '1px solid #00a9e0'
-        && normalRootStyles.background === '#00a9e0'
-    );
-
-    simulateHover(wrapper);
-    const hoveredRootStyles = wrapper.find('button')
-        .props()
-        .style;
-    const hoverStateIsCorrect = (
-        hoveredRootStyles.color === 'white'
-        && hoveredRootStyles.background === 'rgb(0,110,146)'
-    );
-
-    return normalStateIsCorrect && hoverStateIsCorrect;
+function transition(transition) {
+    return style => style.transition === transition;
 }
 
-function buttonHasBackgroundTransitionApplied(wrapper, transition) {
-    return wrapper.find('button')
-            .props()
-            .style
-            .transition === transition;
+function height(height) {
+    return style => style.height === height;
 }
 
-function buttonHasHeight(wrapper, height) {
-    return wrapper.find('button')
-            .props()
-            .style
-            .height === height;
+function color(foreground, background) {
+    return style => (
+        style.color === foreground
+        && style.background === background
+    );
+}
+
+function border(borderColor) {
+    return style => style.border === `1px solid ${borderColor}`;
 }
 
 function simulateClick(wrapper) {
     wrapper.simulate('click');
 }
-
 function simulateHover(wrapper) {
     wrapper.simulate('mouseenter');
 }

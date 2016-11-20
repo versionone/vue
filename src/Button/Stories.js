@@ -27,9 +27,27 @@ storiesOf('Button')
             </div>
         )
     )
-    .addWithInfo('basic button type',
+    .addWithInfo('basic button',
         ``,
         () => (
             <Button text="Click Me" type={ButtonTypes.basic} />
+        )
+    )
+    .addWithInfo('important button',
+        ``,
+        () => (
+            <Button text="Click Me" type={ButtonTypes.important} />
+        )
+    )
+    .addWithInfo('alternative button',
+        ``,
+        () => (
+            <Button text="Click Me" type={ButtonTypes.alt} />
+        )
+    )
+    .addWithInfo('basic alternative button',
+        ``,
+        () => (
+            <Button text="Click Me" type={ButtonTypes.basicAlt} />
         )
     );

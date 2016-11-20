@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import Radium from './../utilities/Radium';
 import {create} from './../styles/Transitions';
-import {darken, getForegroundForBackground} from './../utilities/colorManipulator';
+import {changeOpacity, darken, getForegroundForBackground} from './../utilities/colorManipulator';
 import * as ButtonSizes from './Sizes';
 import * as ButtonTypes from './Types';
 
@@ -22,12 +22,14 @@ const darkenInvert = (foreground, background) => {
 
 class Button extends Component {
     static propTypes = {
+        disable: PropTypes.bool,
         size: PropTypes.number,
         text: PropTypes.string,
         type: PropTypes.oneOf(ButtonTypes),
         onClick: PropTypes.func
     };
     static defaultProps = {
+        disable: false,
         size: ButtonSizes.normal,
         text: '',
         type: ButtonTypes.standard,
@@ -60,6 +62,7 @@ class Button extends Component {
         super(...rest);
         this.getStyles = this.getStyles.bind(this);
         this.getStylesBasedOnType = this.getStylesBasedOnType.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
 
     getStyles() {
@@ -116,12 +119,26 @@ class Button extends Component {
                 darkInverse,
                 lightInverse,
                 normalBackground,
+                transparent,
                 textPrimary
             }
         } = this.context.theme;
-        const {type} = this.props;
+        const {disable, type} = this.props;
         const inverseColors = [darkInverse, lightInverse];
 
+        if (disable) {
+            const disableColorOpacity = 0.3;
+            const color = changeOpacity(textPrimary, disableColorOpacity);
+            return {
+                ':hover': {
+                    background: normalBackground,
+                    color
+                },
+                background: normalBackground,
+                border: `1px solid ${transparent}`,
+                color
+            };
+        }
         if (type === ButtonTypes.basic) {
             return darkenInvert(darkInverse, basic);
         }
@@ -170,16 +187,24 @@ class Button extends Component {
         };
     }
 
-    render() {
+    handleClick(evt) {
         const {
-            onClick,
-            text
+            disable,
+            onClick
         } = this.props;
+        if (disable) {
+            return;
+        }
+        onClick(evt);
+    }
+
+    render() {
+        const {text} = this.props;
         const styles = this.getStyles();
         return (
             <button
                 style={styles.root}
-                onClick={onClick}
+                onClick={this.handleClick}
             >
                 {text}</button>
         );

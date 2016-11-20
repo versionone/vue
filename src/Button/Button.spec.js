@@ -2,7 +2,7 @@ import React from 'react';
 import {mount} from 'enzyme';
 import {spy} from 'sinon';
 import Button from './Button';
-import {darken} from './../utilities/colorManipulator';
+import {changeOpacity, darken} from './../utilities/colorManipulator';
 import * as ButtonTypes from './Types';
 
 suite('Button', () => {
@@ -81,6 +81,35 @@ suite('Button', () => {
         simulateHover(specialButton);
         expect(buttonHasStyles(specialButton, color('#fff', '#00a9e0', 0.35))).to.be.true;
         expect(buttonHasStyles(specialButton, border('#00a9e0'))).to.be.true;
+    });
+
+    test('the button can be disabled', () => {
+        const onClick = spy();
+        const disabledStandardButton = mountButton({disable: true, onClick});
+        simulateClick(disabledStandardButton);
+        expect(onClick.called).to.be.false;
+        expect(buttonHasStyles(disabledStandardButton, color(changeOpacity('#000', 0.3), '#fff'))).to.be.true;
+        expect(buttonHasStyles(disabledStandardButton, border('transparent'))).to.be.true;
+
+        const disabledBasicButton = mountButton({disable: true, type: ButtonTypes.basic});
+        expect(buttonHasStyles(disabledBasicButton, color(changeOpacity('#000', 0.3), '#fff'))).to.be.true;
+        expect(buttonHasStyles(disabledBasicButton, border('transparent'))).to.be.true;
+
+        const disabledImportantButton = mountButton({disable: true, type: ButtonTypes.important});
+        expect(buttonHasStyles(disabledImportantButton, color(changeOpacity('#000', 0.3), '#fff'))).to.be.true;
+        expect(buttonHasStyles(disabledImportantButton, border('transparent'))).to.be.true;
+
+        const disabledAltButton = mountButton({disable: true, type: ButtonTypes.alt});
+        expect(buttonHasStyles(disabledAltButton, color(changeOpacity('#000', 0.3), '#fff'))).to.be.true;
+        expect(buttonHasStyles(disabledAltButton, border('transparent'))).to.be.true;
+
+        const disabledBasicAltButton = mountButton({disable: true, type: ButtonTypes.basicAlt});
+        expect(buttonHasStyles(disabledBasicAltButton, color(changeOpacity('#000', 0.3), '#fff'))).to.be.true;
+        expect(buttonHasStyles(disabledBasicAltButton, border('transparent'))).to.be.true;
+
+        const disabledSpecialButton = mountButton({disable: true, type: ButtonTypes.special});
+        expect(buttonHasStyles(disabledSpecialButton, color(changeOpacity('#000', 0.3), '#fff'))).to.be.true;
+        expect(buttonHasStyles(disabledSpecialButton, border('transparent'))).to.be.true;
     });
 });
 

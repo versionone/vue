@@ -56,4 +56,17 @@ storiesOf('Button')
         () => (
             <Button text="Click Me" type={ButtonTypes.special} />
         )
+    )
+    .addWithInfo('disabled buttons',
+        ``,
+        () => (
+            <div>
+                <Button text="Click Me" disable />
+                <Button text="Click Me" disable type={ButtonTypes.basic} />
+                <Button text="Click Me" disable type={ButtonTypes.important} />
+                <Button text="Click Me" disable type={ButtonTypes.alt} />
+                <Button text="Click Me" disable type={ButtonTypes.basicAlt} />
+                <Button text="Click Me" disable type={ButtonTypes.special} />
+            </div>
+        )
     );

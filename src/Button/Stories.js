@@ -50,4 +50,10 @@ storiesOf('Button')
         () => (
             <Button text="Click Me" type={ButtonTypes.basicAlt} />
         )
+    )
+    .addWithInfo('special button',
+        ``,
+        () => (
+            <Button text="Click Me" type={ButtonTypes.special} />
+        )
     );

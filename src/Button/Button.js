@@ -144,6 +144,19 @@ class Button extends Component {
             };
         }
 
+        if (type === ButtonTypes.special) {
+            return {
+                ':hover': {
+                    background: basic,
+                    border: `1px solid ${basic}`,
+                    color: darkInverse
+                },
+                background: textPrimary,
+                border: `1px solid ${textPrimary}`,
+                color: normalBackground
+            };
+        }
+
         const inverseBackground = getForegroundForBackground(normalBackground, inverseColors);
         const inverseForeground = getForegroundForBackground(inverseBackground, inverseColors);
         return {

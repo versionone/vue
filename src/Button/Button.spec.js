@@ -73,6 +73,15 @@ suite('Button', () => {
         expect(buttonHasStyles(basicAltButton, color('#fff', '#00a9e0', 0.35))).to.be.true;
         expect(buttonHasStyles(basicAltButton, border('#00a9e0'))).to.be.true;
     });
+
+    test('the button can be a special type', () => {
+        const specialButton = mountButton({type: ButtonTypes.special});
+        expect(buttonHasStyles(specialButton, color('#fff', '#000'))).to.be.true;
+        expect(buttonHasStyles(specialButton, border('#000'))).to.be.true;
+        simulateHover(specialButton);
+        expect(buttonHasStyles(specialButton, color('#fff', '#00a9e0', 0.35))).to.be.true;
+        expect(buttonHasStyles(specialButton, border('#00a9e0'))).to.be.true;
+    });
 });
 
 function mountButton(props = {}, context = {theme: getTheme()}) {

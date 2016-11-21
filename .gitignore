@@ -13,6 +13,10 @@
 !/license.md
 !/npm-shrinkwrap.json
 
+!/release
+!/v*
+!/versions.json
+
 ### Published github pages
 .out
 

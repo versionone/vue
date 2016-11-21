@@ -83,7 +83,7 @@ function addMenuVersion(version) {
     fs.writeFileSync(versionsFile, JSON.stringify(versions, null, 2));
 
   // Commit it (on master branch)
-    execho('git add ' + versionsFile + ' && git commit -m ' + '\'[Docs] Add ' + version + ' to versions.json\'');
+    execho('git add ' + versionsFile + ' && git commit -m ' + '"[Docs] Add ' + version + ' to versions.json"');
   }
 }
 

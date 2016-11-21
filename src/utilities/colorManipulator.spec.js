@@ -4,6 +4,7 @@ import {
     convertHexToRGB,
     decomposeColor,
     emphasize,
+    getForegroundForBackground,
     getLuminance
 } from './colorManipulator';
 
@@ -103,18 +104,33 @@ suite('colorManipulator.getLuminance', () => {
 suite('colorManipulator.emphasize', () => {
     test('emphasis works with a light color ', () => {
         const shortHex = emphasize('#fff');
-        expect(shortHex).to.equal('rgb(216.75,216.75,216.75)');
+        expect(shortHex).to.equal('rgb(217,217,217)');
         const longHex = emphasize('#ffffff');
-        expect(longHex).to.equal('rgb(216.75,216.75,216.75)');
+        expect(longHex).to.equal('rgb(217,217,217)');
         const rgb = emphasize('rgb(255,255, 255)');
-        expect(rgb).to.equal('rgb(216.75,216.75,216.75)');
+        expect(rgb).to.equal('rgb(217,217,217)');
         const rgba = emphasize('rgba(255, 255, 255, 0.5)');
-        expect(rgba).to.equal('rgba(216.75,216.75,216.75,0.5)');
+        expect(rgba).to.equal('rgba(217,217,217,0.5)');
         const hsl = emphasize('hsl(255, 10%, 100%)');
         expect(hsl).to.equal('hsl(255,10%,85%)');
     });
     test('emphasis works with a dark color', () => {
 
+    });
+});
+
+suite('colorManipulator.getFirstAppropriateForegroundColor', () => {
+    test('it can get an appropriate foreground color even none of the ones passed in match', () => {
+        const foregroundColor = getForegroundForBackground('#fff');
+        expect(foregroundColor).to.equal('rgb(0,0,0)');
+    });
+    test('it can get an appropriate foreground color for a light background when one exists', () => {
+        const invertedColor = getForegroundForBackground('#fff', ['#eee', '#000']);
+        expect(invertedColor).to.equal('#000');
+    });
+    test('it can get an appropriate foreground color for a dark background when one exists', () => {
+        const invertedColor = getForegroundForBackground('#000', ['#000', '#fff']);
+        expect(invertedColor).to.equal('#fff');
     });
 });
 

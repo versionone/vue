@@ -168,7 +168,7 @@ export function darken(color, coefficient) {
 
     else if (contains('rgb')) {
         for (let i = colorValuesStartIndex; i < rgbNumberOfValues; i += indexIncrement) {
-            values[i] *= 1 - clampedCoefficient;
+            values[i] = Math.round(values[i] * (1 - clampedCoefficient));
         }
     }
 
@@ -203,6 +203,11 @@ export function emphasize(color, coefficient = defaultEmphasizeCoefficient) {
     return getLuminance(color) > 0.5
         ? darken(color, coefficient)
         : lighten(color, coefficient);
+}
+
+export function getForegroundForBackground(backgroundColor, foregroundColors = []) {
+    return foregroundColors.find(color => getContrastRatio(color, backgroundColor) >= 11)
+        || emphasize(backgroundColor, 100);
 }
 
 export const changeOpacity = (color, opacity) => {

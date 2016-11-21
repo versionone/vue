@@ -18,12 +18,16 @@ export const lightWhite = 'rgba(255, 255, 255, 0.5)';
 
 // ## Named Colors
 export const aluminum = '#878c94';
+export const midnight = '#272c34';
+export const gunMetal = '#31363e';
 export const cerulean = '#00a9e0';
 export const forge = '#474c54';
 export const gunSmoke = '#31363e';
-export const pale = 'dde2e9';
+export const pale = '#dde2e9';
 export const shuttle = '#61666e';
+export const mango = '#ea6c02';
 export const sunset = '#d52101';
+export const sunglow = '#eaab00';
 export const lightSunset = lighten(sunset, 0.67);
 
 export const yellowAccent = '#FFF4A3';

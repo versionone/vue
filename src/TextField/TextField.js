@@ -306,9 +306,11 @@ class TextField extends Component {
         return (
             <div style={styles.root}>
                 <div style={styles.hintTextWrapper}>
-                    <div ref={(el) => {
-                        this.hintTextWrapper = el;
-                    }}>
+                    <div
+                        ref={(el) => {
+                            this.hintTextWrapper = el;
+                        }}
+                    >
                         <HintText
                             hidden={hasValue}
 

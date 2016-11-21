@@ -22,10 +22,32 @@ const darkenInvert = (foreground, background) => {
 
 class Button extends Component {
     static propTypes = {
+        /**
+         * Disables the button from responding to event handlers
+         */
         disable: PropTypes.bool,
+        /**
+         * Numeric value used as a multiplier to the button's size; 0.75, 1, and 1.5 as examples
+         */
         size: PropTypes.number,
+        /**
+         * Text string displayed within Button
+         */
         text: PropTypes.string,
-        type: PropTypes.oneOf(ButtonTypes),
+        /**
+         * Type of button
+         */
+        type: PropTypes.oneOf([
+            ButtonTypes.standard,
+            ButtonTypes.basic,
+            ButtonTypes.important,
+            ButtonTypes.alt,
+            ButtonTypes.basicAlt,
+            ButtonTypes.special
+        ]),
+        /**
+         * Click event handler; fired once a button is clicked
+         */
         onClick: PropTypes.func
     };
     static defaultProps = {

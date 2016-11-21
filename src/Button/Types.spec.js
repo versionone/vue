@@ -9,13 +9,4 @@ suite('Button Types', () => {
         expect(ButtonTypes.basicAlt).to.not.be.undefined;
         expect(ButtonTypes.special).to.not.be.undefined;
     });
-
-    test('all button types are exported', () => {
-        expect(ButtonTypes.all).to.contain(ButtonTypes.standard);
-        expect(ButtonTypes.all).to.contain(ButtonTypes.basic);
-        expect(ButtonTypes.all).to.contain(ButtonTypes.important);
-        expect(ButtonTypes.all).to.contain(ButtonTypes.alt);
-        expect(ButtonTypes.all).to.contain(ButtonTypes.basicAlt);
-        expect(ButtonTypes.all).to.contain(ButtonTypes.special);
-    });
 });

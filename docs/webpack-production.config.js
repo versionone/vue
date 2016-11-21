@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
-const buildPath = path.resolve(__dirname, 'build');
+const pkg = require('./../package.json');
+const buildPath = path.resolve(__dirname, '..', `v${pkg.version}`);
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const config = {

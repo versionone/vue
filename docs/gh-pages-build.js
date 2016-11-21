@@ -112,19 +112,21 @@ function buildDocs() {
   // Build the docs site
   execho('npm install && npm run browser:build');
 
-  // Version it
-  execho('mv build ../' + version);
-
   // Move to the gh-pages branch
   execho('git checkout gh-pages');
 
+  process.chdir('..');
+
   // Symbolic link `release` to latest version
   if (!preRelease(version)) {
-    execho('ln -sfh ./' + version + ' ../release');
+    execho('ln -sf ./' + version + ' ./release');
   }
 
   // Symbolic link `versions.json` to latest version
-  execho('ln -sfh ./' + version + '/versions.json ../versions.json');
+  execho('ln -sf ./' + version + '/versions.json ./versions.json');
+
+
+  process.chdir(__dirname);
 
   // Commit the new version
   if (version === 'HEAD') {

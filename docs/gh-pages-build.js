@@ -6,6 +6,7 @@
 var fs = require('fs');
 var pkg = require('./../package.json');
 var execSync = require('child_process').execSync;
+const path = require('path');
 
 var usage = '\nbuild <vn.n.n[-pre[.n]]> | <HEAD> [-p]\n';
 var versionsFile = './www/versions.json';
@@ -115,7 +116,7 @@ function buildDocs() {
   // Move to the gh-pages branch
   execho('git checkout gh-pages');
 
-  process.chdir('..');
+  process.chdir(path.join(__dirname, '..'));
 
   // Symbolic link `release` to latest version
   if (!preRelease(version)) {
@@ -125,14 +126,11 @@ function buildDocs() {
   // Symbolic link `versions.json` to latest version
   execho('ln -sf ./' + version + '/versions.json ./versions.json');
 
-
-  process.chdir(__dirname);
-
   // Commit the new version
   if (version === 'HEAD') {
     execho('git commit --amend --no-edit');
   } else {
-    execho('git add .. && git commit -m \'' + version + '\'');
+    execho('git add . && git commit -m \'' + version + '\'');
   }
 
   if (args[2] === '-p') {

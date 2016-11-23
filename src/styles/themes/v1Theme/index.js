@@ -26,6 +26,7 @@ export default {
     pendingPrimaryColor: colors.yellowAccent,
     smallFontSize: 14,
     textPrimaryColor: colors.gunMetal,
+    textDisabledColor: colors.minBlack,
     xLargeFontSize: 24,
     xMediumFontSize: 18,
     xSmallFontSize: 8,

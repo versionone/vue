@@ -23,22 +23,20 @@ class RequiredIndicator extends Component {
     }
 
     getStyles() {
-        const {
-            color: {requiredPrimary},
-            typography: {
-                lineHeightNormal,
-                small
-            }
-        } = this.context.theme;
         const {hidden} = this.props;
+        const {
+            requiredPrimaryColor,
+            normalLineHeight,
+            smallFontSize
+        } = this.context.theme;
         const zIndex = 1;
 
         return {
             root: {
                 alignSelf: 'center',
-                color: requiredPrimary,
-                fontSize: small,
-                lineHeight: lineHeightNormal,
+                color: requiredPrimaryColor,
+                fontSize: `${smallFontSize}px`,
+                lineHeight: normalLineHeight,
                 opacity: hidden ? opacityHidden : opacityFullyVisible,
                 zIndex
             }

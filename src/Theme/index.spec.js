@@ -1,4 +1,4 @@
-import {ThemeProvider} from './';
+import ThemeProvider from './';
 
 suite('Theme module', () => {
     test('it exports a default ThemeProvider', () => {

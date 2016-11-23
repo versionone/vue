@@ -1,7 +1,7 @@
 import {configure, setAddon, addDecorator} from '@kadira/storybook';
 import infoAddon from '@kadira/react-storybook-addon-info';
 import addStoriesGroup from 'react-storybook-addon-add-stories-group';
-import {ThemeProvider} from './../src/Theme';
+import ThemeProvider from './../src/Theme';
 import v1Theme from './../src/styles/themes/v1Theme';
 import React from 'react';
 import './index.css';

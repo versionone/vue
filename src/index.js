@@ -5,4 +5,4 @@ export {default as Button} from './Button';
 export const ButtonSizes = buttonSizes;
 export const ButtonTypes = buttonTypes;
 export {default as TextField} from './TextField';
-export * from './Theme';
+export {default as ThemeProvider} from './Theme';

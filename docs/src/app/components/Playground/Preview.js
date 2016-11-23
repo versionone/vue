@@ -14,7 +14,7 @@ class Preview extends Component {
     };
 
     static defaultProps = {
-        scope: {React, ...Vue, ...Vue.Toolbar}
+        scope: {React, ...Vue, ...Vue.Toolbar, v1Theme}
     };
 
     state = {

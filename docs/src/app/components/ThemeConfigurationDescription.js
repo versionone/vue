@@ -4,6 +4,7 @@ import recast from 'recast';
 import {parse} from 'react-docgen';
 import {parse as parseDoctrine} from 'doctrine';
 import MarkdownElement from './MarkdownElement';
+import ThemeProvider from './../../../../src/Theme';
 import themeDefinitionPropHandler from './../themePropHandler';
 import themePropDocblockHandler from './../themePropDocblockHandler';
 
@@ -123,7 +124,7 @@ const getThemeTable = propsMap => (theme) => {
                     keyName = `~~${key}~~`;
                 }
             }
-            return `| ${keyName} | ${generatePropType(prop.type)} | ${theme.values[key]} | ${description} |`;
+            return `| ${keyName} | ${generatePropType(prop.type)} | ${theme[key]} | ${description} |`;
         })
         .join('\n');
     return `#### ${theme.name}
@@ -136,10 +137,7 @@ ${tableBody}
 class ThemeConfigurationDescription extends Component {
     static propTypes = {
         code: PropTypes.string.isRequired,
-        themes: PropTypes.arrayOf(PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            values: PropTypes.object.isRequired
-        }))
+        themes: PropTypes.arrayOf(PropTypes.shape(ThemeProvider.themeDefinition).isRequired)
     };
     static defaultProps = {themes: []};
 

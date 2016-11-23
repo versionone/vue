@@ -127,7 +127,7 @@ const getThemeTable = propsMap => (theme) => {
             return `| ${keyName} | ${generatePropType(prop.type)} | ${theme[key]} | ${description} |`;
         })
         .join('\n');
-    return `#### ${theme.name}
+    return `#### ${theme._name}
 | Name | Type | Value | Description |
 |:-----|:-----|:------|:------------|
 ${tableBody}

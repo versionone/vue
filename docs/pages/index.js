@@ -4,7 +4,7 @@ export default [
         title: 'Theme',
         status: 'experimental',
         menuCategory: 'Foundations',
-        component: require('./foundations/Theme')
+        component: require('./foundations/Themes')
     },
 
     // Patterns pages

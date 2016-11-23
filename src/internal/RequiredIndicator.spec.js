@@ -20,8 +20,8 @@ function getContext() {
     return {
         context: {
             theme: {
-                color: {requiredPrimary: 'black'},
-                typography: {lineHeightNormal: 1.5}
+                requiredPrimaryColor: 'black',
+                normalLineHeight: 1.5
             }
         }
     };

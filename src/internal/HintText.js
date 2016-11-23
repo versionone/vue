@@ -33,12 +33,10 @@ class HintText extends Component {
     getStyles() {
         const {hidden} = this.props;
         const {
-            typography: {
-                basicFamily,
-                small,
-                lineHeightNormal
-            },
-            color: {textSecondary}
+            basicFontFamily,
+            smallFontSize,
+            normalLineHeight,
+            textSecondaryColor
         } = this.context.theme;
 
         return {
@@ -47,11 +45,11 @@ class HintText extends Component {
                 width: '100%'
             },
             text: {
-                color: textSecondary,
+                color: textSecondaryColor,
                 display: 'block',
-                fontFamily: basicFamily,
-                fontSize: small,
-                lineHeight: lineHeightNormal,
+                fontFamily: basicFontFamily,
+                fontSize: `${smallFontSize}px`,
+                lineHeight: normalLineHeight,
                 opacity: hidden ? opacityHidden : opacityFullyVisible,
                 transition: 'opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'
             }

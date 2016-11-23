@@ -1,6 +1,8 @@
 import React, {Component, PropTypes} from 'react';
-import {fullyVisible as opacityFullyVisible, hidden as opacityHidden} from './../utilities/Opacity';
 import Radium from './../utilities/Radium';
+import ThemeProvider from './../Theme';
+import * as Transitions from './../styles/Transitions';
+import {fullyVisible as opacityFullyVisible, hidden as opacityHidden} from './../utilities/Opacity';
 
 class ErrorMessage extends Component {
     static propTypes = {
@@ -14,16 +16,7 @@ class ErrorMessage extends Component {
         onClick: () => {
         }
     };
-    static contextTypes = {
-        theme: PropTypes.shape({
-            color: PropTypes.shape({errorPrimary: PropTypes.string}),
-            typography: PropTypes.shape({
-                basicFamily: PropTypes.string,
-                lineHeightNormal: PropTypes.number.isRequired,
-                small: PropTypes.number.isRequired
-            })
-        }).isRequired
-    };
+    static contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired};
 
     constructor(...args) {
         super(...args);
@@ -33,23 +26,21 @@ class ErrorMessage extends Component {
     getStyles() {
         const {hidden} = this.props;
         const {
-            color: {errorPrimary},
-            typography: {
-                basicFamily,
-                small,
-                lineHeightNormal
-            }
+            errorPrimaryColor,
+            basicFontFamily,
+            smallFontSize,
+            normalLineHeight
         } = this.context.theme;
 
         return {
             text: {
-                color: errorPrimary,
+                color: errorPrimaryColor,
                 display: 'block',
-                fontFamily: basicFamily,
-                fontSize: small,
-                lineHeight: lineHeightNormal,
+                fontFamily: basicFontFamily,
+                fontSize: `${smallFontSize}px`,
+                lineHeight: normalLineHeight,
                 opacity: hidden ? opacityHidden : opacityFullyVisible,
-                transition: 'opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms'
+                transition: Transitions.create('450ms', 'opacity', '0ms', 'cubic-bezier(0.23, 1, 0.32, 1)')
             }
         };
     }

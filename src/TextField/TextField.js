@@ -3,6 +3,8 @@ import ErrorMessage from './../internal/ErrorMessage';
 import HintText from './../internal/HintText';
 import Radium from './../utilities/Radium';
 import RequiredIndicator from './../internal/RequiredIndicator';
+import ThemeProvider from './../Theme';
+import transparent from './../utilities/Transparent';
 
 class TextField extends Component {
     static propTypes = {
@@ -66,28 +68,7 @@ class TextField extends Component {
         required: false,
         width: 256
     };
-    static contextTypes = {
-        theme: PropTypes.shape({
-            border: PropTypes.shape({normalRadius: PropTypes.number}),
-            color: PropTypes.shape({
-                disabledPrimary: PropTypes.string,
-                errorPrimary: PropTypes.string,
-                errorSecondary: PropTypes.string,
-                fieldBorder: PropTypes.string,
-                focusedSecondary: PropTypes.string,
-                normalBackground: PropTypes.string,
-                pendingPrimary: PropTypes.string,
-                textPrimary: PropTypes.string,
-                transparent: PropTypes.string
-            }),
-            spacing: PropTypes.shape({xxSmallGutter: PropTypes.number.isRequired}),
-            typography: PropTypes.shape({
-                basicFamily: PropTypes.string,
-                lineHeightNormal: PropTypes.number.isRequired,
-                small: PropTypes.number.isRequired
-            }).isRequired
-        })
-    };
+    static contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired};
 
     constructor(props, ...rest) {
         super(props, ...rest);
@@ -150,24 +131,19 @@ class TextField extends Component {
         const {hintTextHeight} = this.state;
         const {disabled, fullWidth, required, width} = this.props;
         const {
-            typography: {
-                basicFamily,
-                small,
-                lineHeightNormal
-            },
-            spacing: {xxSmallGutter},
-            color: {
-                transparent,
-                textPrimary
-            },
-            border: {normalRadius}
+            basicFontFamily,
+            smallFontSize,
+            normalLineHeight,
+            xxSmallGutter,
+            textPrimaryColor,
+            normalRadius
         } = this.context.theme;
 
         const borderHeight = 2;
         const paddingHeightMultiplier = 2;
         const paddingHeight = xxSmallGutter * paddingHeightMultiplier;
 
-        const textHeight = Math.floor(small * lineHeightNormal);
+        const textHeight = Math.floor(smallFontSize * normalLineHeight);
         const textFieldHeight = textHeight + paddingHeight + borderHeight;
         const isHintTextMultipleLines = hintTextHeight > textFieldHeight;
         const marginTop = isHintTextMultipleLines ? `${hintTextHeight - textHeight}px` : '0px';
@@ -200,11 +176,11 @@ class TextField extends Component {
             input: {
                 background: 'rgba(0, 0, 0, 0)',
                 border: `0px solid ${transparent}`,
-                color: textPrimary,
+                color: textPrimaryColor,
                 cursor: disabled ? 'not-allowed' : 'initial',
                 flex: 1,
-                fontFamily: basicFamily,
-                fontSize: small,
+                fontFamily: basicFontFamily,
+                fontSize: `${smallFontSize}px`,
                 height: `${textHeight}px`,
                 outline: 'none',
                 padding: 0,
@@ -238,24 +214,22 @@ class TextField extends Component {
 
     getBorderColor() {
         const {
-            color: {
-                disabledPrimary,
-                errorPrimary,
-                fieldBorder
-            }
-        } = this.context.theme;
-        const {
             disabled,
             errorText
         } = this.props;
+        const {
+            disabledPrimaryColor,
+            errorPrimaryColor,
+            fieldBorderColor
+        } = this.context.theme;
 
         if (disabled) {
-            return disabledPrimary;
+            return disabledPrimaryColor;
         }
         else if (errorText) {
-            return errorPrimary;
+            return errorPrimaryColor;
         }
-        return fieldBorder;
+        return fieldBorderColor;
     }
 
     getHintTextWrapperBackground() {
@@ -264,18 +238,16 @@ class TextField extends Component {
             pending
         } = this.props;
         const {
-            color: {
-                errorSecondary,
-                normalBackground,
-                pendingPrimary
-            }
+            errorSecondaryColor,
+            normalBackground,
+            pendingPrimaryColor
         } = this.context.theme;
 
         if (errorText) {
-            return errorSecondary;
+            return errorSecondaryColor;
         }
         else if (pending) {
-            return pendingPrimary;
+            return pendingPrimaryColor;
         }
         return normalBackground;
     }
@@ -284,16 +256,14 @@ class TextField extends Component {
         const {errorText} = this.props;
         const {focused} = this.state;
         const {
-            color: {
-                errorSecondary,
-                focusedSecondary
-            }
+            errorSecondaryColor,
+            focusedSecondaryColor
         } = this.context.theme;
         if (errorText) {
-            return `0 0 2px 2px ${errorSecondary}`;
+            return `0 0 2px 2px ${errorSecondaryColor}`;
         }
         else if (focused) {
-            return `0 0 2px 2px ${focusedSecondary}`;
+            return `0 0 2px 2px ${focusedSecondaryColor}`;
         }
         return 'none';
     }

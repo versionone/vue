@@ -2,60 +2,33 @@ import {changeOpacity} from 'vue/utilities/colorManipulator';
 import * as colors from './foundations/colors';
 
 export default {
-    typography: {
-        // Font families
-        basicFamily: '\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif',
-
-        // Sizes
-        xSmall: 8,
-        small: 14,
-        medium: 16,
-        xMedium: 18,
-        large: 22,
-        xLarge: 24,
-
-        // Treatments
-        bold: 600,
-
-        // Other
-        lineHeightNormal: 1.285,
-        lineHeightLarge: 2.285
-    },
-    spacing: {xxSmallGutter: 3},
-    color: {
-        transparent: colors.transparent,
-        darkInverse: colors.white,
-        lightInverse: colors.gunMetal,
-
-        // Text content colors
-        textPrimary: colors.gunMetal,
-        textSecondary: colors.mediumGray,
-
-        // Focused
-        focusedPrimary: colors.cerulean,
-        focusedSecondary: changeOpacity(colors.cerulean, 0.5),
-
-        // Disabled
-        disabledPrimary: colors.minBlack,
-
-        // Error
-        errorPrimary: colors.sunset,
-        errorSecondary: colors.lightSunset,
-        requiredPrimary: colors.sunset,
-
-        // Pending
-        pendingPrimary: colors.yellowAccent,
-
-        // Backgrounds
-        normalBackground: colors.white,
-
-        // Borders
-        fieldBorder: colors.aluminum,
-
-        basic: colors.cerulean,
-        important: colors.mango,
-        alt: colors.sunglow
-    },
-    // Borders, radius, box shadows, etc.
-    border: {normalRadius: 3}
+    _name: 'VersionOne Default Theme',
+    altColor: colors.sunglow,
+    basicColor: colors.cerulean,
+    basicFontFamily: '\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif',
+    boldFont: 600,
+    darkInverseColor: colors.white,
+    disabledPrimaryColor: colors.minBlack,
+    errorPrimaryColor: colors.sunset,
+    errorSecondaryColor: colors.lightSunset,
+    fieldBorderColor: colors.aluminum,
+    focusedPrimaryColor: colors.cerulean,
+    focusedSecondaryColor: changeOpacity(colors.cerulean, 0.5),
+    importantColor: colors.mango,
+    largeFontSize: 22,
+    largeLineHeight: 2.285,
+    lightInverseColor: colors.gunMetal,
+    mediumFontSize: 16,
+    normalBackground: colors.white,
+    normalLineHeight: 1.285,
+    normalRadius: 3,
+    requiredPrimaryColor: colors.sunset,
+    pendingPrimaryColor: colors.yellowAccent,
+    smallFontSize: 14,
+    textPrimaryColor: colors.gunMetal,
+    textDisabledColor: colors.minBlack,
+    xLargeFontSize: 24,
+    xMediumFontSize: 18,
+    xSmallFontSize: 8,
+    xxSmallGutter: 3
 };

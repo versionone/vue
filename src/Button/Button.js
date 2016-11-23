@@ -1,5 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import Radium from './../utilities/Radium';
+import ThemeProvider from './../Theme';
+import transparent from './../utilities/Transparent';
 import {create} from './../styles/Transitions';
 import {changeOpacity, darken, getForegroundForBackground} from './../utilities/colorManipulator';
 import * as ButtonSizes from './Sizes';
@@ -58,27 +60,7 @@ class Button extends Component {
         onClick: () => {
         }
     };
-    static contextTypes = {
-        theme: PropTypes.shape({
-            borders: PropTypes.shape({normalRadius: PropTypes.number.isRequired}),
-            color: PropTypes.shape({
-                alt: PropTypes.string,
-                basic: PropTypes.string,
-                darkInverse: PropTypes.string,
-                important: PropTypes.string,
-                lightInverse: PropTypes.string,
-                normalBackground: PropTypes.string,
-                textPrimary: PropTypes.string,
-                transparent: PropTypes.string
-            }),
-            typography: PropTypes.shape({
-                basicFontFamily: PropTypes.string,
-                bold: PropTypes.number,
-                lineHeightLarge: PropTypes.number.isRequired,
-                small: PropTypes.number.isRequired
-            }).isRequired
-        }).isRequired
-    };
+    static contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired};
 
     constructor(...rest) {
         super(...rest);
@@ -89,19 +71,16 @@ class Button extends Component {
 
     getStyles() {
         const {
-            border: {normalRadius},
-            color: {transparent},
-            typography: {
-                basicFontFamily,
-                bold,
-                lineHeightLarge,
-                small
-            }
+            normalRadius,
+            basicFontFamily,
+            bold,
+            largeLineHeight,
+            smallFontSize
         } = this.context.theme;
         const {size} = this.props;
 
-        const fontSize = small * size;
-        const height = Math.ceil(fontSize * lineHeightLarge);
+        const fontSize = smallFontSize * size;
+        const height = Math.ceil(fontSize * largeLineHeight);
         const borderRadiusMultiplier = 2;
         const borderRadius = normalRadius * borderRadiusMultiplier;
         const typeStyles = this.getStylesBasedOnType();
@@ -120,7 +99,7 @@ class Button extends Component {
                 fontWeight: bold,
                 height: `${height}px`,
                 letterSpacing: '0.03em',
-                lineHeight: `${lineHeightLarge}px`,
+                lineHeight: `${largeLineHeight}px`,
                 margin: '0',
                 padding: '0 1em',
                 textAlign: 'center',
@@ -134,23 +113,20 @@ class Button extends Component {
 
     getStylesBasedOnType() {
         const {
-            color: {
-                alt,
-                basic,
-                important,
-                darkInverse,
-                lightInverse,
-                normalBackground,
-                transparent,
-                textPrimary
-            }
+            altColor,
+            basicColor,
+            importantColor,
+            darkInverseColor,
+            lightInverseColor,
+            normalBackground,
+            textPrimaryColor
         } = this.context.theme;
         const {disable, type} = this.props;
-        const inverseColors = [darkInverse, lightInverse];
+        const inverseColors = [darkInverseColor, lightInverseColor];
 
         if (disable) {
             const disableColorOpacity = 0.3;
-            const color = changeOpacity(textPrimary, disableColorOpacity);
+            const color = changeOpacity(textPrimaryColor, disableColorOpacity);
             return {
                 ':hover': {
                     background: normalBackground,
@@ -162,36 +138,36 @@ class Button extends Component {
             };
         }
         if (type === ButtonTypes.basic) {
-            return darkenInvert(darkInverse, basic);
+            return darkenInvert(darkInverseColor, basicColor);
         }
         if (type === ButtonTypes.important) {
-            return darkenInvert(darkInverse, important);
+            return darkenInvert(darkInverseColor, importantColor);
         }
         if (type === ButtonTypes.alt) {
-            return darkenInvert(darkInverse, alt);
+            return darkenInvert(darkInverseColor, altColor);
         }
         if (type === ButtonTypes.basicAlt) {
             return {
                 ':hover': {
-                    background: basic,
-                    border: `1px solid ${basic}`,
-                    color: darkInverse
+                    background: basicColor,
+                    border: `1px solid ${basicColor}`,
+                    color: darkInverseColor
                 },
                 background: normalBackground,
-                border: `1px solid ${textPrimary}`,
-                color: textPrimary
+                border: `1px solid ${textPrimaryColor}`,
+                color: textPrimaryColor
             };
         }
 
         if (type === ButtonTypes.special) {
             return {
                 ':hover': {
-                    background: basic,
-                    border: `1px solid ${basic}`,
-                    color: darkInverse
+                    background: basicColor,
+                    border: `1px solid ${basicColor}`,
+                    color: darkInverseColor
                 },
-                background: textPrimary,
-                border: `1px solid ${textPrimary}`,
+                background: textPrimaryColor,
+                border: `1px solid ${textPrimaryColor}`,
                 color: normalBackground
             };
         }
@@ -204,8 +180,8 @@ class Button extends Component {
                 color: inverseForeground
             },
             background: normalBackground,
-            border: `1px solid ${textPrimary}`,
-            color: textPrimary
+            border: `1px solid ${textPrimaryColor}`,
+            color: textPrimaryColor
         };
     }
 

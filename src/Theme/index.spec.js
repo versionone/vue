@@ -1,11 +1,7 @@
-import {ThemeProvider, withTheme} from './';
+import ThemeProvider from './';
 
 suite('Theme module', () => {
     test('it exports a default ThemeProvider', () => {
         expect(ThemeProvider).to.not.be.undefined;
-    });
-
-    test('it exports a HOC withTheme', () => {
-        expect(withTheme).to.not.be.undefined;
     });
 });

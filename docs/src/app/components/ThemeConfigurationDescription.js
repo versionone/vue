@@ -1,16 +1,14 @@
 import React, {Component, PropTypes} from 'react';
-import {parse} from 'react-docgen';
-import Collapse, {Panel} from 'rc-collapse';
 import resolver from 'react-docgen/dist/resolver/findAllComponentDefinitions';
+import recast from 'recast';
+import {parse} from 'react-docgen';
 import {parse as parseDoctrine} from 'doctrine';
 import MarkdownElement from './MarkdownElement';
-import recast from 'recast';
-import themePropHandler from './../themePropHandler';
-import themePropsDefaultHandler from './../themePropsDefaultHandler';
+import ThemeProvider from './../../../../src/Theme';
+import themeDefinitionPropHandler from './../themePropHandler';
 import themePropDocblockHandler from './../themePropDocblockHandler';
 
 require('./prop-type-description.css');
-require('./accordion.css');
 
 function getDeprecatedInfo(type) {
     const deprecatedPropType = 'deprecated(PropTypes.';
@@ -28,25 +26,22 @@ function getDeprecatedInfo(type) {
 }
 
 function generatePropType(type) {
+    let deprecatedInfo;
+    let values;
     switch (type.name) {
         case 'func':
             return 'function';
-
         case 'custom':
-            const deprecatedInfo = getDeprecatedInfo(type);
-
+            deprecatedInfo = getDeprecatedInfo(type);
             if (deprecatedInfo !== false) {
-                return generatePropType({
-                    name: deprecatedInfo.propTypes
-                });
+                return generatePropType({name: deprecatedInfo.propTypes});
             }
-
             return type.raw;
-
         case 'enum':
-            const values = type.value.map((v) => v.value).join('<br>&nbsp;');
+            values = type.value
+                .map(v => v.value)
+                .join('<br>&nbsp;');
             return `enum:<br>&nbsp;${values}<br>`;
-
         default:
             return type.name;
     }
@@ -69,15 +64,21 @@ function generateDescription(required, description, type) {
     // must be eliminated to prevent markdown mayhem.
     const jsDocText = parsed.description.replace(/\n\n/g, '<br>').replace(/\n/g, ' ');
 
-    if (parsed.tags.some((tag) => tag.title === 'ignore')) return null;
+    if (parsed.tags.some(tag => tag.title === 'ignore')) {
+        return null;
+    }
     let signature = '';
 
     if (type.name === 'func' && parsed.tags.length > 0) {
         // Remove new lines from tag descriptions to avoid markdown errors.
-        parsed.tags.forEach((tag) => {
+        parsed.tags = parsed.tags.map((tag) => {
             if (tag.description) {
-                tag.description = tag.description.replace(/\n/g, ' ');
+                return {
+                    ...tag,
+                    description: tag.description.replace(/\n/g, ' ')
+                };
             }
+            return tag;
         });
 
         // Split up the parsed tags into 'arguments' and 'returns' parsed objects. If there's no
@@ -89,15 +90,16 @@ function generateDescription(required, description, type) {
         if (parsed.tags[parsedLength - 1].title === 'returns') {
             parsedArgs = parsed.tags.slice(0, parsedLength - 1);
             parsedReturns = parsed.tags[parsedLength - 1];
-        } else {
+        }
+        else {
             parsedArgs = parsed.tags;
             parsedReturns = {type: {name: 'void'}};
         }
 
         signature += '<br><br>**Signature:**<br>`function(';
-        signature += parsedArgs.map((tag) => `${tag.name}: ${tag.type.name}`).join(', ');
-        signature += `) => ${parsedReturns.type.name}` + '`<br>';
-        signature += parsedArgs.map((tag) => `*${tag.name}:* ${tag.description}`).join('<br>');
+        signature += parsedArgs.map(tag => `${tag.name}: ${tag.type.name}`).join(', ');
+        signature += `) => ${parsedReturns.type.name}<br/>`;
+        signature += parsedArgs.map(tag => `*${tag.name}:* ${tag.description}`).join('<br>');
         if (parsedReturns.description) {
             signature += `<br> *returns* (${parsedReturns.type.name}): ${parsedReturns.description}`;
         }
@@ -106,107 +108,72 @@ function generateDescription(required, description, type) {
     return `${deprecated} ${jsDocText}${signature}`;
 }
 
+const getThemeTable = propsMap => (theme) => {
+    const tableBody = Object.keys(propsMap)
+        .filter(key => propsMap[key].type)
+        .map((key) => {
+            const prop = propsMap[key];
+            const description = generateDescription(false, prop.description, prop.type);
+
+            if (description === null) {
+                return '';
+            }
+            let keyName = key;
+            if (prop.type.name === 'custom') {
+                if (getDeprecatedInfo(prop.type)) {
+                    keyName = `~~${key}~~`;
+                }
+            }
+            return `| ${keyName} | ${generatePropType(prop.type)} | ${theme[key]} | ${description} |`;
+        })
+        .join('\n');
+    return `#### ${theme._name}
+| Name | Type | Value | Description |
+|:-----|:-----|:------|:------------|
+${tableBody}
+`;
+};
+
 class ThemeConfigurationDescription extends Component {
-
     static propTypes = {
-        code: PropTypes.string,
-        header: PropTypes.string.isRequired
+        code: PropTypes.string.isRequired,
+        themes: PropTypes.arrayOf(PropTypes.shape(ThemeProvider.themeDefinition).isRequired)
     };
-
-    static defaultProps = {
-        header: '### Properties'
-    };
-
-    state = {
-        activeKey: ['0']
-    };
+    static defaultProps = {themes: []};
 
     render() {
         const {
             code,
-            header
+            themes
         } = this.props;
-        const {activeKey} = this.state;
-
-        const componentThemePropTypes = parse(code, resolver, [themePropHandler, themePropDocblockHandler])[0];
-
-        // Pull in all theme values for all theme states and consolidate into a single object. Will be used to display default theme values for all theme-able states in future.
-        const componentDefaultThemePropTypes = parse(code, resolver, [themePropsDefaultHandler])[0];
-        const defaultThemeProps = Object.keys(componentDefaultThemePropTypes.props)
-            .reduce((output, stateThemeKey) => ({
-                ...output,
-                [stateThemeKey]: {
-                    // ...componentDefaultThemePropTypes.props[stateThemeKey].values,
-                    ...Object.keys(componentThemePropTypes.props)
-                        // .filter((propTypeKey) => Object.keys(componentDefaultThemePropTypes.props[stateThemeKey].values).indexOf(propTypeKey) < 0)
-                        .reduce((propTypeOutput, propTypeKey) => ({
-                            ...propTypeOutput,
-                            [propTypeKey]: {
-                                ...componentDefaultThemePropTypes.props[stateThemeKey].values[propTypeKey],
-                                ...componentThemePropTypes.props[propTypeKey]
-                            }
-                        }), {})
-                }
-            }), {});
-
-        const requiredProps = componentThemePropTypes.props ? Object.keys(componentThemePropTypes.props).reduce((output, key) => output + componentThemePropTypes.props[key].required ? 1 : 0, 0) : 0;
-        const requiredPropFootnote = (requiredProps === 1) ? '* required property' :
-            (requiredProps > 1) ? '* required properties' :
-                '';
+        const parseHandlers = [
+            themeDefinitionPropHandler,
+            themePropDocblockHandler
+        ];
+        const componentInfo = parse(code, resolver, parseHandlers)[0];
+        const themePropMap = componentInfo.props;
+        const getThemePropTable = getThemeTable(themePropMap);
 
         return (
             <div className="propTypeDescription">
-                {!!defaultThemeProps && (
-                    <div>
-                        <MarkdownElement text={header} />
-                        <Collapse accordion={true} activeKey={activeKey} onChange={this.setActivePanel}>
-                            {Object.keys(defaultThemeProps).map((themeStateKey, index) => (
-                                <Panel header={themeStateKey} key={index}>
-                                    <MarkdownElement
-                                        text={this.getThemePropTypesText(defaultThemeProps[themeStateKey])} />
-                                </Panel>
-                            ))}
-                        </Collapse>
-                        <div style={{fontSize: '90%', paddingLeft: '15px'}}>{requiredPropFootnote}</div>
+                <div>
+                    <MarkdownElement text="## Themes" />
+                    {themes.map((theme, themeIndex) => (
+                        <MarkdownElement
+                            key={themeIndex}
+                            text={getThemePropTable(theme)}
+                        />
+                    ))}
+                    <div
+                        style={{
+                            fontSize: '90%',
+                            paddingLeft: '15px'
+                        }}
+                    ><strong>all theme properties are required</strong>
                     </div>
-                )}
+                </div>
             </div>
         );
-    }
-
-    setActivePanel = (activeKey) => {
-        this.setState({
-            activeKey
-        });
-    };
-
-    getThemePropTypesText = (themeProps) => {
-        return `#### Theme Properties
-| Name | Type | Default | Description |
-|:-----|:-----|:-----|:-----|
-${Object.keys(themeProps)
-            .filter((key) => themeProps[key].type)
-            .map((key, index) => {
-                const prop = themeProps[key];
-                const description = generateDescription(false, prop.description, prop.type);
-
-                if (description === null) return;
-
-                let defaultValue = '';
-
-                if (prop.value) {
-                    defaultValue = prop.value.replace(/\n/g, '');
-                }
-
-                if (prop.type.name === 'custom') {
-                    if (getDeprecatedInfo(prop.type)) {
-                        key = `~~${key}~~`;
-                    }
-                }
-                return `| ${key} | ${generatePropType(prop.type)} | ${defaultValue} | ${description} |`;
-            })
-            .join('\n')}
-`;
     }
 }
 

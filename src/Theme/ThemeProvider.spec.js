@@ -15,5 +15,5 @@ function getTheme() {
             _name: 'test theme',
             themeProperty: 'theme property value'
         }
-    }
+    };
 }

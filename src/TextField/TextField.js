@@ -68,9 +68,7 @@ class TextField extends Component {
         required: false,
         width: 256
     };
-    static contextTypes = {
-        theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired
-    };
+    static contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired};
 
     constructor(props, ...rest) {
         super(props, ...rest);

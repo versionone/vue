@@ -137,22 +137,17 @@ function mountButton(props = {}, context = {theme: getTheme()}) {
 
 function getTheme() {
     return {
-        border: {normalRadius: 3},
-        color: {
-            alt: '#eaab00',
-            basic: '#00a9e0',
-            darkInverse: '#fff',
-            important: '#ea6c02',
-            lightInverse: '#000',
-            normalBackground: '#fff',
-            textPrimary: '#000',
-            transparent: 'transparent'
-        },
-        typography: {
-            basicFontFamily: 'Arial',
-            lineHeightLarge: 2.285,
-            small: 14
-        }
+        altColor: '#eaab00',
+        basicColor: '#00a9e0',
+        basicFontFamily: 'Arial',
+        darkInverseColor: '#fff',
+        importantColor: '#ea6c02',
+        largeLineHeight: 2.285,
+        lightInverseColor: '#000',
+        normalBackground: '#fff',
+        normalRadius: 3,
+        smallFontSize: 14,
+        textPrimaryColor: '#000'
     };
 }
 

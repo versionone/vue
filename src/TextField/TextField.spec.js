@@ -162,30 +162,25 @@ function mountTextField(props = {}) {
 
 function getTestTheme() {
     return {
-        border: {normalRadius: 3},
-        color: {
-            disabledPrimary: 'gray',
-            errorPrimary: 'red',
-            errorSecondary: 'pink',
-            fieldBorder: 'mediumgray',
-            focusedSecondary: 'blue',
-            normalBackground: 'white',
-            pendingPrimary: 'yellow',
-            textPrimary: 'black',
-            textSecondary: 'lightgray',
-            transparent: 'transparent'
-        },
-        spacing: {xxSmallGutter: 3},
-        typography: {
-            basicFamily: '\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif',
-            large: 22,
-            lineHeightNormal: 1.285,
-            medium: 16,
-            small: 14,
-            xLarge: 24,
-            xMedium: 18,
-            xSmall: 8
-        }
+        basicFontFamily: '\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif',
+        disabledPrimaryColor: 'gray',
+        errorPrimaryColor: 'red',
+        errorSecondaryColor: 'pink',
+        fieldBorderColor: 'mediumgray',
+        focusedSecondaryColor: 'blue',
+        largeFontSize: 22,
+        mediumFontSize: 16,
+        normalBackground: 'white',
+        normalLineHeight: 1.285,
+        normalRadius: 3,
+        pendingPrimaryColor: 'yellow',
+        smallFontSize: 14,
+        textPrimaryColor: 'black',
+        textSecondaryColor: 'lightgray',
+        xLargeFontSize: 24,
+        xMediumFontSize: 18,
+        xSmallFontSize: 8,
+        xxSmallGutter: 3
     };
 }
 
@@ -234,16 +229,16 @@ function requiredIndicatorIsDisplayed(wrapper) {
 
 function requiredIndicatorIsAlignedWithText(wrapper) {
     return wrapper.find('RequiredIndicator').parent()
-        .first()
-        .props()
-        .style
-        .margin === '34px 0 0 6px';
+            .first()
+            .props()
+            .style
+            .margin === '34px 0 0 6px';
 }
 function errorTextIsAlignedWithText(wrapper) {
     return wrapper.find('ErrorMessage').parent()
-        .props()
-        .style
-        .margin === '0 0 0 6px';
+            .props()
+            .style
+            .margin === '0 0 0 6px';
 }
 
 function requiredIndicatorIsInsideTextField(wrapper) {
@@ -321,44 +316,44 @@ function textFieldHasErrorText(wrapper, text) {
 
 function textFieldHasBackground(wrapper, backgroundColor) {
     return wrapper.find('HintText')
-        .parent()
-        .parent()
-        .props()
-        .style
-        .background === backgroundColor;
+            .parent()
+            .parent()
+            .props()
+            .style
+            .background === backgroundColor;
 }
 
 function textFieldHasBoxShadow(wrapper, boxShadowColor) {
     return wrapper.find('HintText')
-        .parent()
-        .parent()
-        .props()
-        .style
-        .boxShadow === `0 0 2px 2px ${boxShadowColor}`;
+            .parent()
+            .parent()
+            .props()
+            .style
+            .boxShadow === `0 0 2px 2px ${boxShadowColor}`;
 }
 
 function textFieldHasAdjustedHeightBy(wrapper, adjustment) {
     return wrapper.find('input')
-        .parent()
-        .props()
-        .style
-        .marginTop === adjustment;
+            .parent()
+            .props()
+            .style
+            .marginTop === adjustment;
 }
 
 function textFieldHasHeight(wrapper, height) {
     return wrapper.find('HintText')
-        .parent()
-        .parent()
-        .props()
-        .style
-        .height === height;
+            .parent()
+            .parent()
+            .props()
+            .style
+            .height === height;
 }
 
 function textFieldHasBorder(wrapper, borderColor) {
     return wrapper.find('HintText')
-        .parent()
-        .parent()
-        .props()
-        .style
-        .border === `1px solid ${borderColor}`;
+            .parent()
+            .parent()
+            .props()
+            .style
+            .border === `1px solid ${borderColor}`;
 }

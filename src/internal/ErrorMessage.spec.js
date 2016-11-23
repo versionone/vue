@@ -41,8 +41,8 @@ function getContext() {
     return {
         context: {
             theme: {
-                color: {errorPrimary: 'red'},
-                typography: {basicFamily: 'Arial'}
+                basicFontFamily: 'Arial',
+                errorPrimaryColor: 'red'
             }
         }
     };

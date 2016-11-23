@@ -6,7 +6,7 @@ import setPropDescription from 'react-docgen/dist/utils/setPropDescription';
 var {types: {namedTypes: types}} = recast;
 
 export default (documentation, path)=> {
-    var propTypesPath = getMemberValuePath(path, 'themePropTypes');
+    var propTypesPath = getMemberValuePath(path, 'themeDefinition');
     if (!propTypesPath) {
         return;
     }

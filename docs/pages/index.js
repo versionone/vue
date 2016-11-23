@@ -1,11 +1,11 @@
 export default [
     // Foundation pages
-    // {
-    //     title: 'Colors',
-    //     status: 'experimental',
-    //     menuCategory: 'Foundations',
-    //     component: require('./foundations/Colors')
-    // },
+    {
+        title: 'Theme',
+        status: 'experimental',
+        menuCategory: 'Foundations',
+        component: require('./foundations/Theme')
+    },
 
     // Patterns pages
     require('./patterns/InlineDialog.md'),

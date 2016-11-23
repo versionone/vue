@@ -52,7 +52,7 @@ const amendPropTypes = (documentation, path)=> {
 };
 
 export default (documentation, path) => {
-    var propTypesPath = getMemberValuePath(path, 'themePropTypes');
+    var propTypesPath = getMemberValuePath(path, 'themeDefinition');
     if (!propTypesPath) {
         return;
     }

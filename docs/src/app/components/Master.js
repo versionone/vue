@@ -10,7 +10,7 @@ import FullWidthSection from './FullWidthSection';
 import withWidth from 'material-ui/utils/withWidth';
 import v1Theme from 'vue/styles/themes/v1Theme';
 import {ThemeProvider} from 'vue';
-import {gunSmoke} from 'vue/styles/themes/v1Theme/foundations/colors';
+import {gunSmoke} from 'vue/styles/Colors';
 import componentRoutes from '../routes/menuItems';
 
 class Master extends Component {

@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import Radium from './../utilities/Radium';
 import ThemeProvider from './../Theme';
 import transparent from './../utilities/Transparent';
-import {create} from './../styles/Transitions';
+import {create} from '../utilities/Transitions';
 import {changeOpacity, darken, getForegroundForBackground} from './../utilities/colorManipulator';
 import * as ButtonSizes from './Sizes';
 import * as ButtonTypes from './Types';

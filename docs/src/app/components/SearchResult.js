@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import MarkdownElement from './MarkdownElement';
-import {cerulean} from 'vue/styles/themes/v1Theme/foundations/colors';
+import {cerulean} from 'vue/styles/Colors';
 
 class SearchResult extends Component {
     static propTypes = {

@@ -1,9 +1,8 @@
-import {lighten} from 'vue/utilities/colorManipulator';
+import {lighten} from '../../utilities/colorManipulator';
 
 // ## Black, whites, and grays // Examples
 export const black = '#000000';
 export const white = '#ffffff';
-export const transparent = 'rgba(0,0,0,0)';
 export const fullBlack = 'rgba(0,0,0,1)';
 export const darkBlack = 'rgba(0,0,0,0.87)';
 export const lightBlack = 'rgba(0,0,0,0.54)';
@@ -26,6 +25,5 @@ export const shuttle = '#61666e';
 export const mango = '#ea6c02';
 export const sunset = '#d52101';
 export const sunglow = '#eaab00';
-export const lightSunset = lighten(sunset, 0.67);
 
 export const yellowAccent = '#FFF4A3';

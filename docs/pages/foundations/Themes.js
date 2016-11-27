@@ -1,7 +1,7 @@
 import React from 'react';
 import Title from 'react-title-component';
+import v1DefaultTheme from 'vue/styles/themes/v1Theme';
 import ThemeDescription from './../../src/app/components/ThemeConfigurationDescription';
-import v1DefaultTheme from './../../../src/styles/themes/v1Theme';
 
 const themeProviderCode = require('!raw!./../../../src/Theme/ThemeProvider');
 

@@ -1,5 +1,5 @@
-import {changeOpacity} from 'vue/utilities/colorManipulator';
-import * as colors from './foundations/colors';
+import {changeOpacity, lighten} from 'vue/utilities/colorManipulator';
+import * as colors from './../../Colors';
 
 export default {
     _name: 'VersionOne Default Theme',
@@ -10,7 +10,7 @@ export default {
     darkInverseColor: colors.white,
     disabledPrimaryColor: colors.minBlack,
     errorPrimaryColor: colors.sunset,
-    errorSecondaryColor: colors.lightSunset,
+    errorSecondaryColor: lighten(colors.sunset, 0.67),
     fieldBorderColor: colors.aluminum,
     focusedPrimaryColor: colors.cerulean,
     focusedSecondaryColor: changeOpacity(colors.cerulean, 0.5),

@@ -1,6 +1,12 @@
 export default [
     // Foundation pages
     {
+        title: 'Colors',
+        status: 'experimental',
+        menuCategory: 'Foundations',
+        component: require('./foundations/V1Colors')
+    },
+    {
         title: 'Theme',
         status: 'experimental',
         menuCategory: 'Foundations',

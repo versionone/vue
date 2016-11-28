@@ -5,6 +5,7 @@ module.exports = function(wallaby) {
     return {
         files: [
             {pattern: 'specSetup.js'},
+            {pattern: '**/tmpl/*'},
             {pattern: 'src/**/*.js'},
             {pattern: '!src/**/*.spec.js'},
             {pattern: 'testFixtures/**/*.*'}

@@ -4,13 +4,16 @@ const mustache = require('mustache');
 const path = require('path');
 const rimraf = require('rimraf');
 
-const stripSvgTagExpression = /.*s/g;
-const template = fs.readFileSync(path.join(__dirname, 'tmpl', 'SvgIcon.js'), {encoding: 'utf-8'});
+const stripSvgTagExpression = /.*<svg.*[\r\n\t]*.*preserve">/g;
+const stripSvgEndTag = /<\/svg>/;
+const template = fs.readFileSync(path.join(__dirname, 'tmpl', 'SvgIcon.js.mustache'), {encoding: 'utf-8'});
 const svgToJsx = svgPath => {
     const rawSvg = fs.readFileSync(svgPath, {encoding: 'utf-8'});
-    const svgData = '';
-    console.log(rawSvg.replace(stripSvgTagExpression, ''));
-    throw new Error('Not Implemented Error');
+    const svgData = rawSvg.replace(stripSvgTagExpression, '').replace(stripSvgEndTag, '').trim();
+    return mustache.render(template, {
+        svgIconName: path.basename(svgPath),
+        svgData
+    });
 };
 
 const copySvgToComponent = outputDir => (svgPath) => {

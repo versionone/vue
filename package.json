@@ -7,13 +7,14 @@
     "url": "https://github.com/versionone/vue.git"
   },
   "scripts": {
+    "install:icon-builder": "cd packages/v1-icon-builder && npm install && cd ../../",
     "clean": "node ./scripts/clean.js",
     "prebuild": "npm run clean",
     "build": "cross-env NODE_ENV=release node_modules/.bin/babel src --ignore Stories.js,*.spec.js,_meta.js,examples/*.* --out-dir ./",
     "specs": "cross-env NODE_ENV=test node_modules/.bin/mocha --ui tdd --require specSetup.js --compilers js:babel-core/register src/**/*.spec.js --recursive",
     "test": "npm run lint && npm run specs",
     "lint": "npm run lint:src & npm run lint:specs",
-    "lint:src": "eslint src/**/*.js --fix --ignore-pattern *.spec.js --config eslint.src.js",
+    "lint:src": "eslint src/**/*.js --fix --ignore-pattern *.spec.js --ignore-pattern packages/**/*.* --config eslint.src.js",
     "lint:specs": "eslint src/**/*.spec.js --fix --config eslint.specs.js",
     "lint:watch": "npm run lint:src:watch & npm run lint:specs:watch",
     "lint:src:watch": "esw --watch --color src/**/*.js --ignore-pattern *.spec.js --config eslint.src.js",
@@ -25,7 +26,7 @@
     "postpublish": "npm run clean && npm run publish:docs",
     "publish:docs": "cd docs && npm run gh-pages:build -p && cd ../",
     "verify": "node scripts/verify",
-    "preinstall": "npm run verify",
+    "preinstall": "npm run verify && npm run install:icon-builder",
     "postinstall": "cd docs && npm install && cd ../"
   },
   "keywords": [

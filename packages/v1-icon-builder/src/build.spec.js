@@ -19,8 +19,8 @@ suite('SVG build CLI', () => {
             svgDir,
             outputDir: tempPath
         }, () => {
-            expect(getExpectedText('add.svg')).to.equal(getActualText('add.svg'));
-            expect(getExpectedText('add-icon.svg')).to.equal(getActualText('add-icon.svg'));
+            expect(getExpectedText('add.svg')).to.equal(getActualText('Add.js'));
+            expect(getExpectedText('add-icon.svg')).to.equal(getActualText('AddIcon.js'));
             cleanup(done);
         });
     });
@@ -36,9 +36,9 @@ function cleanup(done) {
 }
 
 function getExpected(svgDir) {
-    return (fileName) => fs.readFileSync(path.join(svgDir, `${fileName}.txt`), {encoding: 'utf-8'});
+    return (fileName) => fs.readFileSync(path.join(svgDir, `${fileName}.txt`), {encoding: 'utf-8'}).replace(/\s\t*/g, '');
 }
 
 function getActual(outputDir) {
-    return (fileName) => fs.readFileSync(path.join(outputDir, fileName), {encoding: 'utf-8'});
+    return (fileName) => fs.readFileSync(path.join(outputDir, fileName), {encoding: 'utf-8'}).replace(/\s\t*/g, '');
 }

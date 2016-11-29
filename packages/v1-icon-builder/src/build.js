@@ -36,9 +36,9 @@ const run = (options, cb) => {
 const parseArgs = () => require('yargs')
     .usage('Build JSX components from SVG\'s.\nUsage: $0')
     .demand('output-dir')
-    .describe('output-dir', 'Directory to output jsx components')
+    .describe('output-dir', 'Directory to output icon components')
     .demand('svg-dir')
-    .describe('svg-dir', 'SVG directory')
+    .describe('svg-dir', 'SVG input directory')
     .argv;
 
 if (require.main === module) {

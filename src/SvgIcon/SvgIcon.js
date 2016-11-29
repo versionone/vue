@@ -1,10 +1,13 @@
 import React, {Component, PropTypes} from 'React';
+import {create} from './../styles/Transitions';
 
 class SvgIcon extends Component {
     static propTypes = {
         children: PropTypes.node.isRequired,
         color: PropTypes.string,
         hoverColor: PropTypes.string,
+        transition: PropTypes.string,
+        width: PropTypes.number,
         onClick: PropTypes.func,
         onMouseEnter: PropTypes.func,
         onMouseLeave: PropTypes.func
@@ -12,6 +15,8 @@ class SvgIcon extends Component {
 
     static defaultProps = {
         color: '#000',
+        transition: create('0.25s', 'fill'),
+        width: 24,
         onMouseEnter: () => {
         },
         onMouseLeave: () => {
@@ -41,13 +46,18 @@ class SvgIcon extends Component {
     getStyles() {
         const {
             color,
-            hoverColor
+            hoverColor,
+            transition,
+            width
         } = this.props;
         const {isHovered} = this.state;
 
         return {
             root: {
-                fill: isHovered ? hoverColor : color
+                fill: isHovered ? hoverColor : color,
+                height: `${width}px`,
+                transition,
+                width: `${width}px`
             }
         };
     }

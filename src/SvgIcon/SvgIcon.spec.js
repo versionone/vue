@@ -42,6 +42,24 @@ suite('SvgIcon', () => {
         expect(svgComponent).style('fill').to.equal('#000');
     });
 
+    test('the icon can have a transition applied to the hover coloring', () => {
+        const svgComponent = mountSvgIcon({hoverColor: 'blue'});
+        expect(svgComponent).style('transition').to.equal('fill 0.25s linear 0ms');
+
+        const svgIconWithCustomTransition = mountSvgIcon({hoverColor: 'blue', transition: 'fill 0.5s linear 0ms'});
+        expect(svgIconWithCustomTransition).style('transition').to.equal('fill 0.5s linear 0ms');
+    });
+
+    test('the icon width can be adjusted and is always a square', () => {
+        const svgComponent = mountSvgIcon();
+        expect(svgComponent).style('width').to.equal('24px');
+        expect(svgComponent).style('height').to.equal('24px');
+
+        const customWidthSvgComponent = mountSvgIcon({width: 100});
+        expect(customWidthSvgComponent).style('width').to.equal('100px');
+        expect(customWidthSvgComponent).style('height').to.equal('100px');
+    });
+
     test('standard events are exposed on the icon', () => {
         const onClick = spy();
         const onMouseEnter = spy();

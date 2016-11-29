@@ -5,3 +5,4 @@ src/styles/themes/**/*.js
 packages/v1-icons
 packages/**/node_modules
 packages/**/testFixtures
+src/Icons

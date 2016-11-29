@@ -1,5 +1,5 @@
 import React from 'react';
-import SvgIcon from 'vue/SvgIcon';
+import SvgIcon from './../SvgIcon';
 
 const AddIcon = props => (
     <SvgIcon {...props}>

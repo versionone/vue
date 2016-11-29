@@ -11,7 +11,7 @@ suite('SVG build CLI', () => {
         expect(builder.run).to.be.a('function');
     });
 
-    test('the main function can output a corresponding SVG component file in the output directory for each SVG file in an input directory', done => {
+    test('the run function can output a corresponding SVG component file in the output directory for each SVG file in an input directory', done => {
         const tempPath = createOutputDir();
         const getExpectedText = getExpected(svgDir);
         const getActualText = getActual(tempPath);
@@ -20,7 +20,7 @@ suite('SVG build CLI', () => {
             outputDir: tempPath
         }, () => {
             expect(getExpectedText('add.svg')).to.equal(getActualText('Add.js'));
-            expect(getExpectedText('add-icon.svg')).to.equal(getActualText('AddIcon.js'));
+            expect(getExpectedText('another.svg')).to.equal(getActualText('Another.js'));
             cleanup(done);
         });
     });

@@ -1,22 +1,48 @@
 import React, {Component, PropTypes} from 'react';
-import {create} from './../styles/Transitions';
 
+const defaultTransition = 'fill 0.25s linear 0ms';
 class SvgIcon extends Component {
     static propTypes = {
+        /**
+         * SVG element's body to be rendered.
+         */
         children: PropTypes.node.isRequired,
+        /**
+         * Fill color of the SVG.
+         */
         color: PropTypes.string,
+        /**
+         * Fill color to apply when hovering over the SVG.
+         */
         hoverColor: PropTypes.string,
+        /**
+         * Transition to apply to SVG; typically used for fill color on hover.
+         */
         transition: PropTypes.string,
+        /**
+         * Width of the SVG; also applies this as the height.
+         */
         width: PropTypes.number,
+        /**
+         * onClick event handler
+         */
         onClick: PropTypes.func,
+        /**
+         * onMouseEnter event handler.
+         */
         onMouseEnter: PropTypes.func,
+        /**
+         * onMouseLeave event handler.
+         */
         onMouseLeave: PropTypes.func
     };
 
     static defaultProps = {
         color: '#000',
-        transition: create('0.25s', 'fill'),
+        transition: defaultTransition,
         width: 24,
+        onClick: () => {
+        },
         onMouseEnter: () => {
         },
         onMouseLeave: () => {

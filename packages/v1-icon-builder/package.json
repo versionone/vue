@@ -6,7 +6,7 @@
     "v1-icon-builder": "build.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cross-env NODE_ENV=test node_modules/.bin/mocha --ui tdd --require specSetup.js --compilers js:babel-core/register src/**/*.spec.js --recursive"
   },
   "keywords": [
     "VersionOne",

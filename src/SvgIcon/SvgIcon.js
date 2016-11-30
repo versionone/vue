@@ -65,9 +65,16 @@ class SvgIcon extends Component {
     render() {
         const {children} = this.props;
         const styles = this.getStyles();
+        const eventHandlerProps = Object.keys(this.props)
+            .filter(key => key.startsWith('on'))
+            .reduce((output, key) => ({
+                ...output,
+                [key]: this.props[key]
+            }), {});
+
         return (
             <svg
-                {...this.props}
+                {...eventHandlerProps}
                 style={styles.root}
                 viewBox="0 0 24 24"
                 x="0px"

@@ -46,7 +46,10 @@ suite('SvgIcon', () => {
         const svgComponent = mountSvgIcon({hoverColor: 'blue'});
         expect(svgComponent).style('transition').to.equal('fill 0.25s linear 0ms');
 
-        const svgIconWithCustomTransition = mountSvgIcon({hoverColor: 'blue', transition: 'fill 0.5s linear 0ms'});
+        const svgIconWithCustomTransition = mountSvgIcon({
+            hoverColor: 'blue',
+            transition: 'fill 0.5s linear 0ms'
+        });
         expect(svgIconWithCustomTransition).style('transition').to.equal('fill 0.5s linear 0ms');
     });
 
@@ -64,7 +67,11 @@ suite('SvgIcon', () => {
         const onClick = spy();
         const onMouseEnter = spy();
         const onMouseLeave = spy();
-        const svgComponent = mountSvgIcon({onClick, onMouseEnter, onMouseLeave});
+        const svgComponent = mountSvgIcon({
+            onClick,
+            onMouseEnter,
+            onMouseLeave
+        });
 
         simulateClick(svgComponent);
         expect(onClick.calledOnce).to.be.true;

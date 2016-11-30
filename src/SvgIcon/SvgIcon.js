@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'React';
+import React, {Component, PropTypes} from 'react';
 import {create} from './../styles/Transitions';
 
 class SvgIcon extends Component {
@@ -25,22 +25,20 @@ class SvgIcon extends Component {
 
     constructor(...rest) {
         super(...rest);
-        this.state = {
-            isHovered: false
-        };
+        this.state = {isHovered: false};
         this.handleMouseEnter = this.handleMouseEnter.bind(this);
         this.handleMouseLeave = this.handleMouseLeave.bind(this);
         this.getStyles = this.getStyles.bind(this);
     }
 
-    handleMouseEnter() {
+    handleMouseEnter(evt) {
         this.setState({isHovered: true});
-        this.props.onMouseEnter();
+        this.props.onMouseEnter(evt);
     }
 
-    handleMouseLeave() {
+    handleMouseLeave(evt) {
         this.setState({isHovered: false});
-        this.props.onMouseLeave();
+        this.props.onMouseLeave(evt);
     }
 
     getStyles() {
@@ -63,7 +61,7 @@ class SvgIcon extends Component {
     }
 
     render() {
-        const {children} = this.props;
+        const {children, onClick} = this.props;
         const styles = this.getStyles();
         const eventHandlerProps = Object.keys(this.props)
             .filter(key => key.startsWith('on'))
@@ -79,6 +77,7 @@ class SvgIcon extends Component {
                 viewBox="0 0 24 24"
                 x="0px"
                 y="0px"
+                onClick={onClick}
                 onMouseEnter={this.handleMouseEnter}
                 onMouseLeave={this.handleMouseLeave}
             >

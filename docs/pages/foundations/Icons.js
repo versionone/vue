@@ -1,5 +1,7 @@
 import React from 'react';
 import Title from 'react-title-component';
+import iconsReadme from './icons.md';
+import MarkdownElement from 'vue-docs/MarkdownElement';
 import * as Icons from 'vue/Icons';
 
 const alphabeticalOrder = polarity => (iconName1, iconName2) => {
@@ -21,6 +23,7 @@ const IconsPage = () => (
         <Title
             render={previousTitle => `Icons - ${previousTitle}`}
         />
+        <MarkdownElement text={iconsReadme} />
         <ul
             style={{listStyle: 'none'}}
         >

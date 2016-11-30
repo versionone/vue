@@ -19,8 +19,22 @@ suite('SVG build CLI', () => {
             svgDir,
             outputDir: tempPath
         }, () => {
-            expect(getExpectedText('add.svg')).to.equal(getActualText('Add.js'));
-            expect(getExpectedText('another.svg')).to.equal(getActualText('Another.js'));
+            expect(getExpectedText('add.svg')).to.equal(getActualText('AddIcon.js'));
+            expect(getExpectedText('another.svg')).to.equal(getActualText('AnotherIcon.js'));
+            cleanup(done);
+        });
+    });
+
+    test('an index file is generated that exports every icon', (done) =>{
+        const tempPath = createOutputDir();
+        builder.run({
+            svgDir,
+            outputDir: tempPath
+        }, () => {
+            expect(getIndexContents(tempPath)).to.equal(stripNonEssentialCharacters(`import AddIconComponent from './AddIcon';
+export const AddIcon = AddIconComponent;
+import AnotherIconComponent from './AnotherIcon';
+export const AnotherIcon = AnotherIconComponent;`));
             cleanup(done);
         });
     });
@@ -36,9 +50,17 @@ function cleanup(done) {
 }
 
 function getExpected(svgDir) {
-    return (fileName) => fs.readFileSync(path.join(svgDir, `${fileName}.txt`), {encoding: 'utf-8'}).replace(/\s\t*/g, '');
+    return (fileName) => stripNonEssentialCharacters(fs.readFileSync(path.join(svgDir, `${fileName}.txt`), {encoding: 'utf-8'}));
 }
 
 function getActual(outputDir) {
-    return (fileName) => fs.readFileSync(path.join(outputDir, fileName), {encoding: 'utf-8'}).replace(/\s\t*/g, '');
+    return (fileName) => stripNonEssentialCharacters(fs.readFileSync(path.join(outputDir, fileName), {encoding: 'utf-8'}));
+}
+
+function getIndexContents(outputDir) {
+    return stripNonEssentialCharacters(fs.readFileSync(path.join(outputDir, 'index.js'), {encoding: 'utf-8'}));
+}
+
+function stripNonEssentialCharacters(value) {
+    return value.replace(/\s\t*/g, '');
 }

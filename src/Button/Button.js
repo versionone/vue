@@ -1,15 +1,16 @@
 import React, {Component, PropTypes} from 'react';
+import {setOpacity, darken, toRgbaString} from '@andrew-codes/color-functions';
 import Radium from './../utilities/Radium';
 import ThemeProvider from './../Theme';
 import transparent from './../utilities/Transparent';
 import {create} from '../utilities/Transitions';
-import {changeOpacity, darken, getForegroundForBackground} from './../utilities/colorManipulator';
+import {getForegroundForBackground} from './../utilities/colorFunctions';
 import * as ButtonSizes from './Sizes';
 import * as ButtonTypes from './Types';
 
 const darkenInvert = (foreground, background) => {
     const inverseBasicColorMultiplier = 0.35;
-    const darkenedColor = darken(background, inverseBasicColorMultiplier);
+    const darkenedColor = toRgbaString(darken(background, inverseBasicColorMultiplier));
     return {
         ':hover': {
             background: darkenedColor,
@@ -126,7 +127,7 @@ class Button extends Component {
 
         if (disable) {
             const disableColorOpacity = 0.3;
-            const color = changeOpacity(textPrimaryColor, disableColorOpacity);
+            const color = toRgbaString(setOpacity(textPrimaryColor, disableColorOpacity));
             return {
                 ':hover': {
                     background: normalBackground,

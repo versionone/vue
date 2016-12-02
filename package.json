@@ -107,6 +107,7 @@
     "react-dom": "^15.1.0"
   },
   "dependencies": {
+    "@andrew-codes/color-functions": "^1.1.4",
     "classnames": "^2.2.5",
     "invariant": "^2.2.1",
     "merge": "^1.2.0",

@@ -1,0 +1,14 @@
+export const paper = '#ffffff';
+export const ghost = '#edf2f9';
+export const pale = '#dde2e9';
+export const dove = '#c4cacd';
+export const heather = '#b7bcc4';
+export const fog = '#a0a6a9';
+export const slate = '#888e90';
+export const aluminum = '#878c94';
+export const shadow = '#767b7e';
+export const shuttle = '#61666e';
+export const forge = '#474c54';
+export const gunmetal = '#31363e';
+export const midnight = '#272c34';
+export const obsidian = '#000000';

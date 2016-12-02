@@ -2,8 +2,8 @@ import React from 'react';
 import {mount} from 'enzyme';
 import {spy} from 'sinon';
 import Button from './Button';
-import {changeOpacity, darken} from './../utilities/colorManipulator';
-import * as ButtonTypes from './Types';
+import {darken, setOpacity, toRgbaString} from '@andrew-codes/color-functions';
+import * as ButtonTypes from'./Types';
 
 suite('Button', () => {
     test('it can have text', () => {
@@ -43,7 +43,7 @@ suite('Button', () => {
         expect(buttonHasStyles(basicButton, color('#fff', '#00a9e0'))).to.be.true;
         expect(buttonHasStyles(basicButton, border('#00a9e0'))).to.be.true;
         simulateHover(basicButton);
-        expect(buttonHasStyles(basicButton, color('#fff', darken('#00a9e0', 0.35)))).to.be.true;
+        expect(buttonHasStyles(basicButton, color('#fff', toRgbaString(darken('#00a9e0', 0.35))))).to.be.true;
         expect(buttonHasStyles(basicButton, border(darken('#00a9e0', 0.35)))).to.be.true;
     });
 
@@ -52,7 +52,7 @@ suite('Button', () => {
         expect(buttonHasStyles(importantButton, color('#fff', '#ea6c02'))).to.be.true;
         expect(buttonHasStyles(importantButton, border('#ea6c02'))).to.be.true;
         simulateHover(importantButton);
-        expect(buttonHasStyles(importantButton, color('#fff', darken('#ea6c02', 0.35)))).to.be.true;
+        expect(buttonHasStyles(importantButton, color('#fff', toRgbaString(darken('#ea6c02', 0.35))))).to.be.true;
         expect(buttonHasStyles(importantButton, border(darken('#ea6c02', 0.35)))).to.be.true;
     });
 
@@ -91,42 +91,42 @@ suite('Button', () => {
         });
         simulateClick(disabledStandardButton);
         expect(onClick.called).to.be.false;
-        expect(buttonHasStyles(disabledStandardButton, color(changeOpacity('#000', 0.3), '#fff'))).to.be.true;
+        expect(buttonHasStyles(disabledStandardButton, color(toRgbaString(setOpacity('#000', 0.3)), '#fff'))).to.be.true;
         expect(buttonHasStyles(disabledStandardButton, border('rgba(0,0,0,0)'))).to.be.true;
 
         const disabledBasicButton = mountButton({
             disable: true,
             type: ButtonTypes.basic
         });
-        expect(buttonHasStyles(disabledBasicButton, color(changeOpacity('#000', 0.3), '#fff'))).to.be.true;
+        expect(buttonHasStyles(disabledBasicButton, color(toRgbaString(setOpacity('#000', 0.3)), '#fff'))).to.be.true;
         expect(buttonHasStyles(disabledBasicButton, border('rgba(0,0,0,0)'))).to.be.true;
 
         const disabledImportantButton = mountButton({
             disable: true,
             type: ButtonTypes.important
         });
-        expect(buttonHasStyles(disabledImportantButton, color(changeOpacity('#000', 0.3), '#fff'))).to.be.true;
+        expect(buttonHasStyles(disabledImportantButton, color(setOpacity('#000', 0.3), '#fff'))).to.be.true;
         expect(buttonHasStyles(disabledImportantButton, border('rgba(0,0,0,0)'))).to.be.true;
 
         const disabledAltButton = mountButton({
             disable: true,
             type: ButtonTypes.alt
         });
-        expect(buttonHasStyles(disabledAltButton, color(changeOpacity('#000', 0.3), '#fff'))).to.be.true;
+        expect(buttonHasStyles(disabledAltButton, color(setOpacity('#000', 0.3), '#fff'))).to.be.true;
         expect(buttonHasStyles(disabledAltButton, border('rgba(0,0,0,0)'))).to.be.true;
 
         const disabledBasicAltButton = mountButton({
             disable: true,
             type: ButtonTypes.basicAlt
         });
-        expect(buttonHasStyles(disabledBasicAltButton, color(changeOpacity('#000', 0.3), '#fff'))).to.be.true;
+        expect(buttonHasStyles(disabledBasicAltButton, color(setOpacity('#000', 0.3), '#fff'))).to.be.true;
         expect(buttonHasStyles(disabledBasicAltButton, border('rgba(0,0,0,0)'))).to.be.true;
 
         const disabledSpecialButton = mountButton({
             disable: true,
             type: ButtonTypes.special
         });
-        expect(buttonHasStyles(disabledSpecialButton, color(changeOpacity('#000', 0.3), '#fff'))).to.be.true;
+        expect(buttonHasStyles(disabledSpecialButton, color(setOpacity('#000', 0.3), '#fff'))).to.be.true;
         expect(buttonHasStyles(disabledSpecialButton, border('rgba(0,0,0,0)'))).to.be.true;
     });
 });
@@ -174,10 +174,13 @@ function height(value) {
 }
 
 function color(foreground, background) {
-    return style => (
-        style.color === foreground
-        && style.background === background
-    );
+    return style => {
+        console.log(style.color, style.background)
+        return (
+            style.color === foreground
+            && style.background === background
+        );
+    }
 }
 
 function border(borderColor) {

@@ -2,7 +2,7 @@ import React from 'react';
 import {mount} from 'enzyme';
 import {spy} from 'sinon';
 import Button from './Button';
-import {darken, setOpacity, toRgbaString} from '@andrew-codes/color-functions';
+import {darken, setOpacity} from './../utilities/colorFunctions';
 import * as ButtonTypes from'./Types';
 
 suite('Button', () => {
@@ -23,7 +23,7 @@ suite('Button', () => {
         expect(buttonHasStyles(standardButton, color('#000', '#fff'))).to.be.true;
         expect(buttonHasStyles(standardButton, border('#000'))).to.be.true;
         simulateHover(standardButton);
-        expect(buttonHasStyles(standardButton, color('#fff', '#000'))).to.be.true;
+        expect(buttonHasStyles(standardButton, color('rgba(255,255,255,1)', 'rgba(0,0,0,1)'))).to.be.true;
         expect(buttonHasStyles(standardButton, border('#000'))).to.be.true;
     });
 
@@ -43,7 +43,7 @@ suite('Button', () => {
         expect(buttonHasStyles(basicButton, color('#fff', '#00a9e0'))).to.be.true;
         expect(buttonHasStyles(basicButton, border('#00a9e0'))).to.be.true;
         simulateHover(basicButton);
-        expect(buttonHasStyles(basicButton, color('#fff', toRgbaString(darken('#00a9e0', 0.35))))).to.be.true;
+        expect(buttonHasStyles(basicButton, color('#fff', darken('#00a9e0', 0.35)))).to.be.true;
         expect(buttonHasStyles(basicButton, border(darken('#00a9e0', 0.35)))).to.be.true;
     });
 
@@ -52,7 +52,7 @@ suite('Button', () => {
         expect(buttonHasStyles(importantButton, color('#fff', '#ea6c02'))).to.be.true;
         expect(buttonHasStyles(importantButton, border('#ea6c02'))).to.be.true;
         simulateHover(importantButton);
-        expect(buttonHasStyles(importantButton, color('#fff', toRgbaString(darken('#ea6c02', 0.35))))).to.be.true;
+        expect(buttonHasStyles(importantButton, color('#fff', darken('#ea6c02', 0.35)))).to.be.true;
         expect(buttonHasStyles(importantButton, border(darken('#ea6c02', 0.35)))).to.be.true;
     });
 
@@ -91,14 +91,14 @@ suite('Button', () => {
         });
         simulateClick(disabledStandardButton);
         expect(onClick.called).to.be.false;
-        expect(buttonHasStyles(disabledStandardButton, color(toRgbaString(setOpacity('#000', 0.3)), '#fff'))).to.be.true;
+        expect(buttonHasStyles(disabledStandardButton, color(setOpacity('#000', 0.3), '#fff'))).to.be.true;
         expect(buttonHasStyles(disabledStandardButton, border('rgba(0,0,0,0)'))).to.be.true;
 
         const disabledBasicButton = mountButton({
             disable: true,
             type: ButtonTypes.basic
         });
-        expect(buttonHasStyles(disabledBasicButton, color(toRgbaString(setOpacity('#000', 0.3)), '#fff'))).to.be.true;
+        expect(buttonHasStyles(disabledBasicButton, color(setOpacity('#000', 0.3), '#fff'))).to.be.true;
         expect(buttonHasStyles(disabledBasicButton, border('rgba(0,0,0,0)'))).to.be.true;
 
         const disabledImportantButton = mountButton({
@@ -175,7 +175,7 @@ function height(value) {
 
 function color(foreground, background) {
     return style => {
-        console.log(style.color, style.background)
+    console.log(foreground, style.color)
         return (
             style.color === foreground
             && style.background === background

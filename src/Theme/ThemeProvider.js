@@ -1,9 +1,10 @@
 import {Component, PropTypes} from 'react';
+import v1Theme from './../styles/themes/v1Theme';
 
 export default class ThemeProvider extends Component {
     static propTypes = {
         children: PropTypes.element,
-        theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired
+        theme: PropTypes.shape(ThemeProvider.themeDefinition)
     };
     static themeDefinition = {
         /**
@@ -111,14 +112,18 @@ export default class ThemeProvider extends Component {
         xxSmallGutter: PropTypes.number.isRequired
     };
 
+    static defaultProps = {theme: v1Theme};
+
     static
     childContextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired};
 
     getChildContext() {
+        console.log(this.props);
         return {theme: this.props.theme};
     }
 
     render() {
+        console.log(this.props)
         return this.props.children;
     }
 }

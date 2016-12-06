@@ -1,4 +1,4 @@
-import {changeOpacity} from 'vue/utilities/colorManipulator';
+import {changeOpacity} from './../../../utilities/colorManipulator';
 import * as colors from './foundations/colors';
 
 export default {

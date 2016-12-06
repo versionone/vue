@@ -1,4 +1,4 @@
-import {lighten} from 'vue/utilities/colorManipulator';
+import {lighten} from './../../../../utilities/colorManipulator';
 
 // ## Black, whites, and grays // Examples
 export const black = '#000000';

@@ -9,7 +9,6 @@ module.exports = function(wallaby) {
             {pattern: '!src/**/examples/**/*.*'},
             {pattern: '!src/**/Stories.js'},
             {pattern: '!src/**/_meta.js'},
-            {pattern: '!src/**/themes/**/*.*'},
             {pattern: '!src/**/*.spec.js'}
         ],
         tests: [

@@ -1,4 +1,14 @@
-import {darken, emphasize, getForegroundForBackground, lighten, setOpacity, shade, tint} from './colorFunctions';
+import {
+    darken,
+    desaturate,
+    emphasize,
+    getForegroundForBackground,
+    lighten,
+    saturate,
+    setOpacity,
+    shade,
+    tint
+} from './colorFunctions';
 
 suite('emphasize', () => {
     test('default emphasis amount is 15% (0.15)', () => {
@@ -71,6 +81,19 @@ suite('tint', () => {
     test('returns a rgba string', () => {
         const actual = tint('#000', 0.5);
         expect(actual).to.equal('rgba(128,128,128,1)');
+    });
+});
+
+suite('saturate', () => {
+    test('returns a rgba string', () => {
+        const actual = saturate('#fff', 0.5);
+        expect(actual).to.equal('rgba(255,255,255,1)');
+    });
+});
+suite('desaturate', () => {
+    test('returns a rgba string', () => {
+        const actual = desaturate('#000', 0.5);
+        expect(actual).to.equal('rgba(0,0,0,1)');
     });
 });
 

@@ -21,6 +21,7 @@ module.exports = {
         'react'
     ],
     rules: {
+        'linebreak-style': ['error', 'windows'],
         'react/no-did-mount-set-state': 0
     },
     settings: {

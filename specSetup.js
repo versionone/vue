@@ -1,12 +1,12 @@
-var chai = require('chai');
-var chaiEnzyme = require('chai-enzyme');
+const chai = require('chai');
+const chaiEnzyme = require('chai-enzyme');
 
 chai.use(chaiEnzyme());
 global.should = chai.should();
 global.expect = chai.expect;
 
-var jsdom = require('jsdom').jsdom;
-var exposedProperties = ['window', 'navigator', 'document'];
+const jsdom = require('jsdom').jsdom;
+const exposedProperties = ['window', 'navigator', 'document'];
 global.document = jsdom('<!doctype html><html><body></body></html>');
 global.window = document.defaultView;
 Object.keys(document.defaultView).forEach((property) => {

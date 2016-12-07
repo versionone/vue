@@ -5,6 +5,7 @@ module.exports = function(wallaby) {
     return {
         files: [
             {pattern: 'specSetup.js'},
+            {pattern: 'specHelpers/**/*.js'},
             {pattern: 'src/**'},
             {pattern: '!src/**/examples/**/*.*'},
             {pattern: '!src/**/Stories.js'},
@@ -13,6 +14,10 @@ module.exports = function(wallaby) {
         ],
         tests: [
             {pattern: 'src/**/*.spec.js'}
+        ],
+        filesWithNoCoverageCalculated: [
+            'specSetup.js',
+            'specHelpers/**/*.js'
         ],
         compilers: {
             '**/*.js': wallaby.compilers.babel()

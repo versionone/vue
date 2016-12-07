@@ -1,6 +1,6 @@
 import style from './style';
 
-suite('CustomPropType/style', () => {
+suite('style PropType', () => {
     test('invalid CSS styles are considered invalid', () => {
         const incorrect = style(getProps(), 'incorrect', 'My Custom Component');
         expect(isAnError(incorrect, 'Prop `incorrect` passed to `My Custom Component`. Has invalid keys backgroundLineColor')).to.be.true;

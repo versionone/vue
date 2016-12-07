@@ -1,37 +1,18 @@
+import React from 'react';
 import oneOfComponentType from './oneOfComponentType';
+import TextField from './../../TextField';
+import Button from './../../Button';
+import {validatorFails, validatorPasses} from './../../../specHelpers/callValidator';
 
-suite('CustomPropTypes/componentType', () => {
-    test('it validates a non-children property to match the provided Component type', () => {
-        const matchingType = getMatchingType();
-        const actualWithError = oneOfComponentType([matchingType])(getProps(), 'incorrectProp', 'My Custom Component');
-        expect(isAnError(actualWithError, '`My Custom Component` prop, `incorrectProp`, should be one of the following component types: `TextField`. Check the render method of `My Custom Component`')).to.be.true;
-
-        const correctType = oneOfComponentType([matchingType])(getProps(), 'correctProp', 'My Custom Component');
-        expect(isNotError(correctType)).to.be.true;
+suite('oneOfComponentType PropType', () => {
+    test('a property must be one of the specified component types', () => {
+        expect(validatorPasses(oneOfComponentType([TextField, Button]), <div prop={Button}/>, 'prop')).to.be.true;
+        expect(validatorFails(oneOfComponentType([TextField]), <div prop={Button}/>, 'prop')).to.be.true;
     });
 
-    test.skip('it validates children to ensure they all match the provided Component type', () => {
-        // const matchingType = getMatchingType();
-        // const actualWithError = oneOfComponentType(matchingType)(getProps(), 'children', 'My Custom Component');
-        // expect(isAnError(actualWithError, '')).to.be.true;
+    test('all children must be one of the specified component types', () => {
+        expect(validatorPasses(oneOfComponentType([TextField, Button]), <div><Button /></div>, 'children')).to.be.true;
+        expect(validatorPasses(oneOfComponentType([TextField, Button]), <div><Button /><TextField /></div>, 'children')).to.be.true;
+        expect(validatorFails(oneOfComponentType([TextField, Button]), <div><Button /><div /></div>, 'children')).to.be.true;
     });
 });
-
-function getMatchingType() {
-    return {name: 'TextField'};
-}
-
-function getProps() {
-    return {
-        correctProp: {name: 'TextField'},
-        incorrectProp: 'prop'
-    };
-}
-
-function isAnError(input, message) {
-    return (input instanceof Error) === true && input.message === message;
-}
-
-function isNotError(input) {
-    return input === null;
-}

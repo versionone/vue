@@ -23,12 +23,33 @@ const getTargetPosition = targetElement => ({
 
 class Popover extends Component {
     static propTypes = {
+        /**
+         * The element to which the popover will relatively render
+         */
         anchorElement: PropTypes.object,
+        /**
+         * The coordinates of the anchor element in which to align to the target popover's origin
+         */
         anchorOrigin: CustomPropTypes.origin,
+        /**
+         * If true, the popover will close when it exits the viewport
+         */
         autoCloseWhenOffScreen: PropTypes.bool,
+        /**
+         * The children to render within the popover
+         */
         children: PropTypes.node,
+        /**
+         * If true, the popover will be visible; otherwise it will not render
+         */
         open: PropTypes.bool,
+        /**
+         * The coordinates of the popover target in which to align to the anchor's origin
+         */
         targetOrigin: CustomPropTypes.origin,
+        /**
+         * Function called when the popover is requested to close
+         */
         onRequestClose: PropTypes.func
     };
     static defaultProps = {
@@ -60,6 +81,7 @@ class Popover extends Component {
         this.handleComponentClickAway = this.handleComponentClickAway.bind(this);
         this.getAnchorPosition = this.getAnchorPosition.bind(this);
         this.autoCloseWhenOffScreen = this.autoCloseWhenOffScreen.bind(this);
+        this.getStyles = this.getStyles.bind(this);
     }
 
     componentDidMount() {
@@ -134,7 +156,9 @@ class Popover extends Component {
         if (!open) {
             return null;
         }
-        const style = {position: 'fixed'};
+        const style = {
+            position: 'fixed'
+        };
         return (
             <div
                 style={style}

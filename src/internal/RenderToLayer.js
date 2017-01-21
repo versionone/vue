@@ -1,6 +1,6 @@
-import {Component, PropTypes} from 'react';
-import {unmountComponentAtNode, unstable_renderSubtreeIntoContainer} from 'react-dom';
-import {isDescendant} from './../utilities/dom';
+import {Component, PropTypes, } from 'react';
+import {unmountComponentAtNode, unstable_renderSubtreeIntoContainer, } from 'react-dom';
+import {isDescendant, } from './../utilities/dom';
 import ThemeProvider from './../Theme';
 
 const immediateTimeOutValue = 0;
@@ -9,13 +9,13 @@ class RenderToLayer extends Component {
     static propTypes = {
         open: PropTypes.bool.isRequired,
         render: PropTypes.func.isRequired,
-        onComponentClickAway: PropTypes.func
+        onComponentClickAway: PropTypes.func,
     };
     static defaultProps = {
         onComponentClickAway: () => {
-        }
+        },
     };
-    static contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired};
+    static contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
 
     constructor(...rest) {
         super(...rest);
@@ -54,7 +54,7 @@ class RenderToLayer extends Component {
     renderLayer() {
         const {
             open,
-            render
+            render,
         } = this.props;
         if (!open) {
             this.unrenderLayer();
@@ -79,7 +79,7 @@ class RenderToLayer extends Component {
     }
 
     handleClickAway(evt) {
-        const {open, onComponentClickAway} = this.props;
+        const {open, onComponentClickAway, } = this.props;
         if (evt.defaultPrevented || !open) {
             return;
         }

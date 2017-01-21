@@ -1,6 +1,6 @@
 import EventListener from 'react-event-listener';
-import React, {Component, PropTypes} from 'react';
-import {findDOMNode} from 'react-dom';
+import React, {Component, PropTypes, } from 'react';
+import {findDOMNode, } from 'react-dom';
 import throttle from 'lodash.throttle';
 import Radium from './../utilities/Radium';
 import RenderToLayer from './../internal/RenderToLayer';
@@ -18,7 +18,7 @@ const getTargetPosition = targetElement => ({
     left: 0,
     center: targetElement.offsetWidth / centerAlignmentDivisor,
     right: targetElement.offsetWidth,
-    top: 0
+    top: 0,
 });
 
 class Popover extends Component {
@@ -50,29 +50,29 @@ class Popover extends Component {
         /**
          * Function called when the popover is requested to close
          */
-        onRequestClose: PropTypes.func
+        onRequestClose: PropTypes.func,
     };
     static defaultProps = {
         anchorOrigin: {
             horizontal: Positions.left,
-            vertical: Positions.bottom
+            vertical: Positions.bottom,
         },
         autoCloseWhenOffScreen: true,
         open: false,
         targetOrigin: {
             vertical: Positions.top,
-            horizontal: Positions.left
+            horizontal: Positions.left,
         },
         onRequestClose: () => {
-        }
+        },
     };
-    static contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired};
+    static contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
 
     constructor(...rest) {
         super(...rest);
         this.state = {
             closing: false,
-            open: this.props.open
+            open: this.props.open,
         };
         this.setPlacement = this.setPlacement.bind(this);
         this.handleResize = throttle(this.setPlacement, resizeThrottleValue);
@@ -96,11 +96,11 @@ class Popover extends Component {
             this.anchorElement = nextProps.anchorElement || this.props.anchorElement;
             this.setState({
                 open: true,
-                closing: false
+                closing: false,
             });
             return;
         }
-        this.setState({open: false});
+        this.setState({open: false, });
     }
 
     componentDidUpdate() {
@@ -118,7 +118,7 @@ class Popover extends Component {
             anchorOrigin,
             autoCloseWhenOffScreen,
             open,
-            targetOrigin
+            targetOrigin,
         } = this.props;
 
         if (!open) {
@@ -140,7 +140,7 @@ class Popover extends Component {
         const target = getTargetPosition(targetElement);
         const targetPosition = {
             left: (anchor[anchorOrigin.horizontal] - target[targetOrigin.horizontal]),
-            top: (anchor[anchorOrigin.vertical] - target[targetOrigin.vertical])
+            top: (anchor[anchorOrigin.vertical] - target[targetOrigin.vertical]),
         };
         if (scrolling && autoCloseWhenOffScreen) {
             this.autoCloseWhenOffScreen(anchor);
@@ -151,14 +151,12 @@ class Popover extends Component {
     }
 
     renderLayer() {
-        const {children} = this.props;
-        const {open} = this.state;
+        const {children, } = this.props;
+        const {open, } = this.state;
         if (!open) {
             return null;
         }
-        const style = {
-            position: 'fixed'
-        };
+        const style = {position: 'fixed',};
         return (
             <div
                 style={style}
@@ -173,7 +171,7 @@ class Popover extends Component {
     }
 
     requestClose(reason) {
-        const {onRequestClose} = this.props;
+        const {onRequestClose, } = this.props;
         onRequestClose(reason);
     }
 
@@ -184,7 +182,7 @@ class Popover extends Component {
             height: el.offsetHeight,
             left: rect.left,
             top: rect.top,
-            width: el.offsetWidth
+            width: el.offsetWidth,
         };
 
         anchorPosition.right = rect.right || anchorPosition.left + anchorPosition.width;
@@ -209,7 +207,7 @@ class Popover extends Component {
     }
 
     render() {
-        const {open} = this.state;
+        const {open, } = this.state;
         return (
             <div>
                 <EventListener

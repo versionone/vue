@@ -2,32 +2,33 @@ module.exports = {
     env: {
         browser: true,
         mocha: true,
-        node: true
+        node: true,
     },
     extends: [
-        'eslint-config-andrew-codes/react',
-        'plugin:react/recommended'
+        'eslint-config-andrew-codes/base',
+        'eslint-config-andrew-codes-react',
+        'plugin:react/recommended',
     ],
     parser: 'babel-eslint',
     parserOptions: {
         sourceType: 'module',
         ecmaFeatures: {
-            jsx: true
+            jsx: true,
         }
     },
     plugins: [
         'babel',
         'import',
-        'react'
+        'react',
     ],
     rules: {
-        'linebreak-style': ['error', 'windows'],
+        'linebreak-style': [2, 'windows'],
         'react/no-did-mount-set-state': 0
     },
     settings: {
         react: {
             pragma: 'React',
-            version: '15.0'
+            version: '15.0',
         }
     }
 };

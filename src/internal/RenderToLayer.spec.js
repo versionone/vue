@@ -1,9 +1,9 @@
-const React = require('react');
+import React from 'react';
 import simulant from 'simulant';
 import {jsdom} from 'jsdom';
 import {mount} from 'enzyme';
 import {spy, stub} from 'sinon';
-const RenderToLayer = require('./RenderToLayer').default;
+import RenderToLayer from './RenderToLayer';
 
 suite('RenderToLayer', () => {
     beforeEach(() => {

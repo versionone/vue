@@ -81,7 +81,6 @@ class Popover extends Component {
         this.handleComponentClickAway = this.handleComponentClickAway.bind(this);
         this.getAnchorPosition = this.getAnchorPosition.bind(this);
         this.autoCloseWhenOffScreen = this.autoCloseWhenOffScreen.bind(this);
-        this.getStyles = this.getStyles.bind(this);
     }
 
     componentDidMount() {

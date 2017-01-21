@@ -1,14 +1,14 @@
 export default [
     {
-        title: 'Simple Examples',
-        description: 'Examples demonstrating the key features of buttons.',
-        code: require('!raw!./SimpleExamples'),
-        component: require('./SimpleExamples').default
+        title: 'Clicking an Anchor',
+        description: 'Examples demonstrating clicking an anchor to open the `Popover`.',
+        code: require('!raw!./ClickAnchorExample'),
+        component: require('./ClickAnchorExample').default
     },
     {
-        title: 'Button Types Examples',
-        description: 'Examples demonstrating the various types of buttons.',
-        code: require('!raw!./TypesExamples'),
-        component: require('./TypesExamples').default
-    }
+        title: 'Positioning',
+        description: 'Examples demonstrating various positionings of Popovers.',
+        code: require('!raw!./PositioningExamples'),
+        component: require('./PositioningExamples').default
+    },
 ];

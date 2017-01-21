@@ -1,42 +1,29 @@
 # Vue
 VersionOne Vue is an open-source and community supported collection of common UI components built with React. As an open-sourced and community supported project, VersionOne Vue is not formally supported by VersionOne.
 
-## Prerequisites
-Vue requires **node@^4.4.0** and **npm@^3.0.0**. If you have attempted to run Vue with a different version of npm or need to upgrade to the correct version, use the following commands:
+## Getting Started
+### Step 1: Prerequisites
+Required software:
 
-```bash
-# 1. If tried npm install with wrong npm version, this will remove all packages installed with the incorrect version of npm
-rm -rf node_modules docs/node_modules
+- **node@^4.4.0**
+- **npm@^3.0.0**
+  
+You can run `npm run verify` to determine if you meet the above requirements. If you do not **and** have already attempted to run Vue, then you need to run the following commands: `rm -rf node_modules docs/node_modules` and `npm install npm@^3.0.0 -g`.
 
-# 2. Upgrade npm to correct version
-npm install npm@^3.0.0 -g
-```
+### Step 2: Installing Dependencies
+Run `npm install`. If there is an error, see the [Prerequisites](#Step-1-Prerequisites) section.
 
-## Getting Started: Running the Documentation Site Locally
-Run the documentation site to view changes to the documentation of components or other doc pages.
+This is only required to be run either the **first** time running Vue on your machine **or** if new dependencies have been added (will produce an error when running the commands below).
 
-```bash
-# 1. Install dependencies
-npm install
+### Step 3: Running the Documentation Site Locally
+Run `npm start` and open your browser to **[http://localhost:3000](http://localhost:3000)**.
 
-#2. Start the documentation website
-npm start
+If there is an error, try running `npm install` again.
 
-#3. Open browser and navigate to http://localhost:3000 to view documentation website
-```
+### Step 4: Running Storybook Locally
+Run `npm run start:dev` and open your browser to **[http://localhost:9001](http://localhost:9001)**.
 
-## Getting Started: Running Storybook Locally
-The storybook is primarily used for development and testing purposes.
-
-```bash
-# 1. Install dependencies
-npm Install
-
-# 2. Start Storybook
-npm run start:dev
-
-# 3. Open browser and navigate to http://localhost:9001 to view the storybook
-```
+If there is an error, try running `npm install` again.
 
 ## Other Resources
 [LICENSE.md](./license.md) - License for source code and redistribution

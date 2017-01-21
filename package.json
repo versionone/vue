@@ -7,7 +7,6 @@
     "url": "https://github.com/versionone/vue.git"
   },
   "scripts": {
-    "postinstall": "cd docs && npm install && cd ../",
     "clean": "node ./scripts/clean.js",
     "prebuild": "npm run clean",
     "build": "cross-env NODE_ENV=release node_modules/.bin/babel src --ignore Stories.js,*.spec.js,_meta.js,examples/*.* --out-dir ./",
@@ -24,7 +23,10 @@
     "preversion": "npm test",
     "publish": "npm run test && npm run build && npm publish --registry http://artifactory.dev.corp.versionone.net/artifactory/api/npm/local-npm",
     "postpublish": "npm run clean && npm run publish:docs",
-    "publish:docs": "cd docs && npm run gh-pages:build -p && cd ../"
+    "publish:docs": "cd docs && npm run gh-pages:build -p && cd ../",
+    "verify": "node scripts/verify",
+    "preinstall": "npm run verify",
+    "postinstall": "cd docs && npm install && cd ../"
   },
   "keywords": [
     "react",

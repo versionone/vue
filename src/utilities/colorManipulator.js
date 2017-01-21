@@ -37,7 +37,7 @@ const isHex = color => color.indexOf('#') === colorValuesStartIndex;
 export const convertColorToString = (color) => {
     const {
         type,
-        values
+        values,
     } = color;
     const contains = getContainsFor(type);
 
@@ -96,7 +96,7 @@ export function decomposeColor(color) {
 
     return {
         type,
-        values
+        values,
     };
 }
 
@@ -128,14 +128,14 @@ export function getContrastRatio(foreground, background) {
 export function fade(color, value) {
     const {
         type,
-        values
+        values,
     } = decomposeColor(color);
     const clampedValue = clamp(value, Opacity.hidden, Opacity.fullyVisible);
 
     if (isHex(color)) {
         return convertColorToString({
             type,
-            values: values.concat(clampedValue)
+            values: values.concat(clampedValue),
         });
     }
 
@@ -145,19 +145,19 @@ export function fade(color, value) {
         newValues[3] *= clampedValue;
         return convertColorToString({
             type: `${type}a`,
-            values: newValues
+            values: newValues,
         });
     }
     return convertColorToString({
         type: `${type}a`,
-        values: values.concat(clampedValue)
+        values: values.concat(clampedValue),
     });
 }
 
 export function darken(color, coefficient) {
     const {
         type,
-        values
+        values,
     } = decomposeColor(color);
     const clampedCoefficient = clamp(coefficient, lightenMin, darkenMax);
     const contains = getContainsFor(type);
@@ -174,12 +174,12 @@ export function darken(color, coefficient) {
 
     return convertColorToString({
         type,
-        values
+        values,
     });
 }
 
 export function lighten(color, coefficient) {
-    const {type, values} = decomposeColor(color);
+    const {type, values, } = decomposeColor(color);
     const clampedCoefficient = clamp(coefficient, lightenMin, darkenMax);
     const contains = getContainsFor(type);
 
@@ -195,7 +195,7 @@ export function lighten(color, coefficient) {
 
     return convertColorToString({
         type,
-        values
+        values,
     });
 }
 

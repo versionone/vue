@@ -1,5 +1,5 @@
 import React from 'react';
-import TextField from 'vue/TextField';
+import TextField from 'vue/ExpectedTextField';
 
 export default () => (
     <div>

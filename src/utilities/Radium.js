@@ -8,7 +8,7 @@ export default function ConfiguredRadium(component) {
             Radium.Plugins.resolveMediaQueries,
             Radium.Plugins.resolveInteractionStyles,
             Radium.Plugins.prefix,
-            Radium.Plugins.checkProps
-        ]
+            Radium.Plugins.checkProps,
+        ],
     })(component);
 }

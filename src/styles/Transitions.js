@@ -6,7 +6,7 @@ export const create = (duration = '450ms', property = 'all', delay = '0ms', ease
 export const easeOut = (duration, property, delay, easeFunction = easeOutFunction) => {
     let properties = property;
     if (!property || Object.prototype.toString.call(property) !== '[object Array]') {
-        properties = [property];
+        properties = [property, ];
     }
 
     return properties

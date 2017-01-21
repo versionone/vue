@@ -1,7 +1,7 @@
 export default [
     {
         title: 'Simple Examples',
-        description: 'Examples demonstrating key features of a TextField.',
+        description: 'Examples demonstrating key features of a ExpectedTextField.',
         code: require('!raw!./SimpleExamples'),
         component: require('./SimpleExamples').default
     },

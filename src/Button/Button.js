@@ -1,9 +1,9 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component, PropTypes, } from 'react';
 import Radium from './../utilities/Radium';
 import ThemeProvider from './../Theme';
 import transparent from './../utilities/Transparent';
-import {create} from './../styles/Transitions';
-import {changeOpacity, darken, getForegroundForBackground} from './../utilities/colorManipulator';
+import {create, } from './../styles/Transitions';
+import {changeOpacity, darken, getForegroundForBackground, } from './../utilities/colorManipulator';
 import * as ButtonSizes from './Sizes';
 import * as ButtonTypes from './Types';
 
@@ -14,11 +14,11 @@ const darkenInvert = (foreground, background) => {
         ':hover': {
             background: darkenedColor,
             border: `1px solid ${darkenedColor}`,
-            color: foreground
+            color: foreground,
         },
         background,
         border: `1px solid ${background}`,
-        color: foreground
+        color: foreground,
     };
 };
 
@@ -45,12 +45,12 @@ class Button extends Component {
             ButtonTypes.important,
             ButtonTypes.alt,
             ButtonTypes.basicAlt,
-            ButtonTypes.special
+            ButtonTypes.special,
         ]),
         /**
          * Click event handler; fired once a button is clicked
          */
-        onClick: PropTypes.func
+        onClick: PropTypes.func,
     };
     static defaultProps = {
         disable: false,
@@ -58,9 +58,9 @@ class Button extends Component {
         text: '',
         type: ButtonTypes.standard,
         onClick: () => {
-        }
+        },
     };
-    static contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired};
+    static contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
 
     constructor(...rest) {
         super(...rest);
@@ -75,9 +75,9 @@ class Button extends Component {
             basicFontFamily,
             bold,
             largeLineHeight,
-            smallFontSize
+            smallFontSize,
         } = this.context.theme;
-        const {size} = this.props;
+        const {size, } = this.props;
 
         const fontSize = smallFontSize * size;
         const height = Math.ceil(fontSize * largeLineHeight);
@@ -87,7 +87,7 @@ class Button extends Component {
 
         return {
             root: {
-                ':focus': {outline: 'none'},
+                ':focus': {outline: 'none', },
                 alignItems: 'flex-start',
                 border: `1px solid ${transparent}`,
                 borderRadius: `${borderRadius}px`,
@@ -106,8 +106,8 @@ class Button extends Component {
                 textShadow: 'none',
                 transition: create('0.5s'),
                 whiteSpace: 'no-wrap',
-                ...typeStyles
-            }
+                ...typeStyles,
+            },
         };
     }
 
@@ -119,10 +119,10 @@ class Button extends Component {
             darkInverseColor,
             lightInverseColor,
             normalBackground,
-            textPrimaryColor
+            textPrimaryColor,
         } = this.context.theme;
-        const {disable, type} = this.props;
-        const inverseColors = [darkInverseColor, lightInverseColor];
+        const {disable, type, } = this.props;
+        const inverseColors = [darkInverseColor, lightInverseColor, ];
 
         if (disable) {
             const disableColorOpacity = 0.3;
@@ -130,11 +130,11 @@ class Button extends Component {
             return {
                 ':hover': {
                     background: normalBackground,
-                    color
+                    color,
                 },
                 background: normalBackground,
                 border: `1px solid ${transparent}`,
-                color
+                color,
             };
         }
         if (type === ButtonTypes.basic) {
@@ -151,11 +151,11 @@ class Button extends Component {
                 ':hover': {
                     background: basicColor,
                     border: `1px solid ${basicColor}`,
-                    color: darkInverseColor
+                    color: darkInverseColor,
                 },
                 background: normalBackground,
                 border: `1px solid ${textPrimaryColor}`,
-                color: textPrimaryColor
+                color: textPrimaryColor,
             };
         }
 
@@ -164,11 +164,11 @@ class Button extends Component {
                 ':hover': {
                     background: basicColor,
                     border: `1px solid ${basicColor}`,
-                    color: darkInverseColor
+                    color: darkInverseColor,
                 },
                 background: textPrimaryColor,
                 border: `1px solid ${textPrimaryColor}`,
-                color: normalBackground
+                color: normalBackground,
             };
         }
 
@@ -177,18 +177,18 @@ class Button extends Component {
         return {
             ':hover': {
                 background: inverseBackground,
-                color: inverseForeground
+                color: inverseForeground,
             },
             background: normalBackground,
             border: `1px solid ${textPrimaryColor}`,
-            color: textPrimaryColor
+            color: textPrimaryColor,
         };
     }
 
     handleClick(evt) {
         const {
             disable,
-            onClick
+            onClick,
         } = this.props;
         if (disable) {
             return;
@@ -197,7 +197,7 @@ class Button extends Component {
     }
 
     render() {
-        const {text} = this.props;
+        const {text, } = this.props;
         const styles = this.getStyles();
         return (
             <button

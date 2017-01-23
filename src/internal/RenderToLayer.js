@@ -1,6 +1,7 @@
-import {Component, PropTypes, } from 'react';
-import {unmountComponentAtNode, unstable_renderSubtreeIntoContainer, } from 'react-dom';
-import {isDescendant, } from './../utilities/dom';
+import { Component, PropTypes, } from 'react';
+// eslint-disable-next-line camelcase
+import { unmountComponentAtNode, unstable_renderSubtreeIntoContainer, } from 'react-dom';
+import isDescendant from './../utilities/dom';
 import ThemeProvider from './../Theme';
 
 const immediateTimeOutValue = 0;
@@ -15,7 +16,7 @@ class RenderToLayer extends Component {
         onComponentClickAway: () => {
         },
     };
-    static contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
+    static contextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
 
     constructor(...rest) {
         super(...rest);
@@ -79,7 +80,7 @@ class RenderToLayer extends Component {
     }
 
     handleClickAway(evt) {
-        const {open, onComponentClickAway, } = this.props;
+        const { open, onComponentClickAway, } = this.props;
         if (evt.defaultPrevented || !open) {
             return;
         }
@@ -96,6 +97,7 @@ class RenderToLayer extends Component {
         }
     }
 
+    // eslint-disable-next-line class-methods-use-this
     render() {
         return null;
     }

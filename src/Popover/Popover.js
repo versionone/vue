@@ -1,6 +1,6 @@
 import EventListener from 'react-event-listener';
-import React, {Component, PropTypes, } from 'react';
-import {findDOMNode, } from 'react-dom';
+import React, { Component, PropTypes, } from 'react';
+import { findDOMNode, } from 'react-dom';
 import throttle from 'lodash.throttle';
 import Radium from './../utilities/Radium';
 import RenderToLayer from './../internal/RenderToLayer';
@@ -66,7 +66,7 @@ class Popover extends Component {
         onRequestClose: () => {
         },
     };
-    static contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
+    static contextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
 
     constructor(...rest) {
         super(...rest);
@@ -99,7 +99,7 @@ class Popover extends Component {
             });
             return;
         }
-        this.setState({open: false, });
+        this.setState({ open: false, });
     }
 
     componentDidUpdate() {
@@ -150,12 +150,12 @@ class Popover extends Component {
     }
 
     renderLayer() {
-        const {children, } = this.props;
-        const {open, } = this.state;
+        const { children, } = this.props;
+        const { open, } = this.state;
         if (!open) {
             return null;
         }
-        const style = {position: 'fixed',};
+        const style = { position: 'fixed', };
         return (
             <div
                 style={style}
@@ -170,7 +170,7 @@ class Popover extends Component {
     }
 
     requestClose(reason) {
-        const {onRequestClose, } = this.props;
+        const { onRequestClose, } = this.props;
         onRequestClose(reason);
     }
 
@@ -206,7 +206,7 @@ class Popover extends Component {
     }
 
     render() {
-        const {open, } = this.state;
+        const { open, } = this.state;
         return (
             <div>
                 <EventListener

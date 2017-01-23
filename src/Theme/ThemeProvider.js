@@ -118,7 +118,7 @@ export default class ThemeProvider extends Component {
     childContextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
 
     getChildContext() {
-        return {theme: this.props.theme, };
+        return { theme: this.props.theme, };
     }
 
     render() {

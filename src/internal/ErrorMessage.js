@@ -1,8 +1,8 @@
-import React, {Component, PropTypes, } from 'react';
+import React, { Component, PropTypes, } from 'react';
 import Radium from './../utilities/Radium';
 import ThemeProvider from './../Theme';
 import * as Transitions from './../styles/Transitions';
-import {fullyVisible as opacityFullyVisible, hidden as opacityHidden, } from './../utilities/Opacity';
+import { fullyVisible as opacityFullyVisible, hidden as opacityHidden, } from './../utilities/Opacity';
 
 class ErrorMessage extends Component {
     static propTypes = {
@@ -16,7 +16,7 @@ class ErrorMessage extends Component {
         onClick: () => {
         },
     };
-    static contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
+    static contextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
 
     constructor(...args) {
         super(...args);
@@ -24,7 +24,7 @@ class ErrorMessage extends Component {
     }
 
     getStyles() {
-        const {hidden, } = this.props;
+        const { hidden, } = this.props;
         const {
             errorPrimaryColor,
             basicFontFamily,
@@ -47,7 +47,7 @@ class ErrorMessage extends Component {
 
     render() {
         // eslint-disable-next-line no-unused-vars
-        const {text, hidden, ...rest} = this.props;
+        const { text, hidden, ...rest } = this.props;
         const styles = this.getStyles();
 
         return (

@@ -1,13 +1,13 @@
-import React, {Component, PropTypes, } from 'react';
-import {fullyVisible as opacityFullyVisible, hidden as opacityHidden, } from './../utilities/Opacity';
+import React, { Component, PropTypes, } from 'react';
+import { fullyVisible as opacityFullyVisible, hidden as opacityHidden, } from './../utilities/Opacity';
 import Radium from './../utilities/Radium';
 
 class RequiredIndicator extends Component {
-    static propTypes = {hidden: PropTypes.bool, };
+    static propTypes = { hidden: PropTypes.bool, };
 
     static contextTypes = {
         theme: PropTypes.shape({
-            color: PropTypes.shape({requiredPrimary: PropTypes.string, }),
+            color: PropTypes.shape({ requiredPrimary: PropTypes.string, }),
             typography: PropTypes.shape({
                 lineHeightNormal: PropTypes.number,
                 small: PropTypes.number,
@@ -15,7 +15,7 @@ class RequiredIndicator extends Component {
         }),
     };
 
-    static defaultProps = {hidden: false, };
+    static defaultProps = { hidden: false, };
 
     constructor(...args) {
         super(...args);
@@ -23,7 +23,7 @@ class RequiredIndicator extends Component {
     }
 
     getStyles() {
-        const {hidden, } = this.props;
+        const { hidden, } = this.props;
         const {
             requiredPrimaryColor,
             normalLineHeight,

@@ -1,5 +1,5 @@
-import React, {Component, PropTypes, } from 'react';
-import {fullyVisible as opacityFullyVisible, hidden as opacityHidden, } from './../utilities/Opacity';
+import React, { Component, PropTypes, } from 'react';
+import { fullyVisible as opacityFullyVisible, hidden as opacityHidden, } from './../utilities/Opacity';
 import Radium from './../utilities/Radium';
 
 class HintText extends Component {
@@ -16,7 +16,7 @@ class HintText extends Component {
     };
     static contextTypes = {
         theme: PropTypes.shape({
-            color: PropTypes.shape({textSecondary: PropTypes.string, }),
+            color: PropTypes.shape({ textSecondary: PropTypes.string, }),
             typography: PropTypes.shape({
                 basicFamily: PropTypes.string,
                 lineHeightNormal: PropTypes.number.isRequired,
@@ -31,7 +31,7 @@ class HintText extends Component {
     }
 
     getStyles() {
-        const {hidden, } = this.props;
+        const { hidden, } = this.props;
         const {
             basicFontFamily,
             smallFontSize,

@@ -179,7 +179,7 @@ export function darken(color, coefficient) {
 }
 
 export function lighten(color, coefficient) {
-    const {type, values, } = decomposeColor(color);
+    const { type, values, } = decomposeColor(color);
     const clampedCoefficient = clamp(coefficient, lightenMin, darkenMax);
     const contains = getContainsFor(type);
 

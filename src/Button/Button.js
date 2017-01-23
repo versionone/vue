@@ -1,9 +1,9 @@
-import React, {Component, PropTypes, } from 'react';
+import React, { Component, PropTypes, } from 'react';
 import Radium from './../utilities/Radium';
 import ThemeProvider from './../Theme';
 import transparent from './../utilities/Transparent';
-import {create, } from './../styles/Transitions';
-import {changeOpacity, darken, getForegroundForBackground, } from './../utilities/colorManipulator';
+import { create, } from './../styles/Transitions';
+import { changeOpacity, darken, getForegroundForBackground, } from './../utilities/colorManipulator';
 import * as ButtonSizes from './Sizes';
 import * as ButtonTypes from './Types';
 
@@ -60,7 +60,7 @@ class Button extends Component {
         onClick: () => {
         },
     };
-    static contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
+    static contextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
 
     constructor(...rest) {
         super(...rest);
@@ -77,7 +77,7 @@ class Button extends Component {
             largeLineHeight,
             smallFontSize,
         } = this.context.theme;
-        const {size, } = this.props;
+        const { size, } = this.props;
 
         const fontSize = smallFontSize * size;
         const height = Math.ceil(fontSize * largeLineHeight);
@@ -87,7 +87,7 @@ class Button extends Component {
 
         return {
             root: {
-                ':focus': {outline: 'none', },
+                ':focus': { outline: 'none', },
                 alignItems: 'flex-start',
                 border: `1px solid ${transparent}`,
                 borderRadius: `${borderRadius}px`,
@@ -121,8 +121,11 @@ class Button extends Component {
             normalBackground,
             textPrimaryColor,
         } = this.context.theme;
-        const {disable, type, } = this.props;
-        const inverseColors = [darkInverseColor, lightInverseColor, ];
+        const { disable, type, } = this.props;
+        const inverseColors = [
+            darkInverseColor,
+            lightInverseColor,
+        ];
 
         if (disable) {
             const disableColorOpacity = 0.3;
@@ -197,7 +200,7 @@ class Button extends Component {
     }
 
     render() {
-        const {text, } = this.props;
+        const { text, } = this.props;
         const styles = this.getStyles();
         return (
             <button

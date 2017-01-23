@@ -23,7 +23,8 @@ module.exports = {
     ],
     rules: {
         'linebreak-style': [2, 'windows'],
-        'react/no-did-mount-set-state': 0
+        'object-curly-spacing': [2, 'always'],
+        'react/no-did-mount-set-state': 0,
     },
     settings: {
         react: {

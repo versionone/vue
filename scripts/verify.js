@@ -34,7 +34,7 @@ function versionIsGreaterOrEqual(desiredVersion, actualVersion) {
     return true;
 }
 
-function checkVersion(nodeVersion, yarnVersion, npmVersion) {
+function checkVersion(nodeVersion, npmVersion) {
     const desiredVersions = {
         node: '4.4.0',
         npm: '3.0.0',
@@ -64,8 +64,8 @@ function checkVersion(nodeVersion, yarnVersion, npmVersion) {
     errors.oldNode.message = errors.oldNode.getMessage(desiredVersions.node, nodeVersion);
 
     try {
-        errors.oldYarn.isProblem = !versionIsGreaterOrEqual(desiredVersions.yarn, yarnVersion);
-        errors.oldYarn.message = errors.oldYarn.getMessage(desiredVersions.yarn, yarnVersion);
+        // errors.oldYarn.isProblem = !versionIsGreaterOrEqual(desiredVersions.yarn, yarnVersion);
+        // errors.oldYarn.message = errors.oldYarn.getMessage(desiredVersions.yarn, yarnVersion);
     }
     catch (e) {
         errors.noYarn.isProblem = true;
@@ -94,10 +94,10 @@ ${errorMessage}`);
 
 // Run script
 const node = process.version;
-const yarn = execSync('yarn --version')
-    .toString()
-    .trim();
+// const yarn = execSync('yarn --version')
+//     .toString()
+//     .trim();
 const npm = execSync('npm --version')
     .toString()
     .trim();
-checkVersion(node, yarn, npm);
+checkVersion(node, npm);

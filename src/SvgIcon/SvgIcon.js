@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component, PropTypes, } from 'react';
 
 const defaultTransition = 'fill 0.25s linear 0ms';
 class SvgIcon extends Component {
@@ -34,7 +34,7 @@ class SvgIcon extends Component {
         /**
          * onMouseLeave event handler.
          */
-        onMouseLeave: PropTypes.func
+        onMouseLeave: PropTypes.func,
     };
 
     static defaultProps = {
@@ -46,24 +46,24 @@ class SvgIcon extends Component {
         onMouseEnter: () => {
         },
         onMouseLeave: () => {
-        }
+        },
     };
 
     constructor(...rest) {
         super(...rest);
-        this.state = {isHovered: false};
+        this.state = {isHovered: false, };
         this.handleMouseEnter = this.handleMouseEnter.bind(this);
         this.handleMouseLeave = this.handleMouseLeave.bind(this);
         this.getStyles = this.getStyles.bind(this);
     }
 
     handleMouseEnter(evt) {
-        this.setState({isHovered: true});
+        this.setState({isHovered: true, });
         this.props.onMouseEnter(evt);
     }
 
     handleMouseLeave(evt) {
-        this.setState({isHovered: false});
+        this.setState({isHovered: false, });
         this.props.onMouseLeave(evt);
     }
 
@@ -72,28 +72,28 @@ class SvgIcon extends Component {
             color,
             hoverColor,
             transition,
-            width
+            width,
         } = this.props;
-        const {isHovered} = this.state;
+        const {isHovered, } = this.state;
 
         return {
             root: {
                 fill: isHovered ? hoverColor : color,
                 height: `${width}px`,
                 transition,
-                width: `${width}px`
-            }
+                width: `${width}px`,
+            },
         };
     }
 
     render() {
-        const {children, onClick} = this.props;
+        const {children, onClick, } = this.props;
         const styles = this.getStyles();
         const eventHandlerProps = Object.keys(this.props)
             .filter(key => key.startsWith('on'))
             .reduce((output, key) => ({
                 ...output,
-                [key]: this.props[key]
+                [key]: this.props[key],
             }), {});
 
         return (

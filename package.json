@@ -7,7 +7,6 @@
     "url": "https://github.com/versionone/vue.git"
   },
   "scripts": {
-    "install:icon-builder": "cd packages/v1-icon-builder && npm install && cd ../../",
     "clean": "node ./scripts/clean.js",
     "build:icons": "node ./packages/v1-icon-builder/src/build.js --svgDir=./packages/v1-icons/src --outputDir=./src/Icons",
     "prebuild": "npm run clean && npm run build:icons",
@@ -30,8 +29,10 @@
     "postpublish": "npm run clean && npm run publish:docs",
     "publish:docs": "cd docs && npm run gh-pages:build -p && cd ../",
     "verify": "node scripts/verify",
+    "install:icon-builder": "cd packages/v1-icon-builder && npm install && cd ../../",
+    "install:docs": "cd docs && npm install && cd ../",
     "preinstall": "npm run verify && npm run install:icon-builder",
-    "postinstall": "cd docs && npm install && cd ../"
+    "postinstall": "npm run install:docs"
   },
   "keywords": [
     "react",

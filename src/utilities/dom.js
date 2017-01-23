@@ -1,4 +1,4 @@
-export const isDescendant = (parent, child) => {
+export default (parent, child) => {
     let node = child.parentNode;
 
     while (node !== null) {

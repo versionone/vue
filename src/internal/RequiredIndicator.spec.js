@@ -20,6 +20,7 @@ function getContext() {
     return {
         context: {
             theme: {
+                _name: 'Test Theme',
                 normalLineHeight: 1.5,
                 requiredPrimaryColor: 'black'
             }

@@ -162,6 +162,7 @@ function mountTextField(props = {}) {
 
 function getTestTheme() {
     return {
+        _name: 'Test Theme',
         basicFontFamily: '\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif',
         disabledPrimaryColor: 'gray',
         errorPrimaryColor: 'red',

@@ -45,6 +45,7 @@ function getContext() {
     return {
         context: {
             theme: {
+                _name: 'Test Theme',
                 textSecondaryColor: 'gray',
                 basicFontFamily: 'Arial',
                 normalLineHeight: 1.5,

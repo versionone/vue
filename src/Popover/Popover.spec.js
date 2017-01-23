@@ -1,19 +1,8 @@
 import React, {Component} from 'react';
 import {mount} from 'enzyme';
-import {jsdom} from 'jsdom';
 import Popover from './Popover';
 
 suite('Popover', () => {
-    beforeEach(() => {
-        global.document = jsdom('<!doctype html><html><body></body></html>');
-        global.document.body.appendChild(document.createElement('section'));
-        global.document.body.firstChild.innerText = 'Click me';
-    });
-    after(() => {
-        global.document = jsdom('<!doctype html><html><body></body></html>');
-        global.window = document.defaultView;
-    });
-
     test('closed or unspecified open state are not visible', () => {
         mountPopover({open: false});
         expect(popoverIsNotVisible()).to.be.true;
@@ -55,7 +44,9 @@ function mountPopover(props = {}, context = {theme: getTheme()}) {
 }
 
 function getTheme() {
-    return {};
+    return {
+        _name: 'Test Theme',
+    };
 }
 function getRootElementOfPopover() {
     return document.body.getElementsByTagName('div')[1];

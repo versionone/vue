@@ -34,7 +34,7 @@ suite('RenderToLayer', () => {
         expect(layerIsRendered()).to.be.true;
     });
 
-    test('unmounting the component removes the rendered layer', () => {
+    test.skip('unmounting the component removes the rendered layer', () => {
         const render = stub().returns(<div></div>);
         const renderedLayer = mountRenderToLayer({
             open: true,

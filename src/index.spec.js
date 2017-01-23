@@ -10,7 +10,7 @@ suite('vue exports', () => {
         expect(new ThemeProvider()).to.be.a.instanceOf(ThemeProviderComponent);
     });
 
-    test('vue exports the ExpectedTextField component', () => {
+    test('vue exports the TextField component', () => {
         expect(new TextField({})).to.be.a.instanceOf(TextFieldComponent);
     });
 

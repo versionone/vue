@@ -243,10 +243,11 @@ function errorTextIsAlignedWithText(wrapper) {
 
 function requiredIndicatorIsInsideTextField(wrapper) {
     return (
-        wrapper.children('RequiredIndicator').node === undefined
-        && !!wrapper.find('input').parent()
-            .children('RequiredIndicator')
-            .node
+        !wrapper.children('RequiredIndicator').exists()
+        && wrapper.find('input')
+            .parent()
+            .find('RequiredIndicator')
+            .exists()
     );
 }
 

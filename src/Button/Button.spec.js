@@ -137,6 +137,7 @@ function mountButton(props = {}, context = {theme: getTheme()}) {
 
 function getTheme() {
     return {
+        _name: 'Test Theme',
         altColor: '#eaab00',
         basicColor: '#00a9e0',
         basicFontFamily: 'Arial',

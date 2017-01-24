@@ -85,7 +85,11 @@ class AutoComplete extends Component {
 
     getFullWidth() {
         const textField = findDOMNode(this.textFieldEl);
-        return textField.getBoundingClientRect();
+        return parseInt(window
+            .getComputedStyle(textField)
+            .width
+            .replace('px', '')
+        );
     }
 
     handleFocusTextField() {

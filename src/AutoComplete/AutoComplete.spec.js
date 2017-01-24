@@ -75,6 +75,7 @@ function mountAutoComplete(props = {}) {
 function getTestTheme() {
     return {
         _name: 'Test Theme',
+        fieldBorderColor: '#000',
     };
 }
 function autoCompleteRendersClosed(wrapper) {

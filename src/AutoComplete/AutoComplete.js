@@ -4,6 +4,7 @@ import Popover, {Positions} from './../Popover';
 import SubHeader from './../SubHeader';
 import TextField from './../TextField';
 import ThemeProvider from './../Theme';
+import {darken, toRgbaString} from '@andrew-codes/color-functions';
 
 class AutoComplete extends Component {
     static propTypes = {
@@ -97,11 +98,20 @@ class AutoComplete extends Component {
 
     getStyles() {
         const {
-            width
+            width,
         } = this.state;
+        const {
+            fieldBorderColor,
+            normalBackground,
+            smallGutter,
+        } = this.context.theme;
 
         return {
             resultsPaper: {
+                background: normalBackground,
+                boxSizing: 'border-box',
+                border: `1px solid ${toRgbaString(darken(fieldBorderColor, 0.55))}`,
+                padding: `${smallGutter}px`,
                 width: `${width}px`,
             },
         }
@@ -116,7 +126,7 @@ class AutoComplete extends Component {
             width,
         } = this.props;
         const {
-            open
+            open,
         } = this.state;
         const styles = this.getStyles();
 

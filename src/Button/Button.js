@@ -1,15 +1,16 @@
-import React, { Component, PropTypes, } from 'react';
+import React, {Component, PropTypes} from 'react';
+import {setOpacity, darken, toRgbaString} from '@andrew-codes/color-functions';
 import Radium from './../utilities/Radium';
 import ThemeProvider from './../Theme';
 import transparent from './../utilities/Transparent';
-import { create, } from './../styles/Transitions';
-import { changeOpacity, darken, getForegroundForBackground, } from './../utilities/colorManipulator';
+import {create} from './../styles/Transitions';
+import {getForegroundForBackground} from './../utilities/colorManipulator';
 import * as ButtonSizes from './Sizes';
 import * as ButtonTypes from './Types';
 
 const darkenInvert = (foreground, background) => {
     const inverseBasicColorMultiplier = 0.35;
-    const darkenedColor = darken(background, inverseBasicColorMultiplier);
+    const darkenedColor = toRgbaString(darken(background, inverseBasicColorMultiplier));
     return {
         ':hover': {
             background: darkenedColor,
@@ -60,7 +61,7 @@ class Button extends Component {
         onClick: () => {
         },
     };
-    static contextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
+    static contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,};
 
     constructor(...rest) {
         super(...rest);
@@ -77,7 +78,7 @@ class Button extends Component {
             largeLineHeight,
             smallFontSize,
         } = this.context.theme;
-        const { size, } = this.props;
+        const {size,} = this.props;
 
         const fontSize = smallFontSize * size;
         const height = Math.ceil(fontSize * largeLineHeight);
@@ -87,7 +88,7 @@ class Button extends Component {
 
         return {
             root: {
-                ':focus': { outline: 'none', },
+                ':focus': {outline: 'none',},
                 alignItems: 'flex-start',
                 border: `1px solid ${transparent}`,
                 borderRadius: `${borderRadius}px`,
@@ -121,7 +122,7 @@ class Button extends Component {
             normalBackground,
             textPrimaryColor,
         } = this.context.theme;
-        const { disable, type, } = this.props;
+        const {disable, type,} = this.props;
         const inverseColors = [
             darkInverseColor,
             lightInverseColor,
@@ -129,7 +130,7 @@ class Button extends Component {
 
         if (disable) {
             const disableColorOpacity = 0.3;
-            const color = changeOpacity(textPrimaryColor, disableColorOpacity);
+            const color = toRgbaString(setOpacity(textPrimaryColor, disableColorOpacity));
             return {
                 ':hover': {
                     background: normalBackground,
@@ -200,7 +201,7 @@ class Button extends Component {
     }
 
     render() {
-        const { text, } = this.props;
+        const {text,} = this.props;
         const styles = this.getStyles();
         return (
             <button

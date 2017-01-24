@@ -1,4 +1,4 @@
-import { Component, PropTypes, } from 'react';
+import {Component, PropTypes} from 'react';
 import v1Theme from './../styles/themes/v1Theme';
 
 export default class ThemeProvider extends Component {
@@ -87,6 +87,10 @@ export default class ThemeProvider extends Component {
          */
         smallFontSize: PropTypes.number.isRequired,
         /**
+         * Small gutter size; used for padding on AutoComplete's results panel.
+         */
+        smallGutter: PropTypes.number.isRequired,
+        /**
          * Color to represent textual content that is in a disabled state.
          */
         textDisabledColor: PropTypes.string.isRequired,
@@ -107,18 +111,18 @@ export default class ThemeProvider extends Component {
          */
         xSmallFontSize: PropTypes.number.isRequired,
         /**
-         * Default gutter spacing value. It is used in places such as the padding between the textual value of a TextField and its border.
+         * Extra-small gutter spacing value. It is used in places such as the padding between the textual value of a TextField and its border.
          */
         xxSmallGutter: PropTypes.number.isRequired,
     };
 
-    static defaultProps = { theme: v1Theme, };
+    static defaultProps = {theme: v1Theme,};
 
     static
-    childContextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
+    childContextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,};
 
     getChildContext() {
-        return { theme: this.props.theme, };
+        return {theme: this.props.theme,};
     }
 
     render() {

@@ -1,24 +1,8 @@
 import React from 'react';
-import {jsdom} from 'jsdom';
 import {mount} from 'enzyme';
 import AutoComplete from './AutoComplete';
 
 suite('AutoComplete', () => {
-    // beforeEach(() => {
-    //     global.document = jsdom('<!doctype html><html><body></body></html>');
-    //     global.window = document.defaultView;
-    //     global.navigator = {
-    //         userAgent: 'node.js'
-    //     };
-    // });
-    afterEach(() => {
-        global.document = jsdom('<!doctype html><html><body></body></html>');
-        global.window = document.defaultView;
-        global.navigator = {
-            userAgent: 'node.js'
-        };
-    });
-
     test('it renders as a TextField when not open', () => {
         const autoComplete = mountAutoComplete({open: false,});
         expect(autoCompleteRendersClosed(autoComplete)).to.be.true;

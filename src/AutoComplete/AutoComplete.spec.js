@@ -1,8 +1,11 @@
 import React from 'react';
 import {mount} from 'enzyme';
+import initializeGlobalWindow from './../../specHelpers/initializeGlobalWindow';
 import AutoComplete from './AutoComplete';
 
 suite('AutoComplete', () => {
+    afterEach(initializeGlobalWindow);
+
     test('it renders as a TextField when not open', () => {
         const autoComplete = mountAutoComplete({open: false,});
         expect(autoCompleteRendersClosed(autoComplete)).to.be.true;

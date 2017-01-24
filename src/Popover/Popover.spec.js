@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
 import {mount} from 'enzyme';
+import initializeGlobalWindow from './../../specHelpers/initializeGlobalWindow';
 import Popover from './Popover';
 
 suite('Popover', () => {
+    afterEach(initializeGlobalWindow);
+
     test('closed or unspecified open state are not visible', () => {
         mountPopover({open: false});
         expect(popoverIsNotVisible()).to.be.true;

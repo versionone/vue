@@ -2,9 +2,12 @@ import React from 'react';
 import simulant from 'simulant';
 import {mount} from 'enzyme';
 import {spy, stub} from 'sinon';
+import initializeGlobalWindow from './../../specHelpers/initializeGlobalWindow';
 import RenderToLayer from './RenderToLayer';
 
 suite('RenderToLayer', () => {
+    afterEach(initializeGlobalWindow);
+
     test('does not render contents of provided render function when open is false', () => {
         const render = stub().returns(<div></div>);
         mountRenderToLayer({
@@ -23,7 +26,7 @@ suite('RenderToLayer', () => {
         expect(layerIsRendered()).to.be.true;
     });
 
-    test.skip('unmounting the component removes the rendered layer', () => {
+    test('unmounting the component removes the rendered layer', () => {
         const render = stub().returns(<div></div>);
         const renderedLayer = mountRenderToLayer({
             open: true,

@@ -1,6 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@kadira/storybook';
 import AutoComplete from './';
+
 const basicDataSource = [
     'Result 1',
     'Result 2',
@@ -11,11 +12,12 @@ const basicDataSource = [
 
 storiesOf('AutoComplete')
     .addWithInfo('basic',
-        `Basic AutoComplete with results header`,
+        `Basic AutoComplete`,
         () => (
             <AutoComplete
-                resultsHeader="Results"
                 dataSource={basicDataSource}
+                hintText="hint text"
+                resultsHeader="Results"
             />
         )
     )
@@ -27,5 +29,36 @@ storiesOf('AutoComplete')
                 open
                 resultsHeader="Results"
             />
+        )
+    )
+    .addWithInfo('hint text',
+        `AutoComplete with hint text`,
+        () => (
+            <AutoComplete
+                dataSource={basicDataSource}
+                hintText="hint text"
+                resultsHeader="Results"
+            />
+        )
+    )
+    .addWithInfo('widths',
+        `AutoComplete with defined width and full width props`,
+        () => (
+            <div style={{
+                width: '500px',
+            }}>
+                <AutoComplete
+                    dataSource={basicDataSource}
+                    hintText="hint text"
+                    resultsHeader="Results"
+                    width={250}
+                />
+                <AutoComplete
+                    dataSource={basicDataSource}
+                    fullWidth
+                    hintText="hint text"
+                    resultsHeader="Results"
+                />
+            </div>
         )
     );

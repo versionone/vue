@@ -10,6 +10,10 @@ suite('AutoComplete', () => {
         const autoComplete = mountAutoComplete({open: false,});
         expect(autoCompleteRendersClosed(autoComplete)).to.be.true;
     });
+    test('it can render hint text', () => {
+        const autoCompleteWithNoValue = mountAutoComplete({open: false, hintText: getText()});
+        expect(autoCompleteRendersHintText(autoCompleteWithNoValue, getText())).to.be.true;
+    });
     test('it defaults to being closed', () => {
         const autoComplete = mountAutoComplete();
         expect(autoCompleteRendersClosed(autoComplete)).to.be.true;
@@ -18,18 +22,43 @@ suite('AutoComplete', () => {
         const autoComplete = mountAutoComplete({
             open: true,
             dataSource: getDataSource(),
-            resultsHeader: getHeaderText(),
+            resultsHeader: getText(),
         });
         expect(autoCompleteRendersOpen(autoComplete)).to.be.true;
         expect(autoCompleteResultsMatchExactly(autoComplete, getDataSource())).to.be.true;
+    });
+    test('the width can be set or be full Width', () => {
+        const autoComplete = mountAutoComplete({
+            open: true,
+            width: 250,
+        });
+        expect(autoCompletePopoverToBeWidth(autoComplete, 250)).to.be.true;
+
+        autoComplete.setProps({
+            width: 300,
+        });
+        expect(autoCompletePopoverToBeWidth(autoComplete, 300)).to.be.true;
+
+        // const fullWidthAutoComplete = mountAutoComplete({
+        //     fullWidth: true,
+        //     open: true,
+        // });
+        // expect(autoCompletePopoverToBeFullWidth(fullWidthAutoComplete)).to.be.true;
+        //
+        // const fullWidthAutoCompleteWithSetWidth = mountAutoComplete({
+        //     fullWidth: true,
+        //     open: true,
+        //     width: 250,
+        // });
+        // expect(autoCompletePopoverToBeFullWidth(fullWidthAutoCompleteWithSetWidth)).to.be.true;
     });
     test('it can render a sub-header for the results', () => {
         const autoCompleteWithResultsHeader = mountAutoComplete({
             open: true,
             dataSource: getDataSource(),
-            resultsHeader: getHeaderText(),
+            resultsHeader: getText(),
         });
-        expect(autoCompleteResultsHasHeaderText(autoCompleteWithResultsHeader, getHeaderText())).to.be.true;
+        expect(autoCompleteResultsHasHeaderText(autoCompleteWithResultsHeader, getText())).to.be.true;
         autoCompleteWithResultsHeader.unmount();
 
         const autoCompleteWithoutResultsHeader = mountAutoComplete({
@@ -62,34 +91,68 @@ function getDataSource() {
     ];
 }
 function getRootElementOfPopover() {
-    return document.body.getElementsByTagName('div')[1];
+    return document
+        .body
+        .getElementsByTagName('div')[1];
 }
-function getHeaderText() {
+function getText() {
     return 'Result List';
 }
 function autoCompleteResultsHasHeaderText(wrapper, text) {
-    return getRootElementOfPopover().children[0].innerHTML === text;
+    return getRootElementOfPopover()
+            .children[0]
+            .children[0]
+            .innerHTML === text;
 }
 function autoCompleteResultsMatchExactly(wrapper, results) {
-    let resultList = getRootElementOfPopover().children[0];
+    let resultList = getRootElementOfPopover()
+        .children[0];
     if (resultList.tagName === 'HEADER') {
         resultList = resultList.parentNode.children[1];
     }
     return resultList.children.length === results.length
         && results.reduce(areAllResultsContainedWithin(resultList), true);
 }
-
 function areAllResultsContainedWithin(resultsList) {
-    const childrenAsArray = Object.keys(resultsList.children).map((key) => resultsList.children[key]);
+    const childrenAsArray = Object.keys(resultsList.children)
+        .map((key) => resultsList.children[key]);
     return (output, result) => {
-        return output && Boolean(childrenAsArray.find(matchingResultText(result)));
+        return output && Boolean(childrenAsArray
+                .find(matchingResultText(result)));
     }
 }
 function matchingResultText(textToMatch) {
     const exp = new RegExp(textToMatch);
     return (el) => el.innerHTML.match(exp);
 }
-
 function autoCompleteResultsHasNoHeaderText(wrapper) {
-    return getRootElementOfPopover().children.length === 0 || getRootElementOfPopover().children[0].tagName !== 'HEADER';
+    return getRootElementOfPopover()
+            .children
+            .length === 0
+        || getRootElementOfPopover()
+            .children[0]
+            .tagName !== 'HEADER';
+}
+function autoCompletePopoverToBeWidth(wrapper, width) {
+    return wrapper
+            .find('TextField')
+            .props()
+            .width === width
+        && getRootElementOfPopover()
+            .children[0]
+            .style
+            .width === `${width}px`;
+}
+function autoCompleteRendersHintText(wrapper, text) {
+    return wrapper
+            .find('TextField')
+            .text() === text;
+}
+function autoCompletePopoverToBeFullWidth(wrapper) {
+    return wrapper
+            .find('TextField')
+            .props()
+            .fullWidth === true
+        && getRootElementOfPopover()
+            .children[0].width;
 }

@@ -1,21 +1,10 @@
 import React from 'react';
 import simulant from 'simulant';
-import {jsdom} from 'jsdom';
 import {mount} from 'enzyme';
 import {spy, stub} from 'sinon';
 import RenderToLayer from './RenderToLayer';
 
 suite('RenderToLayer', () => {
-    beforeEach(() => {
-        global.document = jsdom('<!doctype html><html><body></body></html>');
-        global.document.body.appendChild(document.createElement('section'));
-        global.document.body.firstChild.innerText = 'Click me';
-    });
-    after(() => {
-        global.document = jsdom('<!doctype html><html><body></body></html>');
-        global.window = document.defaultView;
-    });
-
     test('does not render contents of provided render function when open is false', () => {
         const render = stub().returns(<div></div>);
         mountRenderToLayer({

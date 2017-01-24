@@ -1,8 +1,10 @@
+import AutoCompleteComponent from './AutoComplete';
 import ButtonComponent from './Button';
+import PopoverComponent from './Popover';
+import SubHeaderComponent from './SubHeader';
 import TextFieldComponent from './TextField';
 import ThemeProviderComponent from './Theme';
-import PopoverComponent from './Popover';
-import {Button, ButtonSizes, ButtonTypes, Popover, TextField, ThemeProvider} from './index';
+import {AutoComplete, Button, ButtonSizes, ButtonTypes, Popover, SubHeader, TextField, ThemeProvider} from './index';
 import * as ButtonSizesImport from './Button/Sizes';
 import * as ButtonTypesImport from './Button/Types';
 
@@ -23,5 +25,13 @@ suite('Vue', () => {
 
     test('vue exports a Popover component', () => {
         expect(new Popover({})).to.be.a.instanceOf(PopoverComponent);
+    });
+
+    test('vue exports an AutoComplete component', () => {
+        expect(new AutoComplete({})).to.be.a.instanceOf(AutoCompleteComponent);
+    });
+
+    test('vue exports a SubHeader component', () => {
+        expect(new SubHeader({})).to.be.a.instanceOf(SubHeaderComponent);
     });
 });

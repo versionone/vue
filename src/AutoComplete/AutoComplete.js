@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import Popover from './../Popover';
+import Popover, {Positions} from './../Popover';
 import SubHeader from './../SubHeader';
 import TextField from './../TextField';
 import ThemeProvider from './../Theme';
@@ -9,7 +9,10 @@ class AutoComplete extends Component {
         /**
          * Array of strings or nodes that represent each individual result item
          */
-        dataSource: PropTypes.arrayOf(PropTypes.oneOf([PropTypes.string, PropTypes.node])),
+        dataSource: PropTypes.arrayOf(PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.node,
+        ])),
         /**
          * When true, the auto complete is open
          */
@@ -17,7 +20,10 @@ class AutoComplete extends Component {
         /**
          * When provided, this will render as the sub-header to the result list; otherwise it will not render a sub-header
          */
-        resultsHeader: PropTypes.oneOf([PropTypes.string, PropTypes.node]),
+        resultsHeader: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.node,
+        ]),
     };
     static defaultProps = {
         dataSource: [],
@@ -26,17 +32,53 @@ class AutoComplete extends Component {
     };
     static contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,};
 
+    constructor(props, ...rest) {
+        super(props, ...rest);
+        this.state = {
+            open: props.open
+        };
+        this.handleFocusTextField = this.handleFocusTextField.bind(this);
+        this.handleBlurTextField = this.handleBlurTextField.bind(this);
+    }
+
+    handleFocusTextField() {
+        this.setState({open: true});
+    }
+
+    handleBlurTextField() {
+        this.setState({open: false});
+    }
+
     render() {
         const {
             dataSource,
-            open,
             resultsHeader,
         } = this.props;
+        const {
+            open
+        } = this.state;
 
         return (
             <div>
-                <TextField />
-                <Popover open={open}>
+                <TextField
+                    ref={(el) => {
+                        this.textFieldEl = el;
+                    }}
+                    onBlur={this.handleBlurTextField}
+                    onFocus={this.handleFocusTextField}
+                />
+                <Popover
+                    anchor={this.textFieldEl}
+                    anchorOrigin={{
+                        horizontal: Positions.left,
+                        vertical: Positions.bottom,
+                    }}
+                    open={open}
+                    targetOrigin={{
+                        horizontal: Positions.left,
+                        vertical: Positions.top,
+                    }}
+                >
                     {Boolean(resultsHeader) && (
                         <SubHeader>
                             {resultsHeader}
@@ -53,6 +95,6 @@ class AutoComplete extends Component {
             </div>
         );
     }
-
 }
+
 export default AutoComplete;

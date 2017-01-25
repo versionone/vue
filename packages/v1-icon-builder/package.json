@@ -1,0 +1,31 @@
+{
+  "name": "@versionone/icon-builder",
+  "version": "0.0.1",
+  "description": "Builds a collection of SVG files into SvgIcon Vue components.",
+  "bin": {
+    "v1-icon-builder": "build.js"
+  },
+  "scripts": {
+    "test": "cross-env NODE_ENV=test node_modules/.bin/mocha --ui tdd --require specSetup.js --compilers js:babel-core/register src/**/*.spec.js --recursive"
+  },
+  "keywords": [
+    "VersionOne",
+    "svg",
+    "icons"
+  ],
+  "author": "Andrew Smith <andrew@andrew.codes>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.18.2",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "temp": "^0.8.3"
+  },
+  "dependencies": {
+    "glob": "^7.1.1",
+    "mustache": "^2.3.0",
+    "rimraf": "^2.5.4",
+    "uppercamelcase": "^1.1.0",
+    "yargs": "^6.4.0"
+  }
+}

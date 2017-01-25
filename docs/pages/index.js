@@ -6,6 +6,12 @@ export default [
         menuCategory: 'Foundations',
         component: require('./foundations/Themes')
     },
+    {
+        title: 'Icons',
+        status: 'experimental',
+        menuCategory: 'Foundations',
+        component: require('./foundations/Icons')
+    },
 
     // Patterns pages
     require('./patterns/InlineDialog.md'),

@@ -1,6 +1,7 @@
 ### Repo-specific
 /*
 !/src
+!/packages
 !/.*
 /.idea
 !/package.json

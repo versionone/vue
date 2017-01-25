@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import ListItem from './ListItem';
-import SubHeader from './../SubHeader';
 import Radium from './../utilities/Radium';
+import SubHeader from './../SubHeader';
 import transparent from './../utilities/Transparent';
 import * as CustomPropTypes from './../utilities/CustomPropTypes';
 
@@ -53,12 +53,16 @@ class List extends Component {
             <div
                 style={styles.list}>
                 {React.Children
-                    .map(children, (child) => (
-                        React.cloneElement(child, {
+                    .map(children, (child) => {
+                        if (!Boolean(child)) {
+                            return;
+                        }
+                        return React.cloneElement(child, {
                             hoverBackgroundColor,
                             hoverColor,
-                        })
-                    ))}
+                        });
+                    })
+                }
             </div>
         )
     }

@@ -1,4 +1,5 @@
 export {default as button} from './Button/_meta';
+export {default as list} from './List/_meta';
 export {default as lookup} from './Lookup/_meta';
 export {default as popover} from './Popover/_meta';
 export {default as svgIcon} from './SvgIcon/_meta';

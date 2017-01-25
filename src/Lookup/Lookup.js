@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {findDOMNode} from 'react-dom';
+import List, {ListItem} from './../List';
 import Radium from './../utilities/Radium';
 import Popover, {Positions} from './../Popover';
 import SubHeader from './../SubHeader';
@@ -108,7 +109,6 @@ class Lookup extends Component {
         const {
             fieldBorderColor,
             normalBackground,
-            smallGutter,
         } = this.context.theme;
 
         return {
@@ -116,7 +116,6 @@ class Lookup extends Component {
                 background: normalBackground,
                 boxSizing: 'border-box',
                 border: `1px solid ${toRgbaString(darken(fieldBorderColor, 0.55))}`,
-                padding: `${smallGutter}px`,
                 width: `${width}px`,
             },
         }
@@ -162,18 +161,23 @@ class Lookup extends Component {
                     <div
                         style={styles.resultsPaper}
                     >
-                        {Boolean(resultsHeader) && (
-                            <SubHeader>
-                                {resultsHeader}
-                            </SubHeader>
-                        )}
-                        {dataSource.length > 0 && (
-                            <ol>
-                                {dataSource.map((item, itemIndex) => (
-                                    <li key={itemIndex}>{item}</li>
-                                ))}
-                            </ol>
-                        )}
+                        <List
+                            hoverBackgroundColor="black"
+                            hoverColor="white"
+                        >
+                            {Boolean(resultsHeader) && (
+                                <SubHeader>
+                                    {resultsHeader}
+                                </SubHeader>
+                            )}
+                            {dataSource.map((item, itemIndex) => (
+                                <ListItem
+                                    key={itemIndex}
+                                >
+                                    {item}
+                                </ListItem>
+                            ))}
+                        </List>
                     </div>
                 </Popover>
             </div>

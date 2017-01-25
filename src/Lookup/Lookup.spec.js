@@ -6,19 +6,19 @@ import AutoComplete from './Lookup';
 suite('Lookup', () => {
     afterEach(initializeGlobalWindow);
 
-    test('it renders as a TextField when not open', () => {
+    test('renders as a TextField when not open', () => {
         const autoComplete = mountAutoComplete({open: false,});
         expect(autoCompleteRendersClosed(autoComplete)).to.be.true;
     });
-    test('it can render hint text', () => {
+    test('can render hint text', () => {
         const autoCompleteWithNoValue = mountAutoComplete({open: false, hintText: getText()});
         expect(autoCompleteRendersHintText(autoCompleteWithNoValue, getText())).to.be.true;
     });
-    test('it defaults to being closed', () => {
+    test('defaults to being closed', () => {
         const autoComplete = mountAutoComplete();
         expect(autoCompleteRendersClosed(autoComplete)).to.be.true;
     });
-    test('it displays a popover of results when open', () => {
+    test('displays a popover of results when open', () => {
         const autoComplete = mountAutoComplete({
             open: true,
             dataSource: getDataSource(),
@@ -27,7 +27,7 @@ suite('Lookup', () => {
         expect(autoCompleteRendersOpen(autoComplete)).to.be.true;
         expect(autoCompleteResultsMatchExactly(autoComplete, getDataSource())).to.be.true;
     });
-    test('the width can be set or be full Width', () => {
+    test('has a  width that can be set or be full width', () => {
         const autoComplete = mountAutoComplete({
             open: true,
             width: 250,
@@ -52,7 +52,7 @@ suite('Lookup', () => {
         // });
         // expect(autoCompletePopoverToBeFullWidth(fullWidthAutoCompleteWithSetWidth)).to.be.true;
     });
-    test('it can render a sub-header for the results', () => {
+    test('can optionally render a sub-header for the results', () => {
         const autoCompleteWithResultsHeader = mountAutoComplete({
             open: true,
             dataSource: getDataSource(),
@@ -103,15 +103,18 @@ function autoCompleteResultsHasHeaderText(wrapper, text) {
     return getRootElementOfPopover()
             .children[0]
             .children[0]
+            .children[0]
             .innerHTML === text;
 }
 function autoCompleteResultsMatchExactly(wrapper, results) {
     let resultList = getRootElementOfPopover()
+        .children[0]
         .children[0];
-    if (resultList.tagName === 'HEADER') {
-        resultList = resultList.parentNode.children[1];
+    let startResultsIndex = 0;
+    if (resultList.children[0].tagName === 'HEADER') {
+        startResultsIndex = 1;
     }
-    return resultList.children.length === results.length
+    return resultList.children.length === results.length + startResultsIndex
         && results.reduce(areAllResultsContainedWithin(resultList), true);
 }
 function areAllResultsContainedWithin(resultsList) {

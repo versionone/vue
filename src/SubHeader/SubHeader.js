@@ -1,7 +1,8 @@
 import React, {Component, PropTypes} from 'react';
+import Radium from './../utilities/Radium';
 import ThemeProvider from './../Theme';
 
-export default class extends Component {
+class SubHeader extends Component {
     static propTypes = {
         children: PropTypes.oneOfType([
             PropTypes.string,
@@ -19,3 +20,4 @@ export default class extends Component {
         );
     }
 }
+export default Radium(SubHeader);

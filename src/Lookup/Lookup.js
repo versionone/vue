@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {findDOMNode} from 'react-dom';
+import Radium from './../utilities/Radium';
 import Popover, {Positions} from './../Popover';
 import SubHeader from './../SubHeader';
 import TextField from './../TextField';
@@ -180,4 +181,4 @@ class Lookup extends Component {
     }
 }
 
-export default Lookup;
+export default Radium(Lookup);

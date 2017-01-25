@@ -9,6 +9,15 @@ class ListItem extends Component {
          */
         children: PropTypes.node.isRequired,
         /**
+         * Data item that the ListItem is displaying
+         */
+        item: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.shape({
+                oid: PropTypes.string,
+            }),
+        ]),
+        /**
          * Click event handler; fired once the ListItem is clicked
          */
         onClick: PropTypes.func,
@@ -38,7 +47,7 @@ class ListItem extends Component {
     }
 
     handleClick(evt) {
-        this.props.onClick(evt);
+        this.props.onClick(this.props.item);
     }
 
     render() {

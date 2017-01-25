@@ -14,10 +14,12 @@ suite('ListItem', () => {
         const handleClickSpy = spy();
         const listItem = mountListItem({
             children: getContent(),
+            item: getContent(),
             onClick: handleClickSpy
         });
         simulateClick(listItem);
         expect(handleClickSpy.calledOnce).to.be.true;
+        expect(handleClickSpy.calledWithExactly(getContent())).to.be.true;
     });
 });
 

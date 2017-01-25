@@ -1,12 +1,13 @@
 import React, {Component, PropTypes} from 'react';
+import {darken, toRgbaString} from '@andrew-codes/color-functions';
 import {findDOMNode} from 'react-dom';
+import HintText from './../internal/HintText';
 import List, {ListItem} from './../List';
 import Radium from './../utilities/Radium';
 import Popover, {Positions} from './../Popover';
 import SubHeader from './../SubHeader';
-import TextField from './../TextField';
 import ThemeProvider from './../Theme';
-import {darken, toRgbaString} from '@andrew-codes/color-functions';
+import transparent from './../utilities/Transparent';
 
 class Lookup extends Component {
     static propTypes = {
@@ -15,8 +16,14 @@ class Lookup extends Component {
          */
         dataSource: PropTypes.arrayOf(PropTypes.oneOfType([
             PropTypes.string,
-            PropTypes.node,
+            PropTypes.shape({
+                oid: PropTypes.string.isRequired,
+            }),
         ])),
+        /**
+         *
+         */
+        disabled: PropTypes.bool,
         /**
          * If true, the field is 100% width
          */
@@ -40,83 +47,215 @@ class Lookup extends Component {
          * Width of the text field
          */
         width: PropTypes.number,
+        /**
+         * Event handler which fires upon the selection of an item from the results list
+         */
+        onSelect: PropTypes.func,
     };
     static defaultProps = {
         dataSource: [],
+        disabled: false,
         fullWidth: false,
         hintText: '',
         open: false,
         resultsHeader: null,
         width: 256,
+        onSelect: () => {
+        },
     };
     static contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,};
 
     constructor(props, ...rest) {
         super(props, ...rest);
 
+        this.handleChangeTextField = this.handleChangeTextField.bind(this);
+        this.handleClickHintText = this.handleClickHintText.bind(this);
         this.handleFocusTextField = this.handleFocusTextField.bind(this);
-        this.handleBlurTextField = this.handleBlurTextField.bind(this);
+        this.handleItemClick = this.handleItemClick.bind(this);
+        this.getHeight = this.getHeight.bind(this);
         this.getStyles = this.getStyles.bind(this);
 
         this.state = {
+            items: [],
             open: props.open,
+            typedValue: '',
             width: props.width,
         };
     }
 
     componentDidMount() {
+        let newState = {};
         if (this.props.fullWidth) {
-            this.setState({
+            newState = {
+                ...newState,
                 width: this.getFullWidth(),
-            });
+            };
         }
+        this.setState({
+            ...newState,
+            height: this.getHeight()
+        });
     }
 
     componentWillReceiveProps(nextProps) {
+        let newState = {};
         if (nextProps.fullWidth) {
-            this.setState({
+            newState = {
+                ...newState,
                 width: this.getFullWidth(),
-            });
+            };
         }
         else if (this.props.width !== nextProps.width) {
-            this.setState({
-                width: nextProps.width
-            });
+            newState = {
+                ...newState,
+                width: nextProps.width,
+            };
         }
+        this.setState({
+            ...newState,
+            height: this.getHeight()
+        });
     }
 
     getFullWidth() {
-        const textField = findDOMNode(this.textFieldEl);
+        const rootEl = findDOMNode(this.rootEl);
         return parseInt(window
-            .getComputedStyle(textField)
+            .getComputedStyle(rootEl)
             .width
             .replace('px', '')
         );
+    }
+
+    getHeight() {
+        return Math.max(this.inputField
+                .getBoundingClientRect()
+                .height,
+            this.hintTextWrapper
+                .getBoundingClientRect()
+                .height);
+    }
+
+    handleChangeTextField(evt) {
+        this.setState({
+            typedValue: evt.target.value,
+        });
     }
 
     handleFocusTextField() {
         this.setState({open: true});
     }
 
-    handleBlurTextField() {
-        this.setState({open: false});
+    handleClickHintText() {
+        this.inputField.focus();
+    }
+
+    handleItemClick(item) {
+        this.setState({
+            items: [item],
+            open: false,
+            typedValue: '',
+        });
+        this.props.onSelect(item);
     }
 
     getStyles() {
         const {
+            disabled,
+            fullWidth,
+        } = this.props;
+        const {
+            height,
             width,
         } = this.state;
         const {
+            basicFontFamily,
             fieldBorderColor,
             normalBackground,
+            normalLineHeight,
+            normalRadius,
+            smallFontSize,
+            textPrimaryColor,
+            xxSmallGutter,
         } = this.context.theme;
 
+        const paddingMultiplier = 2;
+        const borderHeight = 2;
+        const textHeight = Math.floor(smallFontSize * normalLineHeight);
+        const paddingHeight = xxSmallGutter * paddingMultiplier;
+        const textFieldHeight = textHeight + paddingHeight + borderHeight;
+        const isHintTextMultipleLines = height > textFieldHeight;
+        console.log(height, textFieldHeight)
+        const marginTop = isHintTextMultipleLines ? `${height - textHeight}px` : '0px';
+        const hintTextWrapperHeight = isHintTextMultipleLines
+            ? (height + paddingHeight + borderHeight)
+            : textFieldHeight;
+        const computedWidth = fullWidth ? '100%' : `${width}px`;
+
         return {
+            hintTextWrapper: {
+                background: 'rgba(255,255,255,1)',
+                border: `1px solid ${fieldBorderColor}`,
+                borderRadius: `${normalRadius}px`,
+                boxSizing: 'border-box',
+                height: `${hintTextWrapperHeight}px`,
+                position: 'absolute',
+                padding: `${xxSmallGutter}px`,
+                top: 0,
+                width: computedWidth,
+            },
+            input: {
+                background: transparent,
+                border: `0px solid ${transparent}`,
+                boxSizing: 'border-box',
+                color: textPrimaryColor,
+                cursor: disabled ? 'not-allowed' : 'initial',
+                fontFamily: basicFontFamily,
+                fontSize: `${smallFontSize}px`,
+                outline: 'none',
+                padding: 0,
+                position: 'relative',
+                width: '100%',
+            },
+            inputWrapper: {
+                background: transparent,
+                border: `1px solid ${transparent}`,
+                boxSizing: 'border-box',
+                display: 'inline-flex',
+                marginTop: marginTop,
+                minWidth: width,
+                padding: `${xxSmallGutter}px`,
+                width: width,
+                zIndex: 11,
+            },
+            paddingForPopover: {
+                height: `${hintTextWrapperHeight}px`,
+            },
             resultsPaper: {
                 background: normalBackground,
-                boxSizing: 'border-box',
                 border: `1px solid ${toRgbaString(darken(fieldBorderColor, 0.55))}`,
+                boxSizing: 'border-box',
+                fontFamily: basicFontFamily,
                 width: `${width}px`,
+            },
+            root: {
+                background: transparent,
+                height: `${hintTextWrapperHeight}px`,
+                position: 'relative',
+            },
+            selectedItems: {
+                background: transparent,
+                fontFamily: basicFontFamily,
+                height: `${textFieldHeight}px`,
+                position: 'absolute',
+                top: 0,
+                width,
+                zIndex: 12
+            },
+            textFieldWrapper: {
+                position: 'absolute',
+                height: `${textFieldHeight}px`,
+                top: 0,
+                width: '100%',
             },
         }
     }
@@ -124,30 +263,66 @@ class Lookup extends Component {
     render() {
         const {
             dataSource,
-            fullWidth,
             hintText,
             resultsHeader,
-            width,
         } = this.props;
         const {
+            items,
+            typedValue,
             open,
         } = this.state;
+        const isHintTextHidden = Boolean(typedValue);
         const styles = this.getStyles();
 
         return (
-            <div>
-                <TextField
-                    ref={(el) => {
-                        this.textFieldEl = el;
-                    }}
-                    fullWidth={fullWidth}
-                    hintText={hintText}
-                    width={width}
-                    onBlur={this.handleBlurTextField}
-                    onFocus={this.handleFocusTextField}
-                />
+            <div
+                ref={(el) => {
+                    this.rootEl = el;
+                }}
+                style={styles.root}
+            >
+                <div style={styles.paddingForPopover}></div>
+                {items.length > 0 && (
+                    <div
+                        style={styles.selectedItems}
+                    >
+                        {items.join('')}
+                    </div>
+                )}
+                <div style={styles.textFieldWrapper}>
+                    <div style={styles.hintTextWrapper}>
+                        <div
+                            ref={(el) => {
+                                this.hintTextWrapper = el;
+                            }}
+                        >
+                            <HintText
+                                hidden={isHintTextHidden}
+                                text={hintText}
+                                onClick={this.handleClickHintText}
+                            />
+                        </div>
+                    </div>
+                    <div
+                        ref={(el) => {
+                            this.inputWrapper = el;
+                        }}
+                        style={styles.inputWrapper}
+                    >
+                        <input
+                            ref={(el) => {
+                                this.inputField = el;
+                            }}
+                            style={styles.input}
+                            type="text"
+                            value={typedValue}
+                            onChange={this.handleChangeTextField}
+                            onFocus={this.handleFocusTextField}
+                        />
+                    </div>
+                </div>
                 <Popover
-                    anchor={this.textFieldEl}
+                    anchor={this.rootEl}
                     anchorOrigin={{
                         horizontal: Positions.left,
                         vertical: Positions.bottom,
@@ -172,7 +347,9 @@ class Lookup extends Component {
                             )}
                             {dataSource.map((item, itemIndex) => (
                                 <ListItem
+                                    item={item}
                                     key={itemIndex}
+                                    onClick={this.handleItemClick}
                                 >
                                     {item}
                                 </ListItem>

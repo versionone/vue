@@ -7,32 +7,34 @@ storiesOf('List')
     .addWithInfo('lists',
         `Lists with hover colors, items, and subheaders`,
         () => (
-            <div>
-                <div style={{marginBottom: '1em'}}>
-                    <List
-                        hoverColor="white"
-                        hoverBackgroundColor="black"
-                    >
-                        <ListItem onClick={action('clicked')}>Item 1</ListItem>
-                        <ListItem onClick={action('clicked')}>Item 2</ListItem>
-                        <ListItem onClick={action('clicked')}>Item 3</ListItem>
-                    </List>
-                </div>
-                <div style={{marginBottom: '1em'}}>
-                    <List
-                        hoverColor="white"
-                        hoverBackgroundColor="lightgray"
-                    >
-                        <SubHeader>Sub header text</SubHeader>
-                        <ListItem onClick={action('clicked')}>Item 1</ListItem>
-                        <ListItem onClick={action('clicked')}>Item 2</ListItem>
-                        <ListItem onClick={action('clicked')}>Item 3</ListItem>
-                        <SubHeader>Another sub header text</SubHeader>
-                        <ListItem onClick={action('clicked')}>Item 4</ListItem>
-                        <ListItem onClick={action('clicked')}>Item 5</ListItem>
-                    </List>
-                </div>
-            </div>
+            <List
+                hoverColor="white"
+                hoverBackgroundColor="black"
+            >
+                <SubHeader>Sub header text</SubHeader>
+                <ListItem
+                    item="Item 1"
+                    onClick={action('clicked')}
+                    onSelect={action('selected item')}
+                >
+                    Item 1
+                </ListItem>
+                <SubHeader>Another sub header text</SubHeader>
+                <ListItem
+                    item="Item 2"
+                    onClick={action('clicked')}
+                    onSelect={action('selected item 2')}
+                >
+                    Item 2
+                </ListItem>
+                <ListItem
+                    item="Item 2"
+                    onClick={action('clicked')}
+                    onSelect={action('selected item 3')}
+                >
+                    Item 2
+                </ListItem>
+            </List>
         )
     )
     .addWithInfo('empty list',

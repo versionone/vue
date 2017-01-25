@@ -1,6 +1,6 @@
 import React from 'react';
 import {storiesOf} from '@kadira/storybook';
-import AutoComplete from './';
+import Lookup from './';
 
 const basicDataSource = [
     'Result 1',
@@ -14,9 +14,8 @@ storiesOf('Lookup')
     .addWithInfo('basic',
         `Basic AutoComplete`,
         () => (
-            <AutoComplete
+            <Lookup
                 dataSource={basicDataSource}
-                hintText="hint text"
                 resultsHeader="Results"
             />
         )
@@ -24,7 +23,7 @@ storiesOf('Lookup')
     .addWithInfo('opened',
         `Set the auto complete to be initially rendered as open`,
         () => (
-            <AutoComplete
+            <Lookup
                 dataSource={basicDataSource}
                 open
                 resultsHeader="Results"
@@ -34,11 +33,18 @@ storiesOf('Lookup')
     .addWithInfo('hint text',
         `AutoComplete with hint text`,
         () => (
-            <AutoComplete
-                dataSource={basicDataSource}
-                hintText="hint text"
-                resultsHeader="Results"
-            />
+            <div>
+                <Lookup
+                    dataSource={basicDataSource}
+                    hintText="hint text"
+                    resultsHeader="Results"
+                />
+                <Lookup
+                    dataSource={basicDataSource}
+                    hintText="hint text that is so long, it will surely wrap, but do not neglect its importance...the longer it is, the more important it must be, right?"
+                    resultsHeader="Results"
+                />
+            </div>
         )
     )
     .addWithInfo('widths',
@@ -47,13 +53,13 @@ storiesOf('Lookup')
             <div style={{
                 width: '500px',
             }}>
-                <AutoComplete
+                <Lookup
                     dataSource={basicDataSource}
                     hintText="hint text"
                     resultsHeader="Results"
                     width={250}
                 />
-                <AutoComplete
+                <Lookup
                     dataSource={basicDataSource}
                     fullWidth
                     hintText="hint text"

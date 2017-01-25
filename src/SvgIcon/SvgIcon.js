@@ -80,6 +80,8 @@ class SvgIcon extends Component {
             root: {
                 fill: isHovered ? hoverColor : color,
                 height: `${width}px`,
+                margin: 0,
+                padding: 0,
                 transition,
                 width: `${width}px`,
             },

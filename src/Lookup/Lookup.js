@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {darken, toRgbaString} from '@andrew-codes/color-functions';
 import {findDOMNode} from 'react-dom';
+import Chip from './../Chip';
 import HintText from './../internal/HintText';
 import List, {ListItem} from './../List';
 import Radium from './../utilities/Radium';
@@ -184,7 +185,6 @@ class Lookup extends Component {
         const paddingHeight = xxSmallGutter * paddingMultiplier;
         const textFieldHeight = textHeight + paddingHeight + borderHeight;
         const isHintTextMultipleLines = height > textFieldHeight;
-        console.log(height, textFieldHeight)
         const marginTop = isHintTextMultipleLines ? `${height - textHeight}px` : '0px';
         const hintTextWrapperHeight = isHintTextMultipleLines
             ? (height + paddingHeight + borderHeight)
@@ -242,10 +242,17 @@ class Lookup extends Component {
                 height: `${hintTextWrapperHeight}px`,
                 position: 'relative',
             },
+            selectedItem: {
+                flex: 1,
+                background: 'gray',
+                margin: `${xxSmallGutter}px`,
+                alignSelf: 'center',
+            },
             selectedItems: {
                 background: transparent,
+                display: 'flex',
                 fontFamily: basicFontFamily,
-                height: `${textFieldHeight}px`,
+                height: `${hintTextWrapperHeight}px`,
                 position: 'absolute',
                 top: 0,
                 width,
@@ -271,7 +278,7 @@ class Lookup extends Component {
             typedValue,
             open,
         } = this.state;
-        const isHintTextHidden = Boolean(typedValue);
+        const isHintTextHidden = Boolean(typedValue) || items.length > 0;
         const styles = this.getStyles();
 
         return (
@@ -286,7 +293,10 @@ class Lookup extends Component {
                     <div
                         style={styles.selectedItems}
                     >
-                        {items.join('')}
+                        <Chip
+                            fontSize={this.context.theme.smallFontSize}
+                            text={items.join('')}
+                        />
                     </div>
                 )}
                 <div style={styles.textFieldWrapper}>

@@ -87,7 +87,7 @@ export default class ThemeProvider extends Component {
          */
         smallFontSize: PropTypes.number.isRequired,
         /**
-         * Small gutter size; used for padding on AutoComplete's results panel.
+         * Small gutter size; used for padding on Lookup's results panel.
          */
         smallGutter: PropTypes.number.isRequired,
         /**

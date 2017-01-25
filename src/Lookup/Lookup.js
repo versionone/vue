@@ -6,7 +6,7 @@ import TextField from './../TextField';
 import ThemeProvider from './../Theme';
 import {darken, toRgbaString} from '@andrew-codes/color-functions';
 
-class AutoComplete extends Component {
+class Lookup extends Component {
     static propTypes = {
         /**
          * Array of strings or nodes that represent each individual result item
@@ -180,4 +180,4 @@ class AutoComplete extends Component {
     }
 }
 
-export default AutoComplete;
+export default Lookup;

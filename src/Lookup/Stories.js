@@ -10,7 +10,7 @@ const basicDataSource = [
     'Result 5',
 ];
 
-storiesOf('AutoComplete')
+storiesOf('Lookup')
     .addWithInfo('basic',
         `Basic AutoComplete`,
         () => (

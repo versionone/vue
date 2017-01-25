@@ -29,6 +29,12 @@ module.exports = function(wallaby) {
         testFramework: 'mocha',
         bootstrap: function(wallaby) {
             wallaby.testFramework.ui('tdd');
+            const jsdom = require('jsdom').jsdom;
+            global.document = jsdom('<!doctype html><html><body></body></html>');
+            global.window = document.defaultView;
+            global.navigator = {
+                userAgent: 'node.js'
+            };
             var path = require('path');
             require('./specSetup');
         },

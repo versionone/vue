@@ -327,6 +327,7 @@ class Lookup extends Component {
                     >
                         <Chip
                             fontSize={this.context.theme.smallFontSize}
+                            fullWidth
                             text={getChipText(items[0])}
                         />
                     </div>

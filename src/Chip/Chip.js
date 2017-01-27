@@ -1,9 +1,10 @@
 import React, {PropTypes} from 'react';
 import Radium from './../utilities/Radium';
+import ThemeProvider from './../Theme';
 import {IconButton} from './../Button';
 import {AddIcon} from './../Icons';
 
-const getStyles = (props) => {
+const getStyles = (props, context) => {
     const padding = Math.floor(props.fontSize / 3);
     return ({
         buttonWrapper: {
@@ -12,12 +13,12 @@ const getStyles = (props) => {
         root: {
             color: props.color,
             backgroundColor: props.backgroundColor,
-            borderRadius: `${props.fontSize * props.lineHeight}px`,
+            borderRadius: `${context.theme.normalRadius}px`,
             display: 'flex',
             fontSize: `${props.fontSize}px`,
             lineHeight: `${props.lineHeight}`,
             padding: `${padding}px ${padding}px ${padding}px ${props.fontSize / 2}px`,
-            margin: '4px',
+            margin: `${context.theme.xxSmallGutter}px`,
             width: props.fullWidth ? '100%' : Boolean(props.width) ? `${props.width}px` : '',
         },
         text: {
@@ -36,6 +37,7 @@ const defaultProps = {
     color: '#000',
     backgroundColor: 'gray',
     fontSize: 14,
+    fullWidth: false,
     lineHeight: 1,
 };
 
@@ -73,4 +75,5 @@ Chip.propTypes = {
     text: PropTypes.string.isRequired,
     width: PropTypes.number,
 };
+Chip.contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,};
 export default Radium(Chip);

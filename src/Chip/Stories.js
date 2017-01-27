@@ -6,6 +6,16 @@ storiesOf('Chip')
     .addWithInfo('basic chip',
         `Basic chip`,
         () => (
-            <Chip text="Hello world" />
+            <div>
+                <Chip
+                    fullWidth
+                    text="Hello world"
+                />
+                <Chip
+                    text="Hello world"
+                    width={250}
+                />
+                <Chip text="Hello world" />
+            </div>
         )
     );

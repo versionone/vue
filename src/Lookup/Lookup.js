@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {darken, toRgbaString} from '@andrew-codes/color-functions';
 import Chip from './../Chip';
+import * as Filters from './Filters';
 import HintText from './../internal/HintText';
 import List, {ListItem} from './../List';
 import Radium from './../utilities/Radium';
@@ -39,7 +40,7 @@ const matchesStringValue = (value) => (stringValue) => value !== stringValue;
 class Lookup extends Component {
     static propTypes = {
         /**
-         * Array of all possible date items to be filtered when searching using the lookup
+         * Array of all possible date items to be filtered when searching using the lookup; uniqueness is either the index of the item (when an array of strings) or defined by the dataSourceConfig's oidKey
          */
         dataSource: PropTypes.arrayOf(PropTypes.oneOfType([
             PropTypes.object,
@@ -61,7 +62,7 @@ class Lookup extends Component {
          */
         disabled: PropTypes.bool,
         /**
-         * Callback function used to filter the lookup
+         * Callback function used to filter the lookup; accepts searchText and value of each item in data source
          */
         filter: PropTypes.func,
         /**
@@ -72,6 +73,10 @@ class Lookup extends Component {
          * Placeholder text
          */
         hintText: PropTypes.string,
+        /**
+         * Minimum number of characters required to be typed before applying the filter to the result set
+         */
+        minimumNumberOfCharactersToFilter: PropTypes.number,
         /**
          * When true, the auto complete is open
          */
@@ -99,9 +104,10 @@ class Lookup extends Component {
     static defaultProps = {
         dataSource: [],
         disabled: false,
-        // filter: (searchText, key) => LookupFilters.exactMatch,
+        filter: Filters.none,
         fullWidth: false,
         hintText: '',
+        minimumNumberOfCharactersToFilter: 3,
         open: false,
         resultsHeader: null,
         selectedItems: [],
@@ -124,10 +130,11 @@ class Lookup extends Component {
         this.getStyles = this.getStyles.bind(this);
         this.renderChip = this.renderChip.bind(this);
         this.renderListItem = this.renderListItem.bind(this);
+        this.shouldApplyFilter = this.shouldApplyFilter.bind(this);
         this.state = {
             selectedItems: props.selectedItems,
             open: props.open,
-            typedValue: '',
+            searchText: '',
             width: props.width,
         };
     }
@@ -163,7 +170,7 @@ class Lookup extends Component {
         if (this.props.selectedItems !== nextProps.selectedItems) {
             newState = {
                 ...newState,
-                selectedItems: nextProps.selectedItems.map(toItems(props.dataSource)),
+                selectedItems: nextProps.selectedItems,
             };
         }
         this.setState({
@@ -191,7 +198,7 @@ class Lookup extends Component {
 
     handleChangeTextField(evt) {
         this.setState({
-            typedValue: evt.target.value,
+            searchText: evt.target.value,
         });
     }
 
@@ -209,7 +216,7 @@ class Lookup extends Component {
         this.setState({
             selectedItems: [oid],
             open: false,
-            typedValue: '',
+            searchText: '',
         });
         this.props.onSelect(oid);
     }
@@ -392,18 +399,27 @@ class Lookup extends Component {
         );
     }
 
+    shouldApplyFilter() {
+        return this.state.searchText.length >= this.props.minimumNumberOfCharactersToFilter;
+    }
+
     render() {
         const {
             dataSource,
+            filter,
             hintText,
             resultsHeader,
         } = this.props;
         const {
             selectedItems,
-            typedValue,
+            searchText,
             open,
         } = this.state;
-        const isHintTextHidden = Boolean(typedValue) || selectedItems.length > 0;
+        const isHintTextHidden = Boolean(searchText) || selectedItems.length > 0;
+        let filterFunc = Filters.none;
+        if (this.shouldApplyFilter()){
+            filterFunc = filter;
+        }
         const styles = this.getStyles();
 
         return (
@@ -442,7 +458,7 @@ class Lookup extends Component {
                             }}
                             style={styles.input}
                             type="text"
-                            value={typedValue}
+                            value={searchText}
                             onChange={this.handleChangeTextField}
                         />
                     </div>
@@ -472,7 +488,9 @@ class Lookup extends Component {
                                     {resultsHeader}
                                 </SubHeader>
                             )}
-                            {dataSource.map(this.renderListItem)}
+                            {dataSource
+                                .filter((item) => filterFunc(searchText, item))
+                                .map(this.renderListItem)}
                         </List>
                     </div>
                 </Popover>

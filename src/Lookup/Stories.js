@@ -1,6 +1,7 @@
 import React from 'react';
 import {storiesOf} from '@kadira/storybook';
 import Lookup from './';
+import * as Filters from './Filters';
 
 const basicDataSource = [
     'Billy',
@@ -69,6 +70,29 @@ storiesOf('Lookup')
             </div>
         )
     )
+    .addWithInfo('filtering',
+        ``,
+        () => (
+            <div>
+                <Lookup
+                    dataSource={basicDataSource}
+                    filter={Filters.caseInsensitive}
+                    resultsHeader="Results"
+                />
+                <Lookup
+                    dataSource={complexDataSource}
+                    dataSourceConfig={complexDataSourceConfig}
+                    filter={(searchText, value) => Filters.caseInsensitive(searchText, value.name)}
+                    resultsHeader="Results"
+                />
+                <Lookup
+                    dataSource={complexDataSource}
+                    dataSourceConfig={complexDataSourceConfig}
+                    filter={(searchText, value) => Filters.caseInsensitive(searchText, value.title)}
+                    resultsHeader="Results"
+                />
+            </div>
+        ))
     .addWithInfo('explicitly set values',
         `Set the auto complete to be initially rendered as open, with a search text, or selected value`,
         () => (

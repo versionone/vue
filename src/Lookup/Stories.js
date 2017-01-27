@@ -88,7 +88,7 @@ storiesOf('Lookup')
             </div>
         )
     )
-    .addWithInfo('custom item renderering',
+    .addWithInfo('custom item rendering',
         `AutoComplete with defined width and full width props`,
         () => (
             <Lookup

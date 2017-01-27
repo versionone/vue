@@ -1,6 +1,5 @@
 import React, {Component, PropTypes} from 'react';
 import {darken, toRgbaString} from '@andrew-codes/color-functions';
-import {findDOMNode} from 'react-dom';
 import Chip from './../Chip';
 import HintText from './../internal/HintText';
 import List, {ListItem} from './../List';
@@ -13,6 +12,8 @@ import transparent from './../utilities/Transparent';
 const toItems = (dataSource) => (item) => {
     return dataSource[item];
 };
+const matchesOid = (oid) => (item) => oid !== item.oid;
+const matchesStringValue = (value) => (stringValue) => value !== stringValue;
 
 class Lookup extends Component {
     static propTypes = {
@@ -88,10 +89,11 @@ class Lookup extends Component {
         this.togglePopover = this.togglePopover.bind(this);
         this.handleItemClick = this.handleItemClick.bind(this);
         this.handleClosePopover = this.handleClosePopover.bind(this);
+        this.handleChipRemove = this.handleChipRemove.bind(this);
         this.getHeight = this.getHeight.bind(this);
         this.getStyles = this.getStyles.bind(this);
         this.state = {
-            items: props.selectedItems.map(toItems(props.dataSource)),
+            selectedItems: props.selectedItems.map(toItems(props.dataSource)),
             open: props.open,
             typedValue: '',
             width: props.width,
@@ -129,7 +131,7 @@ class Lookup extends Component {
         if (this.props.selectedItems !== nextProps.selectedItems) {
             newState = {
                 ...newState,
-                items: nextProps.selectedItems.map(toItems(props.dataSource)),
+                selectedItems: nextProps.selectedItems.map(toItems(props.dataSource)),
             };
         }
         this.setState({
@@ -139,9 +141,8 @@ class Lookup extends Component {
     }
 
     getFullWidth() {
-        const rootEl = findDOMNode(this.rootEl);
         return parseInt(window
-            .getComputedStyle(rootEl)
+            .getComputedStyle(this.rootEl)
             .width
             .replace('px', '')
         );
@@ -174,7 +175,7 @@ class Lookup extends Component {
 
     handleItemClick(item) {
         this.setState({
-            items: [item],
+            selectedItems: [item],
             open: false,
             typedValue: '',
         });
@@ -185,6 +186,19 @@ class Lookup extends Component {
         this.setState({
             open: false,
         });
+    }
+
+    handleChipRemove({oid, text}) {
+        let newState = {};
+        if (Boolean(oid)) {
+            newState.selectedItems = this.state.selectedItems
+                .filter(matchesOid(oid));
+        }
+        else {
+            newState.selectedItems = this.state.selectedItems
+                .filter(matchesStringValue(text));
+        }
+        this.setState(newState);
     }
 
     getStyles() {
@@ -305,11 +319,11 @@ class Lookup extends Component {
             resultsHeader,
         } = this.props;
         const {
-            items,
+            selectedItems,
             typedValue,
             open,
         } = this.state;
-        const isHintTextHidden = Boolean(typedValue) || items.length > 0;
+        const isHintTextHidden = Boolean(typedValue) || selectedItems.length > 0;
         const styles = this.getStyles();
 
         return (
@@ -321,14 +335,16 @@ class Lookup extends Component {
                 onClick={this.togglePopover}
             >
                 <div style={styles.paddingForPopover}></div>
-                {items.length > 0 && (
+                {selectedItems.length > 0 && (
                     <div
                         style={styles.selectedItems}
                     >
                         <Chip
                             fontSize={this.context.theme.smallFontSize}
                             fullWidth
-                            text={getChipText(items[0])}
+                            oid={selectedItems[0].oid}
+                            text={getChipText(selectedItems[0])}
+                            onRequestRemove={this.handleChipRemove}
                         />
                     </div>
                 )}

@@ -7,6 +7,7 @@ const getStyles = (props) => ({
     root: {
         backgroundColor: props.backgroundColor,
         borderRadius: props.circle ? '50%' : 0,
+        cursor: 'pointer',
         lineHeight: 0.6,
     }
 });

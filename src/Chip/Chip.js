@@ -19,7 +19,7 @@ const getStyles = (props, context) => {
             lineHeight: `${props.lineHeight}`,
             padding: `${padding}px ${padding}px ${padding}px ${props.fontSize / 2}px`,
             margin: `${context.theme.xxSmallGutter}px`,
-            width: props.fullWidth ? '100%' : Boolean(props.width) ? `${props.width}px` : '',
+            width: props.fullWidth ? '100%' : `${props.width}px`,
         },
         text: {
             flex: 1,
@@ -33,23 +33,34 @@ const getStyles = (props, context) => {
     });
 };
 
+const handleIconButtonClick = (text, oid, handler) => (evt) => {
+    handler({
+        oid,
+        text
+    }, evt);
+};
+
 const defaultProps = {
     color: '#000',
     backgroundColor: 'gray',
     fontSize: 14,
     fullWidth: false,
     lineHeight: 1,
+    width: 200,
+    onRequestRemove: () => {
+    },
 };
-
-const Chip = (props) => {
+const Chip = (props, context) => {
     const propsWithDefaults = {
         ...defaultProps,
         ...props
     };
     const {
-        text
+        oid,
+        text,
+        onRequestRemove,
     } = propsWithDefaults;
-    const styles = getStyles(propsWithDefaults);
+    const styles = getStyles(propsWithDefaults, context);
 
     return (
         <div style={styles.root}>
@@ -60,6 +71,7 @@ const Chip = (props) => {
                         circle
                         icon={AddIcon}
                         width={propsWithDefaults.fontSize * propsWithDefaults.lineHeight}
+                        onClick={handleIconButtonClick(text, oid, onRequestRemove)}
                     />
                 </div>
             </div>
@@ -72,8 +84,10 @@ Chip.propTypes = {
     fontSize: PropTypes.string,
     fullWidth: PropTypes.bool,
     lineHeight: PropTypes.number,
+    oid: PropTypes.string,
     text: PropTypes.string.isRequired,
     width: PropTypes.number,
+    onRequestRemove: PropTypes.func,
 };
 Chip.contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,};
 export default Radium(Chip);

@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import Radium from './../utilities/Radium';
 import TrackingHover from './../utilities/TrackingHover';
+import transparent from './../utilities/Transparent';
 
 const getStyles = (props) => {
     const {
@@ -10,11 +11,13 @@ const getStyles = (props) => {
         ? {
             backgroundColor: props.hoverBackgroundColor,
             color: props.hoverColor,
-        } : {};
+        } : {
+            backgroundColor: transparent,
+            color: 'initial',
+        };
 
     return {
         listItem: {
-            backgroundColor: 'none',
             cursor: 'pointer',
             padding: `20px 16px 16px`,
             ...hoveredStyles,

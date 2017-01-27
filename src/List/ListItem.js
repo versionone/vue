@@ -42,7 +42,7 @@ const ListItem = (props) => {
     return (
         <div
             style={styles.listItem}
-            onClick={handleClick(propsWithDefaults.onClick, propsWithDefaults.item)}
+            onClick={handleClick(propsWithDefaults.onClick, propsWithDefaults.itemOid)}
         >
             {propsWithDefaults.children}
         </div>
@@ -68,12 +68,10 @@ ListItem.propTypes = {
     /**
      * Data item that the ListItem is displaying
      */
-    item: PropTypes.oneOfType([
+    itemOid: PropTypes.oneOfType([
         PropTypes.string,
-        PropTypes.shape({
-            oid: PropTypes.string,
-        }),
-    ]),
+        PropTypes.number,
+    ]).isRequired,
     /**
      * Click event handler; fired once the ListItem is clicked
      */

@@ -84,7 +84,10 @@ Chip.propTypes = {
     fontSize: PropTypes.string,
     fullWidth: PropTypes.bool,
     lineHeight: PropTypes.number,
-    oid: PropTypes.string,
+    oid: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+    ]),
     text: PropTypes.string.isRequired,
     width: PropTypes.number,
     onRequestRemove: PropTypes.func,

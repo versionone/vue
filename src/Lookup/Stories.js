@@ -2,30 +2,41 @@ import React from 'react';
 import {storiesOf} from '@kadira/storybook';
 import Lookup from './';
 
-const basicDataSource = {
-    'oid:1': 'Result Item 1',
-    'oid:2': 'Result Item 2',
-    'oid:3': 'Result Item 3',
-    'oid:4': 'Result Item 4',
+const basicDataSource = [
+    'Billy',
+    'Andre',
+    'Chris',
+];
+const complexDataSourceConfig = {
+    oidKey: 'oid',
+    renderItem: (item) => `${item.name} - ${item.title}`,
+    text: 'name',
 };
-const objectDataSource = {
-    'oid:1': {
+const complexDataSourceConfigWithCustomTextRender = {
+    oidKey: 'oid',
+    renderItem: (item) => `${item.name} - ${item.title}`,
+    text: (item) => `${item.title}: ${item.name}`,
+};
+const complexDataSource = [
+    {
         name: 'Billy',
+        oid: 'oid:1',
         title: 'Project Admin'
-    },
-    'oid:2': {
+    }, {
         name: 'Andre',
+        oid: 'oid:2',
         title: 'Developer'
     },
-    'oid:3': {
+    {
         name: 'Chris',
+        oid: 'oid:3',
         title: 'Project Lead'
     },
-};
+];
 
 storiesOf('Lookup')
     .addWithInfo('basic',
-        `Basic AutoComplete`,
+        `Basic AutoComplete with an array of strings for its data source.`,
         () => (
             <div>
                 <Lookup
@@ -35,19 +46,50 @@ storiesOf('Lookup')
                 <Lookup
                     dataSource={basicDataSource}
                     resultsHeader="Results"
-                    selectedItems={['oid:3']}
+                    selectedItems={[1]}
                 />
             </div>
         )
     )
-    .addWithInfo('opened',
-        `Set the auto complete to be initially rendered as open`,
+    .addWithInfo('complex data source',
+        `Basic AutoComplete with an array of objects for its data source.`,
         () => (
-            <Lookup
-                dataSource={basicDataSource}
-                open
-                resultsHeader="Results"
-            />
+            <div>
+                <Lookup
+                    dataSource={complexDataSource}
+                    dataSourceConfig={complexDataSourceConfig}
+                    resultsHeader="Results"
+                />
+                <Lookup
+                    dataSource={complexDataSource}
+                    dataSourceConfig={complexDataSourceConfigWithCustomTextRender}
+                    resultsHeader="Results"
+                    selectedItems={['oid:1']}
+                />
+            </div>
+        )
+    )
+    .addWithInfo('explicitly set values',
+        `Set the auto complete to be initially rendered as open, with a search text, or selected value`,
+        () => (
+            <div>
+                <Lookup
+                    dataSource={basicDataSource}
+                    resultsHeader="Results"
+                    selectedItems={[1]}
+                />
+                <Lookup
+                    dataSource={complexDataSource}
+                    dataSourceConfig={complexDataSourceConfigWithCustomTextRender}
+                    resultsHeader="Results"
+                    selectedItems={['oid:1']}
+                />
+                <Lookup
+                    dataSource={basicDataSource}
+                    open
+                    resultsHeader="Results"
+                />
+            </div>
         )
     )
     .addWithInfo('hint text',
@@ -86,21 +128,5 @@ storiesOf('Lookup')
                     resultsHeader="Results"
                 />
             </div>
-        )
-    )
-    .addWithInfo('custom item rendering',
-        `AutoComplete with defined width and full width props`,
-        () => (
-            <Lookup
-                dataSource={objectDataSource}
-                hintText="hint text"
-                resultsHeader="Results"
-                getChipText={(item) => item.name}
-                itemRenderer={(item) => (
-                    <div>
-                        <span>{item.name}</span>: <span>{item.title}</span>
-                    </div>
-                )}
-            />
         )
     );

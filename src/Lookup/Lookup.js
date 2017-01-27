@@ -9,38 +9,69 @@ import SubHeader from './../SubHeader';
 import ThemeProvider from './../Theme';
 import transparent from './../utilities/Transparent';
 
-const toItems = (dataSource) => (item) => {
-    return dataSource[item];
+const matchOn = (prop) => valueToMatch => item => item[prop] === valueToMatch;
+const matchOid = matchOn('oid');
+const matchesOid = (oid) => matchOid(oid);
+
+const configureGetChipValues = (dataSourceConfig, dataSource) => (oid) => {
+    if (!Boolean(dataSourceConfig)) {
+        return {
+            oid,
+            text: dataSource[oid],
+        };
+    }
+    const matchOnOidKey = matchOn(dataSourceConfig.oidKey);
+    const itemData = dataSource.find(matchOnOidKey(oid));
+    let text;
+    if (typeof(dataSourceConfig.text) === 'string') {
+        text = itemData[dataSourceConfig.text];
+    } else {
+        text = dataSourceConfig.text(itemData);
+    }
+
+    return {
+        oid,
+        text
+    };
 };
-const matchesOid = (oid) => (item) => oid !== item.oid;
 const matchesStringValue = (value) => (stringValue) => value !== stringValue;
 
 class Lookup extends Component {
     static propTypes = {
         /**
-         * Array of strings or nodes that represent each individual result item
+         * Array of all possible date items to be filtered when searching using the lookup
          */
-        dataSource: PropTypes.object,
+        dataSource: PropTypes.arrayOf(PropTypes.oneOfType([
+            PropTypes.object,
+            PropTypes.string
+        ])),
+        /**
+         * Defines mechanism to convert data source item to: text, rendered list item, and unique key
+         */
+        dataSourceConfig: PropTypes.shape({
+            oidKey: PropTypes.string.isRequired,
+            renderItem: PropTypes.func.isRequired,
+            text: PropTypes.oneOfType([
+                PropTypes.string,
+                PropTypes.func
+            ]).isRequired,
+        }),
         /**
          *
          */
         disabled: PropTypes.bool,
         /**
+         * Callback function used to filter the lookup
+         */
+        filter: PropTypes.func,
+        /**
          * If true, the field is 100% width
          */
         fullWidth: PropTypes.bool,
         /**
-         * Function given a selected item and returns the text to display on the Chip for that item
-         */
-        getChipText: PropTypes.func,
-        /**
          * Placeholder text
          */
         hintText: PropTypes.string,
-        /**
-         * Function given each item to render them within the results list
-         */
-        itemRenderer: PropTypes.func,
         /**
          * When true, the auto complete is open
          */
@@ -66,12 +97,11 @@ class Lookup extends Component {
         onSelect: PropTypes.func,
     };
     static defaultProps = {
-        dataSource: {},
+        dataSource: [],
         disabled: false,
+        // filter: (searchText, key) => LookupFilters.exactMatch,
         fullWidth: false,
-        getChipText: (item) => item,
         hintText: '',
-        itemRenderer: (item) => item,
         open: false,
         resultsHeader: null,
         selectedItems: [],
@@ -92,8 +122,10 @@ class Lookup extends Component {
         this.handleChipRemove = this.handleChipRemove.bind(this);
         this.getHeight = this.getHeight.bind(this);
         this.getStyles = this.getStyles.bind(this);
+        this.renderChip = this.renderChip.bind(this);
+        this.renderListItem = this.renderListItem.bind(this);
         this.state = {
-            selectedItems: props.selectedItems.map(toItems(props.dataSource)),
+            selectedItems: props.selectedItems,
             open: props.open,
             typedValue: '',
             width: props.width,
@@ -173,13 +205,13 @@ class Lookup extends Component {
         this.inputField.focus();
     }
 
-    handleItemClick(item) {
+    handleItemClick(oid) {
         this.setState({
-            selectedItems: [item],
+            selectedItems: [oid],
             open: false,
             typedValue: '',
         });
-        this.props.onSelect(item);
+        this.props.onSelect(oid);
     }
 
     handleClosePopover() {
@@ -310,12 +342,60 @@ class Lookup extends Component {
         }
     }
 
+    renderChip(styles) {
+        const {
+            dataSource,
+            dataSourceConfig,
+        } = this.props;
+        const {
+            selectedItems,
+        } = this.state;
+
+        if (selectedItems.length === 0) {
+            return;
+        }
+
+        const getChipValues = configureGetChipValues(dataSourceConfig, dataSource);
+        return (
+            <div
+                style={styles.selectedItems}
+            >
+                {selectedItems.map((item, index) => (
+                    <Chip
+                        fontSize={this.context.theme.smallFontSize}
+                        fullWidth
+                        key={index}
+                        onRequestRemove={this.handleChipRemove}
+                        {...getChipValues(item, index)}
+                    />
+                ))}
+            </div>
+        );
+    }
+
+    renderListItem(item, index) {
+        const {
+            dataSourceConfig
+        } = this.props;
+        let children = item;
+        if (Boolean(dataSourceConfig)) {
+            children = dataSourceConfig.renderItem(item, index);
+        }
+        return (
+            <ListItem
+                itemOid={item.oid || index}
+                key={index}
+                onClick={this.handleItemClick}
+            >
+                {children}
+            </ListItem>
+        );
+    }
+
     render() {
         const {
             dataSource,
-            getChipText,
             hintText,
-            itemRenderer,
             resultsHeader,
         } = this.props;
         const {
@@ -335,19 +415,7 @@ class Lookup extends Component {
                 onClick={this.togglePopover}
             >
                 <div style={styles.paddingForPopover}></div>
-                {selectedItems.length > 0 && (
-                    <div
-                        style={styles.selectedItems}
-                    >
-                        <Chip
-                            fontSize={this.context.theme.smallFontSize}
-                            fullWidth
-                            oid={selectedItems[0].oid}
-                            text={getChipText(selectedItems[0])}
-                            onRequestRemove={this.handleChipRemove}
-                        />
-                    </div>
-                )}
+                {this.renderChip(styles)}
                 <div style={styles.textFieldWrapper}>
                     <div style={styles.hintTextWrapper}>
                         <div
@@ -404,15 +472,7 @@ class Lookup extends Component {
                                     {resultsHeader}
                                 </SubHeader>
                             )}
-                            {Object.keys(dataSource).map((key, itemIndex) => (
-                                <ListItem
-                                    item={dataSource[key]}
-                                    key={itemIndex}
-                                    onClick={this.handleItemClick}
-                                >
-                                    {itemRenderer(dataSource[key])}
-                                </ListItem>
-                            ))}
+                            {dataSource.map(this.renderListItem)}
                         </List>
                     </div>
                 </Popover>

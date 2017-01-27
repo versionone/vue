@@ -11,7 +11,7 @@ suite('ListItem', () => {
     test('it is click-able', () => {
         const handleClickSpy = spy();
         const listItem = mountListItem({
-            item: getContent(),
+            itemOid: getContent(),
             onClick: handleClickSpy,
         });
         simulateClick(listItem);

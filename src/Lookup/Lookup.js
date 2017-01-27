@@ -269,6 +269,7 @@ class Lookup extends Component {
                 background: transparent,
                 height: `${hintTextWrapperHeight}px`,
                 position: 'relative',
+                width: computedWidth,
             },
             selectedItem: {
                 flex: 1,

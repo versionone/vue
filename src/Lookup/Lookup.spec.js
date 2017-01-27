@@ -139,8 +139,10 @@ function autoCompleteResultsHasNoHeaderText(wrapper) {
 }
 function autoCompletePopoverToBeWidth(wrapper, width) {
     return wrapper
-            .find('TextField')
+            .find('input')
+            .parent()
             .props()
+            .style
             .width === width
         && getRootElementOfPopover()
             .children[0]
@@ -149,7 +151,9 @@ function autoCompletePopoverToBeWidth(wrapper, width) {
 }
 function autoCompleteRendersHintText(wrapper, text) {
     return wrapper
-            .find('TextField')
+            .find('input')
+            .parent()
+            .parent()
             .text() === text;
 }
 function autoCompletePopoverToBeFullWidth(wrapper) {

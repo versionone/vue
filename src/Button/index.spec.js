@@ -7,6 +7,6 @@ suite('Button', () => {
         expect(new Button({})).to.be.an.instanceof(ButtonComponent);
     });
     test('it exports an IconButton component as the default export', () => {
-        expect(IconButton({})).to.be.an.instanceof(IconButtonComponent);
+        expect(new IconButton({})).to.be.an.instanceof(IconButtonComponent);
     });
 });

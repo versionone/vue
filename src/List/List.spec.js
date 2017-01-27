@@ -16,12 +16,7 @@ suite('List', () => {
             hoverBackgroundColor: 'blue',
             hoverColor: 'white',
         });
-        simulateMouseEnterFirstListItem(list);
-        expect(getFirstListItem(list)).to.have.style('backgroundColor', 'blue');
-        expect(getFirstListItem(list)).to.have.style('color', 'white');
-
-        simulateMouseLeaveFirstListItem(list);
-        expect(getFirstListItem(list)).to.have.style('backgroundColor', 'rgba(0, 0, 0, 0)');
+        expect(listItemsToHaveHoverColors(list, 'white', 'blue')).to.be.true;
     });
 });
 
@@ -42,12 +37,9 @@ function listHasItems(wrapper, items) {
     return wrapper.children().length === items.length
         && items.reduce((output, item, index) => output && wrapper.childAt(index).text() === item, true);
 }
-function getFirstListItem(wrapper) {
-    return wrapper.find('ListItem').first().parent();
-}
-function simulateMouseEnterFirstListItem(wrapper) {
-    getFirstListItem(wrapper).simulate('mouseenter');
-}
-function simulateMouseLeaveFirstListItem(wrapper) {
-    getFirstListItem(wrapper).simulate('mouseleave');
-}
+function listItemsToHaveHoverColors(wrapper, hoverColor, hoverBackgroundColor) {
+    return wrapper.find('ListItem').reduce((output, listItem) => output
+        && listItem.props().hoverColor === hoverColor
+        && listItem.props().hoverBackgroundColor === hoverBackgroundColor,
+        true);
+};

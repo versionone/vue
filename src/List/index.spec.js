@@ -4,9 +4,9 @@ import ListItemComponent from './ListItem';
 
 suite('List', () => {
     test('it exports a List component from Vue', () => {
-        expect(new List({})).to.be.a.instanceOf(ListComponent);
+        expect(new List({})).to.be.an.instanceOf(ListComponent);
     });
     test('it exports a ListItem component from Vue', () => {
-        expect(new ListItem({})).to.be.a.instanceOf(ListItemComponent);
+        expect(new ListItem({})).to.be.an.instanceOf(ListItemComponent);
     });
 });

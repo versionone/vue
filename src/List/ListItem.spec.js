@@ -5,17 +5,14 @@ import ListItem from './ListItem';
 
 suite('ListItem', () => {
     test('it can render the children', () => {
-        const listItem = mountListItem({
-            children: getContent(),
-        });
+        const listItem = mountListItem();
         expect(listItemHasContent(listItem, getContent())).to.be.true;
     });
     test('it is click-able', () => {
         const handleClickSpy = spy();
         const listItem = mountListItem({
-            children: getContent(),
             item: getContent(),
-            onClick: handleClickSpy
+            onClick: handleClickSpy,
         });
         simulateClick(listItem);
         expect(handleClickSpy.calledOnce).to.be.true;
@@ -24,7 +21,9 @@ suite('ListItem', () => {
 });
 
 function mountListItem(props = {}) {
-    return mount(<ListItem {...props} />);
+    return mount(<ListItem {...props}>
+        {getContent()}
+    </ListItem>);
 }
 function listItemHasContent(wrapper, text) {
     return wrapper.find('ListItem').text() === text;

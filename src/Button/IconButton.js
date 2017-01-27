@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import * as CustomPropTypes from './../utilities/CustomPropTypes';
+import Radium from './../utilities/Radium';
 import SvgIcon from './../SvgIcon';
 
 const getStyles = (props) => ({
@@ -41,4 +42,4 @@ IconButton.propTypes = {
     width: PropTypes.number,
     icon: CustomPropTypes.componentType(SvgIcon).isRequired,
 };
-export default IconButton;
+export default Radium(IconButton);

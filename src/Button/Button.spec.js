@@ -87,7 +87,7 @@ suite('Button', () => {
         const onClick = spy();
         const disabledStandardButton = mountButton({
             disable: true,
-            onClick
+            onClick,
         });
         simulateClick(disabledStandardButton);
         expect(onClick.called).to.be.false;

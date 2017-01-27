@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 import Radium from './../utilities/Radium';
 import {IconButton} from './../Button';
 import {AddIcon} from './../Icons';

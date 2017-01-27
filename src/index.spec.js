@@ -29,7 +29,7 @@ suite('Vue', () => {
     });
 
     test('vue exports an Lookup component', () => {
-        expect(new Lookup({})).to.be.a.instanceOf(LookupComponent);
+        expect(new Lookup({selectedItems: []})).to.be.a.instanceOf(LookupComponent);
     });
 
     test('vue exports a SubHeader component', () => {

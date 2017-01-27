@@ -10,17 +10,16 @@ import SubHeader from './../SubHeader';
 import ThemeProvider from './../Theme';
 import transparent from './../utilities/Transparent';
 
+const toItems = (dataSource) => (item) => {
+    return dataSource[item];
+};
+
 class Lookup extends Component {
     static propTypes = {
         /**
          * Array of strings or nodes that represent each individual result item
          */
-        dataSource: PropTypes.arrayOf(PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.shape({
-                oid: PropTypes.string.isRequired,
-            }),
-        ])),
+        dataSource: PropTypes.object,
         /**
          *
          */
@@ -30,9 +29,17 @@ class Lookup extends Component {
          */
         fullWidth: PropTypes.bool,
         /**
+         * Function given a selected item and returns the text to display on the Chip for that item
+         */
+        getChipText: PropTypes.func,
+        /**
          * Placeholder text
          */
         hintText: PropTypes.string,
+        /**
+         * Function given each item to render them within the results list
+         */
+        itemRenderer: PropTypes.func,
         /**
          * When true, the auto complete is open
          */
@@ -45,6 +52,10 @@ class Lookup extends Component {
             PropTypes.node,
         ]),
         /**
+         * Sets the selected values of the lookup; is the string key of the selected object in the data source
+         */
+        selectedItems: PropTypes.arrayOf(PropTypes.string),
+        /**
          * Width of the text field
          */
         width: PropTypes.number,
@@ -54,12 +65,15 @@ class Lookup extends Component {
         onSelect: PropTypes.func,
     };
     static defaultProps = {
-        dataSource: [],
+        dataSource: {},
         disabled: false,
         fullWidth: false,
+        getChipText: (item) => item,
         hintText: '',
+        itemRenderer: (item) => item,
         open: false,
         resultsHeader: null,
+        selectedItems: [],
         width: 256,
         onSelect: () => {
         },
@@ -75,9 +89,8 @@ class Lookup extends Component {
         this.handleItemClick = this.handleItemClick.bind(this);
         this.getHeight = this.getHeight.bind(this);
         this.getStyles = this.getStyles.bind(this);
-
         this.state = {
-            items: [],
+            items: props.selectedItems.map(toItems(props.dataSource)),
             open: props.open,
             typedValue: '',
             width: props.width,
@@ -110,6 +123,12 @@ class Lookup extends Component {
             newState = {
                 ...newState,
                 width: nextProps.width,
+            };
+        }
+        if (this.props.selectedItems !== nextProps.selectedItems) {
+            newState = {
+                ...newState,
+                items: nextProps.selectedItems.map(toItems(props.dataSource)),
             };
         }
         this.setState({
@@ -270,7 +289,9 @@ class Lookup extends Component {
     render() {
         const {
             dataSource,
+            getChipText,
             hintText,
+            itemRenderer,
             resultsHeader,
         } = this.props;
         const {
@@ -295,7 +316,7 @@ class Lookup extends Component {
                     >
                         <Chip
                             fontSize={this.context.theme.smallFontSize}
-                            text={items.join('')}
+                            text={getChipText(items[0])}
                         />
                     </div>
                 )}
@@ -355,13 +376,13 @@ class Lookup extends Component {
                                     {resultsHeader}
                                 </SubHeader>
                             )}
-                            {dataSource.map((item, itemIndex) => (
+                            {Object.keys(dataSource).map((key, itemIndex) => (
                                 <ListItem
-                                    item={item}
+                                    item={dataSource[key]}
                                     key={itemIndex}
                                     onClick={this.handleItemClick}
                                 >
-                                    {item}
+                                    {itemRenderer(dataSource[key])}
                                 </ListItem>
                             ))}
                         </List>

@@ -1,4 +1,5 @@
 import React from 'react';
+import simulant from 'simulant';
 import {mount} from 'enzyme';
 import initializeGlobalWindow from './../../specHelpers/initializeGlobalWindow';
 import AutoComplete from './Lookup';
@@ -7,37 +8,41 @@ suite('Lookup', () => {
     afterEach(initializeGlobalWindow);
 
     test('renders as a TextField when not open', () => {
-        const autoComplete = mountAutoComplete({open: false,});
-        expect(autoCompleteRendersClosed(autoComplete)).to.be.true;
+        const lookup = mountLookup({open: false,});
+        expect(autoCompleteRendersClosed(lookup)).to.be.true;
     });
     test('can render hint text', () => {
-        const autoCompleteWithNoValue = mountAutoComplete({open: false, hintText: getText()});
-        expect(autoCompleteRendersHintText(autoCompleteWithNoValue, getText())).to.be.true;
+        const lookupWithNoValue = mountLookup({
+            hintText: getText(),
+            open: false,
+        });
+        expect(autoCompleteRendersHintText(lookupWithNoValue, getText())).to.be.true;
     });
     test('defaults to being closed', () => {
-        const autoComplete = mountAutoComplete();
-        expect(autoCompleteRendersClosed(autoComplete)).to.be.true;
+        const lookup = mountLookup();
+        expect(autoCompleteRendersClosed(lookup)).to.be.true;
     });
     test('displays a popover of results when open', () => {
-        const autoComplete = mountAutoComplete({
+        const dataSource = getBasicDataSource();
+        const lookup = mountLookup({
+            dataSource: dataSource,
             open: true,
-            dataSource: getDataSource(),
             resultsHeader: getText(),
         });
-        expect(autoCompleteRendersOpen(autoComplete)).to.be.true;
-        expect(autoCompleteResultsMatchExactly(autoComplete, getDataSource())).to.be.true;
+        expect(autoCompleteRendersOpen(lookup)).to.be.true;
+        expect(autoCompleteResultsMatchExactly(lookup, Object.keys(dataSource).map((key) => dataSource[key]))).to.be.true;
     });
     test('has a  width that can be set or be full width', () => {
-        const autoComplete = mountAutoComplete({
+        const lookup = mountLookup({
             open: true,
             width: 250,
         });
-        expect(autoCompletePopoverToBeWidth(autoComplete, 250)).to.be.true;
+        expect(autoCompletePopoverToBeWidth(lookup, 250)).to.be.true;
 
-        autoComplete.setProps({
+        lookup.setProps({
             width: 300,
         });
-        expect(autoCompletePopoverToBeWidth(autoComplete, 300)).to.be.true;
+        expect(autoCompletePopoverToBeWidth(lookup, 300)).to.be.true;
 
         // const fullWidthAutoComplete = mountAutoComplete({
         //     fullWidth: true,
@@ -53,23 +58,52 @@ suite('Lookup', () => {
         // expect(autoCompletePopoverToBeFullWidth(fullWidthAutoCompleteWithSetWidth)).to.be.true;
     });
     test('can optionally render a sub-header for the results', () => {
-        const autoCompleteWithResultsHeader = mountAutoComplete({
+        const lookupWithResultsHeader = mountLookup({
+            dataSource: getBasicDataSource(),
             open: true,
-            dataSource: getDataSource(),
             resultsHeader: getText(),
         });
-        expect(autoCompleteResultsHasHeaderText(autoCompleteWithResultsHeader, getText())).to.be.true;
-        autoCompleteWithResultsHeader.unmount();
+        expect(autoCompleteResultsHasHeaderText(lookupWithResultsHeader, getText())).to.be.true;
+        lookupWithResultsHeader.unmount();
 
-        const autoCompleteWithoutResultsHeader = mountAutoComplete({
+        const lookupWithoutResultsHeader = mountLookup({
+            dataSource: getBasicDataSource(),
             open: true,
-            dataSource: getDataSource(),
         });
-        expect(autoCompleteResultsHasNoHeaderText(autoCompleteWithoutResultsHeader)).to.be.true;
+        expect(autoCompleteResultsHasNoHeaderText(lookupWithoutResultsHeader)).to.be.true;
+    });
+    test('can render the item as a Chip via a getChipText value function', () => {
+        const lookup = mountLookup({
+            dataSource: getDataSource(),
+            getChipText: (item) => item.name,
+            itemRenderer: (item) => item.name,
+            open: true,
+            selectedItems: ['oid:1']
+        });
+        expect(firstListItemIsSelected(lookup, 'Testing 1')).to.be.true;
+    });
+    test('can set the selected item by setting the selected item prop', () => {
+        const lookup = mountLookup({
+            dataSource: getDataSource(),
+            getChipText: (item) => item.name,
+            itemRenderer: (item) => item.name,
+            open: true,
+            selectedItems: ['oid:1']
+        });
+        expect(firstListItemIsSelected(lookup, 'Testing 1')).to.be.true;
+    });
+    test.skip('can select an item to be set as a Chip in the search box', () => {
+        const lookup = mountLookup({
+            dataSource: getDataSource(),
+            getChipText: (item) => item.name,
+            open: true,
+        });
+        simulateSelectionOfFirstListItem();
+        expect(firstListItemIsSelected(lookup, 'Testing 1')).to.be.true;
     });
 });
 
-function mountAutoComplete(props = {}) {
+function mountLookup(props = {}) {
     return mount(<AutoComplete {...props} />, {context: {theme: getTestTheme()}});
 }
 function getTestTheme() {
@@ -85,12 +119,24 @@ function autoCompleteRendersClosed(wrapper) {
 function autoCompleteRendersOpen(wrapper) {
     return wrapper.find('Popover').props().open === true;
 }
-function getDataSource() {
-    return [
-        'Testing 1',
-        'Testing 2',
-    ];
+function getBasicDataSource() {
+    return {
+        'oid:1': 'Testing 1',
+        'oid:2': 'Testing 2',
+        'oid:3': 'Testing 3',
+    };
 }
+function getDataSource() {
+    return {
+        'oid:1': {
+            name: 'Testing 1'
+        },
+        'oid:2': {
+            name: 'Testing 3'
+        },
+    };
+}
+
 function getRootElementOfPopover() {
     return document
         .body
@@ -115,7 +161,9 @@ function autoCompleteResultsMatchExactly(wrapper, results) {
         startResultsIndex = 1;
     }
     return resultList.children.length === results.length + startResultsIndex
-        && results.reduce(areAllResultsContainedWithin(resultList), true);
+        && Object.keys(results)
+            .map(key => results[key])
+            .reduce(areAllResultsContainedWithin(resultList), true);
 }
 function areAllResultsContainedWithin(resultsList) {
     const childrenAsArray = Object.keys(resultsList.children)
@@ -156,11 +204,22 @@ function autoCompleteRendersHintText(wrapper, text) {
             .parent()
             .text() === text;
 }
-function autoCompletePopoverToBeFullWidth(wrapper) {
-    return wrapper
-            .find('TextField')
-            .props()
-            .fullWidth === true
-        && getRootElementOfPopover()
-            .children[0].width;
+// function autoCompletePopoverToBeFullWidth(wrapper) {
+//     return wrapper
+//             .find('TextField')
+//             .props()
+//             .fullWidth === true
+//         && getRootElementOfPopover()
+//             .children[0].width;
+// }
+function simulateSelectionOfFirstListItem() {
+    const el = getRootElementOfPopover()
+        .children[0]
+        .children[0]
+        .children[0];
+    const evt = simulant('click');
+    simulant.fire(el, evt);
+}
+function firstListItemIsSelected(wrapper, selectedText) {
+    return wrapper.find('Chip').text() === selectedText;
 }

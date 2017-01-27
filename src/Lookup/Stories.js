@@ -2,22 +2,42 @@ import React from 'react';
 import {storiesOf} from '@kadira/storybook';
 import Lookup from './';
 
-const basicDataSource = [
-    'Result 1',
-    'Result 2',
-    'Result 3',
-    'Result 4',
-    'Result 5',
-];
+const basicDataSource = {
+    'oid:1': 'Result Item 1',
+    'oid:2': 'Result Item 2',
+    'oid:3': 'Result Item 3',
+    'oid:4': 'Result Item 4',
+};
+const objectDataSource = {
+    'oid:1': {
+        name: 'Billy',
+        title: 'Project Admin'
+    },
+    'oid:2': {
+        name: 'Andre',
+        title: 'Developer'
+    },
+    'oid:3': {
+        name: 'Chris',
+        title: 'Project Lead'
+    },
+};
 
 storiesOf('Lookup')
     .addWithInfo('basic',
         `Basic AutoComplete`,
         () => (
-            <Lookup
-                dataSource={basicDataSource}
-                resultsHeader="Results"
-            />
+            <div>
+                <Lookup
+                    dataSource={basicDataSource}
+                    resultsHeader="Results"
+                />
+                <Lookup
+                    dataSource={basicDataSource}
+                    resultsHeader="Results"
+                    selectedItems={['oid:3']}
+                />
+            </div>
         )
     )
     .addWithInfo('opened',
@@ -66,5 +86,21 @@ storiesOf('Lookup')
                     resultsHeader="Results"
                 />
             </div>
+        )
+    )
+    .addWithInfo('custom item renderering',
+        `AutoComplete with defined width and full width props`,
+        () => (
+            <Lookup
+                dataSource={objectDataSource}
+                hintText="hint text"
+                resultsHeader="Results"
+                getChipText={(item) => item.name}
+                itemRenderer={(item) => (
+                    <div>
+                        <span>{item.name}</span>: <span>{item.title}</span>
+                    </div>
+                )}
+            />
         )
     );

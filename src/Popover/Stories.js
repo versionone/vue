@@ -3,26 +3,26 @@ import {storiesOf} from '@kadira/storybook';
 import Popover from './';
 
 class PopoverDemo extends Component {
-    constructor(props, ...rest) {
-        super(props, ...rest);
+    constructor(...rest) {
+        super(...rest);
         this.state = {
-            isOpen: false
+            open: false
         };
         this.handleClick = this.handleClick.bind(this);
         this.closePopover = this.closePopover.bind(this);
     }
 
     handleClick() {
-        this.setState({isOpen: true});
+        this.setState({open: !this.state.open});
     }
 
     closePopover() {
-        this.setState({isOpen: false});
+        this.setState({open: false});
     }
 
     render() {
         const {anchorOrigin, targetOrigin} = this.props;
-        const {isOpen} = this.state;
+        const {open} = this.state;
         return (
             <div>
                 <span
@@ -34,7 +34,7 @@ class PopoverDemo extends Component {
                 <Popover
                     anchorElement={this.anchor}
                     anchorOrigin={anchorOrigin}
-                    open={isOpen}
+                    open={open}
                     targetOrigin={targetOrigin}
                     onRequestClose={this.closePopover}
                 >

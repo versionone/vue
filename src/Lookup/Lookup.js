@@ -85,8 +85,9 @@ class Lookup extends Component {
 
         this.handleChangeTextField = this.handleChangeTextField.bind(this);
         this.handleClickHintText = this.handleClickHintText.bind(this);
-        this.handleFocusTextField = this.handleFocusTextField.bind(this);
+        this.togglePopover = this.togglePopover.bind(this);
         this.handleItemClick = this.handleItemClick.bind(this);
+        this.handleClosePopover = this.handleClosePopover.bind(this);
         this.getHeight = this.getHeight.bind(this);
         this.getStyles = this.getStyles.bind(this);
         this.state = {
@@ -161,8 +162,10 @@ class Lookup extends Component {
         });
     }
 
-    handleFocusTextField() {
-        this.setState({open: true});
+    togglePopover() {
+        this.setState({
+            open: !this.state.open,
+        });
     }
 
     handleClickHintText() {
@@ -176,6 +179,12 @@ class Lookup extends Component {
             typedValue: '',
         });
         this.props.onSelect(item);
+    }
+
+    handleClosePopover() {
+        this.setState({
+            open: false,
+        });
     }
 
     getStyles() {
@@ -308,6 +317,7 @@ class Lookup extends Component {
                     this.rootEl = el;
                 }}
                 style={styles.root}
+                onClick={this.togglePopover}
             >
                 <div style={styles.paddingForPopover}></div>
                 {items.length > 0 && (
@@ -348,7 +358,6 @@ class Lookup extends Component {
                             type="text"
                             value={typedValue}
                             onChange={this.handleChangeTextField}
-                            onFocus={this.handleFocusTextField}
                         />
                     </div>
                 </div>
@@ -363,6 +372,7 @@ class Lookup extends Component {
                         horizontal: Positions.left,
                         vertical: Positions.top,
                     }}
+                    onRequestClose={this.handleClosePopover}
                 >
                     <div
                         style={styles.resultsPaper}

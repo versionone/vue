@@ -3,7 +3,7 @@ import {darken, toRgbaString} from '@andrew-codes/color-functions';
 import Radium from './../utilities/Radium';
 import ThemeProvider from './../Theme';
 import {IconButton} from './../Button';
-import {AddIcon} from './../Icons';
+import {CloseIcon} from './../Icons';
 
 const getStyles = (props, context) => {
     const padding = Math.floor(props.fontSize / 3);
@@ -80,7 +80,7 @@ const Chip = (props, context) => {
                     <IconButton
                         circle
                         color={toRgbaString(darken(backgroundColor, 0.45))}
-                        icon={AddIcon}
+                        icon={CloseIcon}
                         width={fontSize * lineHeight}
                         onClick={handleIconButtonClick(text, oid, onRequestRemove)}
                     />

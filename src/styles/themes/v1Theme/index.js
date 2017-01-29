@@ -15,8 +15,10 @@ export default {
     fieldBorderColor: colors.aluminum,
     focusedPrimaryColor: colors.cerulean,
     focusedSecondaryColor: toRgbaString(setOpacity(colors.cerulean, 0.5)),
+    gutter: 8,
     importantColor: colors.mango,
     largeFontSize: 22,
+    largeGutter: 12,
     largeLineHeight: 2.285,
     lightInverseColor: colors.gunMetal,
     mediumFontSize: 16,
@@ -30,6 +32,7 @@ export default {
     textPrimaryColor: colors.gunMetal,
     textDisabledColor: colors.minBlack,
     xLargeFontSize: 24,
+    xLargeGutter: 16,
     xMediumFontSize: 18,
     xSmallFontSize: 8,
     xxSmallGutter: 3

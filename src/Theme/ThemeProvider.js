@@ -49,11 +49,19 @@ export default class ThemeProvider extends Component {
          * Secondary color to represent a focused state.
          */
         focusedSecondaryColor: PropTypes.string.isRequired,
+        /**
+         * Normal gutter size
+         */
+        gutter: PropTypes.number.isRequired,
         importantColor: PropTypes.string.isRequired,
         /**
          * Large font size used for ...?
          */
         largeFontSize: PropTypes.number.isRequired,
+        /**
+         * Large gutter
+         */
+        largeGutter: PropTypes.number.isRequired,
         /**
          * Larger line height used for actual component text as opposed to textual content. An example would be the text value of a TextField versus text for a Button.
          */
@@ -87,7 +95,7 @@ export default class ThemeProvider extends Component {
          */
         smallFontSize: PropTypes.number.isRequired,
         /**
-         * Small gutter size; used for padding on Lookup's results panel.
+         * Small gutter size; used for vertical padding on ListItems and SubHeaders.
          */
         smallGutter: PropTypes.number.isRequired,
         /**
@@ -102,6 +110,10 @@ export default class ThemeProvider extends Component {
          * Largest font size used for ...?
          */
         xLargeFontSize: PropTypes.number.isRequired,
+        /**
+         * Extra large gutter; typically used for horizontal padding of ListItems and SubHeaders.
+         */
+        xLargeGutter: PropTypes.number.isRequired,
         /**
          * Slightly larger medium font size used for emphasis of medium fonts.
          */

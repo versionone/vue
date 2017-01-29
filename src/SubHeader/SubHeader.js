@@ -1,12 +1,24 @@
 import React, {PropTypes} from 'react';
 import Radium from './../utilities/Radium';
 import ThemeProvider from './../Theme';
+import transparent from './../utilities/Transparent';
 
-const SubHeader = (props)=> {
+const getStyles = (props, context) => ({
+    root: {
+        backgroundColor: transparent,
+        borderBottom: '1px dashed #a6a6a6',
+        color: '#a6a6a6',
+        padding: `${context.theme.smallGutter}px ${context.theme.largeGutter}px`,
+        textTransform: 'uppercase',
+    }
+});
+
+const SubHeader = (props, context) => {
     const {children} = props;
+    const styles = getStyles(props, context);
 
     return (
-        <header>
+        <header style={styles.root}>
             {children}
         </header>
     );

@@ -40,6 +40,14 @@ const matchesStringValue = (value) => (stringValue) => value !== stringValue;
 class Lookup extends Component {
     static propTypes = {
         /**
+         * Background color of selected item chips
+         */
+        chipBackgroundColor: PropTypes.string,
+        /**
+         * Text color of selected item chips
+         */
+        chipColor: PropTypes.string,
+        /**
          * Array of all possible date items to be filtered when searching using the lookup; uniqueness is either the index of the item (when an array of strings) or defined by the dataSourceConfig's oidKey
          */
         dataSource: PropTypes.arrayOf(PropTypes.oneOfType([
@@ -74,6 +82,14 @@ class Lookup extends Component {
          */
         hintText: PropTypes.string,
         /**
+         *
+         */
+        listHoverBackgroundColor: PropTypes.string,
+        /**
+         *
+         */
+        listHoverColor: PropTypes.string,
+        /**
          * Minimum number of characters required to be typed before applying the filter to the result set
          */
         minimumNumberOfCharactersToFilter: PropTypes.number,
@@ -102,11 +118,15 @@ class Lookup extends Component {
         onSelect: PropTypes.func,
     };
     static defaultProps = {
+        chipBackgroundColor: '#e9edf1',
+        chipColor: '#474c54',
         dataSource: [],
         disabled: false,
         filter: Filters.none,
         fullWidth: false,
         hintText: '',
+        listHoverBackgroundColor: '#262626',
+        listHoverColor: '#fff',
         minimumNumberOfCharactersToFilter: 3,
         open: false,
         resultsHeader: null,
@@ -315,7 +335,6 @@ class Lookup extends Component {
                 background: normalBackground,
                 border: `1px solid ${toRgbaString(darken(fieldBorderColor, 0.55))}`,
                 boxSizing: 'border-box',
-                fontFamily: basicFontFamily,
                 width: `${width}px`,
             },
             root: {
@@ -324,16 +343,9 @@ class Lookup extends Component {
                 position: 'relative',
                 width: computedWidth,
             },
-            selectedItem: {
-                flex: 1,
-                background: 'gray',
-                margin: `${xxSmallGutter}px`,
-                alignSelf: 'center',
-            },
             selectedItems: {
                 background: transparent,
                 display: 'flex',
-                fontFamily: basicFontFamily,
                 height: `${hintTextWrapperHeight}px`,
                 position: 'absolute',
                 top: 0,
@@ -351,6 +363,8 @@ class Lookup extends Component {
 
     renderChip(styles) {
         const {
+            chipBackgroundColor,
+            chipColor,
             dataSource,
             dataSourceConfig,
         } = this.props;
@@ -369,6 +383,8 @@ class Lookup extends Component {
             >
                 {selectedItems.map((item, index) => (
                     <Chip
+                        backgroundColor={chipBackgroundColor}
+                        color={chipColor}
                         fontSize={this.context.theme.smallFontSize}
                         fullWidth
                         key={index}
@@ -408,6 +424,8 @@ class Lookup extends Component {
             dataSource,
             filter,
             hintText,
+            listHoverBackgroundColor,
+            listHoverColor,
             resultsHeader,
         } = this.props;
         const {
@@ -417,7 +435,7 @@ class Lookup extends Component {
         } = this.state;
         const isHintTextHidden = Boolean(searchText) || selectedItems.length > 0;
         let filterFunc = Filters.none;
-        if (this.shouldApplyFilter()){
+        if (this.shouldApplyFilter()) {
             filterFunc = filter;
         }
         const styles = this.getStyles();
@@ -480,8 +498,8 @@ class Lookup extends Component {
                         style={styles.resultsPaper}
                     >
                         <List
-                            hoverBackgroundColor="black"
-                            hoverColor="white"
+                            hoverBackgroundColor={listHoverBackgroundColor}
+                            hoverColor={listHoverColor}
                         >
                             {Boolean(resultsHeader) && (
                                 <SubHeader>

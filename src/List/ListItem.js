@@ -1,12 +1,17 @@
 import React, {PropTypes} from 'react';
 import Radium from './../utilities/Radium';
+import ThemeProvider from './../Theme';
 import TrackingHover from './../utilities/TrackingHover';
 import transparent from './../utilities/Transparent';
 
-const getStyles = (props) => {
+const getStyles = (props, context) => {
     const {
         hovered
     } = props;
+    const {
+        smallGutter,
+        largeGutter,
+    } = context.theme;
     const hoveredStyles = hovered
         ? {
             backgroundColor: props.hoverBackgroundColor,
@@ -19,7 +24,7 @@ const getStyles = (props) => {
     return {
         listItem: {
             cursor: 'pointer',
-            padding: `20px 16px 16px`,
+            padding: `${smallGutter}px ${largeGutter}px`,
             ...hoveredStyles,
         }
     };
@@ -32,12 +37,12 @@ const defaultProps = {
     onClick: () => {
     },
 };
-const ListItem = (props) => {
+const ListItem = (props, context) => {
     const propsWithDefaults = {
         ...defaultProps,
         ...props
     };
-    const styles = getStyles(propsWithDefaults);
+    const styles = getStyles(propsWithDefaults, context);
 
     return (
         <div
@@ -77,4 +82,5 @@ ListItem.propTypes = {
      */
     onClick: PropTypes.func,
 };
+ListItem.contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,};
 export default Radium(TrackingHover(ListItem));

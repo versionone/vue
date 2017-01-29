@@ -3,37 +3,42 @@ import {action, storiesOf} from '@kadira/storybook';
 import List, {ListItem} from './';
 import SubHeader from './../SubHeader';
 
+const listItems = [
+    'Item ',
+    'Item ',
+    'Item ',
+    'Item ',
+]
 storiesOf('List')
     .addWithInfo('lists',
         `Lists with hover colors, items, and subheaders`,
         () => (
             <List
-                hoverColor="white"
-                hoverBackgroundColor="black"
+                hoverColor="pink"
+                hoverBackgroundColor="blue"
             >
                 <SubHeader>Sub header text</SubHeader>
-                <ListItem
-                    item="Item 1"
-                    onClick={action('clicked')}
-                    onSelect={action('selected item')}
-                >
-                    Item 1
-                </ListItem>
+                {listItems.map((item, index) => (
+                    <ListItem
+                        itemOid={item}
+                        item={item}
+                        onClick={action(`Clicked item ${(index+1)}`)}
+                        onSelect={action(`Selected item ${(index+1)}`)}
+                    >
+                        {item}{(index+1)}
+                    </ListItem>
+                ))}
                 <SubHeader>Another sub header text</SubHeader>
-                <ListItem
-                    item="Item 2"
-                    onClick={action('clicked')}
-                    onSelect={action('selected item 2')}
-                >
-                    Item 2
-                </ListItem>
-                <ListItem
-                    item="Item 2"
-                    onClick={action('clicked')}
-                    onSelect={action('selected item 3')}
-                >
-                    Item 2
-                </ListItem>
+                {listItems.map((item, index) => (
+                    <ListItem
+                        itemOid={item}
+                        item={item}
+                        onClick={action(`Clicked item ${index+5}`)}
+                        onSelect={action(`Selected item ${index+5}`)}
+                    >
+                        {item}{index+5}
+                    </ListItem>
+                ))}
             </List>
         )
     )
@@ -41,5 +46,36 @@ storiesOf('List')
         ``,
         () => (
             <List />
+        )
+    )
+    .addWithInfo('scrolling list',
+        ``,
+        () => (
+            <List
+                maxHeight={225}
+            >
+                <SubHeader>Sub header text</SubHeader>
+                {listItems.map((item, index) => (
+                    <ListItem
+                        itemOid={item}
+                        item={item}
+                        onClick={action(`Clicked item ${(index+1)}`)}
+                        onSelect={action(`Selected item ${(index+1)}`)}
+                    >
+                        {item}{(index+1)}
+                    </ListItem>
+                ))}
+                <SubHeader>Another sub header text</SubHeader>
+                {listItems.map((item, index) => (
+                    <ListItem
+                        itemOid={item}
+                        item={item}
+                        onClick={action(`Clicked item ${index+5}`)}
+                        onSelect={action(`Selected item ${index+5}`)}
+                    >
+                        {item}{index+5}
+                    </ListItem>
+                ))}
+            </List>
         )
     );

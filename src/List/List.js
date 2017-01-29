@@ -2,17 +2,24 @@ import React, {PropTypes} from 'react';
 import ListItem from './ListItem';
 import Radium from './../utilities/Radium';
 import SubHeader from './../SubHeader';
+import ThemeProvider from './../Theme';
 import * as CustomPropTypes from './../utilities/CustomPropTypes';
 
-const getStyles = (props) => ({
+const getStyles = (props, context) => ({
     list: {
         backgroundColor: 'white',
-        padding: `8px 0`,
+        fontFamily: context.theme.basicFontFamily,
+        fontSize: context.theme.smallFontSize,
+        maxHeight: Boolean(props.maxHeight) && `${props.maxHeight}px`,
+        overflow: 'auto',
     }
 });
 
-const defaultProps = {};
-const List = (props) => {
+const defaultProps = {
+    hoverBackgroundColor: '#262626',
+    hoverColor: '#fff',
+};
+const List = (props, context) => {
     const propsWithDefaults = {
         ...defaultProps,
         ...props,
@@ -22,7 +29,7 @@ const List = (props) => {
         hoverBackgroundColor,
         hoverColor,
     } = propsWithDefaults;
-    const styles = getStyles(propsWithDefaults);
+    const styles = getStyles(propsWithDefaults, context);
 
     return (
         <div
@@ -50,6 +57,10 @@ List.propTypes = {
         SubHeader
     ]),
     /**
+     * Maximum height of the list before a scroll bar
+     */
+    maxHeight: PropTypes.number,
+    /**
      * Background color used on hovered list items.
      */
     hoverBackgroundColor: PropTypes.string,
@@ -58,4 +69,6 @@ List.propTypes = {
      */
     hoverColor: PropTypes.string,
 };
+
+List.contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,};
 export default Radium(List)

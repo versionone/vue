@@ -26,6 +26,7 @@ const getStyles = (props) => {
 const defaultTransition = 'fill 0.25s linear 0ms';
 const defaultProps = {
     color: '#000',
+    hoverColor: '#000',
     transition: defaultTransition,
     width: 24,
 };

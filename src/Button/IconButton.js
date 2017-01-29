@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import * as CustomPropTypes from './../utilities/CustomPropTypes';
 import Radium from './../utilities/Radium';
 import SvgIcon from './../SvgIcon';
+import transparent from './../utilities/Transparent';
 
 const getStyles = (props) => ({
     root: {
@@ -13,7 +14,7 @@ const getStyles = (props) => ({
 });
 
 const defaultProps = {
-    backgroundColor: 'green',
+    backgroundColor: transparent,
     circle: false,
     width: 24,
     onClick: () => {
@@ -32,6 +33,8 @@ const IconButton = (props) => {
             onClick={propsWithDefaults.onClick}
         >
             {React.createElement(propsWithDefaults.icon, {
+                color: propsWithDefaults.color,
+                hoverColor: propsWithDefaults.hoverColor,
                 width: propsWithDefaults.width,
             })}
         </div>
@@ -40,7 +43,9 @@ const IconButton = (props) => {
 IconButton.propTypes = {
     backgroundColor: PropTypes.string,
     circle: PropTypes.bool,
-    width: PropTypes.number,
+    color: PropTypes.string,
+    hoverColor: PropTypes.string,
     icon: CustomPropTypes.componentType(SvgIcon).isRequired,
+    width: PropTypes.number,
 };
 export default Radium(IconButton);

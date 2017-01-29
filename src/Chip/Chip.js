@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import {darken, toRgbaString} from '@andrew-codes/color-functions';
 import Radium from './../utilities/Radium';
 import ThemeProvider from './../Theme';
 import {IconButton} from './../Button';
@@ -6,6 +7,11 @@ import {AddIcon} from './../Icons';
 
 const getStyles = (props, context) => {
     const padding = Math.floor(props.fontSize / 3);
+    const {
+        basicFontFamily,
+        normalRadius,
+        xxSmallGutter,
+    } = context.theme;
     return ({
         buttonWrapper: {
             marginLeft: `${props.fontSize}px`,
@@ -13,17 +19,18 @@ const getStyles = (props, context) => {
         root: {
             color: props.color,
             backgroundColor: props.backgroundColor,
-            borderRadius: `${context.theme.normalRadius}px`,
+            borderRadius: `${normalRadius}px`,
             display: 'flex',
             fontSize: `${props.fontSize}px`,
             lineHeight: `${props.lineHeight}`,
             padding: `${padding}px ${padding}px ${padding}px ${props.fontSize / 2}px`,
-            margin: `${context.theme.xxSmallGutter}px`,
+            margin: `${xxSmallGutter}px`,
             width: props.fullWidth ? '100%' : `${props.width}px`,
         },
         text: {
-            flex: 1,
             alignSelf: 'center',
+            flex: 1,
+            fontFamily: basicFontFamily,
         },
         wrapper: {
             alignSelf: 'center',
@@ -56,6 +63,9 @@ const Chip = (props, context) => {
         ...props
     };
     const {
+        backgroundColor,
+        fontSize,
+        lineHeight,
         oid,
         text,
         onRequestRemove,
@@ -69,8 +79,9 @@ const Chip = (props, context) => {
                 <div style={styles.buttonWrapper}>
                     <IconButton
                         circle
+                        color={toRgbaString(darken(backgroundColor, 0.45))}
                         icon={AddIcon}
-                        width={propsWithDefaults.fontSize * propsWithDefaults.lineHeight}
+                        width={fontSize * lineHeight}
                         onClick={handleIconButtonClick(text, oid, onRequestRemove)}
                     />
                 </div>

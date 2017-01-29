@@ -1,4 +1,4 @@
-import {Component, PropTypes} from 'react';
+import { Component, PropTypes, } from 'react';
 import v1Theme from './../styles/themes/v1Theme';
 
 export default class ThemeProvider extends Component {
@@ -128,13 +128,13 @@ export default class ThemeProvider extends Component {
         xxSmallGutter: PropTypes.number.isRequired,
     };
 
-    static defaultProps = {theme: v1Theme,};
+    static defaultProps = { theme: v1Theme, };
 
     static
-    childContextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,};
+    childContextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
 
     getChildContext() {
-        return {theme: this.props.theme,};
+        return { theme: this.props.theme, };
     }
 
     render() {

@@ -1,6 +1,6 @@
 import React from 'react';
 import simulant from 'simulant';
-import {mount} from 'enzyme';
+import { mount } from 'enzyme';
 import initializeGlobalWindow from './../../specHelpers/initializeGlobalWindow';
 import AutoComplete from './Lookup';
 
@@ -8,13 +8,13 @@ suite('Lookup', () => {
     afterEach(initializeGlobalWindow);
 
     test('renders as a TextField when not open', () => {
-        const lookup = mountLookup({open: false,});
+        const lookup = mountLookup({ open: false, });
         expect(autoCompleteRendersClosed(lookup)).to.be.true;
     });
     test('can render hint text', () => {
         const lookupWithNoValue = mountLookup({
             hintText: getText(),
-            open: false,
+            open: false
         });
         expect(autoCompleteRendersHintText(lookupWithNoValue, getText())).to.be.true;
     });
@@ -25,23 +25,21 @@ suite('Lookup', () => {
     test('displays a popover of results when open', () => {
         const dataSource = getBasicDataSource();
         const lookup = mountLookup({
-            dataSource: dataSource,
+            dataSource,
             open: true,
-            resultsHeader: getText(),
+            resultsHeader: getText()
         });
         expect(autoCompleteRendersOpen(lookup)).to.be.true;
-        expect(autoCompleteResultsMatchExactly(lookup, Object.keys(dataSource).map((key) => dataSource[key]))).to.be.true;
+        expect(autoCompleteResultsMatchExactly(lookup, Object.keys(dataSource).map(key => dataSource[key]))).to.be.true;
     });
     test('has a  width that can be set or be full width', () => {
         const lookup = mountLookup({
             open: true,
-            width: 250,
+            width: 250
         });
         expect(autoCompletePopoverToBeWidth(lookup, 250)).to.be.true;
 
-        lookup.setProps({
-            width: 300,
-        });
+        lookup.setProps({ width: 300, });
         expect(autoCompletePopoverToBeWidth(lookup, 300)).to.be.true;
 
         // const fullWidthAutoComplete = mountAutoComplete({
@@ -61,22 +59,22 @@ suite('Lookup', () => {
         const lookupWithResultsHeader = mountLookup({
             dataSource: getBasicDataSource(),
             open: true,
-            resultsHeader: getText(),
+            resultsHeader: getText()
         });
         expect(autoCompleteResultsHasHeaderText(lookupWithResultsHeader, getText())).to.be.true;
         lookupWithResultsHeader.unmount();
 
         const lookupWithoutResultsHeader = mountLookup({
             dataSource: getBasicDataSource(),
-            open: true,
+            open: true
         });
         expect(autoCompleteResultsHasNoHeaderText(lookupWithoutResultsHeader)).to.be.true;
     });
     test('can render the item as a Chip via a getChipText value function', () => {
         const lookup = mountLookup({
             dataSource: getDataSource(),
-            getChipText: (item) => item.name,
-            itemRenderer: (item) => item.name,
+            getChipText: item => item.name,
+            itemRenderer: item => item.name,
             open: true,
             selectedItems: ['oid:1']
         });
@@ -85,8 +83,8 @@ suite('Lookup', () => {
     test('can set the selected item by setting the selected item prop', () => {
         const lookup = mountLookup({
             dataSource: getDataSource(),
-            getChipText: (item) => item.name,
-            itemRenderer: (item) => item.name,
+            getChipText: item => item.name,
+            itemRenderer: item => item.name,
             open: true,
             selectedItems: ['oid:1']
         });
@@ -95,8 +93,8 @@ suite('Lookup', () => {
     test.skip('can select an item to be set as a Chip in the search box', () => {
         const lookup = mountLookup({
             dataSource: getDataSource(),
-            getChipText: (item) => item.name,
-            open: true,
+            getChipText: item => item.name,
+            open: true
         });
         simulateSelectionOfFirstListItem();
         expect(firstListItemIsSelected(lookup, 'Testing 1')).to.be.true;
@@ -104,12 +102,12 @@ suite('Lookup', () => {
 });
 
 function mountLookup(props = {}) {
-    return mount(<AutoComplete {...props} />, {context: {theme: getTestTheme()}});
+    return mount(<AutoComplete {...props} />, { context: { theme: getTestTheme() } });
 }
 function getTestTheme() {
     return {
         _name: 'Test Theme',
-        fieldBorderColor: '#000',
+        fieldBorderColor: '#000'
     };
 }
 function autoCompleteRendersClosed(wrapper) {
@@ -123,17 +121,13 @@ function getBasicDataSource() {
     return {
         'oid:1': 'Testing 1',
         'oid:2': 'Testing 2',
-        'oid:3': 'Testing 3',
+        'oid:3': 'Testing 3'
     };
 }
 function getDataSource() {
     return {
-        'oid:1': {
-            name: 'Testing 1'
-        },
-        'oid:2': {
-            name: 'Testing 3'
-        },
+        'oid:1': { name: 'Testing 1' },
+        'oid:2': { name: 'Testing 3' }
     };
 }
 
@@ -153,7 +147,7 @@ function autoCompleteResultsHasHeaderText(wrapper, text) {
             .innerHTML === text;
 }
 function autoCompleteResultsMatchExactly(wrapper, results) {
-    let resultList = getRootElementOfPopover()
+    const resultList = getRootElementOfPopover()
         .children[0]
         .children[0];
     let startResultsIndex = 0;
@@ -167,15 +161,13 @@ function autoCompleteResultsMatchExactly(wrapper, results) {
 }
 function areAllResultsContainedWithin(resultsList) {
     const childrenAsArray = Object.keys(resultsList.children)
-        .map((key) => resultsList.children[key]);
-    return (output, result) => {
-        return output && Boolean(childrenAsArray
-                .find(matchingResultText(result)));
-    }
+        .map(key => resultsList.children[key]);
+    return (output, result) => output && Boolean(childrenAsArray
+        .find(matchingResultText(result)));
 }
 function matchingResultText(textToMatch) {
     const exp = new RegExp(textToMatch);
-    return (el) => el.innerHTML.match(exp);
+    return el => el.innerHTML.match(exp);
 }
 function autoCompleteResultsHasNoHeaderText(wrapper) {
     return getRootElementOfPopover()

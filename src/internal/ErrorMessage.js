@@ -1,11 +1,11 @@
-import React, {PropTypes,} from 'react';
+import React, { PropTypes, } from 'react';
 import Radium from './../utilities/Radium';
 import ThemeProvider from './../Theme';
 import * as Transitions from './../styles/Transitions';
-import {fullyVisible as opacityFullyVisible, hidden as opacityHidden,} from './../utilities/Opacity';
+import { fullyVisible as opacityFullyVisible, hidden as opacityHidden, } from './../utilities/Opacity';
 
 const getStyles = (props, context) => {
-    const {hidden,} = props;
+    const { hidden, } = props;
     const {
         errorPrimaryColor,
         basicFontFamily,
@@ -38,7 +38,7 @@ const ErrorMessage = (props, context) => {
         ...props,
     };
     // eslint-disable-next-line no-unused-vars
-    const {text, hidden, ...rest} = propsWithDefaults;
+    const { text, hidden, ...rest } = propsWithDefaults;
     const styles = getStyles(propsWithDefaults, context);
 
     return (
@@ -54,6 +54,6 @@ ErrorMessage.propTypes = {
     text: PropTypes.string,
     onClick: PropTypes.func,
 };
-ErrorMessage.contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,};
+ErrorMessage.contextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
 
 export default Radium(ErrorMessage);

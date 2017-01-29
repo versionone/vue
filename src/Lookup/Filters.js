@@ -1,2 +1,4 @@
-export const none = (searchText, value) => true;
-export const caseInsensitive = (searchText, value) => value.toLowerCase().indexOf(searchText.toLowerCase()) >= 0;
+const stringStartIndex = 0;
+
+export const none = () => true;
+export const caseInsensitive = (searchText, value) => value.toLowerCase().indexOf(searchText.toLowerCase()) >= stringStartIndex;

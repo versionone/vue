@@ -1,5 +1,5 @@
 /* eslint no-magic-numbers: off */
-import {darken, getContrastRatio, getLuminance, lighten, toRgbaString} from '@andrew-codes/color-functions';
+import { darken, getContrastRatio, getLuminance, lighten, toRgbaString, } from '@andrew-codes/color-functions';
 
 const defaultEmphasizeCoefficient = 0.15;
 

@@ -1,11 +1,11 @@
 import React from 'react';
-import {mount} from 'enzyme';
-import {spy} from 'sinon';
+import { mount } from 'enzyme';
+import { spy } from 'sinon';
 import ErrorMessage from './ErrorMessage';
 
 suite('ErrorMessage', () => {
     test('the error message animates toggling show and hide of error text', () => {
-        const actual = mountErrorMessage({text: 'required field'});
+        const actual = mountErrorMessage({ text: 'required field' });
         expect(isAnimated(actual)).to.be.true;
         expect(actual.text()).to.equal('required field');
         expect(isVisible(actual)).to.be.true;

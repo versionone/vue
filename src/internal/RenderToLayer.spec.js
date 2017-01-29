@@ -1,7 +1,7 @@
 import React from 'react';
 import simulant from 'simulant';
-import {mount} from 'enzyme';
-import {spy, stub} from 'sinon';
+import { mount } from 'enzyme';
+import { spy, stub } from 'sinon';
 import initializeGlobalWindow from './../../specHelpers/initializeGlobalWindow';
 import RenderToLayer from './RenderToLayer';
 

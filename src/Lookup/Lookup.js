@@ -1,21 +1,22 @@
-import React, {Component, PropTypes} from 'react';
-import {darken, toRgbaString} from '@andrew-codes/color-functions';
+import React, { Component, PropTypes, } from 'react';
+import _ from 'underscore';
+import { darken, toRgbaString, } from '@andrew-codes/color-functions';
 import Chip from './../Chip';
-import * as Filters from './Filters';
 import HintText from './../internal/HintText';
-import List, {ListItem} from './../List';
+import List, { ListItem, } from './../List';
 import Radium from './../utilities/Radium';
-import Popover, {Positions} from './../Popover';
+import Popover, { Positions, } from './../Popover';
 import SubHeader from './../SubHeader';
 import ThemeProvider from './../Theme';
 import transparent from './../utilities/Transparent';
+import * as Filters from './Filters';
 
-const matchOn = (prop) => valueToMatch => item => item[prop] === valueToMatch;
+const matchOn = prop => valueToMatch => item => item[prop] === valueToMatch;
 const matchOid = matchOn('oid');
-const matchesOid = (oid) => matchOid(oid);
+const matchesOid = oid => matchOid(oid);
 
 const configureGetChipValues = (dataSourceConfig, dataSource) => (oid) => {
-    if (!Boolean(dataSourceConfig)) {
+    if (!dataSourceConfig) {
         return {
             oid,
             text: dataSource[oid],
@@ -24,18 +25,19 @@ const configureGetChipValues = (dataSourceConfig, dataSource) => (oid) => {
     const matchOnOidKey = matchOn(dataSourceConfig.oidKey);
     const itemData = dataSource.find(matchOnOidKey(oid));
     let text;
-    if (typeof(dataSourceConfig.text) === 'string') {
+    if (typeof (dataSourceConfig.text) === 'string') {
         text = itemData[dataSourceConfig.text];
-    } else {
+    }
+    else {
         text = dataSourceConfig.text(itemData);
     }
 
     return {
         oid,
-        text
+        text,
     };
 };
-const matchesStringValue = (value) => (stringValue) => value !== stringValue;
+const matchesStringValue = value => stringValue => value !== stringValue;
 
 class Lookup extends Component {
     static propTypes = {
@@ -52,7 +54,7 @@ class Lookup extends Component {
          */
         dataSource: PropTypes.arrayOf(PropTypes.oneOfType([
             PropTypes.object,
-            PropTypes.string
+            PropTypes.string,
         ])),
         /**
          * Defines mechanism to convert data source item to: text, rendered list item, and unique key
@@ -62,7 +64,7 @@ class Lookup extends Component {
             renderItem: PropTypes.func.isRequired,
             text: PropTypes.oneOfType([
                 PropTypes.string,
-                PropTypes.func
+                PropTypes.func,
             ]).isRequired,
         }),
         /**
@@ -135,14 +137,14 @@ class Lookup extends Component {
         onSelect: () => {
         },
     };
-    static contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,};
+    static contextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
 
     constructor(props, ...rest) {
         super(props, ...rest);
 
         this.handleChangeTextField = this.handleChangeTextField.bind(this);
         this.handleClickHintText = this.handleClickHintText.bind(this);
-        this.togglePopover = this.togglePopover.bind(this);
+        this.handleLookupRootClick = this.handleLookupRootClick.bind(this);
         this.handleItemClick = this.handleItemClick.bind(this);
         this.handleClosePopover = this.handleClosePopover.bind(this);
         this.handleChipRemove = this.handleChipRemove.bind(this);
@@ -169,7 +171,7 @@ class Lookup extends Component {
         }
         this.setState({
             ...newState,
-            height: this.getHeight()
+            height: this.getHeight(),
         });
     }
 
@@ -195,7 +197,7 @@ class Lookup extends Component {
         }
         this.setState({
             ...newState,
-            height: this.getHeight()
+            height: this.getHeight(),
         });
     }
 
@@ -203,29 +205,24 @@ class Lookup extends Component {
         return parseInt(window
             .getComputedStyle(this.rootEl)
             .width
-            .replace('px', '')
-        );
+            .replace('px', ''), 10);
     }
 
     getHeight() {
         return Math.max(this.inputField
-                .getBoundingClientRect()
-                .height,
+            .getBoundingClientRect()
+            .height,
             this.hintTextWrapper
                 .getBoundingClientRect()
                 .height);
     }
 
     handleChangeTextField(evt) {
-        this.setState({
-            searchText: evt.target.value,
-        });
+        this.setState({ searchText: evt.target.value, });
     }
 
-    togglePopover() {
-        this.setState({
-            open: !this.state.open,
-        });
+    handleLookupRootClick() {
+        this.setState({ open: !this.state.open, });
     }
 
     handleClickHintText() {
@@ -234,7 +231,7 @@ class Lookup extends Component {
 
     handleItemClick(oid) {
         this.setState({
-            selectedItems: [oid],
+            selectedItems: [oid, ],
             open: false,
             searchText: '',
         });
@@ -242,14 +239,12 @@ class Lookup extends Component {
     }
 
     handleClosePopover() {
-        this.setState({
-            open: false,
-        });
+        this.setState({ open: false, });
     }
 
-    handleChipRemove({oid, text}) {
-        let newState = {};
-        if (Boolean(oid)) {
+    handleChipRemove({ oid, text, }) {
+        const newState = {};
+        if (oid) {
             newState.selectedItems = this.state.selectedItems
                 .filter(matchesOid(oid));
         }
@@ -279,7 +274,7 @@ class Lookup extends Component {
             textPrimaryColor,
             xxSmallGutter,
         } = this.context.theme;
-
+        const darkenCoefficient = 0.55;
         const paddingMultiplier = 2;
         const borderHeight = 2;
         const textHeight = Math.floor(smallFontSize * normalLineHeight);
@@ -322,18 +317,16 @@ class Lookup extends Component {
                 border: `1px solid ${transparent}`,
                 boxSizing: 'border-box',
                 display: 'inline-flex',
-                marginTop: marginTop,
+                marginTop,
                 minWidth: width,
                 padding: `${xxSmallGutter}px`,
-                width: width,
+                width,
                 zIndex: 11,
             },
-            paddingForPopover: {
-                height: `${hintTextWrapperHeight}px`,
-            },
+            paddingForPopover: { height: `${hintTextWrapperHeight}px`, },
             resultsPaper: {
                 background: normalBackground,
-                border: `1px solid ${toRgbaString(darken(fieldBorderColor, 0.55))}`,
+                border: `1px solid ${toRgbaString(darken(fieldBorderColor, darkenCoefficient))}`,
                 boxSizing: 'border-box',
                 width: `${width}px`,
             },
@@ -350,7 +343,7 @@ class Lookup extends Component {
                 position: 'absolute',
                 top: 0,
                 width,
-                zIndex: 12
+                zIndex: 12,
             },
             textFieldWrapper: {
                 position: 'absolute',
@@ -358,7 +351,7 @@ class Lookup extends Component {
                 top: 0,
                 width: '100%',
             },
-        }
+        };
     }
 
     renderChip(styles) {
@@ -368,12 +361,11 @@ class Lookup extends Component {
             dataSource,
             dataSourceConfig,
         } = this.props;
-        const {
-            selectedItems,
-        } = this.state;
+        const { selectedItems, } = this.state;
+        const { smallFontSize, } = this.context.theme;
 
-        if (selectedItems.length === 0) {
-            return;
+        if (_.isEmpty(selectedItems)) {
+            return undefined;
         }
 
         const getChipValues = configureGetChipValues(dataSourceConfig, dataSource);
@@ -383,13 +375,13 @@ class Lookup extends Component {
             >
                 {selectedItems.map((item, index) => (
                     <Chip
+                        {...getChipValues(item, index)}
                         backgroundColor={chipBackgroundColor}
                         color={chipColor}
-                        fontSize={this.context.theme.smallFontSize}
+                        fontSize={smallFontSize}
                         fullWidth
                         key={index}
                         onRequestRemove={this.handleChipRemove}
-                        {...getChipValues(item, index)}
                     />
                 ))}
             </div>
@@ -397,11 +389,9 @@ class Lookup extends Component {
     }
 
     renderListItem(item, index) {
-        const {
-            dataSourceConfig
-        } = this.props;
+        const { dataSourceConfig, } = this.props;
         let children = item;
-        if (Boolean(dataSourceConfig)) {
+        if (dataSourceConfig) {
             children = dataSourceConfig.renderItem(item, index);
         }
         return (
@@ -433,7 +423,7 @@ class Lookup extends Component {
             searchText,
             open,
         } = this.state;
-        const isHintTextHidden = Boolean(searchText) || selectedItems.length > 0;
+        const isHintTextHidden = Boolean(searchText) || !_.isEmpty(selectedItems);
         let filterFunc = Filters.none;
         if (this.shouldApplyFilter()) {
             filterFunc = filter;
@@ -446,9 +436,9 @@ class Lookup extends Component {
                     this.rootEl = el;
                 }}
                 style={styles.root}
-                onClick={this.togglePopover}
+                onClick={this.handleLookupRootClick}
             >
-                <div style={styles.paddingForPopover}></div>
+                <div style={styles.paddingForPopover} />
                 {this.renderChip(styles)}
                 <div style={styles.textFieldWrapper}>
                     <div style={styles.hintTextWrapper}>
@@ -507,7 +497,7 @@ class Lookup extends Component {
                                 </SubHeader>
                             )}
                             {dataSource
-                                .filter((item) => filterFunc(searchText, item))
+                                .filter(item => filterFunc(searchText, item))
                                 .map(this.renderListItem)}
                         </List>
                     </div>

@@ -1,13 +1,11 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes, } from 'react';
 import Radium from './../utilities/Radium';
 import ThemeProvider from './../Theme';
 import TrackingHover from './../utilities/TrackingHover';
 import transparent from './../utilities/Transparent';
 
 const getStyles = (props, context) => {
-    const {
-        hovered
-    } = props;
+    const { hovered, } = props;
     const {
         smallGutter,
         largeGutter,
@@ -26,7 +24,7 @@ const getStyles = (props, context) => {
             cursor: 'pointer',
             padding: `${smallGutter}px ${largeGutter}px`,
             ...hoveredStyles,
-        }
+        },
     };
 };
 const handleClick = (handler, item) => () => {
@@ -40,7 +38,7 @@ const defaultProps = {
 const ListItem = (props, context) => {
     const propsWithDefaults = {
         ...defaultProps,
-        ...props
+        ...props,
     };
     const styles = getStyles(propsWithDefaults, context);
 
@@ -59,10 +57,6 @@ ListItem.propTypes = {
      */
     children: PropTypes.node.isRequired,
     /**
-     * When true, indicates the component is in a hovered state
-     */
-    hovered: PropTypes.bool,
-    /**
      * Color of the background when in a hovered state
      */
     hoverBackgroundColor: PropTypes.string,
@@ -70,6 +64,10 @@ ListItem.propTypes = {
      * Color of the text when in a hovered state
      */
     hoverColor: PropTypes.string,
+    /**
+     * When true, indicates the component is in a hovered state
+     */
+    hovered: PropTypes.bool,
     /**
      * Data item that the ListItem is displaying
      */
@@ -82,5 +80,5 @@ ListItem.propTypes = {
      */
     onClick: PropTypes.func,
 };
-ListItem.contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,};
+ListItem.contextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
 export default Radium(TrackingHover(ListItem));

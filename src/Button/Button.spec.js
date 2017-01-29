@@ -1,25 +1,25 @@
 import React from 'react';
-import {mount} from 'enzyme';
-import {darken, setOpacity, toRgbaString} from '@andrew-codes/color-functions';
-import {spy} from 'sinon';
+import { mount } from 'enzyme';
+import { darken, setOpacity, toRgbaString } from '@andrew-codes/color-functions';
+import { spy } from 'sinon';
 import Button from './Button';
 import * as ButtonTypes from './Types';
 
 suite('Button', () => {
     test('it can have text', () => {
-        const standardButton = mountButton({text: 'Click me'});
+        const standardButton = mountButton({ text: 'Click me' });
         expect(buttonHasText(standardButton, 'Click me')).to.be.true;
     });
 
     test('it can have onClick event handlers', () => {
         const onClick = spy();
-        const standardButton = mountButton({onClick});
+        const standardButton = mountButton({ onClick });
         simulateClick(standardButton);
         expect(onClick.calledOnce).to.be.true;
     });
 
     test('a standard button is the default type of button', () => {
-        const standardButton = mountButton({text: 'Click me'});
+        const standardButton = mountButton({ text: 'Click me' });
         expect(buttonHasStyles(standardButton, color('#000', '#fff'))).to.be.true;
         expect(buttonHasStyles(standardButton, border('#000'))).to.be.true;
         simulateHover(standardButton);
@@ -28,18 +28,18 @@ suite('Button', () => {
     });
 
     test('the button has a background color transition applied', () => {
-        const standardButton = mountButton({text: 'Click me'});
+        const standardButton = mountButton({ text: 'Click me' });
         expect(buttonHasStyles(standardButton, transition('all 0.5s linear 0ms'))).to.be.true;
     });
 
     test('the button can be resized by a size multiplier', () => {
-        const resizedBySetSizeComponent = mountButton({size: 0.75});
+        const resizedBySetSizeComponent = mountButton({ size: 0.75 });
         expect(buttonHasStyles(resizedBySetSizeComponent, height('24px'))).to.be.true;
         expect(buttonHasStyles(resizedBySetSizeComponent, fontSize('10.5px'))).to.be.true;
     });
 
     test('the button can be a basic type', () => {
-        const basicButton = mountButton({type: ButtonTypes.basic});
+        const basicButton = mountButton({ type: ButtonTypes.basic });
         expect(buttonHasStyles(basicButton, color('#fff', '#00a9e0'))).to.be.true;
         expect(buttonHasStyles(basicButton, border('#00a9e0'))).to.be.true;
         simulateHover(basicButton);
@@ -48,7 +48,7 @@ suite('Button', () => {
     });
 
     test('the button can be an important type', () => {
-        const importantButton = mountButton({type: ButtonTypes.important});
+        const importantButton = mountButton({ type: ButtonTypes.important });
         expect(buttonHasStyles(importantButton, color('#fff', '#ea6c02'))).to.be.true;
         expect(buttonHasStyles(importantButton, border('#ea6c02'))).to.be.true;
         simulateHover(importantButton);
@@ -57,7 +57,7 @@ suite('Button', () => {
     });
 
     test('the button can be an alternative type', () => {
-        const altButton = mountButton({type: ButtonTypes.alt});
+        const altButton = mountButton({ type: ButtonTypes.alt });
         expect(buttonHasStyles(altButton, color('#fff', '#eaab00'))).to.be.true;
         expect(buttonHasStyles(altButton, border('#eaab00'))).to.be.true;
         simulateHover(altButton);
@@ -66,7 +66,7 @@ suite('Button', () => {
     });
 
     test('the button can be an basic alternative type', () => {
-        const basicAltButton = mountButton({type: ButtonTypes.basicAlt});
+        const basicAltButton = mountButton({ type: ButtonTypes.basicAlt });
         expect(buttonHasStyles(basicAltButton, color('#000', '#fff'))).to.be.true;
         expect(buttonHasStyles(basicAltButton, border('#000'))).to.be.true;
         simulateHover(basicAltButton);
@@ -75,7 +75,7 @@ suite('Button', () => {
     });
 
     test('the button can be a special type', () => {
-        const specialButton = mountButton({type: ButtonTypes.special});
+        const specialButton = mountButton({ type: ButtonTypes.special });
         expect(buttonHasStyles(specialButton, color('#fff', '#000'))).to.be.true;
         expect(buttonHasStyles(specialButton, border('#000'))).to.be.true;
         simulateHover(specialButton);
@@ -87,7 +87,7 @@ suite('Button', () => {
         const onClick = spy();
         const disabledStandardButton = mountButton({
             disable: true,
-            onClick,
+            onClick
         });
         simulateClick(disabledStandardButton);
         expect(onClick.called).to.be.false;
@@ -131,8 +131,8 @@ suite('Button', () => {
     });
 });
 
-function mountButton(props = {}, context = {theme: getTheme()}) {
-    return mount(<Button {...props} />, {context});
+function mountButton(props = {}, context = { theme: getTheme() }) {
+    return mount(<Button {...props} />, { context });
 }
 
 function getTheme() {

@@ -1,24 +1,26 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes, } from 'react';
 import * as CustomPropTypes from './../utilities/CustomPropTypes';
 import Radium from './../utilities/Radium';
 import SvgIcon from './../SvgIcon';
 import transparent from './../utilities/Transparent';
 
-const getStyles = (props) => ({
+const getStyles = props => ({
     root: {
         backgroundColor: props.backgroundColor,
-        borderRadius: props.circle ? '50%' : 0,
+        borderRadius: props.circle ? '50%' : '0px',
         cursor: 'pointer',
         lineHeight: 0.6,
-    }
+    },
 });
+
+const handleIconClick = handler => evt => handler(evt);
 
 const defaultProps = {
     backgroundColor: transparent,
     circle: false,
     width: 24,
     onClick: () => {
-    }
+    },
 };
 const IconButton = (props) => {
     const propsWithDefaults = {
@@ -30,7 +32,7 @@ const IconButton = (props) => {
     return (
         <div
             style={styles.root}
-            onClick={propsWithDefaults.onClick}
+            onClick={handleIconClick(propsWithDefaults.onClick)}
         >
             {React.createElement(propsWithDefaults.icon, {
                 color: propsWithDefaults.color,
@@ -47,5 +49,6 @@ IconButton.propTypes = {
     hoverColor: PropTypes.string,
     icon: CustomPropTypes.componentType(SvgIcon).isRequired,
     width: PropTypes.number,
+    onClick: PropTypes.func,
 };
 export default Radium(IconButton);

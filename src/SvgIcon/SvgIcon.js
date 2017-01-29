@@ -1,4 +1,4 @@
-import React, {PropTypes,} from 'react';
+import React, { PropTypes, } from 'react';
 import TrackingHover from './../utilities/TrackingHover';
 import Radium from './../utilities/Radium';
 
@@ -35,7 +35,7 @@ const SvgIcon = (props) => {
         ...defaultProps,
         ...props,
     };
-    const {children,} = propsWithDefaults;
+    const { children, } = propsWithDefaults;
     const styles = getStyles(propsWithDefaults);
     const eventHandlerProps = Object.keys(propsWithDefaults)
         .filter(key => key.startsWith('on'))
@@ -66,7 +66,7 @@ SvgIcon.propTypes = {
      */
     color: PropTypes.string,
     /**
-     *
+     * Indicates the SvgIcon is in a hovered state if true; false otherwise
      */
     hovered: PropTypes.bool,
     /**

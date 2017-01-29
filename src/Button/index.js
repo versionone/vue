@@ -1,4 +1,4 @@
 import Button from './Button';
 
 export default Button;
-export {default as IconButton} from './IconButton';
+export { default as IconButton, } from './IconButton';

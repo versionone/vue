@@ -1,6 +1,6 @@
 import React from 'react';
-import {mount} from 'enzyme';
-import {spy} from 'sinon';
+import { mount } from 'enzyme';
+import { spy } from 'sinon';
 import ListItem from './ListItem';
 
 suite('ListItem', () => {
@@ -12,7 +12,7 @@ suite('ListItem', () => {
         const handleClickSpy = spy();
         const listItem = mountListItem({
             itemOid: getContent(),
-            onClick: handleClickSpy,
+            onClick: handleClickSpy
         });
         simulateClick(listItem);
         expect(handleClickSpy.calledOnce).to.be.true;

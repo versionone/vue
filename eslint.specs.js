@@ -27,6 +27,9 @@ module.exports = {
         'react'
     ],
     rules: {
+        'comma-dangle': 0,
+        'linebreak-style': [0, 'windows'],
+        'object-curly-spacing': [2, 'always'],
         'react/no-did-mount-set-state': 0
     },
     settings: {

@@ -1,6 +1,6 @@
 import React from 'react';
-import {mount} from 'enzyme';
-import {spy} from 'sinon';
+import { mount } from 'enzyme';
+import { spy } from 'sinon';
 import SvgIcon from './SvgIcon';
 
 suite('SvgIcon', () => {
@@ -23,12 +23,12 @@ suite('SvgIcon', () => {
     });
 
     test('renders an icon that can configured to be a certain color', () => {
-        const svgIcon = mountSvgIcon({color: 'blue'});
+        const svgIcon = mountSvgIcon({ color: 'blue' });
         expect(getSvg(svgIcon)).style('fill').to.equal('blue');
     });
 
     test('renders an icon that can change colors when it is hovered', () => {
-        const svgIcon = mountSvgIcon({hoverColor: 'blue'});
+        const svgIcon = mountSvgIcon({ hoverColor: 'blue' });
         simulateHover(svgIcon);
         expect(getSvg(svgIcon)).style('fill').to.equal('blue');
         simulateHoverLeave(svgIcon);
@@ -36,7 +36,7 @@ suite('SvgIcon', () => {
     });
 
     test('renders an icon that can have a transition applied to the hover coloring', () => {
-        const svgIcon = mountSvgIcon({hoverColor: 'blue'});
+        const svgIcon = mountSvgIcon({ hoverColor: 'blue' });
         expect(getSvg(svgIcon)).style('transition').to.equal('fill 0.25s linear 0ms');
 
         const svgIconWithCustomTransition = mountSvgIcon({
@@ -51,16 +51,14 @@ suite('SvgIcon', () => {
         expect(getSvg(svgIcon)).style('width').to.equal('24px');
         expect(getSvg(svgIcon)).style('height').to.equal('24px');
 
-        const customWidthSvgComponent = mountSvgIcon({width: 100});
+        const customWidthSvgComponent = mountSvgIcon({ width: 100 });
         expect(getSvg(customWidthSvgComponent)).style('width').to.equal('100px');
         expect(getSvg(customWidthSvgComponent)).style('height').to.equal('100px');
     });
 
     test('allows standard events to be handled by event handlers', () => {
         const onClick = spy();
-        const svgIcon = mountSvgIcon({
-            onClick,
-        });
+        const svgIcon = mountSvgIcon({ onClick, });
 
         simulateClick(svgIcon);
         expect(onClick.calledOnce).to.be.true;

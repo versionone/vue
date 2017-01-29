@@ -1,6 +1,6 @@
 import React from 'react';
-import {mount} from 'enzyme';
-import {spy} from 'sinon';
+import { mount } from 'enzyme';
+import { spy } from 'sinon';
 import TextField from './TextField';
 
 suite('TextField', () => {
@@ -10,13 +10,13 @@ suite('TextField', () => {
     });
 
     test('the text field can render with a default value', () => {
-        const textField = mountTextField({defaultValue: 'a default value'});
+        const textField = mountTextField({ defaultValue: 'a default value' });
         expect(textFieldHasValue(textField, 'a default value')).to.be.true;
     });
 
     test('the text field has an onChange event handler', () => {
         const onChange = spy();
-        const textField = mountTextField({onChange});
+        const textField = mountTextField({ onChange });
         typeInTextField(textField, 'a');
         expect(onChange.calledOnce).to.be.true;
     });
@@ -27,7 +27,7 @@ suite('TextField', () => {
     });
 
     test('the text field can be disabled and is theme-enabled for disabled state', () => {
-        const disabledTextField = mountTextField({disabled: true});
+        const disabledTextField = mountTextField({ disabled: true });
         expect(textFieldIsDisabled(disabledTextField)).to.be.true;
         expect(textFieldHasBorder(disabledTextField, 'gray')).to.be.true;
     });
@@ -36,7 +36,7 @@ suite('TextField', () => {
         const notRequiredTextField = mountTextField();
         expect(requiredIndicatorIsHidden(notRequiredTextField)).to.be.true;
 
-        const requiredTextField = mountTextField({required: true});
+        const requiredTextField = mountTextField({ required: true });
         expect(requiredIndicatorIsDisplayed(requiredTextField)).to.be.true;
     });
 
@@ -54,7 +54,7 @@ suite('TextField', () => {
     });
 
     test('the text field can render with a specified width', () => {
-        const textField = mountTextField({width: 100});
+        const textField = mountTextField({ width: 100 });
         expect(textFieldHasWidth(textField, '100px')).to.be.true;
     });
 
@@ -65,14 +65,14 @@ suite('TextField', () => {
         });
         expect(textFieldHasWidth(textFieldWithWidth, '100%')).to.be.true;
 
-        const textField = mountTextField({fullWidth: true});
+        const textField = mountTextField({ fullWidth: true });
         expect(textFieldHasWidth(textField, '100%')).to.be.true;
     });
 
     test('the text field displays hint text only when there is no value or default value', () => {
-        const textFieldWithoutValue = mountTextField({hintText: 'hint text'});
+        const textFieldWithoutValue = mountTextField({ hintText: 'hint text' });
         expect(hintTextIsDisplayed(textFieldWithoutValue)).to.be.true;
-        textFieldWithoutValue.setProps({defaultValue: 'a'});
+        textFieldWithoutValue.setProps({ defaultValue: 'a' });
         expect(hintTextIsHidden(textFieldWithoutValue)).to.be.true;
 
         const textFieldWithValue = mountTextField({
@@ -87,7 +87,7 @@ suite('TextField', () => {
         });
         expect(hintTextIsHidden(textFieldWithDefaultValue)).to.be.true;
 
-        const textFieldWithTypedValue = mountTextField({hintText: 'hint text'});
+        const textFieldWithTypedValue = mountTextField({ hintText: 'hint text' });
         typeInTextField(textFieldWithTypedValue);
         expect(hintTextIsHidden(textFieldWithTypedValue)).to.be.true;
 
@@ -114,7 +114,7 @@ suite('TextField', () => {
         const textFieldWithoutErrorText = mountTextField({});
         expect(errorTextIsHidden(textFieldWithoutErrorText)).to.be.true;
 
-        const textFieldErrorText = mountTextField({errorText: 'error: required'});
+        const textFieldErrorText = mountTextField({ errorText: 'error: required' });
         expect(textFieldHasErrorText(textFieldErrorText, 'error: required')).to.be.true;
         expect(textFieldHasBackground(textFieldErrorText, 'pink')).to.be.true;
         expect(textFieldHasBorder(textFieldErrorText, 'red')).to.be.true;
@@ -122,13 +122,13 @@ suite('TextField', () => {
     });
 
     test('the text field can be in a pending state and it is theme-enabled for a pending state', () => {
-        const pendingTextField = mountTextField({pending: true});
+        const pendingTextField = mountTextField({ pending: true });
         expect(textFieldHasBackground(pendingTextField, 'yellow')).to.be.true;
     });
 
     test('the text field can be focused and is theme-enabled for a focus state', () => {
         const onFocus = spy();
-        const textField = mountTextField({onFocus});
+        const textField = mountTextField({ onFocus });
         focusTextField(textField);
         expect(onFocus.calledOnce).to.be.true;
         expect(textFieldHasBoxShadow(textField, 'blue')).to.be.true;
@@ -136,7 +136,7 @@ suite('TextField', () => {
 
     test('the text field can lose its focused state', () => {
         const onBlur = spy();
-        const textField = mountTextField({onBlur});
+        const textField = mountTextField({ onBlur });
         focusTextField(textField);
         blurTextField(textField);
         expect(onBlur.calledOnce).to.be.true;
@@ -144,20 +144,20 @@ suite('TextField', () => {
     });
 
     test('the text field auto-expands its height to accommodate hint text that is too large for the text field', () => {
-        const textField = mountTextField().setState({hintTextHeight: 51});
+        const textField = mountTextField().setState({ hintTextHeight: 51 });
         expect(textFieldHasAdjustedHeightBy(textField, '34px')).to.be.true;
 
         const requiredTextField = mountTextField({
             errorText: 'error message',
             required: true
-        }).setState({hintTextHeight: 51});
+        }).setState({ hintTextHeight: 51 });
         expect(requiredIndicatorIsAlignedWithText(requiredTextField)).to.be.true;
         expect(errorTextIsAlignedWithText(requiredTextField)).to.be.true;
     });
 });
 
 function mountTextField(props = {}) {
-    return mount(<TextField {...props} />, {context: {theme: getTestTheme()}});
+    return mount(<TextField {...props} />, { context: { theme: getTestTheme() } });
 }
 
 function getTestTheme() {
@@ -289,11 +289,11 @@ function clickHintText(wrapper) {
 function typeInTextField(wrapper, value = 'a') {
     const backspaceKeyCode = 8;
     const which = value === '' ? backspaceKeyCode : value.charCodeAt(0);
-    wrapper.find('input').simulate('keydown', {which});
-    wrapper.find('input').simulate('keyup', {which});
-    wrapper.find('input').simulate('input', {target: {value}});
+    wrapper.find('input').simulate('keydown', { which });
+    wrapper.find('input').simulate('keyup', { which });
+    wrapper.find('input').simulate('input', { target: { value } });
     wrapper.find('input').first()
-        .simulate('change', {target: {value}});
+        .simulate('change', { target: { value } });
 }
 
 function deleteAllText(wrapper) {

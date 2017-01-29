@@ -1,52 +1,25 @@
-import React, {PropTypes} from 'react';
-import {setOpacity, darken, toRgbaString} from '@andrew-codes/color-functions';
+import React, { PropTypes, } from 'react';
+import { setOpacity, darken, toRgbaString, } from '@andrew-codes/color-functions';
 import Radium from './../utilities/Radium';
 import ThemeProvider from './../Theme';
 import transparent from './../utilities/Transparent';
-import {create} from './../styles/Transitions';
-import {getForegroundForBackground} from './../utilities/colorManipulator';
+import { create, } from './../styles/Transitions';
+import { getForegroundForBackground, } from './../utilities/colorManipulator';
 import * as ButtonSizes from './Sizes';
 import * as ButtonTypes from './Types';
 
-const getStyles = (props, context) => {
-    const {
-        normalRadius,
-        basicFontFamily,
-        bold,
-        largeLineHeight,
-        smallFontSize,
-    } = context.theme;
-    const {size,} = props;
-
-    const fontSize = smallFontSize * size;
-    const height = Math.ceil(fontSize * largeLineHeight);
-    const borderRadiusMultiplier = 2;
-    const borderRadius = normalRadius * borderRadiusMultiplier;
-    const typeStyles = getStylesBasedOnType(props, context);
-
+const darkenInvert = (foreground, background) => {
+    const inverseBasicColorMultiplier = 0.35;
+    const darkenedColor = toRgbaString(darken(background, inverseBasicColorMultiplier));
     return {
-        root: {
-            ':focus': {outline: 'none',},
-            alignItems: 'flex-start',
-            border: `1px solid ${transparent}`,
-            borderRadius: `${borderRadius}px`,
-            boxSizing: 'border-box',
-            cursor: 'pointer',
-            display: 'inline-block',
-            fontFamily: basicFontFamily,
-            fontSize: `${fontSize}px`,
-            fontWeight: bold,
-            height: `${height}px`,
-            letterSpacing: '0.03em',
-            lineHeight: `${largeLineHeight}px`,
-            margin: '0',
-            padding: '0 1em',
-            textAlign: 'center',
-            textShadow: 'none',
-            transition: create('0.5s'),
-            whiteSpace: 'no-wrap',
-            ...typeStyles,
+        ':hover': {
+            background: darkenedColor,
+            border: `1px solid ${darkenedColor}`,
+            color: foreground,
         },
+        background,
+        border: `1px solid ${background}`,
+        color: foreground,
     };
 };
 const getStylesBasedOnType = (props, context) => {
@@ -59,7 +32,7 @@ const getStylesBasedOnType = (props, context) => {
         normalBackground,
         textPrimaryColor,
     } = context.theme;
-    const {disable, type,} = props;
+    const { disable, type, } = props;
     const inverseColors = [
         darkInverseColor,
         lightInverseColor,
@@ -125,26 +98,52 @@ const getStylesBasedOnType = (props, context) => {
         color: textPrimaryColor,
     };
 };
+const getStyles = (props, context) => {
+    const {
+        normalRadius,
+        basicFontFamily,
+        bold,
+        largeLineHeight,
+        smallFontSize,
+    } = context.theme;
+    const { size, } = props;
+
+    const fontSize = smallFontSize * size;
+    const height = Math.ceil(fontSize * largeLineHeight);
+    const borderRadiusMultiplier = 2;
+    const borderRadius = normalRadius * borderRadiusMultiplier;
+    const typeStyles = getStylesBasedOnType(props, context);
+
+    return {
+        root: {
+            ':focus': { outline: 'none', },
+            alignItems: 'flex-start',
+            border: `1px solid ${transparent}`,
+            borderRadius: `${borderRadius}px`,
+            boxSizing: 'border-box',
+            cursor: 'pointer',
+            display: 'inline-block',
+            fontFamily: basicFontFamily,
+            fontSize: `${fontSize}px`,
+            fontWeight: bold,
+            height: `${height}px`,
+            letterSpacing: '0.03em',
+            lineHeight: `${largeLineHeight}px`,
+            margin: '0',
+            padding: '0 1em',
+            textAlign: 'center',
+            textShadow: 'none',
+            transition: create('0.5s'),
+            whiteSpace: 'no-wrap',
+            ...typeStyles,
+        },
+    };
+};
 const handleClick = (handler, disable) => (evt) => {
     if (disable) {
         return;
     }
     handler(evt);
-
-};
-const darkenInvert = (foreground, background) => {
-    const inverseBasicColorMultiplier = 0.35;
-    const darkenedColor = toRgbaString(darken(background, inverseBasicColorMultiplier));
-    return {
-        ':hover': {
-            background: darkenedColor,
-            border: `1px solid ${darkenedColor}`,
-            color: foreground,
-        },
-        background,
-        border: `1px solid ${background}`,
-        color: foreground,
-    };
 };
 
 const defaultProps = {
@@ -163,7 +162,7 @@ const Button = (props, context) => {
     const {
         disable,
         text,
-        onClick
+        onClick,
     } = propsWithDefaults;
     const styles = getStyles(propsWithDefaults, context);
     return (
@@ -204,7 +203,7 @@ Button.propTypes = {
      */
     onClick: PropTypes.func,
 };
-Button.contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,};
+Button.contextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
 
 export default Radium(Button);
 

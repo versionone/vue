@@ -1,10 +1,10 @@
 import React from 'react';
-import {mount} from 'enzyme';
+import { mount } from 'enzyme';
 import RequiredIndicator from './RequiredIndicator';
 
 suite('RequiredIndicator', () => {
     test('the required indicator can be hidden and shown', () => {
-        const hiddenComponent = mountIndicator({hidden: true}, getContext());
+        const hiddenComponent = mountIndicator({ hidden: true }, getContext());
         expect(indicatorIsHidden(hiddenComponent)).to.be.true;
 
         const shownComponent = mountIndicator();

@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes, } from 'react';
 import ListItem from './ListItem';
 import Radium from './../utilities/Radium';
 import SubHeader from './../SubHeader';
@@ -12,7 +12,7 @@ const getStyles = (props, context) => ({
         fontSize: context.theme.smallFontSize,
         maxHeight: Boolean(props.maxHeight) && `${props.maxHeight}px`,
         overflow: 'auto',
-    }
+    },
 });
 
 const defaultProps = {
@@ -33,17 +33,13 @@ const List = (props, context) => {
 
     return (
         <div
-            style={styles.list}>
+            style={styles.list}
+        >
             {React.Children
-                .map(children, (child) => {
-                    if (!Boolean(child)) {
-                        return;
-                    }
-                    return React.cloneElement(child, {
-                        hoverBackgroundColor,
-                        hoverColor,
-                    });
-                })
+                .map(children, child => Boolean(child) && React.cloneElement(child, {
+                    hoverBackgroundColor,
+                    hoverColor,
+                }))
             }
         </div>
     );
@@ -54,7 +50,7 @@ List.propTypes = {
      */
     children: CustomPropTypes.oneOfComponentType([
         ListItem,
-        SubHeader
+        SubHeader,
     ]),
     /**
      * Maximum height of the list before a scroll bar
@@ -70,5 +66,5 @@ List.propTypes = {
     hoverColor: PropTypes.string,
 };
 
-List.contextTypes = {theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,};
-export default Radium(List)
+List.contextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
+export default Radium(List);

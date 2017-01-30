@@ -15,11 +15,11 @@ const matchOn = prop => valueToMatch => item => item[prop] === valueToMatch;
 const matchOid = matchOn('oid');
 const matchesOid = oid => matchOid(oid);
 
-const configureGetChipValues = (dataSourceConfig, dataSource) => (oid) => {
+const configureGetChipValues = (dataSourceConfig, dataSource) => (oid, index) => {
     if (!dataSourceConfig) {
         return {
-            oid,
-            text: dataSource[oid],
+            oid: index,
+            text: dataSource[index],
         };
     }
     const matchOnOidKey = matchOn(dataSourceConfig.oidKey);

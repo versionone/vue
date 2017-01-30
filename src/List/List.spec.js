@@ -19,7 +19,12 @@ suite('List', () => {
 });
 
 function mountList(props = {}) {
-    return mount(<List {...props} />);
+    return mount(<List {...props} />, {context: {theme: getTestTheme()}});
+}
+function getTestTheme() {
+    return {
+        basicFontFamily: 'Arial',
+    }
 }
 function getChildren() {
     return getChildrenText()

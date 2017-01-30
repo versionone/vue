@@ -1,6 +1,6 @@
 import React from 'react';
 import simulant from 'simulant';
-import { mount } from 'enzyme';
+import {mount} from 'enzyme';
 import initializeGlobalWindow from './../../specHelpers/initializeGlobalWindow';
 import AutoComplete from './Lookup';
 
@@ -8,9 +8,12 @@ suite('Lookup', () => {
     afterEach(initializeGlobalWindow);
 
     test('renders as a TextField when not open', () => {
-        const lookup = mountLookup({ open: false, });
+        const lookup = mountLookup({
+            open: false,
+        });
         expect(autoCompleteRendersClosed(lookup)).to.be.true;
     });
+
     test('can render hint text', () => {
         const lookupWithNoValue = mountLookup({
             hintText: getText(),
@@ -18,10 +21,12 @@ suite('Lookup', () => {
         });
         expect(autoCompleteRendersHintText(lookupWithNoValue, getText())).to.be.true;
     });
+
     test('defaults to being closed', () => {
         const lookup = mountLookup();
         expect(autoCompleteRendersClosed(lookup)).to.be.true;
     });
+
     test('displays a popover of results when open', () => {
         const dataSource = getBasicDataSource();
         const lookup = mountLookup({
@@ -32,6 +37,7 @@ suite('Lookup', () => {
         expect(autoCompleteRendersOpen(lookup)).to.be.true;
         expect(autoCompleteResultsMatchExactly(lookup, Object.keys(dataSource).map(key => dataSource[key]))).to.be.true;
     });
+
     test('has a  width that can be set or be full width', () => {
         const lookup = mountLookup({
             open: true,
@@ -39,7 +45,7 @@ suite('Lookup', () => {
         });
         expect(autoCompletePopoverToBeWidth(lookup, 250)).to.be.true;
 
-        lookup.setProps({ width: 300, });
+        lookup.setProps({width: 300,});
         expect(autoCompletePopoverToBeWidth(lookup, 300)).to.be.true;
 
         // const fullWidthAutoComplete = mountAutoComplete({
@@ -55,6 +61,7 @@ suite('Lookup', () => {
         // });
         // expect(autoCompletePopoverToBeFullWidth(fullWidthAutoCompleteWithSetWidth)).to.be.true;
     });
+
     test('can optionally render a sub-header for the results', () => {
         const lookupWithResultsHeader = mountLookup({
             dataSource: getBasicDataSource(),
@@ -70,44 +77,53 @@ suite('Lookup', () => {
         });
         expect(autoCompleteResultsHasNoHeaderText(lookupWithoutResultsHeader)).to.be.true;
     });
-    test('can render the item as a Chip via a getChipText value function', () => {
-        const lookup = mountLookup({
-            dataSource: getDataSource(),
-            getChipText: item => item.name,
-            itemRenderer: item => item.name,
+
+    test('can render selected item as a Chip', () => {
+        const basicLookup = mountLookup({
+            dataSource: getBasicDataSource(),
             open: true,
-            selectedItems: ['oid:1']
+            selectedItems: ['Testing 1'],
         });
-        expect(firstListItemIsSelected(lookup, 'Testing 1')).to.be.true;
-    });
-    test('can set the selected item by setting the selected item prop', () => {
-        const lookup = mountLookup({
+        expect(firstListItemIsSelected(basicLookup, 'Testing 1')).to.be.true;
+
+        const dataObjectLookup = mountLookup({
             dataSource: getDataSource(),
-            getChipText: item => item.name,
-            itemRenderer: item => item.name,
+            dataSourceConfig: getDataSourceConfig(),
             open: true,
-            selectedItems: ['oid:1']
+            selectedItems: ['oid:1'],
         });
-        expect(firstListItemIsSelected(lookup, 'Testing 1')).to.be.true;
+        expect(firstListItemIsSelected(dataObjectLookup, 'Testing 1')).to.be.true;
     });
+
     test.skip('can select an item to be set as a Chip in the search box', () => {
         const lookup = mountLookup({
-            dataSource: getDataSource(),
-            getChipText: item => item.name,
-            open: true
+            dataSource: getBasicDataSource(),
+            open: true,
         });
         simulateSelectionOfFirstListItem();
         expect(firstListItemIsSelected(lookup, 'Testing 1')).to.be.true;
     });
+
+    test('Clicking on the Chip removal icon removes the Chip as the selected item', () => {
+        const lookup = mountLookup({
+            dataSource: getBasicDataSource(),
+            open: false,
+            selectedItems: ['Testing 1'],
+        });
+        simulateChipRemoval(lookup);
+        expect(noSelectedItems(lookup)).to.be.true;
+    });
 });
 
 function mountLookup(props = {}) {
-    return mount(<AutoComplete {...props} />, { context: { theme: getTestTheme() } });
+    return mount(<AutoComplete {...props} />, {context: {theme: getTestTheme()}});
 }
 function getTestTheme() {
     return {
         _name: 'Test Theme',
-        fieldBorderColor: '#000'
+        fieldBorderColor: '#000',
+        smallGutter: 6,
+        largeGutter: 12,
     };
 }
 function autoCompleteRendersClosed(wrapper) {
@@ -118,17 +134,17 @@ function autoCompleteRendersOpen(wrapper) {
     return wrapper.find('Popover').props().open === true;
 }
 function getBasicDataSource() {
-    return {
-        'oid:1': 'Testing 1',
-        'oid:2': 'Testing 2',
-        'oid:3': 'Testing 3'
-    };
+    return [
+        'Testing 1',
+        'Testing 2',
+        'Testing 3'
+    ];
 }
 function getDataSource() {
-    return {
-        'oid:1': { name: 'Testing 1' },
-        'oid:2': { name: 'Testing 3' }
-    };
+    return [
+        {oid: 'oid:1', name: 'Testing 1'},
+        {oid: 'oid:2', name: 'Testing 2'},
+    ];
 }
 
 function getRootElementOfPopover() {
@@ -214,4 +230,17 @@ function simulateSelectionOfFirstListItem() {
 }
 function firstListItemIsSelected(wrapper, selectedText) {
     return wrapper.find('Chip').text() === selectedText;
+}
+function getDataSourceConfig() {
+    return {
+        oidKey: 'oid',
+        renderItem: (item) => item.name,
+        text: 'name',
+    }
+}
+function simulateChipRemoval(wrapper) {
+    wrapper.find('IconButton').simulate('click');
+}
+function noSelectedItems(wrapper) {
+    return wrapper.find('Chip').length === 0;
 }

@@ -50,7 +50,7 @@ IconButton.propTypes = {
     circle: PropTypes.bool,
     color: PropTypes.string,
     hoverColor: PropTypes.string,
-    icon: CustomPropTypes.componentType(SvgIcon).isRequired,
+    icon: PropTypes.func.isRequired,
     onClick: PropTypes.func,
     width: PropTypes.number,
 };

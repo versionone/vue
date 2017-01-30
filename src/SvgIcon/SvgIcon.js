@@ -99,6 +99,9 @@ SvgIcon.propTypes = {
 SvgIcon.defaultProps = {
     color: '#000',
     hoverColor: '#000',
+    onClick: () => {},
+    onMouseEnter: () => {},
+    onMouseLeave: () => {},
     transition: 'fill 0.25s linear 0ms',
     width: 24,
 };

@@ -99,7 +99,7 @@ Chip.propTypes = {
     /**
      * Font size used for the text of the Chip
      */
-    fontSize: PropTypes.string,
+    fontSize: PropTypes.number,
     /**
      * The Chip will expand to fill the container's space if true; otherwise it will inline-block like with a width
      */

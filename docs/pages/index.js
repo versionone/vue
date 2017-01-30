@@ -14,6 +14,7 @@ export default [
     },
 
     // Patterns pages
+    require('./patterns/PatternVsComponent.md'),
     require('./patterns/InlineDialog.md'),
     require('./patterns/Search.md'),
 

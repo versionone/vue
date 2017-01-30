@@ -1,4 +1,4 @@
-import List, { ListItem } from './';
+import List, {ListItem} from './';
 import ListComponent from './List';
 import ListItemComponent from './ListItem';
 

@@ -1,4 +1,4 @@
-import { toRgbaString } from '@andrew-codes/color-functions';
+import {toRgbaString} from '@andrew-codes/color-functions';
 import {
     emphasize,
     getForegroundForBackground

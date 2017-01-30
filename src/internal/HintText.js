@@ -1,10 +1,12 @@
-import React, { PropTypes, } from 'react';
-import { fullyVisible as opacityFullyVisible, hidden as opacityHidden, } from './../utilities/Opacity';
+import React, {PropTypes} from 'react';
+import {fullyVisible as opacityFullyVisible, hidden as opacityHidden} from './../utilities/Opacity';
 import Radium from './../utilities/Radium';
 import ThemeProvider from './../Theme';
 
 const getStyles = (props, context) => {
-    const { hidden, } = props;
+    const {
+        hidden,
+    } = props;
     const {
         basicFontFamily,
         smallFontSize,
@@ -58,9 +60,11 @@ const HintText = (props, context) => {
 };
 HintText.propTypes = {
     hidden: PropTypes.bool,
-    text: PropTypes.string,
     onClick: PropTypes.func,
+    text: PropTypes.string,
 };
-HintText.contextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
+HintText.contextTypes = {
+    theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
+};
 
 export default Radium(HintText);

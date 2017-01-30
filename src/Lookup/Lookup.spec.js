@@ -8,16 +8,14 @@ suite('Lookup', () => {
     afterEach(initializeGlobalWindow);
 
     test('renders as a TextField when not open', () => {
-        const lookup = mountLookup({
-            open: false,
-        });
+        const lookup = mountLookup({open: false, });
         expect(autoCompleteRendersClosed(lookup)).to.be.true;
     });
 
     test('can render hint text', () => {
         const lookupWithNoValue = mountLookup({
             hintText: getText(),
-            open: false
+            open: false,
         });
         expect(autoCompleteRendersHintText(lookupWithNoValue, getText())).to.be.true;
     });
@@ -32,20 +30,20 @@ suite('Lookup', () => {
         const lookup = mountLookup({
             dataSource,
             open: true,
-            resultsHeader: getText()
+            resultsHeader: getText(),
         });
         expect(autoCompleteRendersOpen(lookup)).to.be.true;
         expect(autoCompleteResultsMatchExactly(lookup, Object.keys(dataSource).map(key => dataSource[key]))).to.be.true;
     });
 
-    test('has a  width that can be set or be full width', () => {
+    test('has a width that can be set or be full width', () => {
         const lookup = mountLookup({
             open: true,
-            width: 250
+            width: 250,
         });
         expect(autoCompletePopoverToBeWidth(lookup, 250)).to.be.true;
 
-        lookup.setProps({width: 300,});
+        lookup.setProps({width: 300, });
         expect(autoCompletePopoverToBeWidth(lookup, 300)).to.be.true;
 
         // const fullWidthAutoComplete = mountAutoComplete({
@@ -66,14 +64,14 @@ suite('Lookup', () => {
         const lookupWithResultsHeader = mountLookup({
             dataSource: getBasicDataSource(),
             open: true,
-            resultsHeader: getText()
+            resultsHeader: getText(),
         });
         expect(autoCompleteResultsHasHeaderText(lookupWithResultsHeader, getText())).to.be.true;
         lookupWithResultsHeader.unmount();
 
         const lookupWithoutResultsHeader = mountLookup({
             dataSource: getBasicDataSource(),
-            open: true
+            open: true,
         });
         expect(autoCompleteResultsHasNoHeaderText(lookupWithoutResultsHeader)).to.be.true;
     });
@@ -122,8 +120,8 @@ function getTestTheme() {
     return {
         _name: 'Test Theme',
         fieldBorderColor: '#000',
-        smallGutter: 6,
         largeGutter: 12,
+        smallGutter: 6,
     };
 }
 function autoCompleteRendersClosed(wrapper) {
@@ -137,13 +135,19 @@ function getBasicDataSource() {
     return [
         'Testing 1',
         'Testing 2',
-        'Testing 3'
+        'Testing 3',
     ];
 }
 function getDataSource() {
     return [
-        {oid: 'oid:1', name: 'Testing 1'},
-        {oid: 'oid:2', name: 'Testing 2'},
+        {
+            name: 'Testing 1',
+            oid: 'oid:1',
+        },
+        {
+            name: 'Testing 2',
+            oid: 'oid:2',
+        },
     ];
 }
 
@@ -234,13 +238,13 @@ function firstListItemIsSelected(wrapper, selectedText) {
 function getDataSourceConfig() {
     return {
         oidKey: 'oid',
-        renderItem: (item) => item.name,
+        renderItem: item => item.name,
         text: 'name',
-    }
+    };
 }
 function simulateChipRemoval(wrapper) {
     wrapper.find('IconButton').simulate('click');
 }
 function noSelectedItems(wrapper) {
-    return wrapper.find('Chip').length === 0;
+    return !wrapper.find('Chip').exists();
 }

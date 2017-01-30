@@ -1,11 +1,11 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import {mount} from 'enzyme';
 import List from './List';
 import ListItem from './ListItem';
 
 suite('List', () => {
     test('it can render children ListItems', () => {
-        const list = mountList({ children: getChildren(), });
+        const list = mountList({children: getChildren(), });
         expect(listHasItems(list, getChildrenText())).to.be.true;
     });
     test('it can have a specified hover colors for its ListItems', () => {
@@ -22,9 +22,7 @@ function mountList(props = {}) {
     return mount(<List {...props} />, {context: {theme: getTestTheme()}});
 }
 function getTestTheme() {
-    return {
-        basicFontFamily: 'Arial',
-    }
+    return {basicFontFamily: 'Arial', };
 }
 function getChildren() {
     return getChildrenText()

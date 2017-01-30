@@ -1,4 +1,4 @@
-import { top, bottom, middle, center, left, right } from './Positions';
+import {top, bottom, middle, center, left, right} from './Positions';
 
 suite('Popover Position', () => {
     test('exports a top position value', () => {

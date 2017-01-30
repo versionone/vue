@@ -1,11 +1,13 @@
-import React, { PropTypes, } from 'react';
+import React, {PropTypes} from 'react';
 import Radium from './../utilities/Radium';
 import ThemeProvider from './../Theme';
 import * as Transitions from './../styles/Transitions';
-import { fullyVisible as opacityFullyVisible, hidden as opacityHidden, } from './../utilities/Opacity';
+import {fullyVisible as opacityFullyVisible, hidden as opacityHidden} from './../utilities/Opacity';
 
 const getStyles = (props, context) => {
-    const { hidden, } = props;
+    const {
+        hidden,
+    } = props;
     const {
         errorPrimaryColor,
         basicFontFamily,
@@ -26,20 +28,14 @@ const getStyles = (props, context) => {
     };
 };
 
-const defaultProps = {
-    hidden: false,
-    text: '',
-    onClick: () => {
-    },
-};
 const ErrorMessage = (props, context) => {
-    const propsWithDefaults = {
-        ...defaultProps,
-        ...props,
-    };
-    // eslint-disable-next-line no-unused-vars
-    const { text, hidden, ...rest } = propsWithDefaults;
-    const styles = getStyles(propsWithDefaults, context);
+    const {
+        text,
+        // eslint-disable-next-line no-unused-vars
+        hidden,
+        ...rest
+    } = props;
+    const styles = getStyles(props, context);
 
     return (
         <div{...rest}>
@@ -51,9 +47,17 @@ const ErrorMessage = (props, context) => {
 };
 ErrorMessage.propTypes = {
     hidden: PropTypes.bool,
-    text: PropTypes.string,
     onClick: PropTypes.func,
+    text: PropTypes.string,
 };
-ErrorMessage.contextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
+ErrorMessage.defaultProps = {
+    hidden: false,
+    onClick: () => {
+    },
+    text: '',
+};
+ErrorMessage.contextTypes = {
+    theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
+};
 
 export default Radium(ErrorMessage);

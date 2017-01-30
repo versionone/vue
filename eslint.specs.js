@@ -29,7 +29,7 @@ module.exports = {
     rules: {
         'comma-dangle': 0,
         'linebreak-style': [0, 'windows'],
-        'object-curly-spacing': [2, 'always'],
+        'object-curly-spacing': [0, 'never'],
         'react/no-did-mount-set-state': 0
     },
     settings: {

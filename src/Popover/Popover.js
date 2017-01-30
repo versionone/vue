@@ -1,6 +1,6 @@
 import EventListener from 'react-event-listener';
-import React, { Component, PropTypes, } from 'react';
-import { findDOMNode, } from 'react-dom';
+import React, {Component, PropTypes} from 'react';
+import {findDOMNode} from 'react-dom';
 import throttle from 'lodash.throttle';
 import Radium from './../utilities/Radium';
 import RenderToLayer from './../internal/RenderToLayer';
@@ -14,9 +14,9 @@ const offScreenThresholdValue = 0;
 const centerAlignmentDivisor = 2;
 const getTargetPosition = targetElement => ({
     bottom: targetElement.offsetHeight,
-    middle: targetElement.offsetHeight / centerAlignmentDivisor,
-    left: 0,
     center: targetElement.offsetWidth / centerAlignmentDivisor,
+    left: 0,
+    middle: targetElement.offsetHeight / centerAlignmentDivisor,
     right: targetElement.offsetWidth,
     top: 0,
 });
@@ -40,6 +40,10 @@ class Popover extends Component {
          */
         children: PropTypes.node,
         /**
+         * Function called when the popover is requested to close
+         */
+        onRequestClose: PropTypes.func,
+        /**
          * If true, the popover will be visible; otherwise it will not render
          */
         open: PropTypes.bool,
@@ -47,10 +51,6 @@ class Popover extends Component {
          * The coordinates of the popover target in which to align to the anchor's origin
          */
         targetOrigin: CustomPropTypes.origin,
-        /**
-         * Function called when the popover is requested to close
-         */
-        onRequestClose: PropTypes.func,
     };
     static defaultProps = {
         anchorOrigin: {
@@ -58,15 +58,17 @@ class Popover extends Component {
             vertical: Positions.bottom,
         },
         autoCloseWhenOffScreen: true,
-        open: false,
-        targetOrigin: {
-            vertical: Positions.top,
-            horizontal: Positions.left,
-        },
         onRequestClose: () => {
         },
+        open: false,
+        targetOrigin: {
+            horizontal: Positions.left,
+            vertical: Positions.top,
+        },
     };
-    static contextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
+    static contextTypes = {
+        theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
+    };
 
     constructor(...rest) {
         super(...rest);
@@ -94,12 +96,14 @@ class Popover extends Component {
         if (nextProps.open) {
             this.anchorElement = nextProps.anchorElement || this.props.anchorElement;
             this.setState({
-                open: true,
                 closing: false,
+                open: true,
             });
             return;
         }
-        this.setState({ open: false, });
+        this.setState({
+            open: false,
+        });
     }
 
     componentDidUpdate() {
@@ -150,12 +154,18 @@ class Popover extends Component {
     }
 
     renderLayer() {
-        const { children, } = this.props;
-        const { open, } = this.state;
+        const {
+            children,
+        } = this.props;
+        const {
+            open,
+        } = this.state;
         if (!open) {
             return null;
         }
-        const style = { position: 'fixed', };
+        const style = {
+            position: 'fixed',
+        };
         return (
             <div
                 style={style}
@@ -170,7 +180,9 @@ class Popover extends Component {
     }
 
     requestClose(reason) {
-        const { onRequestClose, } = this.props;
+        const {
+            onRequestClose,
+        } = this.props;
         onRequestClose(reason);
     }
 
@@ -206,7 +218,9 @@ class Popover extends Component {
     }
 
     render() {
-        const { open, } = this.state;
+        const {
+            open,
+        } = this.state;
         return (
             <div>
                 <EventListener

@@ -24,16 +24,10 @@ function mountListItem(props = {}) {
     return mount(
         <ListItem {...props}>
             {getContent()}
-        </ListItem>, {
-            context: {
-                theme: getTestTheme()
-            }
-        });
+        </ListItem>, {context: {theme: getTestTheme()}});
 }
 function getTestTheme() {
-    return {
-        smallGutter: 6,
-    };
+    return {smallGutter: 6, };
 }
 function listItemHasContent(wrapper, text) {
     return wrapper.find('ListItem').text() === text;

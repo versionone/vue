@@ -1,10 +1,10 @@
-import { Component, PropTypes, } from 'react';
+import {Component, PropTypes} from 'react';
 import v1Theme from './../styles/themes/v1Theme';
 
 export default class ThemeProvider extends Component {
     static propTypes = {
         children: PropTypes.element,
-        theme: PropTypes.shape(ThemeProvider.themeDefinition),
+        theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
     };
     static themeDefinition = {
         /**
@@ -63,7 +63,7 @@ export default class ThemeProvider extends Component {
          */
         largeGutter: PropTypes.number.isRequired,
         /**
-         * Larger line height used for actual component text as opposed to textual content. An example would be the text value of a TextField versus text for a Button.
+         * Larger line height used for component text.
          */
         largeLineHeight: PropTypes.number.isRequired,
         /**
@@ -123,18 +123,24 @@ export default class ThemeProvider extends Component {
          */
         xSmallFontSize: PropTypes.number.isRequired,
         /**
-         * Extra-small gutter spacing value. It is used in places such as the padding between the textual value of a TextField and its border.
+         * Extra-small gutter spacing. Used for padding between the textual value of a TextField and its border.
          */
         xxSmallGutter: PropTypes.number.isRequired,
     };
 
-    static defaultProps = { theme: v1Theme, };
+    static defaultProps = {
+        theme: v1Theme,
+    };
 
     static
-    childContextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
+    childContextTypes = {
+        theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
+    };
 
     getChildContext() {
-        return { theme: this.props.theme, };
+        return {
+            theme: this.props.theme,
+        };
     }
 
     render() {

@@ -7,7 +7,7 @@ suite('isDescendant', () => {
 
     test('a node that is not a child returns false', () => {
         const parent = getParent();
-        const child = { parentNode: null };
+        const child = {parentNode: null};
         expect(isDescendant(parent, child)).to.be.false;
     });
 
@@ -26,9 +26,9 @@ suite('isDescendant', () => {
 });
 
 function getParent() {
-    return { parentNode: null };
+    return {parentNode: null};
 }
 
 function getImmediateChild(parent) {
-    return { parentNode: parent };
+    return {parentNode: parent};
 }

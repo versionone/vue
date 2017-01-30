@@ -1,10 +1,10 @@
-import React, { PropTypes, } from 'react';
-import { setOpacity, darken, toRgbaString, } from '@andrew-codes/color-functions';
+import React, {PropTypes} from 'react';
+import {setOpacity, darken, toRgbaString} from '@andrew-codes/color-functions';
 import Radium from './../utilities/Radium';
 import ThemeProvider from './../Theme';
 import transparent from './../utilities/Transparent';
-import { create, } from './../styles/Transitions';
-import { getForegroundForBackground, } from './../utilities/colorManipulator';
+import {create} from './../styles/Transitions';
+import {getForegroundForBackground} from './../utilities/colorManipulator';
 import * as ButtonSizes from './Sizes';
 import * as ButtonTypes from './Types';
 
@@ -32,7 +32,10 @@ const getStylesBasedOnType = (props, context) => {
         normalBackground,
         textPrimaryColor,
     } = context.theme;
-    const { disable, type, } = props;
+    const {
+        disable,
+        type,
+    } = props;
     const inverseColors = [
         darkInverseColor,
         lightInverseColor,
@@ -106,7 +109,9 @@ const getStyles = (props, context) => {
         largeLineHeight,
         smallFontSize,
     } = context.theme;
-    const { size, } = props;
+    const {
+        size,
+    } = props;
 
     const fontSize = smallFontSize * size;
     const height = Math.ceil(fontSize * largeLineHeight);
@@ -116,7 +121,9 @@ const getStyles = (props, context) => {
 
     return {
         root: {
-            ':focus': { outline: 'none', },
+            ':focus': {
+                outline: 'none',
+            },
             alignItems: 'flex-start',
             border: `1px solid ${transparent}`,
             borderRadius: `${borderRadius}px`,
@@ -146,25 +153,19 @@ const handleClick = (handler, disable) => (evt) => {
     handler(evt);
 };
 
-const defaultProps = {
-    disable: false,
-    size: ButtonSizes.normal,
-    text: '',
-    type: ButtonTypes.standard,
-    onClick: () => {
-    },
-};
 const Button = (props, context) => {
-    const propsWithDefaults = {
-        ...defaultProps,
-        ...props,
-    };
     const {
         disable,
-        text,
         onClick,
-    } = propsWithDefaults;
-    const styles = getStyles(propsWithDefaults, context);
+        size,
+        text,
+        type,
+    } = props;
+    const styles = getStyles({
+        disable,
+        size,
+        type,
+    }, context);
     return (
         <button
             style={styles.root}
@@ -179,6 +180,10 @@ Button.propTypes = {
      * Disables the button from responding to event handlers
      */
     disable: PropTypes.bool,
+    /**
+     * Click event handler; fired once a button is clicked
+     */
+    onClick: PropTypes.func,
     /**
      * Numeric value used as a multiplier to the button's size; 0.75, 1, and 1.5 as examples
      */
@@ -198,12 +203,18 @@ Button.propTypes = {
         ButtonTypes.basicAlt,
         ButtonTypes.special,
     ]),
-    /**
-     * Click event handler; fired once a button is clicked
-     */
-    onClick: PropTypes.func,
 };
-Button.contextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
+Button.defaultProps = {
+    disable: false,
+    onClick: () => {
+    },
+    size: ButtonSizes.normal,
+    text: '',
+    type: ButtonTypes.standard,
+};
+Button.contextTypes = {
+    theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
+};
 
 export default Radium(Button);
 

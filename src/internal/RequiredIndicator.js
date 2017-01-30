@@ -1,10 +1,12 @@
-import React, { PropTypes, } from 'react';
-import { fullyVisible as opacityFullyVisible, hidden as opacityHidden, } from './../utilities/Opacity';
+import React, {PropTypes} from 'react';
+import {fullyVisible as opacityFullyVisible, hidden as opacityHidden} from './../utilities/Opacity';
 import Radium from './../utilities/Radium';
 import ThemeProvider from './../Theme';
 
 const getStyles = (props, context) => {
-    const { hidden, } = props;
+    const {
+        hidden,
+    } = props;
     const {
         requiredPrimaryColor,
         normalLineHeight,
@@ -24,7 +26,9 @@ const getStyles = (props, context) => {
     };
 };
 
-const defaultProps = { hidden: false, };
+const defaultProps = {
+    hidden: false,
+};
 const RequiredIndicator = (props, context) => {
     const propsWithDefaults = {
         ...defaultProps,
@@ -36,7 +40,11 @@ const RequiredIndicator = (props, context) => {
         <div style={styles.root}>*</div>
     );
 };
-RequiredIndicator.propTypes = { hidden: PropTypes.bool, };
-RequiredIndicator.contextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
+RequiredIndicator.propTypes = {
+    hidden: PropTypes.bool,
+};
+RequiredIndicator.contextTypes = {
+    theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
+};
 
 export default Radium(RequiredIndicator);

@@ -1,9 +1,9 @@
-import React, { PropTypes, } from 'react';
-import { darken, toRgbaString, } from '@andrew-codes/color-functions';
+import React, {PropTypes} from 'react';
+import {darken, toRgbaString} from '@andrew-codes/color-functions';
 import Radium from './../utilities/Radium';
 import ThemeProvider from './../Theme';
-import { IconButton, } from './../Button';
-import { CloseIcon, } from './../Icons';
+import {IconButton} from './../Button';
+import {CloseIcon} from './../Icons';
 
 const chipPaddingFontSizeDivisor = 3;
 
@@ -15,16 +15,18 @@ const getStyles = (props, context) => {
         xxSmallGutter,
     } = context.theme;
     return ({
-        buttonWrapper: { marginLeft: `${props.fontSize}px`, },
+        buttonWrapper: {
+            marginLeft: `${props.fontSize}px`,
+        },
         root: {
-            color: props.color,
             backgroundColor: props.backgroundColor,
             borderRadius: `${normalRadius}px`,
+            color: props.color,
             display: 'flex',
             fontSize: `${props.fontSize}px`,
             lineHeight: `${props.lineHeight}`,
-            padding: `${padding}px ${padding}px`,
             margin: `${xxSmallGutter}px`,
+            padding: `${padding}px ${padding}px`,
             width: props.fullWidth ? '100%' : `${props.width}px`,
         },
         text: {
@@ -47,30 +49,25 @@ const handleIconButtonClick = (text, oid, handler) => (evt) => {
     }, evt);
 };
 
-const defaultProps = {
-    color: '#000',
-    backgroundColor: 'gray',
-    fontSize: 14,
-    fullWidth: false,
-    lineHeight: 1,
-    width: 200,
-    onRequestRemove: () => {
-    },
-};
 const Chip = (props, context) => {
-    const propsWithDefaults = {
-        ...defaultProps,
-        ...props,
-    };
     const {
         backgroundColor,
+        color,
         fontSize,
+        fullWidth,
         lineHeight,
         oid,
         text,
         onRequestRemove,
-    } = propsWithDefaults;
-    const styles = getStyles(propsWithDefaults, context);
+        width,
+    } = props;
+    const styles = getStyles({
+        backgroundColor,
+        color,
+        fontSize,
+        fullWidth,
+        width,
+    }, context);
     const iconButtonDarkenCoefficient = 0.45;
 
     return (
@@ -119,6 +116,10 @@ Chip.propTypes = {
         PropTypes.number,
     ]),
     /**
+     * Function handling the clicking of the close icon of the Chip
+     */
+    onRequestRemove: PropTypes.func,
+    /**
      * The text to render on the Chip
      */
     text: PropTypes.string.isRequired,
@@ -126,10 +127,18 @@ Chip.propTypes = {
      * Width of the Chip
      */
     width: PropTypes.number,
-    /**
-     * Function handling the clicking of the close icon of the Chip
-     */
-    onRequestRemove: PropTypes.func,
 };
-Chip.contextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
+Chip.defaultProps = {
+    backgroundColor: 'gray',
+    color: '#000',
+    fontSize: 14,
+    fullWidth: false,
+    lineHeight: 1,
+    onRequestRemove: () => {
+    },
+    width: 200,
+};
+Chip.contextTypes = {
+    theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
+};
 export default Radium(Chip);

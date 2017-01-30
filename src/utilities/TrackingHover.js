@@ -1,11 +1,18 @@
-import React, { Component, PropTypes, } from 'react';
+import React, {
+    Component,
+    PropTypes
+} from 'react';
 import ThemeProvider from './../Theme';
 
 export default ComponentToTrackHover => class TrackingHover extends Component {
     static propTypes = Component.propTypes;
-    static contextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
+    static contextTypes = {
+        theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
+    };
     static
-    childContextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
+    childContextTypes = {
+        theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
+    };
 
     getChildContext() {
         return this.context;
@@ -16,19 +23,27 @@ export default ComponentToTrackHover => class TrackingHover extends Component {
         this.handleMouseEnter = this.handleMouseEnter.bind(this);
         this.handleMouseLeave = this.handleMouseLeave.bind(this);
 
-        this.state = { hovered: false, };
+        this.state = {
+            hovered: false,
+        };
     }
 
     handleMouseEnter() {
-        this.setState({ hovered: true, });
+        this.setState({
+            hovered: true,
+        });
     }
 
     handleMouseLeave() {
-        this.setState({ hovered: false, });
+        this.setState({
+            hovered: false,
+        });
     }
 
     render() {
-        const { hovered, } = this.state;
+        const {
+            hovered,
+        } = this.state;
 
         return (
             <div
@@ -42,4 +57,4 @@ export default ComponentToTrackHover => class TrackingHover extends Component {
             </div>
         );
     }
-    };
+};

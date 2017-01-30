@@ -1,4 +1,4 @@
-import Button, { IconButton } from './';
+import Button, {IconButton} from './';
 import ButtonComponent from './Button';
 import IconButtonComponent from './IconButton';
 

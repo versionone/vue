@@ -1,12 +1,12 @@
-import React, { PropTypes, } from 'react';
+import React, {PropTypes} from 'react';
 import TrackingHover from './../utilities/TrackingHover';
 import Radium from './../utilities/Radium';
 
 const getStyles = (props) => {
     const {
         color,
-        hovered,
         hoverColor,
+        hovered,
         transition,
         width,
     } = props;
@@ -22,35 +22,37 @@ const getStyles = (props) => {
         },
     };
 };
+const handleEvent = handler => evt => handler(evt);
 
-const defaultTransition = 'fill 0.25s linear 0ms';
-const defaultProps = {
-    color: '#000',
-    hoverColor: '#000',
-    transition: defaultTransition,
-    width: 24,
-};
 const SvgIcon = (props) => {
-    const propsWithDefaults = {
-        ...defaultProps,
-        ...props,
-    };
-    const { children, } = propsWithDefaults;
-    const styles = getStyles(propsWithDefaults);
-    const eventHandlerProps = Object.keys(propsWithDefaults)
-        .filter(key => key.startsWith('on'))
-        .reduce((output, key) => ({
-            ...output,
-            [key]: propsWithDefaults[key],
-        }), {});
+    const {
+        children,
+        color,
+        hoverColor,
+        hovered,
+        onClick,
+        onMouseEnter,
+        onMouseLeave,
+        transition,
+        width,
+    } = props;
+    const styles = getStyles({
+        color,
+        hoverColor,
+        hovered,
+        transition,
+        width,
+    });
 
     return (
         <svg
-            {...eventHandlerProps}
             style={styles.root}
             viewBox="0 0 24 24"
             x="0px"
             y="0px"
+            onClick={handleEvent(onClick)}
+            onMouseEnter={handleEvent(onMouseEnter)}
+            onMouseLeave={handleEvent(onMouseLeave)}
         >
             {children}
         </svg>
@@ -66,21 +68,13 @@ SvgIcon.propTypes = {
      */
     color: PropTypes.string,
     /**
-     * Indicates the SvgIcon is in a hovered state if true; false otherwise
-     */
-    hovered: PropTypes.bool,
-    /**
      * Fill color to apply when hovering over the SVG.
      */
     hoverColor: PropTypes.string,
     /**
-     * Transition to apply to SVG; typically used for fill color on hover.
+     * Indicates the SvgIcon is in a hovered state if true; false otherwise
      */
-    transition: PropTypes.string,
-    /**
-     * Width of the SVG; also applies this as the height.
-     */
-    width: PropTypes.number,
+    hovered: PropTypes.bool,
     /**
      * onClick event handler
      */
@@ -93,6 +87,20 @@ SvgIcon.propTypes = {
      * onMouseLeave event handler.
      */
     onMouseLeave: PropTypes.func,
+    /**
+     * Transition to apply to SVG; typically used for fill color on hover.
+     */
+    transition: PropTypes.string,
+    /**
+     * Width of the SVG; also applies this as the height.
+     */
+    width: PropTypes.number,
+};
+SvgIcon.defaultProps = {
+    color: '#000',
+    hoverColor: '#000',
+    transition: 'fill 0.25s linear 0ms',
+    width: 24,
 };
 
 export default Radium(TrackingHover(SvgIcon));

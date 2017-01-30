@@ -1,11 +1,11 @@
-import React, { Component, PropTypes, } from 'react';
+import React, {Component, PropTypes} from 'react';
 import _ from 'underscore';
-import { darken, toRgbaString, } from '@andrew-codes/color-functions';
+import {darken, toRgbaString} from '@andrew-codes/color-functions';
 import Chip from './../Chip';
 import HintText from './../internal/HintText';
-import List, { ListItem, } from './../List';
+import List, {ListItem} from './../List';
 import Radium from './../utilities/Radium';
-import Popover, { Positions, } from './../Popover';
+import Popover, {Positions} from './../Popover';
 import SubHeader from './../SubHeader';
 import ThemeProvider from './../Theme';
 import transparent from './../utilities/Transparent';
@@ -96,6 +96,10 @@ class Lookup extends Component {
          */
         minimumNumberOfCharactersToFilter: PropTypes.number,
         /**
+         * Event handler which fires upon the selection of an item from the results list
+         */
+        onSelect: PropTypes.func,
+        /**
          * When true, the auto complete is open
          */
         open: PropTypes.bool,
@@ -114,10 +118,6 @@ class Lookup extends Component {
          * Width of the text field
          */
         width: PropTypes.number,
-        /**
-         * Event handler which fires upon the selection of an item from the results list
-         */
-        onSelect: PropTypes.func,
     };
     static defaultProps = {
         chipBackgroundColor: '#e9edf1',
@@ -130,14 +130,16 @@ class Lookup extends Component {
         listHoverBackgroundColor: '#262626',
         listHoverColor: '#fff',
         minimumNumberOfCharactersToFilter: 3,
+        onSelect: () => {
+        },
         open: false,
         resultsHeader: null,
         selectedItems: [],
         width: 256,
-        onSelect: () => {
-        },
     };
-    static contextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
+    static contextTypes = {
+        theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
+    };
 
     constructor(props, ...rest) {
         super(props, ...rest);
@@ -154,9 +156,9 @@ class Lookup extends Component {
         this.renderListItem = this.renderListItem.bind(this);
         this.shouldApplyFilter = this.shouldApplyFilter.bind(this);
         this.state = {
-            selectedItems: props.selectedItems,
             open: props.open,
             searchText: '',
+            selectedItems: props.selectedItems,
             width: props.width,
         };
     }
@@ -209,20 +211,26 @@ class Lookup extends Component {
     }
 
     getHeight() {
-        return Math.max(this.inputField
-            .getBoundingClientRect()
-            .height,
+        return Math.max(
+            this.inputField
+                .getBoundingClientRect()
+                .height,
             this.hintTextWrapper
                 .getBoundingClientRect()
-                .height);
+                .height
+        );
     }
 
     handleChangeTextField(evt) {
-        this.setState({ searchText: evt.target.value, });
+        this.setState({
+            searchText: evt.target.value,
+        });
     }
 
     handleLookupRootClick() {
-        this.setState({ open: !this.state.open, });
+        this.setState({
+            open: !this.state.open,
+        });
     }
 
     handleClickHintText() {
@@ -231,18 +239,24 @@ class Lookup extends Component {
 
     handleItemClick(oid) {
         this.setState({
-            selectedItems: [oid, ],
             open: false,
             searchText: '',
+            selectedItems: [
+                oid,
+            ],
         });
         this.props.onSelect(oid);
     }
 
     handleClosePopover() {
-        this.setState({ open: false, });
+        this.setState({
+            open: false,
+        });
     }
 
-    handleChipRemove({ oid, text, }) {
+    handleChipRemove({
+        oid, text,
+    }) {
         const newState = {};
         if (oid) {
             newState.selectedItems = this.state.selectedItems
@@ -294,8 +308,8 @@ class Lookup extends Component {
                 borderRadius: `${normalRadius}px`,
                 boxSizing: 'border-box',
                 height: `${hintTextWrapperHeight}px`,
-                position: 'absolute',
                 padding: `${xxSmallGutter}px`,
+                position: 'absolute',
                 top: 0,
                 width: computedWidth,
             },
@@ -323,7 +337,9 @@ class Lookup extends Component {
                 width,
                 zIndex: 11,
             },
-            paddingForPopover: { height: `${hintTextWrapperHeight}px`, },
+            paddingForPopover: {
+                height: `${hintTextWrapperHeight}px`,
+            },
             resultsPaper: {
                 background: normalBackground,
                 border: `1px solid ${toRgbaString(darken(fieldBorderColor, darkenCoefficient))}`,
@@ -346,8 +362,8 @@ class Lookup extends Component {
                 zIndex: 12,
             },
             textFieldWrapper: {
-                position: 'absolute',
                 height: `${textFieldHeight}px`,
+                position: 'absolute',
                 top: 0,
                 width: '100%',
             },
@@ -361,27 +377,32 @@ class Lookup extends Component {
             dataSource,
             dataSourceConfig,
         } = this.props;
-        const { selectedItems, } = this.state;
-        const { smallFontSize, } = this.context.theme;
+        const {
+            selectedItems,
+        } = this.state;
+        const {
+            smallFontSize,
+        } = this.context.theme;
 
         if (_.isEmpty(selectedItems)) {
             return undefined;
         }
 
         const getChipValues = configureGetChipValues(dataSourceConfig, dataSource);
+
         return (
             <div
                 style={styles.selectedItems}
             >
                 {selectedItems.map((item, index) => (
                     <Chip
-                        {...getChipValues(item, index)}
+                        fullWidth
                         backgroundColor={chipBackgroundColor}
                         color={chipColor}
                         fontSize={smallFontSize}
-                        fullWidth
                         key={index}
                         onRequestRemove={this.handleChipRemove}
+                        {...getChipValues(item, index)}
                     />
                 ))}
             </div>
@@ -389,7 +410,9 @@ class Lookup extends Component {
     }
 
     renderListItem(item, index) {
-        const { dataSourceConfig, } = this.props;
+        const {
+            dataSourceConfig,
+        } = this.props;
         let children = item;
         if (dataSourceConfig) {
             children = dataSourceConfig.renderItem(item, index);
@@ -419,8 +442,8 @@ class Lookup extends Component {
             resultsHeader,
         } = this.props;
         const {
-            selectedItems,
             searchText,
+            selectedItems,
             open,
         } = this.state;
         const isHintTextHidden = Boolean(searchText) || !_.isEmpty(selectedItems);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import {mount} from 'enzyme';
 import SubHeader from './SubHeader';
 
 suite('SubHeader', () => {
@@ -10,7 +10,7 @@ suite('SubHeader', () => {
 });
 
 function mountSubHeader(text, props = {}) {
-    return mount(<SubHeader {...props}>{text}</SubHeader>, { context: { theme: getTestTheme() } });
+    return mount(<SubHeader {...props}>{text}</SubHeader>, {context: {theme: getTestTheme()}});
 }
 function getTextContent() {
     return 'Hello world.';
@@ -19,5 +19,5 @@ function subHeaderHasTextContent(wrapper, text) {
     return wrapper.text() === text;
 }
 function getTestTheme() {
-    return { _name: 'Test Theme', };
+    return {_name: 'Test Theme', };
 }

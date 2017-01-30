@@ -1,11 +1,11 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import { spy } from 'sinon';
+import {mount} from 'enzyme';
+import {spy} from 'sinon';
 import HintText from './HintText';
 
 suite('HintText', () => {
     test('the hint text can display text content', () => {
-        const actual = mountHintText({ text: 'hint text' });
+        const actual = mountHintText({text: 'hint text'});
         expect(hasTextContent(actual, 'hint text')).to.be.true;
     });
 
@@ -18,7 +18,7 @@ suite('HintText', () => {
         const visibleHintText = mountHintText();
         expect(isVisible(visibleHintText)).to.be.true;
 
-        const hiddenHintText = mountHintText({ hidden: true });
+        const hiddenHintText = mountHintText({hidden: true});
         expect(isHidden(hiddenHintText)).to.be.true;
     });
 
@@ -46,10 +46,10 @@ function getContext() {
         context: {
             theme: {
                 _name: 'Test Theme',
-                textSecondaryColor: 'gray',
                 basicFontFamily: 'Arial',
                 normalLineHeight: 1.5,
-                smallFontSize: 14
+                smallFontSize: 14,
+                textSecondaryColor: 'gray',
             }
         }
     };

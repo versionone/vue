@@ -1,4 +1,4 @@
-import React, { PropTypes, } from 'react';
+import React, {PropTypes} from 'react';
 import Radium from './../utilities/Radium';
 import ThemeProvider from './../Theme';
 import transparent from './../utilities/Transparent';
@@ -14,7 +14,9 @@ const getStyles = (props, context) => ({
 });
 
 const SubHeader = (props, context) => {
-    const { children, } = props;
+    const {
+        children,
+    } = props;
     const styles = getStyles(props, context);
 
     return (
@@ -29,6 +31,8 @@ SubHeader.propTypes = {
         PropTypes.node,
     ]),
 };
-SubHeader.contextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
+SubHeader.contextTypes = {
+    theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
+};
 
 export default Radium(SubHeader);

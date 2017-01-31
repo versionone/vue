@@ -31,6 +31,7 @@ class PopoverDemo extends Component {
                     }}
                     onClick={this.handleClick}
                 >Anchor</span>
+                <div>This is content that the popover can render over.</div>
                 <Popover
                     anchorElement={this.anchor}
                     anchorOrigin={anchorOrigin}
@@ -38,7 +39,9 @@ class PopoverDemo extends Component {
                     targetOrigin={targetOrigin}
                     onRequestClose={this.closePopover}
                 >
-                    Hello world
+                    <div style={{backgroundColor: 'white'}}>
+                        This is the contents of the popover.
+                    </div>
                 </Popover>
             </div>
         );
@@ -46,54 +49,68 @@ class PopoverDemo extends Component {
 }
 
 storiesOf('Popover')
-    .addWithInfo('opens to the right, middle',
+    .addWithInfo('renders horizontally within viewport',
         ``,
         () => (
-            <PopoverDemo
-                anchorOrigin={{
-                    horizontal: 'right',
-                    vertical: 'middle'
-                }}
-                targetOrigin={{
-                    horizontal: 'left',
-                    vertical: 'middle'
-                }}
-            />
+            <div>
+                <div>
+                    <p>Normally would render above and to the center of the anchor; however it should auto-adjusts by
+                       moving it to the right to ensure it is within the viewport.</p>
+                    <PopoverDemo
+                        anchorOrigin={{
+                            horizontal: 'left',
+                            vertical: 'top',
+                        }}
+                        targetOrigin={{
+                            horizontal: 'right',
+                            vertical: 'bottom',
+                        }}
+                    />
+                </div>
+                <hr />
+                <div>
+                    <p>Normally would render above and to the center of the anchor; however it should auto-adjusts by
+                       moving it to the left to ensure it is within the viewport.</p>
+                    <div style={{
+                        float: 'right',
+                        textAlign: 'right',
+                    }}
+                    >
+                        <PopoverDemo
+                            anchorOrigin={{
+                                horizontal: 'right',
+                                vertical: 'top',
+                            }}
+                            targetOrigin={{
+                                horizontal: 'left',
+                                vertical: 'bottom',
+                            }}
+                        />
+                    </div>
+                </div>
+            </div>
         )
     )
-    .addWithInfo('opens to the center top',
+    .addWithInfo('renders vertically within viewport',
         ``,
         () => (
-            <PopoverDemo
-                anchorOrigin={{
-                    horizontal: 'center',
-                    vertical: 'top'
-                }}
-                targetOrigin={{
-                    horizontal: 'center',
-                    vertical: 'bottom'
-                }}
-            />
-        )
-    )
-    .addWithInfo('opens to the left, middle',
-        ``,
-        () => (
-            <div style={{textAlign: 'right'}}>
+            <div>
+                <p>Should render to the bottom right of the anchor, but it auto-adjusts vertically to ensure it is
+                   within the viewport.</p>
                 <PopoverDemo
                     anchorOrigin={{
-                        horizontal: 'left',
-                        vertical: 'middle'
+                        horizontal: 'right',
+                        vertical: 'bottom'
                     }}
                     targetOrigin={{
-                        horizontal: 'right',
-                        vertical: 'middle'
+                        horizontal: 'left',
+                        vertical: 'top'
                     }}
                 />
             </div>
         )
     )
-    .addWithInfo('opens center, bottom',
+    .addWithInfo('opens on top of content',
         ``,
         () => (
             <PopoverDemo

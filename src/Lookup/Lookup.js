@@ -15,11 +15,11 @@ const matchOn = prop => valueToMatch => item => item[prop] === valueToMatch;
 const matchOid = matchOn('oid');
 const matchesOid = oid => matchOid(oid);
 
-const configureGetChipValues = (dataSourceConfig, dataSource) => (oid, index) => {
+const configureGetChipValues = (dataSourceConfig, dataSource) => (oid) => {
     if (!dataSourceConfig) {
         return {
-            oid: index,
-            text: dataSource[index],
+            oid,
+            text: dataSource[oid],
         };
     }
     const matchOnOidKey = matchOn(dataSourceConfig.oidKey);
@@ -72,10 +72,6 @@ class Lookup extends Component {
          */
         disabled: PropTypes.bool,
         /**
-         * Callback function used to filter the lookup; accepts searchText and value of each item in data source
-         */
-        filter: PropTypes.func,
-        /**
          * If true, the field is 100% width
          */
         fullWidth: PropTypes.bool,
@@ -104,16 +100,28 @@ class Lookup extends Component {
          */
         open: PropTypes.bool,
         /**
-         * When provided, this will render as the sub-header to the result list; otherwise it will not render a sub-header
+         * Header text when one group, otherwise array of groups with header and group filter func
          */
-        resultsHeader: PropTypes.oneOfType([
+        resultGroups: PropTypes.oneOfType([
             PropTypes.string,
-            PropTypes.node,
-        ]),
+            PropTypes.arrayOf(PropTypes.shape({
+                header: PropTypes.oneOfType([
+                    PropTypes.string,
+                    PropTypes.node,
+                ]).isRequired,
+                filter: PropTypes.func.isRequired,
+            }))]),
+        /**
+         * Callback function used to filter the lookup; accepts searchText, value of each item, and its index
+         */
+        searchFilter: PropTypes.func.isRequired,
         /**
          * Sets the selected values of the lookup; is the string key of the selected object in the data source
          */
-        selectedItems: PropTypes.arrayOf(PropTypes.string),
+        selectedItems: PropTypes.arrayOf(PropTypes.oneOfType([
+            PropTypes.number,
+            PropTypes.string,
+        ])),
         /**
          * Width of the text field
          */
@@ -124,7 +132,6 @@ class Lookup extends Component {
         chipColor: '#474c54',
         dataSource: [],
         disabled: false,
-        filter: Filters.none,
         fullWidth: false,
         hintText: '',
         listHoverBackgroundColor: '#262626',
@@ -133,7 +140,8 @@ class Lookup extends Component {
         onSelect: () => {
         },
         open: false,
-        resultsHeader: null,
+        resultGroups: [],
+        searchFilter: Filters.none,
         selectedItems: [],
         width: 256,
     };
@@ -155,6 +163,9 @@ class Lookup extends Component {
         this.renderChip = this.renderChip.bind(this);
         this.renderListItem = this.renderListItem.bind(this);
         this.shouldApplyFilter = this.shouldApplyFilter.bind(this);
+        this.combineWithSearchFilter = this.combineWithSearchFilter.bind(this);
+        this.renderGroupedResultItems = this.renderGroupedResultItems.bind(this);
+        this.renderResultItems = this.renderResultItems.bind(this);
         this.state = {
             open: props.open,
             searchText: '',
@@ -255,7 +266,8 @@ class Lookup extends Component {
     }
 
     handleChipRemove({
-        oid, text,
+        oid,
+        text,
     }) {
         const newState = {};
         if (oid) {
@@ -409,18 +421,19 @@ class Lookup extends Component {
         );
     }
 
-    renderListItem(item, index) {
+    renderListItem(item) {
         const {
             dataSourceConfig,
         } = this.props;
-        let children = item;
+        let children = item.value;
         if (dataSourceConfig) {
-            children = dataSourceConfig.renderItem(item, index);
+            children = dataSourceConfig.renderItem(item.value, item.index);
         }
+
         return (
             <ListItem
-                itemOid={item.oid || index}
-                key={index}
+                itemOid={item.oid}
+                key={item.oid}
                 onClick={this.handleItemClick}
             >
                 {children}
@@ -432,14 +445,45 @@ class Lookup extends Component {
         return this.state.searchText.length >= this.props.minimumNumberOfCharactersToFilter;
     }
 
-    render() {
+    combineWithSearchFilter(filter) {
+        return (searchText, value, index) => filter(value, index)
+        && (!this.shouldApplyFilter() || this.props.searchFilter(searchText, value, index));
+    }
+
+    renderResultItems(dataSource, groupFilter) {
+        const filter = this.combineWithSearchFilter(groupFilter);
+        return dataSource
+            .map((item, index) => ({
+                index,
+                oid: item.oid || index,
+                value: item,
+            }))
+            .filter((item, index) => filter(this.state.searchText, item.value, index))
+            .map(this.renderListItem);
+    }
+
+    renderGroupedResultItems(groups) {
         const {
             dataSource,
-            filter,
+        } = this.props;
+
+        if (typeof(groups) === 'string') {
+            return [
+                <SubHeader key="subheader">{groups}</SubHeader>
+            ].concat(this.renderResultItems(dataSource, Filters.none))
+        }
+
+        return groups.map((group, index) => [
+            <SubHeader key={`subheader${index}`}>{group.header}</SubHeader>,
+        ].concat(this.renderResultItems(dataSource, group.filter)));
+    }
+
+    render() {
+        const {
             hintText,
             listHoverBackgroundColor,
             listHoverColor,
-            resultsHeader,
+            resultGroups,
         } = this.props;
         const {
             searchText,
@@ -447,10 +491,6 @@ class Lookup extends Component {
             open,
         } = this.state;
         const isHintTextHidden = Boolean(searchText) || !_.isEmpty(selectedItems);
-        let filterFunc = Filters.none;
-        if (this.shouldApplyFilter()) {
-            filterFunc = filter;
-        }
         const styles = this.getStyles();
 
         return (
@@ -514,14 +554,7 @@ class Lookup extends Component {
                             hoverBackgroundColor={listHoverBackgroundColor}
                             hoverColor={listHoverColor}
                         >
-                            {Boolean(resultsHeader) && (
-                                <SubHeader>
-                                    {resultsHeader}
-                                </SubHeader>
-                            )}
-                            {dataSource
-                                .filter(item => filterFunc(searchText, item))
-                                .map(this.renderListItem)}
+                            {this.renderGroupedResultItems(resultGroups)}
                         </List>
                     </div>
                 </Popover>

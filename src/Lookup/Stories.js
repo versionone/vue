@@ -1,12 +1,14 @@
 import React from 'react';
-import {storiesOf} from '@kadira/storybook';
+import {action, storiesOf} from '@kadira/storybook';
 import Lookup from './';
 import * as Filters from './Filters';
 
 const basicDataSource = [
     'Billy',
+    'Tammy',
     'Andre',
     'Chris',
+    'Tommy',
 ];
 const complexDataSourceConfig = {
     oidKey: 'oid',
@@ -37,81 +39,106 @@ const complexDataSource = [
 
 storiesOf('Lookup')
     .addWithInfo('basic',
-        `Basic AutoComplete with an array of strings for its data source.`,
+        `Basic Lookup with an array of strings for its data source.`,
         () => (
             <div>
                 <Lookup
                     dataSource={basicDataSource}
-                    resultsHeader="Results"
-                />
-                <Lookup
-                    dataSource={basicDataSource}
-                    resultsHeader="Results"
-                    selectedItems={[1]}
+                    resultGroups="All Results"
+                    onSelect={action('selected')}
                 />
             </div>
         )
     )
     .addWithInfo('complex data source',
-        `Basic AutoComplete with an array of objects for its data source.`,
+        `Basic Lookup with an array of objects for its data source.`,
         () => (
             <div>
                 <Lookup
                     dataSource={complexDataSource}
                     dataSourceConfig={complexDataSourceConfig}
-                    resultsHeader="Results"
+                    resultGroups="All Results"
+                    onSelect={action('selected')}
                 />
                 <Lookup
                     dataSource={complexDataSource}
                     dataSourceConfig={complexDataSourceConfigWithCustomTextRender}
-                    resultsHeader="Results"
-                    selectedItems={['oid:1']}
+                    resultGroups="All Results"
+                    onSelect={action('selected')}
                 />
             </div>
         )
     )
-    .addWithInfo('filtering',
+    .addWithInfo('basic filtering',
         ``,
         () => (
             <div>
                 <Lookup
                     dataSource={basicDataSource}
-                    filter={Filters.caseInsensitive}
-                    resultsHeader="Results"
+                    resultGroups="All Results"
+                    searchFilter={Filters.caseInsensitive}
+                    onSelect={action('selected')}
                 />
                 <Lookup
                     dataSource={complexDataSource}
                     dataSourceConfig={complexDataSourceConfig}
-                    filter={(searchText, value) => Filters.caseInsensitive(searchText, value.name)}
-                    resultsHeader="Results"
+                    resultGroups="All Results"
+                    searchFilter={(searchText, value) => Filters.caseInsensitive(searchText, value.name)}
+                    onSelect={action('selected')}
                 />
                 <Lookup
                     dataSource={complexDataSource}
                     dataSourceConfig={complexDataSourceConfig}
-                    filter={(searchText, value) => Filters.caseInsensitive(searchText, value.title)}
-                    resultsHeader="Results"
+                    resultGroups="All Results"
+                    searchFilter={(searchText, value) => Filters.caseInsensitive(searchText, value.title)}
+                    onSelect={action('selected')}
                 />
             </div>
         ))
+    .addWithInfo('filtering and groups',
+        `Grouping results with a filter`,
+        () => (
+            <div>
+                <Lookup
+                    dataSource={basicDataSource}
+                    resultGroups={[
+                        {
+                            header: 'SubSet Results',
+                            filter: (value, index) => index === 1,
+                        },
+                        {
+                            header: 'Rest of the Results',
+                            filter: (value, index) => index !== 1,
+                        },
+                    ]}
+                    searchFilter={Filters.caseInsensitive}
+                    onSelect={action('selected')}
+                />
+            </div>
+        )
+    )
     .addWithInfo('explicitly set values',
         `Set the auto complete to be initially rendered as open, with a search text, or selected value`,
         () => (
             <div>
                 <Lookup
                     dataSource={basicDataSource}
-                    resultsHeader="Results"
+                    resultGroups="Results"
                     selectedItems={[1]}
+                    onSelect={action('selected')}
                 />
                 <Lookup
                     dataSource={complexDataSource}
                     dataSourceConfig={complexDataSourceConfigWithCustomTextRender}
-                    resultsHeader="Results"
+                    resultGroups="Results"
                     selectedItems={['oid:1']}
+                    onSelect={action('selected')}
                 />
                 <Lookup
                     dataSource={basicDataSource}
                     open
-                    resultsHeader="Results"
+                    resultGroups="Results"
+                    onSelect={action('selected')}
                 />
             </div>
         )
@@ -123,12 +150,14 @@ storiesOf('Lookup')
                 <Lookup
                     dataSource={basicDataSource}
                     hintText="hint text"
-                    resultsHeader="Results"
+                    resultGroups="Results"
+                    onSelect={action('selected')}
                 />
                 <Lookup
                     dataSource={basicDataSource}
                     hintText="hint text that is so long, it will surely wrap, but do not neglect its importance...the longer it is, the more important it must be, right?"
-                    resultsHeader="Results"
+                    resultGroups="Results"
+                    onSelect={action('selected')}
                 />
             </div>
         )
@@ -142,14 +171,16 @@ storiesOf('Lookup')
                 <Lookup
                     dataSource={basicDataSource}
                     hintText="hint text"
-                    resultsHeader="Results"
+                    resultGroups="Results"
                     width={250}
+                    onSelect={action('selected')}
                 />
                 <Lookup
                     dataSource={basicDataSource}
                     fullWidth
                     hintText="hint text"
-                    resultsHeader="Results"
+                    resultGroups="Results"
+                    onSelect={action('selected')}
                 />
             </div>
         )

@@ -3,6 +3,7 @@ import React, {
     PropTypes
 } from 'react';
 import ThemeProvider from './../Theme';
+import getDisplayName from './component';
 
 export default ComponentToTrackHover => class TrackingHover extends Component {
     static propTypes = Component.propTypes;
@@ -13,6 +14,7 @@ export default ComponentToTrackHover => class TrackingHover extends Component {
     childContextTypes = {
         theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
     };
+    static displayName  = `TrackingHover(${getDisplayName(ComponentToTrackHover)})`;
 
     getChildContext() {
         return this.context;

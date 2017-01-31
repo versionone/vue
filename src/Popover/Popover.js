@@ -5,6 +5,7 @@ import throttle from 'lodash.throttle';
 import Radium from './../utilities/Radium';
 import RenderToLayer from './../internal/RenderToLayer';
 import ThemeProvider from './../Theme';
+import {adjustPositionRelative, adjustPositionWithin, getPosition, getViewportPosition} from './../utilities/dom';
 import * as CustomPropTypes from './../utilities/CustomPropTypes';
 import * as Positions from './Positions';
 
@@ -15,11 +16,15 @@ const centerAlignmentDivisor = 2;
 const getTargetPosition = targetElement => ({
     bottom: targetElement.offsetHeight,
     center: targetElement.offsetWidth / centerAlignmentDivisor,
+    height: targetElement.offsetHeight,
     left: 0,
     middle: targetElement.offsetHeight / centerAlignmentDivisor,
     right: targetElement.offsetWidth,
     top: 0,
+    width: targetElement.offsetWidth,
 });
+const viewportPosition = getViewportPosition();
+const adjustWithinViewPort = adjustPositionWithin(viewportPosition);
 
 class Popover extends Component {
     static propTypes = {
@@ -81,7 +86,6 @@ class Popover extends Component {
         this.handleScroll = throttle(this.setPlacement.bind(this, true), scrollThrottleValue);
         this.renderLayer = this.renderLayer.bind(this);
         this.handleComponentClickAway = this.handleComponentClickAway.bind(this);
-        this.getAnchorPosition = this.getAnchorPosition.bind(this);
         this.autoCloseWhenOffScreen = this.autoCloseWhenOffScreen.bind(this);
     }
 
@@ -138,19 +142,20 @@ class Popover extends Component {
             return;
         }
 
-        const anchorEl = anchorElement || this.anchorElement;
-        const anchor = this.getAnchorPosition(anchorEl);
-        const target = getTargetPosition(targetElement);
-        const targetPosition = {
-            left: (anchor[anchorOrigin.horizontal] - target[targetOrigin.horizontal]),
-            top: (anchor[anchorOrigin.vertical] - target[targetOrigin.vertical]),
-        };
+        const anchorEl = anchorElement || this.anchorElement || findDOMNode(this);
+
+        const anchorPosition = getPosition(anchorEl);
+        const targetPosition = getTargetPosition(targetElement);
+        const adjustPositionRelativeToAnchor = adjustPositionRelative(anchorPosition, anchorOrigin);
+        const adjustedTargetPosition = adjustPositionRelativeToAnchor(targetPosition, targetOrigin);
+        const adjustedToFitWithinWindow = adjustWithinViewPort(adjustedTargetPosition);
+
         if (scrolling && autoCloseWhenOffScreen) {
-            this.autoCloseWhenOffScreen(anchor);
+            this.autoCloseWhenOffScreen(anchorPosition);
         }
-        targetElement.style.left = `${Math.max(offScreenThresholdValue, targetPosition.left)}px`;
+        targetElement.style.left = `${Math.max(offScreenThresholdValue, adjustedToFitWithinWindow.left)}px`;
         targetElement.style.maxHeight = `${window.innerHeight}px`;
-        targetElement.style.top = `${Math.max(offScreenThresholdValue, targetPosition.top)}px`;
+        targetElement.style.top = `${Math.max(offScreenThresholdValue, adjustedToFitWithinWindow.top)}px`;
     }
 
     renderLayer() {
@@ -184,28 +189,6 @@ class Popover extends Component {
             onRequestClose,
         } = this.props;
         onRequestClose(reason);
-    }
-
-    getAnchorPosition(element) {
-        const el = element || findDOMNode(this);
-        const rect = el.getBoundingClientRect();
-        const anchorPosition = {
-            height: el.offsetHeight,
-            left: rect.left,
-            top: rect.top,
-            width: el.offsetWidth,
-        };
-
-        anchorPosition.right = rect.right || anchorPosition.left + anchorPosition.width;
-        anchorPosition.bottom = rect.bottom || anchorPosition.top + anchorPosition.height;
-        anchorPosition.center = anchorPosition.left + (
-                (anchorPosition.right - anchorPosition.left) / centerAlignmentDivisor
-            );
-        anchorPosition.middle = anchorPosition.top + (
-                (anchorPosition.bottom - anchorPosition.top) / centerAlignmentDivisor
-            );
-
-        return anchorPosition;
     }
 
     autoCloseWhenOffScreen(anchorPosition) {

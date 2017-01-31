@@ -1,7 +1,7 @@
 import {Component, PropTypes} from 'react';
 // eslint-disable-next-line camelcase
 import {unmountComponentAtNode, unstable_renderSubtreeIntoContainer} from 'react-dom';
-import isDescendant from './../utilities/dom';
+import {isDescendant} from './../utilities/dom';
 import ThemeProvider from './../Theme';
 
 const immediateTimeOutValue = 0;

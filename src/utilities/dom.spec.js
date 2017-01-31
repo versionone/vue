@@ -1,4 +1,4 @@
-import isDescendant from './dom';
+import {isDescendant} from './dom';
 
 suite('isDescendant', () => {
     test('it is a function', () => {

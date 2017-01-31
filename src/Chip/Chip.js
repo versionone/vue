@@ -8,27 +8,35 @@ import {CloseIcon} from './../Icons';
 const chipPaddingFontSizeDivisor = 3;
 
 const getStyles = (props, context) => {
-    const padding = Math.floor(props.fontSize / chipPaddingFontSizeDivisor);
+    const {
+        backgroundColor,
+        color,
+        fontSize,
+        fullWidth,
+        lineHeight,
+        width,
+    } =props;
     const {
         basicFontFamily,
         normalRadius,
         xxSmallGutter,
     } = context.theme;
+    const padding = Math.floor(fontSize / chipPaddingFontSizeDivisor);
     return ({
         buttonWrapper: {
             alignSelf: 'center',
-            marginLeft: `${props.fontSize}px`,
+            marginLeft: `${fontSize}px`,
         },
         root: {
-            backgroundColor: props.backgroundColor,
+            backgroundColor: backgroundColor,
             borderRadius: `${normalRadius}px`,
-            color: props.color,
+            color: color,
             display: 'flex',
-            fontSize: `${props.fontSize}px`,
-            lineHeight: `${props.lineHeight}`,
+            fontSize: `${fontSize}px`,
+            lineHeight: `${lineHeight}`,
             margin: `${xxSmallGutter}px`,
             padding: `${padding}px ${padding}px`,
-            width: props.fullWidth ? '100%' : `${props.width}px`,
+            width: fullWidth ? '100%' : `${width}px`,
         },
         text: {
             alignSelf: 'center',

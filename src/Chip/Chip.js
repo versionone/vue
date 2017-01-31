@@ -16,6 +16,7 @@ const getStyles = (props, context) => {
     } = context.theme;
     return ({
         buttonWrapper: {
+            alignSelf: 'center',
             marginLeft: `${props.fontSize}px`,
         },
         root: {

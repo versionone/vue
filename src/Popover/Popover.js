@@ -5,7 +5,7 @@ import throttle from 'lodash.throttle';
 import Radium from './../utilities/Radium';
 import RenderToLayer from './../internal/RenderToLayer';
 import ThemeProvider from './../Theme';
-import {adjustPositionRelativeWithin, getPosition, getViewportPosition} from './../utilities/dom';
+import {adjustPositionRelativeWithin, getPosition, getViewportPosition} from './../utilities/position';
 import * as CustomPropTypes from './../utilities/CustomPropTypes';
 import * as Positions from './Positions';
 

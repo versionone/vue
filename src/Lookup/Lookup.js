@@ -9,7 +9,7 @@ import Popover, {Positions} from './../Popover';
 import SubHeader from './../SubHeader';
 import ThemeProvider from './../Theme';
 import transparent from './../utilities/Transparent';
-import {ArrowDown, ArrowUp} from './../utilities/KeyCodes';
+import {ArrowDown, ArrowUp, Enter} from './../utilities/KeyCodes';
 import * as Filters from './Filters';
 
 const matchOn = prop => valueToMatch => item => item[prop] === valueToMatch;
@@ -162,18 +162,23 @@ class Lookup extends Component {
         this.handleItemMouseEnter = this.handleItemMouseEnter.bind(this);
         this.handleClosePopover = this.handleClosePopover.bind(this);
         this.handleChipRemove = this.handleChipRemove.bind(this);
+
+        this.setSelectedItem = this.setSelectedItem.bind(this);
         this.setHoveredItem = this.setHoveredItem.bind(this);
         this.getHeight = this.getHeight.bind(this);
         this.getStyles = this.getStyles.bind(this);
+
         this.renderChip = this.renderChip.bind(this);
         this.renderListItem = this.renderListItem.bind(this);
         this.shouldApplyFilter = this.shouldApplyFilter.bind(this);
         this.combineWithSearchFilter = this.combineWithSearchFilter.bind(this);
         this.renderGroupedResultItems = this.renderGroupedResultItems.bind(this);
         this.renderResultItems = this.renderResultItems.bind(this);
-        this.filteredItemsCount = props.dataSource.length;
+
+        this.filteredItems = props.dataSource;
+
         this.state = {
-            hoveredItemIndex: 0,
+            hoveredOid: 0,
             open: props.open,
             searchText: '',
             selectedItems: props.selectedItems,
@@ -239,11 +244,20 @@ class Lookup extends Component {
         );
     }
 
-    setHoveredItem(index) {
-        const upperBoundIndex = Math.min(index, this.filteredItemsCount - 1);
-        const lowerAndUpperBoundIndex = Math.max(upperBoundIndex, 0);
+    setSelectedItem(oid) {
         this.setState({
-            hoveredItemIndex: lowerAndUpperBoundIndex,
+            open: false,
+            searchText: '',
+            selectedItems: [
+                oid,
+            ],
+        });
+        this.props.onSelect(oid);
+    }
+
+    setHoveredItem(oid) {
+        this.setState({
+            hoveredOid: oid,
         });
     }
 
@@ -255,13 +269,19 @@ class Lookup extends Component {
 
     handleKeyUp(evt) {
         const {
-            hoveredItemIndex
+            hoveredOid
         } = this.state;
+        const currentHoveredIndex = this.filteredItems.findIndex(item => item.oid === hoveredOid);
         if (evt.keyCode === ArrowDown) {
-            this.setHoveredItem(hoveredItemIndex + 1);
+            const newIndex = Math.max(0, Math.min(currentHoveredIndex + 1, this.filteredItems.length - 1));
+            this.setHoveredItem(this.filteredItems[newIndex].oid);
         }
         else if (evt.keyCode === ArrowUp) {
-            this.setHoveredItem(hoveredItemIndex - 1);
+            const newIndex = Math.max(0, Math.min(currentHoveredIndex - 1, this.filteredItems.length - 1));
+            this.setHoveredItem(this.filteredItems[newIndex].oid);
+        }
+        else if (evt.keyCode === Enter) {
+            this.setSelectedItem(hoveredOid);
         }
     }
 
@@ -276,20 +296,11 @@ class Lookup extends Component {
     }
 
     handleItemClick(oid) {
-        this.setState({
-            open: false,
-            searchText: '',
-            selectedItems: [
-                oid,
-            ],
-        });
-        this.props.onSelect(oid);
+        this.setSelectedItem(oid);
     }
 
-    handleItemMouseEnter(index) {
-        return () => {
-            this.setHoveredItem(index);
-        };
+    handleItemMouseEnter(oid) {
+        this.setHoveredItem(oid);
     }
 
     handleClosePopover() {
@@ -301,8 +312,11 @@ class Lookup extends Component {
     handleChipRemove({
         oid,
         text,
-    }) {
-        const newState = {};
+    }, evt) {
+        evt.stopPropagation();
+        const newState = {
+            open: false,
+        };
         if (oid) {
             newState.selectedItems = this.state.selectedItems
                 .filter(matchesOid(oid));
@@ -459,7 +473,7 @@ class Lookup extends Component {
             dataSourceConfig,
         } = this.props;
         const {
-            hoveredItemIndex,
+            hoveredOid,
         } = this.state;
         let children = item.value;
         if (dataSourceConfig) {
@@ -469,10 +483,10 @@ class Lookup extends Component {
         return (
             <ListItem
                 itemOid={item.oid}
-                hovered={item.index === hoveredItemIndex}
+                hovered={item.oid === hoveredOid}
                 key={item.oid}
                 onClick={this.handleItemClick}
-                onMouseEnter={this.handleItemMouseEnter(item.index)}
+                onMouseEnter={this.handleItemMouseEnter}
             >
                 {children}
             </ListItem>
@@ -490,16 +504,17 @@ class Lookup extends Component {
 
     renderResultItems(dataSource, groupFilter) {
         const filter = this.combineWithSearchFilter(groupFilter);
-        const resultItems = dataSource
+        const filteredItems = dataSource
             .map((item, index) => ({
                 index,
                 oid: item.oid || index,
                 value: item,
             }))
-            .filter((item, index) => filter(this.state.searchText, item.value, index))
+            .filter((item, index) => filter(this.state.searchText, item.value, index));
+        this.filteredItems = filteredItems;
+
+        return filteredItems
             .map(this.renderListItem);
-        this.filteredItemsCount = resultItems.length;
-        return resultItems;
     }
 
     renderGroupedResultItems(groups) {

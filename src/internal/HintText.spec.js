@@ -45,10 +45,11 @@ function getContext() {
     return {
         context: {
             theme: {
-                textSecondaryColor: 'gray',
+                _name: 'Test Theme',
                 basicFontFamily: 'Arial',
                 normalLineHeight: 1.5,
-                smallFontSize: 14
+                smallFontSize: 14,
+                textSecondaryColor: 'gray',
             }
         }
     };

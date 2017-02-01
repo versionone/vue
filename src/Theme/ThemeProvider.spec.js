@@ -17,7 +17,7 @@ suite('ThemeProvider', () => {
 function getTheme() {
     return {
         values: {
-            _name: 'test theme',
+            _name: 'Test Theme',
             themeProperty: 'theme property value'
         }
     };

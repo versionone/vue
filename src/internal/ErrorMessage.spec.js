@@ -41,6 +41,7 @@ function getContext() {
     return {
         context: {
             theme: {
+                _name: 'Test Theme',
                 basicFontFamily: 'Arial',
                 errorPrimaryColor: 'red'
             }

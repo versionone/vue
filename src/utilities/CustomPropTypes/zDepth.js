@@ -1,4 +1,6 @@
-import {PropTypes} from 'react';
+import {
+    PropTypes
+} from 'react';
 
 const computeZDepths = () => {
     const lowestZDepth = 0;

@@ -1,7 +1,6 @@
 import React, {PropTypes} from 'react';
 import Radium from './../utilities/Radium';
 import ThemeProvider from './../Theme';
-import TrackingHover from './../utilities/TrackingHover';
 import transparent from './../utilities/Transparent';
 
 const getStyles = (props, context) => {
@@ -29,27 +28,21 @@ const getStyles = (props, context) => {
         },
     };
 };
-const handleClick = (handler, item) => () => {
-    handler(item);
+const handleEvent = (oid, handler) => (evt) => {
+    handler(oid, evt);
 };
 
-const defaultProps = {
-    onClick: () => {
-    },
-};
 const ListItem = (props, context) => {
-    const propsWithDefaults = {
-        ...defaultProps,
-        ...props,
-    };
-    const styles = getStyles(propsWithDefaults, context);
+    const styles = getStyles(props, context);
 
     return (
         <div
             style={styles.listItem}
-            onClick={handleClick(propsWithDefaults.onClick, propsWithDefaults.itemOid)}
+            onClick={handleEvent(props.itemOid, props.onClick)}
+            onMouseEnter={handleEvent(props.itemOid, props.onMouseEnter)}
+            onMouseLeave={handleEvent(props.itemOid, props.onMouseLeave)}
         >
-            {propsWithDefaults.children}
+            {props.children}
         </div>
     );
 };
@@ -81,8 +74,24 @@ ListItem.propTypes = {
      * Click event handler; fired once the ListItem is clicked
      */
     onClick: PropTypes.func,
+    /**
+     * Event handler; fired once mouse enters the component
+     */
+    onMouseEnter: PropTypes.func,
+    /**
+     * Event handler; fired once mouse leaves the component
+     */
+    onMouseLeave: PropTypes.func,
+};
+ListItem.defaultProps = {
+    onClick: () => {
+    },
+    onMouseEnter: () => {
+    },
+    onMouseLeave: () => {
+    }
 };
 ListItem.contextTypes = {
     theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
 };
-export default Radium(TrackingHover(ListItem));
+export default Radium(ListItem);

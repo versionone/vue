@@ -9,6 +9,7 @@ import Popover, {Positions} from './../Popover';
 import SubHeader from './../SubHeader';
 import ThemeProvider from './../Theme';
 import transparent from './../utilities/Transparent';
+import {ArrowDown, ArrowUp} from './../utilities/KeyCodes';
 import * as Filters from './Filters';
 
 const matchOn = prop => valueToMatch => item => item[prop] === valueToMatch;
@@ -154,11 +155,14 @@ class Lookup extends Component {
         super(props, ...rest);
 
         this.handleChangeTextField = this.handleChangeTextField.bind(this);
+        this.handleKeyUp = this.handleKeyUp.bind(this);
         this.handleClickHintText = this.handleClickHintText.bind(this);
         this.handleLookupRootClick = this.handleLookupRootClick.bind(this);
         this.handleItemClick = this.handleItemClick.bind(this);
+        this.handleItemMouseEnter = this.handleItemMouseEnter.bind(this);
         this.handleClosePopover = this.handleClosePopover.bind(this);
         this.handleChipRemove = this.handleChipRemove.bind(this);
+        this.setHoveredItem = this.setHoveredItem.bind(this);
         this.getHeight = this.getHeight.bind(this);
         this.getStyles = this.getStyles.bind(this);
         this.renderChip = this.renderChip.bind(this);
@@ -167,7 +171,9 @@ class Lookup extends Component {
         this.combineWithSearchFilter = this.combineWithSearchFilter.bind(this);
         this.renderGroupedResultItems = this.renderGroupedResultItems.bind(this);
         this.renderResultItems = this.renderResultItems.bind(this);
+        this.filteredItemsCount = props.dataSource.length;
         this.state = {
+            hoveredItemIndex: 0,
             open: props.open,
             searchText: '',
             selectedItems: props.selectedItems,
@@ -233,10 +239,30 @@ class Lookup extends Component {
         );
     }
 
+    setHoveredItem(index) {
+        const upperBoundIndex = Math.min(index, this.filteredItemsCount - 1);
+        const lowerAndUpperBoundIndex = Math.max(upperBoundIndex, 0);
+        this.setState({
+            hoveredItemIndex: lowerAndUpperBoundIndex,
+        });
+    }
+
     handleChangeTextField(evt) {
         this.setState({
             searchText: evt.target.value,
         });
+    }
+
+    handleKeyUp(evt) {
+        const {
+            hoveredItemIndex
+        } = this.state;
+        if (evt.keyCode === ArrowDown) {
+            this.setHoveredItem(hoveredItemIndex + 1);
+        }
+        else if (evt.keyCode === ArrowUp) {
+            this.setHoveredItem(hoveredItemIndex - 1);
+        }
     }
 
     handleLookupRootClick() {
@@ -258,6 +284,12 @@ class Lookup extends Component {
             ],
         });
         this.props.onSelect(oid);
+    }
+
+    handleItemMouseEnter(index) {
+        return () => {
+            this.setHoveredItem(index);
+        };
     }
 
     handleClosePopover() {
@@ -426,6 +458,9 @@ class Lookup extends Component {
         const {
             dataSourceConfig,
         } = this.props;
+        const {
+            hoveredItemIndex,
+        } = this.state;
         let children = item.value;
         if (dataSourceConfig) {
             children = dataSourceConfig.renderItem(item.value, item.index);
@@ -434,8 +469,10 @@ class Lookup extends Component {
         return (
             <ListItem
                 itemOid={item.oid}
+                hovered={item.index === hoveredItemIndex}
                 key={item.oid}
                 onClick={this.handleItemClick}
+                onMouseEnter={this.handleItemMouseEnter(item.index)}
             >
                 {children}
             </ListItem>
@@ -453,7 +490,7 @@ class Lookup extends Component {
 
     renderResultItems(dataSource, groupFilter) {
         const filter = this.combineWithSearchFilter(groupFilter);
-        return dataSource
+        const resultItems = dataSource
             .map((item, index) => ({
                 index,
                 oid: item.oid || index,
@@ -461,6 +498,8 @@ class Lookup extends Component {
             }))
             .filter((item, index) => filter(this.state.searchText, item.value, index))
             .map(this.renderListItem);
+        this.filteredItemsCount = resultItems.length;
+        return resultItems;
     }
 
     renderGroupedResultItems(groups) {
@@ -532,6 +571,7 @@ class Lookup extends Component {
                             type="text"
                             value={searchText}
                             onChange={this.handleChangeTextField}
+                            onKeyUp={this.handleKeyUp}
                         />
                     </div>
                 </div>

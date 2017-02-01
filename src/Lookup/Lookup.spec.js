@@ -8,9 +8,7 @@ suite('Lookup', () => {
     afterEach(initializeGlobalWindow);
 
     test('renders as a TextField when not open', () => {
-        const lookup = mountLookup({
-            open: false,
-        });
+        const lookup = mountLookup({open: false, });
         expect(lookupRendersClosed(lookup)).to.be.true;
     });
 
@@ -48,7 +46,7 @@ suite('Lookup', () => {
         });
         expect(lookupPopoverToBeWidth(lookup, 250)).to.be.true;
 
-        lookup.setProps({width: 300,});
+        lookup.setProps({width: 300, });
         expect(lookupPopoverToBeWidth(lookup, 300)).to.be.true;
 
         // const fullWidthAutoComplete = mountAutoComplete({
@@ -184,7 +182,7 @@ function lookupGroupResultsMatchExactly(wrapper, groupIndex, headerText, results
 
     return groupHeader.innerHTML === headerText
         && groupItems
-            .map((groupItem) => groupItem.children[0].innerHTML)
+            .map(groupItem => groupItem.children[0].innerHTML)
             .reduce((output, text, index) => output && text === results[index], true);
 }
 function getGroupStartIndex(items, index) {
@@ -194,7 +192,7 @@ function getGroupStartIndex(items, index) {
     let groupNumber = -1;
     return items.reduce((startIndex, item) => {
         if (item.tagName === 'HEADER') {
-            groupNumber = groupNumber + 1;
+            groupNumber += 1;
         }
         if (groupNumber === index) {
             return startIndex;
@@ -255,5 +253,5 @@ function noSelectedItems(wrapper) {
 }
 function childrenAsArray(parent) {
     return Object.keys(parent.children)
-        .map((key) => parent.children[key]);
+        .map(key => parent.children[key]);
 }

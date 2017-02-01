@@ -31,37 +31,37 @@ export const getPosition = (element) => {
     return position;
 };
 
-export const isWithinLeftBoundary = (boundingPosition) => (position) => position.left >= boundingPosition.left;
-export const isWithinRightBoundary = (boundingPosition) => (position) => position.right <= boundingPosition.right;
+export const isWithinLeftBoundary = boundingPosition => position => position.left >= boundingPosition.left;
+export const isWithinRightBoundary = boundingPosition => position => position.right <= boundingPosition.right;
 export const isWithinXBoundary = (boundingPosition) => {
     const isWithinLeft = isWithinLeftBoundary(boundingPosition);
     const isWithinRight = isWithinRightBoundary(boundingPosition);
 
-    return (position) => isWithinLeft(position) && isWithinRight(position);
+    return position => isWithinLeft(position) && isWithinRight(position);
 };
 
-export const isWithinTopBoundary = (boundingPosition) => (position) => position.top >= boundingPosition.top;
-export const isWithinBottomBoundary = (boundingPosition) => (position) => position.bottom <= boundingPosition.bottom;
+export const isWithinTopBoundary = boundingPosition => position => position.top >= boundingPosition.top;
+export const isWithinBottomBoundary = boundingPosition => position => position.bottom <= boundingPosition.bottom;
 export const isWithinYBoundary = (boundingPosition) => {
     const isWithinTop = isWithinTopBoundary(boundingPosition);
     const isWithinBottom = isWithinBottomBoundary(boundingPosition);
 
-    return (position) => isWithinTop(position) && isWithinBottom(position);
+    return position => isWithinTop(position) && isWithinBottom(position);
 };
 
 export const isWithinBoundary = (boundingPosition) => {
     const isWithinX = isWithinXBoundary(boundingPosition);
     const isWithinY = isWithinYBoundary(boundingPosition);
 
-    return (position) => isWithinX(position) && isWithinY(position);
+    return position => isWithinX(position) && isWithinY(position);
 };
 
-export const isColliding = (referencePosition) => (position) => (position.top > referencePosition.bottom
+export const isColliding = referencePosition => position => (position.top > referencePosition.bottom
 || position.right < referencePosition.left
 || position.bottom < referencePosition.top
 || position.left > referencePosition.right);
 
-export const isInside = (referencePosition) => (position) => position.top <= referencePosition.top
+export const isInside = referencePosition => position => position.top <= referencePosition.top
 && referencePosition.top <= position.bottom
 && position.top <= referencePosition.bottom
 && referencePosition.bottom <= position.bottom
@@ -74,7 +74,7 @@ export const isOverlapping = (referencePosition) => {
     const isCollidingWithReference = isColliding(referencePosition);
     const isInsideReference = isInside(referencePosition);
 
-    return (position) => isCollidingWithReference(position) || isInsideReference(position);
+    return position => isCollidingWithReference(position) || isInsideReference(position);
 };
 
 export const adjustPositionRelativeWithin = (boundingPosition, anchorPosition, anchorOrigin) => {
@@ -104,7 +104,7 @@ export const adjustPositionRelativeWithin = (boundingPosition, anchorPosition, a
         if (!isWithinLeft(nonOverlappingRelativePosition)) {
             const leftDifference = Math.abs(nonOverlappingRelativePosition.left - boundingPosition.left);
             nonOverlappingRelativePosition.left = 0;
-            nonOverlappingRelativePosition.right = nonOverlappingRelativePosition.right + leftDifference;
+            nonOverlappingRelativePosition.right += leftDifference;
             if (isOverlappingAnchor(nonOverlappingRelativePosition)) {
                 nonOverlappingRelativePosition.left = anchorPosition.right;
                 nonOverlappingRelativePosition.right = anchorPosition.right + nonOverlappingRelativePosition.width;
@@ -113,7 +113,7 @@ export const adjustPositionRelativeWithin = (boundingPosition, anchorPosition, a
         else if (!isWithinRight(nonOverlappingRelativePosition)) {
             const rightDifference = Math.abs(nonOverlappingRelativePosition.right - boundingPosition.right);
             nonOverlappingRelativePosition.right = 0;
-            nonOverlappingRelativePosition.left = nonOverlappingRelativePosition.left - rightDifference;
+            nonOverlappingRelativePosition.left -= rightDifference;
             if (isOverlappingAnchor(nonOverlappingRelativePosition)) {
                 nonOverlappingRelativePosition.left = anchorPosition.left - nonOverlappingRelativePosition.width;
                 nonOverlappingRelativePosition.right = anchorPosition.left;
@@ -122,7 +122,7 @@ export const adjustPositionRelativeWithin = (boundingPosition, anchorPosition, a
         else if (!isWithinTop(nonOverlappingRelativePosition)) {
             const topDifference = Math.abs(nonOverlappingRelativePosition.top - boundingPosition.top);
             nonOverlappingRelativePosition.top = 0;
-            nonOverlappingRelativePosition.bottom = nonOverlappingRelativePosition.bottom + topDifference;
+            nonOverlappingRelativePosition.bottom += topDifference;
             if (isOverlappingAnchor(nonOverlappingRelativePosition)) {
                 nonOverlappingRelativePosition.top = anchorPosition.bottom;
                 nonOverlappingRelativePosition.bottom = anchorPosition.bottom + nonOverlappingRelativePosition.height;
@@ -131,7 +131,7 @@ export const adjustPositionRelativeWithin = (boundingPosition, anchorPosition, a
         else if (!isWithinBottom(nonOverlappingRelativePosition)) {
             const bottomDifference = Math.abs(nonOverlappingRelativePosition.bottom - boundingPosition.bottom);
             nonOverlappingRelativePosition.bottom = 0;
-            nonOverlappingRelativePosition.top = nonOverlappingRelativePosition.top + bottomDifference;
+            nonOverlappingRelativePosition.top += bottomDifference;
             if (isOverlappingAnchor(nonOverlappingRelativePosition)) {
                 nonOverlappingRelativePosition.bottom = anchorPosition.top;
                 nonOverlappingRelativePosition.top = anchorPosition.top + nonOverlappingRelativePosition.height;

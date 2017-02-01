@@ -14,7 +14,7 @@ export default ComponentToTrackHover => class TrackingHover extends Component {
     childContextTypes = {
         theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
     };
-    static displayName  = `TrackingHover(${getDisplayName(ComponentToTrackHover)})`;
+    static displayName = `TrackingHover(${getDisplayName(ComponentToTrackHover)})`;
 
     getChildContext() {
         return this.context;

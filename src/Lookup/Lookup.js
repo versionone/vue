@@ -105,12 +105,13 @@ class Lookup extends Component {
         resultGroups: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.arrayOf(PropTypes.shape({
+                filter: PropTypes.func.isRequired,
                 header: PropTypes.oneOfType([
                     PropTypes.string,
                     PropTypes.node,
                 ]).isRequired,
-                filter: PropTypes.func.isRequired,
-            }))]),
+            })),
+        ]),
         /**
          * Callback function used to filter the lookup; accepts searchText, value of each item, and its index
          */
@@ -467,10 +468,10 @@ class Lookup extends Component {
             dataSource,
         } = this.props;
 
-        if (typeof(groups) === 'string') {
+        if (typeof (groups) === 'string') {
             return [
-                <SubHeader key="subheader">{groups}</SubHeader>
-            ].concat(this.renderResultItems(dataSource, Filters.none))
+                <SubHeader key="subheader">{groups}</SubHeader>,
+            ].concat(this.renderResultItems(dataSource, Filters.none));
         }
 
         return groups.map((group, index) => [

@@ -1,7 +1,5 @@
 import React, {PropTypes} from 'react';
-import * as CustomPropTypes from './../utilities/CustomPropTypes';
 import Radium from './../utilities/Radium';
-import SvgIcon from './../SvgIcon';
 import transparent from './../utilities/Transparent';
 
 const getStyles = props => ({

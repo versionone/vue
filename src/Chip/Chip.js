@@ -15,7 +15,7 @@ const getStyles = (props, context) => {
         fullWidth,
         lineHeight,
         width,
-    } =props;
+    } = props;
     const {
         basicFontFamily,
         normalRadius,
@@ -28,10 +28,10 @@ const getStyles = (props, context) => {
             marginLeft: `${fontSize}px`,
         },
         root: {
-            backgroundColor: backgroundColor,
+            backgroundColor,
             borderRadius: `${normalRadius}px`,
             boxSizing: 'border-box',
-            color: color,
+            color,
             display: 'flex',
             fontSize: `${fontSize}px`,
             lineHeight: `${lineHeight}`,

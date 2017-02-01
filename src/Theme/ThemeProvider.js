@@ -1,10 +1,10 @@
-import { Component, PropTypes, } from 'react';
+import {Component, PropTypes} from 'react';
 import v1Theme from './../styles/themes/v1Theme';
 
 export default class ThemeProvider extends Component {
     static propTypes = {
         children: PropTypes.element,
-        theme: PropTypes.shape(ThemeProvider.themeDefinition),
+        theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
     };
     static themeDefinition = {
         /**
@@ -49,13 +49,21 @@ export default class ThemeProvider extends Component {
          * Secondary color to represent a focused state.
          */
         focusedSecondaryColor: PropTypes.string.isRequired,
+        /**
+         * Normal gutter size
+         */
+        gutter: PropTypes.number.isRequired,
         importantColor: PropTypes.string.isRequired,
         /**
          * Large font size used for ...?
          */
         largeFontSize: PropTypes.number.isRequired,
         /**
-         * Larger line height used for actual component text as opposed to textual content. An example would be the text value of a TextField versus text for a Button.
+         * Large gutter
+         */
+        largeGutter: PropTypes.number.isRequired,
+        /**
+         * Larger line height used for component text.
          */
         largeLineHeight: PropTypes.number.isRequired,
         /**
@@ -87,6 +95,10 @@ export default class ThemeProvider extends Component {
          */
         smallFontSize: PropTypes.number.isRequired,
         /**
+         * Small gutter size; used for vertical padding on ListItems and SubHeaders.
+         */
+        smallGutter: PropTypes.number.isRequired,
+        /**
          * Color to represent textual content that is in a disabled state.
          */
         textDisabledColor: PropTypes.string.isRequired,
@@ -99,6 +111,10 @@ export default class ThemeProvider extends Component {
          */
         xLargeFontSize: PropTypes.number.isRequired,
         /**
+         * Extra large gutter; typically used for horizontal padding of ListItems and SubHeaders.
+         */
+        xLargeGutter: PropTypes.number.isRequired,
+        /**
          * Slightly larger medium font size used for emphasis of medium fonts.
          */
         xMediumFontSize: PropTypes.number.isRequired,
@@ -107,23 +123,27 @@ export default class ThemeProvider extends Component {
          */
         xSmallFontSize: PropTypes.number.isRequired,
         /**
-         * Default gutter spacing value. It is used in places such as the padding between the textual value of a TextField and its border.
+         * Extra-small gutter spacing. Used for padding between the textual value of a TextField and its border.
          */
         xxSmallGutter: PropTypes.number.isRequired,
     };
 
-    static defaultProps = { theme: v1Theme, };
+    static defaultProps = {
+        theme: v1Theme,
+    };
 
     static
-    childContextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
+    childContextTypes = {
+        theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
+    };
 
     getChildContext() {
-        console.log(this.props);
-        return { theme: this.props.theme, };
+        return {
+            theme: this.props.theme,
+        };
     }
 
     render() {
-        console.log(this.props);
         return this.props.children;
     }
 }

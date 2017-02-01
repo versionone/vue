@@ -2,7 +2,6 @@ import React from 'react';
 
 export default type => (props, propName, componentName) => {
     const prop = props[propName];
-    let error;
     if (propName === 'children') {
         let error = null;
         React.Children.forEach(prop, (el) => {

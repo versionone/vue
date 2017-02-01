@@ -40,10 +40,10 @@ suite('TextField', () => {
         expect(requiredIndicatorIsDisplayed(requiredTextField)).to.be.true;
     });
 
-    test('the text field\'s required indicator is inside the text field when set to full width', () => {
+    test('will show the required indicator inside of the text field when set to full width', () => {
         const fullWidthTextField = mountTextField({
             fullWidth: true,
-            required: true
+            required: true,
         });
         expect(requiredIndicatorIsInsideTextField(fullWidthTextField)).to.be.true;
     });
@@ -162,6 +162,7 @@ function mountTextField(props = {}) {
 
 function getTestTheme() {
     return {
+        _name: 'Test Theme',
         basicFontFamily: '\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif',
         disabledPrimaryColor: 'gray',
         errorPrimaryColor: 'red',
@@ -242,8 +243,7 @@ function errorTextIsAlignedWithText(wrapper) {
 }
 
 function requiredIndicatorIsInsideTextField(wrapper) {
-    return (
-        !wrapper.children('RequiredIndicator').exists()
+    return (!wrapper.children('RequiredIndicator').exists()
         && wrapper.find('input')
             .parent()
             .find('RequiredIndicator')

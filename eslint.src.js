@@ -22,9 +22,26 @@ module.exports = {
         'react',
     ],
     rules: {
-        'linebreak-style': [2, 'windows'],
-        'object-curly-spacing': [2, 'always'],
+        'comma-dangle': [2, {
+            arrays: 'always',
+            objects: 'always',
+            imports: 'never',
+            exports: 'never',
+        }],
+        'comma-style': [2, 'last', {
+            exceptions: {
+                'ImportDeclaration': true,
+            }
+        }],
+        'linebreak-style': [0, 'windows'],
+        'object-curly-newline': [2, {
+            minProperties: 1
+        }],
+        'object-curly-spacing': [2, 'never'],
         'react/no-did-mount-set-state': 0,
+        'react/sort-prop-types': [2, {
+            'callbacksLast': false,
+        }]
     },
     settings: {
         react: {

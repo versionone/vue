@@ -30,6 +30,7 @@ const getStyles = (props, context) => {
         root: {
             backgroundColor: backgroundColor,
             borderRadius: `${normalRadius}px`,
+            boxSizing: 'border-box',
             color: color,
             display: 'flex',
             fontSize: `${fontSize}px`,
@@ -138,7 +139,7 @@ Chip.propTypes = {
     width: PropTypes.number,
 };
 Chip.defaultProps = {
-    backgroundColor: 'gray',
+    backgroundColor: '#ccc',
     color: '#000',
     fontSize: 14,
     fullWidth: false,

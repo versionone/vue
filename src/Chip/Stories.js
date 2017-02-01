@@ -1,5 +1,5 @@
 import React from 'react';
-import {storiesOf} from '@kadira/storybook';
+import {action, storiesOf} from '@kadira/storybook';
 import Chip from './';
 
 storiesOf('Chip')
@@ -10,12 +10,17 @@ storiesOf('Chip')
                 <Chip
                     fullWidth
                     text="Hello world"
+                    onRequestRemove={action('request removal')}
                 />
                 <Chip
                     text="Hello world"
                     width={250}
+                    onRequestRemove={action('request removal')}
                 />
-                <Chip text="Hello world" />
+                <Chip
+                    text="Hello world"
+                    onRequestRemove={action('request removal')}
+                />
             </div>
         )
     );

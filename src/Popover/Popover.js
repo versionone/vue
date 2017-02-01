@@ -5,7 +5,7 @@ import throttle from 'lodash.throttle';
 import Radium from './../utilities/Radium';
 import RenderToLayer from './../internal/RenderToLayer';
 import ThemeProvider from './../Theme';
-import {adjustPositionRelative, adjustPositionWithin, getPosition, getViewportPosition} from './../utilities/dom';
+import {adjustPositionRelativeWithin, getPosition, getViewportPosition} from './../utilities/dom';
 import * as CustomPropTypes from './../utilities/CustomPropTypes';
 import * as Positions from './Positions';
 
@@ -24,7 +24,6 @@ const getTargetPosition = targetElement => ({
     width: targetElement.offsetWidth,
 });
 const viewportPosition = getViewportPosition();
-const adjustWithinViewPort = adjustPositionWithin(viewportPosition);
 
 class Popover extends Component {
     static propTypes = {
@@ -146,9 +145,8 @@ class Popover extends Component {
 
         const anchorPosition = getPosition(anchorEl);
         const targetPosition = getTargetPosition(targetElement);
-        const adjustPositionRelativeToAnchor = adjustPositionRelative(anchorPosition, anchorOrigin);
-        const adjustedTargetPosition = adjustPositionRelativeToAnchor(targetPosition, targetOrigin);
-        const adjustedToFitWithinWindow = adjustWithinViewPort(adjustedTargetPosition);
+        const adjustRelativeWithinViewport = adjustPositionRelativeWithin(viewportPosition, anchorPosition, anchorOrigin);
+        const adjustedToFitWithinWindow = adjustRelativeWithinViewport(targetPosition, targetOrigin);
 
         if (scrolling && autoCloseWhenOffScreen) {
             this.autoCloseWhenOffScreen(anchorPosition);

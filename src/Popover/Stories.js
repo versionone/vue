@@ -3,6 +3,10 @@ import {storiesOf} from '@kadira/storybook';
 import Popover from './';
 
 class PopoverDemo extends Component {
+    static defaultProps = {
+        showContent: false,
+    };
+
     constructor(...rest) {
         super(...rest);
         this.state = {
@@ -21,8 +25,14 @@ class PopoverDemo extends Component {
     }
 
     render() {
-        const {anchorOrigin, targetOrigin} = this.props;
-        const {open} = this.state;
+        const {
+            anchorOrigin,
+            showContent,
+            targetOrigin,
+        } = this.props;
+        const {
+            open,
+        } = this.state;
         return (
             <div>
                 <span
@@ -31,7 +41,7 @@ class PopoverDemo extends Component {
                     }}
                     onClick={this.handleClick}
                 >Anchor</span>
-                <div>This is content that the popover can render over.</div>
+                {showContent && <div>This is content that the popover can render over.</div>}
                 <Popover
                     anchorElement={this.anchor}
                     anchorOrigin={anchorOrigin}
@@ -49,70 +59,115 @@ class PopoverDemo extends Component {
 }
 
 storiesOf('Popover')
-    .addWithInfo('renders horizontally within viewport',
+    .addWithInfo('simple popover over content',
         ``,
         () => (
-            <div>
-                <div>
-                    <p>Normally would render above and to the center of the anchor; however it should auto-adjusts by
-                       moving it to the right to ensure it is within the viewport.</p>
-                    <PopoverDemo
-                        anchorOrigin={{
-                            horizontal: 'left',
-                            vertical: 'top',
-                        }}
-                        targetOrigin={{
-                            horizontal: 'right',
-                            vertical: 'bottom',
-                        }}
-                    />
-                </div>
-                <hr />
-                <div>
-                    <p>Normally would render above and to the center of the anchor; however it should auto-adjusts by
-                       moving it to the left to ensure it is within the viewport.</p>
-                    <div style={{
-                        float: 'right',
-                        textAlign: 'right',
-                    }}
-                    >
-                        <PopoverDemo
-                            anchorOrigin={{
-                                horizontal: 'right',
-                                vertical: 'top',
-                            }}
-                            targetOrigin={{
-                                horizontal: 'left',
-                                vertical: 'bottom',
-                            }}
-                        />
-                    </div>
-                </div>
-            </div>
-        )
-    )
-    .addWithInfo('renders vertically within viewport',
-        ``,
-        () => (
-            <div>
-                <p>Should render to the bottom right of the anchor, but it auto-adjusts vertically to ensure it is
-                   within the viewport.</p>
+            <div style={{
+                textAlign: 'center',
+            }}
+            >
                 <PopoverDemo
                     anchorOrigin={{
-                        horizontal: 'right',
+                        horizontal: 'center',
                         vertical: 'bottom'
                     }}
+                    showContent
                     targetOrigin={{
-                        horizontal: 'left',
+                        horizontal: 'center',
                         vertical: 'top'
                     }}
                 />
             </div>
         )
     )
-    .addWithInfo('opens on top of content',
+    .addWithInfo('too far left, top',
         ``,
         () => (
+            <PopoverDemo
+                anchorOrigin={{
+                    horizontal: 'left',
+                    vertical: 'top',
+                }}
+                targetOrigin={{
+                    horizontal: 'right',
+                    vertical: 'bottom',
+                }}
+            />
+        )
+    )
+    .addWithInfo('too far left, on top of anchor',
+        ``,
+        () => (
+            <PopoverDemo
+                anchorOrigin={{
+                    horizontal: 'left',
+                    vertical: 'middle',
+                }}
+                targetOrigin={{
+                    horizontal: 'right',
+                    vertical: 'middle',
+                }}
+            />
+        )
+    )
+    .addWithInfo('too far right, top',
+        ``,
+        () => (
+            <div style={{
+                float: 'right',
+                textAlign: 'right',
+            }}>
+                <PopoverDemo
+                    anchorOrigin={{
+                        horizontal: 'right',
+                        vertical: 'top',
+                    }}
+                    targetOrigin={{
+                        horizontal: 'left',
+                        vertical: 'bottom',
+                    }}
+                />
+            </div>
+        )
+    )
+    .addWithInfo('too far right, on top of anchor',
+        ``,
+        () => (<div style={{
+                float: 'right',
+                textAlign: 'right',
+            }}>
+                <PopoverDemo
+                    anchorOrigin={{
+                        horizontal: 'right',
+                        vertical: 'middle',
+                    }}
+                    targetOrigin={{
+                        horizontal: 'left',
+                        vertical: 'middle',
+                    }}
+                />
+            </div>
+        )
+    )
+    .addWithInfo('too far below, on right',
+        ``,
+        () => (
+            <PopoverDemo
+                anchorOrigin={{
+                    horizontal: 'right',
+                    vertical: 'bottom'
+                }}
+                targetOrigin={{
+                    horizontal: 'left',
+                    vertical: 'top'
+                }}
+            />
+        )
+    )
+    .addWithInfo('too far below, on top of anchor',
+        ``,
+        () => (
+
             <PopoverDemo
                 anchorOrigin={{
                     horizontal: 'center',

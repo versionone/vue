@@ -38,7 +38,7 @@ const complexDataSource = [
 ];
 
 storiesOf('Lookup')
-    .addWithInfo('basic',
+    .addWithInfo('datasource is array of strings',
         `Basic Lookup with an array of strings for its data source.`,
         () => (
             <div>
@@ -50,75 +50,19 @@ storiesOf('Lookup')
             </div>
         )
     )
-    .addWithInfo('complex data source',
+    .addWithInfo('data source is array objects',
         `Basic Lookup with an array of objects for its data source.`,
         () => (
-            <div>
-                <Lookup
-                    dataSource={complexDataSource}
-                    dataSourceConfig={complexDataSourceConfig}
-                    resultGroups="All Results"
-                    onSelect={action('selected')}
-                />
-                <Lookup
-                    dataSource={complexDataSource}
-                    dataSourceConfig={complexDataSourceConfigWithCustomTextRender}
-                    resultGroups="All Results"
-                    onSelect={action('selected')}
-                />
-            </div>
+            <Lookup
+                dataSource={complexDataSource}
+                dataSourceConfig={complexDataSourceConfig}
+                resultGroups="All Results"
+                onSelect={action('selected')}
+            />
         )
     )
-    .addWithInfo('basic filtering',
-        ``,
-        () => (
-            <div>
-                <Lookup
-                    dataSource={basicDataSource}
-                    resultGroups="All Results"
-                    searchFilter={Filters.caseInsensitive}
-                    onSelect={action('selected')}
-                />
-                <Lookup
-                    dataSource={complexDataSource}
-                    dataSourceConfig={complexDataSourceConfig}
-                    resultGroups="All Results"
-                    searchFilter={(searchText, value) => Filters.caseInsensitive(searchText, value.name)}
-                    onSelect={action('selected')}
-                />
-                <Lookup
-                    dataSource={complexDataSource}
-                    dataSourceConfig={complexDataSourceConfig}
-                    resultGroups="All Results"
-                    searchFilter={(searchText, value) => Filters.caseInsensitive(searchText, value.title)}
-                    onSelect={action('selected')}
-                />
-            </div>
-        ))
-    .addWithInfo('filtering and groups',
-        `Grouping results with a filter`,
-        () => (
-            <div>
-                <Lookup
-                    dataSource={basicDataSource}
-                    resultGroups={[
-                        {
-                            header: 'SubSet Results',
-                            filter: (value, index) => index === 1,
-                        },
-                        {
-                            header: 'Rest of the Results',
-                            filter: (value, index) => index !== 1,
-                        },
-                    ]}
-                    searchFilter={Filters.caseInsensitive}
-                    onSelect={action('selected')}
-                />
-            </div>
-        )
-    )
-    .addWithInfo('explicitly set values',
-        `Set the auto complete to be initially rendered as open, with a search text, or selected value`,
+    .addWithInfo('can explicitly set selection',
+        `Basic Lookup with an array of objects for its data source.`,
         () => (
             <div>
                 <Lookup
@@ -131,7 +75,7 @@ storiesOf('Lookup')
                     dataSource={complexDataSource}
                     dataSourceConfig={complexDataSourceConfigWithCustomTextRender}
                     resultGroups="Results"
-                    selectedItems={['oid:1']}
+                    selectedItems={['oid:2']}
                     onSelect={action('selected')}
                 />
                 <Lookup
@@ -143,6 +87,7 @@ storiesOf('Lookup')
             </div>
         )
     )
+
     .addWithInfo('hint text',
         `AutoComplete with hint text`,
         () => (
@@ -166,6 +111,7 @@ storiesOf('Lookup')
         `AutoComplete with defined width and full width props`,
         () => (
             <div style={{
+                backgroundColor: 'white',
                 width: '500px',
             }}>
                 <Lookup
@@ -184,4 +130,76 @@ storiesOf('Lookup')
                 />
             </div>
         )
-    );
+    )
+    .addWithInfo('custom rendering of result/selected items',
+        `Basic Lookup with an array of objects for its data source.`,
+        () => (
+            <Lookup
+                dataSource={complexDataSource}
+                dataSourceConfig={complexDataSourceConfigWithCustomTextRender}
+                resultGroups="All Results"
+                onSelect={action('selected')}
+            />
+        )
+    )
+    .addWithInfo('case insensitive filtering on name',
+        ``,
+        () => (
+            <div>
+                <Lookup
+                    dataSource={basicDataSource}
+                    resultGroups="All Results"
+                    searchFilter={Filters.caseInsensitive}
+                    onSelect={action('selected')}
+                />
+                <Lookup
+                    dataSource={complexDataSource}
+                    dataSourceConfig={complexDataSourceConfig}
+                    resultGroups="All Results"
+                    searchFilter={(searchText, value) => Filters.caseInsensitive(searchText, value.name)}
+                    onSelect={action('selected')}
+                />
+            </div>
+        ))
+    .addWithInfo('result list groupings',
+        `Grouping results with a filter`,
+        () => (
+            <div>
+                <Lookup
+                    dataSource={basicDataSource}
+                    resultGroups={[
+                        {
+                            header: 'SubSet Results',
+                            filter: (value, index) => index === 1,
+                        },
+                        {
+                            header: 'Rest of the Results',
+                            filter: (value, index) => index !== 1,
+                        },
+                    ]}
+                    onSelect={action('selected')}
+                />
+            </div>
+        )
+    ).addWithInfo('result list groupings and filtering',
+    `Grouping results with a filter`,
+    () => (
+        <div>
+            <Lookup
+                dataSource={basicDataSource}
+                resultGroups={[
+                    {
+                        header: 'SubSet Results',
+                        filter: (value, index) => index === 1,
+                    },
+                    {
+                        header: 'Rest of the Results',
+                        filter: (value, index) => index !== 1,
+                    },
+                ]}
+                searchFilter={Filters.caseInsensitive}
+                onSelect={action('selected')}
+            />
+        </div>
+    )
+);

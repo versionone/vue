@@ -22,6 +22,7 @@ storiesOf('List')
                     <ListItem
                         itemOid={item}
                         item={item}
+                        key={index}
                         onClick={action(`Clicked item ${(index+1)}`)}
                         onSelect={action(`Selected item ${(index+1)}`)}
                     >
@@ -33,6 +34,7 @@ storiesOf('List')
                     <ListItem
                         itemOid={item}
                         item={item}
+                        key={index}
                         onClick={action(`Clicked item ${index+5}`)}
                         onSelect={action(`Selected item ${index+5}`)}
                     >
@@ -59,6 +61,7 @@ storiesOf('List')
                     <ListItem
                         itemOid={item}
                         item={item}
+                        key={index}
                         onClick={action(`Clicked item ${(index+1)}`)}
                         onSelect={action(`Selected item ${(index+1)}`)}
                     >
@@ -70,6 +73,7 @@ storiesOf('List')
                     <ListItem
                         itemOid={item}
                         item={item}
+                        key={index}
                         onClick={action(`Clicked item ${index+5}`)}
                         onSelect={action(`Selected item ${index+5}`)}
                     >

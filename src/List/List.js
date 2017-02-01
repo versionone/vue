@@ -31,9 +31,10 @@ const List = (props, context) => {
             style={styles.list}
         >
             {React.Children
-                .map(children, child => Boolean(child) && React.cloneElement(child, {
+                .map(children, (child, index) => Boolean(child) && React.cloneElement(child, {
                     hoverBackgroundColor,
                     hoverColor,
+                    key: index,
                 }))
             }
         </div>

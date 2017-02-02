@@ -12,8 +12,6 @@ import transparent from './../utilities/Transparent';
 import * as Filters from './Filters';
 
 const matchOn = prop => valueToMatch => item => item[prop] === valueToMatch;
-const matchOid = matchOn('oid');
-const matchesOid = oid => matchOid(oid);
 
 const configureGetChipValues = (dataSourceConfig, dataSource) => (oid) => {
     if (!dataSourceConfig) {
@@ -87,6 +85,10 @@ class Lookup extends Component {
          */
         minimumNumberOfCharactersToFilter: PropTypes.number,
         /**
+         * When true, allows user to select multiple values from lookup
+         */
+        multiValue: PropTypes.bool,
+        /**
          * Event handler which fires upon the selection of an item from the results list
          */
         onSelect: PropTypes.func,
@@ -136,6 +138,7 @@ class Lookup extends Component {
         listHoverBackgroundColor: '#262626',
         listHoverColor: '#fff',
         minimumNumberOfCharactersToFilter: 3,
+        multiValue: false,
         onSelect: () => {
         },
         open: false,
@@ -152,23 +155,25 @@ class Lookup extends Component {
     constructor(props, ...rest) {
         super(props, ...rest);
 
-        this.handleChangeTextField = this.handleChangeTextField.bind(this);
-        this.handleClickHintText = this.handleClickHintText.bind(this);
-        this.handleLookupRootClick = this.handleLookupRootClick.bind(this);
-        this.handleItemSelection = this.handleItemSelection.bind(this);
-        this.handleClosePopover = this.handleClosePopover.bind(this);
-        this.handleChipRemove = this.handleChipRemove.bind(this);
-
         this.setSelectedItem = this.setSelectedItem.bind(this);
+
+        this.applyGroupFilter = this.applyGroupFilter.bind(this);
+        this.combineWithSearchFilter = this.combineWithSearchFilter.bind(this);
         this.getHeight = this.getHeight.bind(this);
         this.getStyles = this.getStyles.bind(this);
-
-        this.renderChip = this.renderChip.bind(this);
-        this.renderListItem = this.renderListItem.bind(this);
+        this.removeSelectedItem = this.removeSelectedItem.bind(this);
         this.shouldApplyFilter = this.shouldApplyFilter.bind(this);
-        this.combineWithSearchFilter = this.combineWithSearchFilter.bind(this);
+
+        this.handleChangeTextField = this.handleChangeTextField.bind(this);
+        this.handleChipRemove = this.handleChipRemove.bind(this);
+        this.handleClickHintText = this.handleClickHintText.bind(this);
+        this.handleClosePopover = this.handleClosePopover.bind(this);
+        this.handleItemSelection = this.handleItemSelection.bind(this);
+        this.handleLookupRootClick = this.handleLookupRootClick.bind(this);
+
+        this.renderChips = this.renderChips.bind(this);
         this.renderGroupedResultItems = this.renderGroupedResultItems.bind(this);
-        this.applyGroupFilter = this.applyGroupFilter.bind(this);
+        this.renderListItem = this.renderListItem.bind(this);
 
         this.items = [];
 
@@ -211,6 +216,22 @@ class Lookup extends Component {
         this.setState(newState);
     }
 
+    applyGroupFilter(dataSource, groupFilter) {
+        const filter = this.combineWithSearchFilter(groupFilter);
+        return dataSource
+            .map((item, index) => ({
+                index,
+                oid: item.oid || index,
+                value: item,
+            }))
+            .filter((item, index) => filter(this.state.searchText, item.value, index));
+    }
+
+    combineWithSearchFilter(filter) {
+        return (searchText, value, index) => filter(value, index)
+        && (!this.shouldApplyFilter() || this.props.searchFilter(searchText, value, index));
+    }
+
     getFullWidth() {
         return parseInt(window
             .getComputedStyle(this.rootEl)
@@ -229,56 +250,9 @@ class Lookup extends Component {
         );
     }
 
-    setSelectedItem(oid) {
-        this.setState({
-            open: false,
-            searchText: '',
-            selectedItems: [
-                oid,
-            ],
-        });
-        this.props.onSelect(oid);
-    }
-
-    handleChangeTextField(evt) {
-        this.setState({
-            searchText: evt.target.value,
-        });
-    }
-
-    handleClickHintText() {
-        this.inputField.focus();
-    }
-
-    handleItemSelection(evt, index) {
-        let selectedItem = this.items.find((item, itemIndex) => itemIndex === index);
-        let selectedOid = selectedItem.oid;
-        this.setSelectedItem(selectedOid);
-    }
-
-    handleLookupRootClick() {
-        this.setState({
-            open: !this.state.open,
-        });
-    }
-
-    handleClosePopover() {
-        this.setState({
-            open: false,
-        });
-    }
-
-    handleChipRemove(evt, oid) {
-        evt.stopPropagation();
-        this.setState({
-            open: false,
-            selectedItems: this.state.selectedItems
-                .filter(matchesOid(oid)),
-        });
-    }
-
     getStyles() {
         const {
+            multiValue,
             fullWidth,
         } = this.props;
         const {
@@ -307,18 +281,19 @@ class Lookup extends Component {
             ? (height + paddingHeight + borderHeight)
             : textFieldHeight;
         const computedWidth = fullWidth ? '100%' : `${width}px`;
+        const totalWidthWithoutChipsWidth = fullWidth ? '100%' : `${width}px`;
 
         return {
+            chipWrapper: {
+                display: multiValue ? 'inline-flex' : 'flex',
+            },
             hintTextWrapper: {
-                background: 'rgba(255,255,255,1)',
-                border: `1px solid ${fieldBorderColor}`,
-                borderRadius: `${normalRadius}px`,
                 boxSizing: 'border-box',
                 height: `${hintTextWrapperHeight}px`,
                 padding: `${xxSmallGutter}px`,
                 position: 'absolute',
-                top: 0,
-                width: computedWidth,
+                top: '0px',
+                width: '100%',
             },
             input: {
                 background: transparent,
@@ -329,7 +304,7 @@ class Lookup extends Component {
                 fontFamily: basicFontFamily,
                 fontSize: `${smallFontSize}px`,
                 outline: 'none',
-                padding: 0,
+                padding: '0px',
                 position: 'relative',
                 width: '100%',
             },
@@ -340,9 +315,21 @@ class Lookup extends Component {
                 display: 'inline-flex',
                 marginTop,
                 minWidth: width,
-                padding: `${xxSmallGutter}px`,
-                width,
+                padding: `0px ${xxSmallGutter}px`,
+                width: '100%',
                 zIndex: 11,
+            },
+            lookupWrapper: {
+                background: 'rgba(255,255,255,1)',
+                border: `1px solid ${fieldBorderColor}`,
+                borderRadius: `${normalRadius}px`,
+                boxSizing: 'border-box',
+                display: 'flex',
+                height: `${hintTextWrapperHeight}px`,
+                position: 'absolute',
+                top: 0,
+                width,
+                zIndex: 12,
             },
             paddingForPopover: {
                 height: `${hintTextWrapperHeight}px`,
@@ -361,23 +348,80 @@ class Lookup extends Component {
             },
             selectedItems: {
                 background: transparent,
-                display: 'flex',
+                display: multiValue ? 'inline-flex' : 'flex',
                 height: `${hintTextWrapperHeight}px`,
-                position: 'absolute',
-                top: 0,
-                width,
-                zIndex: 12,
             },
             textFieldWrapper: {
                 height: `${textFieldHeight}px`,
-                position: 'absolute',
-                top: 0,
-                width: '100%',
+                position: 'relative',
+                width: totalWidthWithoutChipsWidth,
             },
         };
     }
 
-    renderChip(styles) {
+    removeSelectedItem(oid) {
+        const selectedItems = this.state.selectedItems
+            .filter((item) => item !== oid);
+
+        this.setState({
+            open: false,
+            selectedItems,
+        });
+    }
+
+    setSelectedItem(oid) {
+        const {
+            multiValue
+        } = this.props;
+        const newSelection = [oid];
+        const selectedItems = multiValue ? this.state.selectedItems.concat(newSelection) : newSelection;
+
+        this.setState({
+            open: false,
+            searchText: '',
+            selectedItems,
+        });
+        this.props.onSelect(oid);
+    }
+
+    shouldApplyFilter() {
+        return this.state.searchText.length >= this.props.minimumNumberOfCharactersToFilter;
+    }
+
+    handleChangeTextField(evt) {
+        this.setState({
+            searchText: evt.target.value,
+        });
+    }
+
+    handleChipRemove(evt, oid) {
+        evt.stopPropagation();
+        this.removeSelectedItem(oid)
+    }
+
+    handleClickHintText() {
+        this.inputField.focus();
+    }
+
+    handleClosePopover() {
+        this.setState({
+            open: false,
+        });
+    }
+
+    handleItemSelection(evt, index) {
+        let selectedItem = this.items.find((item, itemIndex) => itemIndex === index);
+        let selectedOid = selectedItem.oid;
+        this.setSelectedItem(selectedOid);
+    }
+
+    handleLookupRootClick() {
+        this.setState({
+            open: !this.state.open,
+        });
+    }
+
+    renderChips(styles) {
         const {
             chipBackgroundColor,
             chipColor,
@@ -399,18 +443,23 @@ class Lookup extends Component {
 
         return (
             <div
+                ref={(el) => {
+                    this.chipList = el;
+                }}
                 style={styles.selectedItems}
             >
                 {selectedItems.map((item, index) => (
-                    <Chip
-                        fullWidth
-                        backgroundColor={chipBackgroundColor}
-                        color={chipColor}
-                        fontSize={smallFontSize}
-                        key={index}
-                        onRequestRemove={this.handleChipRemove}
-                        {...getChipValues(item, index)}
-                    />
+                    <div style={styles.chipWrapper}>
+                        <Chip
+                            fullWidth
+                            backgroundColor={chipBackgroundColor}
+                            color={chipColor}
+                            fontSize={smallFontSize}
+                            key={index}
+                            onRequestRemove={this.handleChipRemove}
+                            {...getChipValues(item, index)}
+                        />
+                    </div>
                 ))}
             </div>
         );
@@ -432,26 +481,6 @@ class Lookup extends Component {
                 {children}
             </ListItem>
         );
-    }
-
-    shouldApplyFilter() {
-        return this.state.searchText.length >= this.props.minimumNumberOfCharactersToFilter;
-    }
-
-    combineWithSearchFilter(filter) {
-        return (searchText, value, index) => filter(value, index)
-        && (!this.shouldApplyFilter() || this.props.searchFilter(searchText, value, index));
-    }
-
-    applyGroupFilter(dataSource, groupFilter) {
-        const filter = this.combineWithSearchFilter(groupFilter);
-        return dataSource
-            .map((item, index) => ({
-                index,
-                oid: item.oid || index,
-                value: item,
-            }))
-            .filter((item, index) => filter(this.state.searchText, item.value, index));
     }
 
     renderGroupedResultItems(groups) {
@@ -504,47 +533,51 @@ class Lookup extends Component {
 
         return (
             <div
-                ref={(el) => {
-                    this.rootEl = el;
-                }}
                 style={styles.root}
                 onClick={this.handleLookupRootClick}
             >
                 <div style={styles.paddingForPopover} />
-                {this.renderChip(styles)}
-                <div style={styles.textFieldWrapper}>
-                    <div style={styles.hintTextWrapper}>
+                <div style={styles.lookupWrapper} ref={(el) => {
+                    this.popoverAnchor = el;
+                }}>
+                    {this.renderChips(styles)}
+                    <div
+
+                        style={styles.textFieldWrapper}
+                    >
+                        <div style={styles.hintTextWrapper}>
+                            <div
+                                ref={(el) => {
+                                    this.hintTextWrapper = el;
+                                }}
+                            >
+                                <HintText
+                                    hidden={isHintTextHidden}
+                                    text={hintText}
+                                    onClick={this.handleClickHintText}
+                                />
+                            </div>
+                        </div>
                         <div
                             ref={(el) => {
-                                this.hintTextWrapper = el;
+                                this.inputWrapper = el;
                             }}
+                            style={styles.inputWrapper}
                         >
-                            <HintText
-                                hidden={isHintTextHidden}
-                                text={hintText}
-                                onClick={this.handleClickHintText}
+                            <input
+                                ref={(el) => {
+                                    this.inputField = el;
+                                }}
+                                style={styles.input}
+                                type="text"
+                                value={searchText}
+                                onChange={this.handleChangeTextField}
                             />
                         </div>
                     </div>
-                    <div
-                        ref={(el) => {
-                            this.inputWrapper = el;
-                        }}
-                        style={styles.inputWrapper}
-                    >
-                        <input
-                            ref={(el) => {
-                                this.inputField = el;
-                            }}
-                            style={styles.input}
-                            type="text"
-                            value={searchText}
-                            onChange={this.handleChangeTextField}
-                        />
-                    </div>
                 </div>
                 <Popover
-                    anchor={this.rootEl}
+                    anchor={this.popoverAnchor}
                     anchorOrigin={{
                         horizontal: Positions.left,
                         vertical: Positions.bottom,

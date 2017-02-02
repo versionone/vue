@@ -38,8 +38,8 @@ const complexDataSource = [
 ];
 
 storiesOf('Lookup')
-    .addWithInfo('datasource is array of strings',
-        `Basic Lookup with an array of strings for its data source.`,
+    .addWithInfo('data source is array of strings',
+        ``,
         () => (
             <div>
                 <Lookup
@@ -51,7 +51,7 @@ storiesOf('Lookup')
         )
     )
     .addWithInfo('data source is array objects',
-        `Basic Lookup with an array of objects for its data source.`,
+        ``,
         () => (
             <Lookup
                 dataSource={complexDataSource}
@@ -62,7 +62,7 @@ storiesOf('Lookup')
         )
     )
     .addWithInfo('can explicitly set selection',
-        `Basic Lookup with an array of objects for its data source.`,
+        ``,
         () => (
             <div>
                 <Lookup
@@ -89,7 +89,7 @@ storiesOf('Lookup')
     )
 
     .addWithInfo('hint text',
-        `AutoComplete with hint text`,
+        ``,
         () => (
             <div>
                 <Lookup
@@ -108,7 +108,7 @@ storiesOf('Lookup')
         )
     )
     .addWithInfo('widths',
-        `AutoComplete with defined width and full width props`,
+        ``,
         () => (
             <div style={{
                 backgroundColor: 'white',
@@ -132,7 +132,7 @@ storiesOf('Lookup')
         )
     )
     .addWithInfo('custom rendering of result/selected items',
-        `Basic Lookup with an array of objects for its data source.`,
+        ``,
         () => (
             <Lookup
                 dataSource={complexDataSource}
@@ -162,7 +162,7 @@ storiesOf('Lookup')
             </div>
         ))
     .addWithInfo('result list groupings',
-        `Grouping results with a filter`,
+        ``,
         () => (
             <div>
                 <Lookup
@@ -181,25 +181,73 @@ storiesOf('Lookup')
                 />
             </div>
         )
-    ).addWithInfo('result list groupings and filtering',
-    `Grouping results with a filter`,
-    () => (
-        <div>
-            <Lookup
-                dataSource={basicDataSource}
-                resultGroups={[
-                    {
-                        header: 'SubSet Results',
-                        filter: (value, index) => index === 1,
-                    },
-                    {
-                        header: 'Rest of the Results',
-                        filter: (value, index) => index !== 1,
-                    },
-                ]}
-                searchFilter={Filters.caseInsensitive}
-                onSelect={action('selected')}
-            />
-        </div>
     )
-);
+    .addWithInfo('result list groupings and filtering',
+        ``,
+        () => (
+            <div>
+                <Lookup
+                    dataSource={basicDataSource}
+                    resultGroups={[
+                        {
+                            header: 'SubSet Results',
+                            filter: (value, index) => index === 1,
+                        },
+                        {
+                            header: 'Rest of the Results',
+                            filter: (value, index) => index !== 1,
+                        },
+                    ]}
+                    searchFilter={Filters.caseInsensitive}
+                    onSelect={action('selected')}
+                />
+            </div>
+        )
+    )
+    .addWithInfo('multi-value',
+        ``,
+        () => (
+            <div>
+                <Lookup
+                    dataSource={basicDataSource}
+                    multiValue
+                    resultGroups={[
+                        {
+                            header: 'SubSet Results',
+                            filter: (value, index) => index === 1,
+                        },
+                        {
+                            header: 'Rest of the Results',
+                            filter: (value, index) => index !== 1,
+                        },
+                    ]}
+                    searchFilter={Filters.caseInsensitive}
+                    onSelect={action('selected')}
+                />
+            </div>
+        )
+    )
+    .addWithInfo('multi-value, many selected',
+        ``,
+        () => (
+            <div>
+                <Lookup
+                    dataSource={basicDataSource}
+                    multiValue
+                    resultGroups={[
+                        {
+                            header: 'SubSet Results',
+                            filter: (value, index) => index === 1,
+                        },
+                        {
+                            header: 'Rest of the Results',
+                            filter: (value, index) => index !== 1,
+                        },
+                    ]}
+                    searchFilter={Filters.caseInsensitive}
+                    selectedItems={[0,1,4]}
+                    onSelect={action('selected')}
+                />
+            </div>
+        )
+    );

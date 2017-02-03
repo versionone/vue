@@ -1,9 +1,8 @@
 import React, {PropTypes} from 'react';
 import {setOpacity, darken, toRgbaString} from '@andrew-codes/color-functions';
 import Radium from './../utilities/Radium';
-import ThemeProvider from './../Theme';
 import transparent from './../utilities/Transparent';
-import {create} from './../styles/Transitions';
+import {create as createTransition} from './../styles/Transitions';
 import {getForegroundForBackground} from './../utilities/colorManipulator';
 import * as ButtonSizes from './Sizes';
 import * as ButtonTypes from './Types';
@@ -22,7 +21,7 @@ const darkenInvert = (foreground, background) => {
         color: foreground,
     };
 };
-const getStylesBasedOnType = (props, context) => {
+const getStylesBasedOnType = (props, theme) => {
     const {
         altColor,
         basicColor,
@@ -31,9 +30,9 @@ const getStylesBasedOnType = (props, context) => {
         lightInverseColor,
         normalBackground,
         textPrimaryColor,
-    } = context.theme;
+    } = theme;
     const {
-        disable,
+        disabled,
         type,
     } = props;
     const inverseColors = [
@@ -41,9 +40,9 @@ const getStylesBasedOnType = (props, context) => {
         lightInverseColor,
     ];
 
-    if (disable) {
-        const disableColorOpacity = 0.3;
-        const color = toRgbaString(setOpacity(textPrimaryColor, disableColorOpacity));
+    if (disabled) {
+        const disabledColorOpacity = 0.3;
+        const color = toRgbaString(setOpacity(textPrimaryColor, disabledColorOpacity));
         return {
             ':hover': {
                 background: normalBackground,
@@ -101,23 +100,24 @@ const getStylesBasedOnType = (props, context) => {
         color: textPrimaryColor,
     };
 };
-const getStyles = (props, context) => {
+const getStyles = (props, theme) => {
+    const {
+        disabled,
+        size,
+    } = props;
     const {
         normalRadius,
         basicFontFamily,
         bold,
         largeLineHeight,
         smallFontSize,
-    } = context.theme;
-    const {
-        size,
-    } = props;
+    } = theme;
 
     const fontSize = smallFontSize * size;
     const height = Math.ceil(fontSize * largeLineHeight);
     const borderRadiusMultiplier = 2;
     const borderRadius = normalRadius * borderRadiusMultiplier;
-    const typeStyles = getStylesBasedOnType(props, context);
+    const typeStyles = getStylesBasedOnType(props, theme);
 
     return {
         root: {
@@ -128,26 +128,26 @@ const getStyles = (props, context) => {
             border: `1px solid ${transparent}`,
             borderRadius: `${borderRadius}px`,
             boxSizing: 'border-box',
-            cursor: 'pointer',
+            cursor: disabled ? 'not-allowed' : 'pointer',
             display: 'inline-block',
             fontFamily: basicFontFamily,
             fontSize: `${fontSize}px`,
             fontWeight: bold,
             height: `${height}px`,
             letterSpacing: '0.03em',
-            lineHeight: `${largeLineHeight}px`,
+            lineHeight: `${largeLineHeight}`,
             margin: '0',
             padding: '0 1em',
             textAlign: 'center',
             textShadow: 'none',
-            transition: create('0.5s'),
+            transition: createTransition('0.5s'),
             whiteSpace: 'no-wrap',
             ...typeStyles,
         },
     };
 };
-const handleClick = (handler, disable) => (evt) => {
-    if (disable) {
+const handleEvent = (handler, {disabled}) => (evt) => {
+    if (disabled) {
         return;
     }
     handler(evt);
@@ -155,21 +155,14 @@ const handleClick = (handler, disable) => (evt) => {
 
 const Button = (props, context) => {
     const {
-        disable,
         onClick,
-        size,
         text,
-        type,
     } = props;
-    const styles = getStyles({
-        disable,
-        size,
-        type,
-    }, context);
+    const styles = getStyles(props, context.theme);
     return (
         <button
             style={styles.root}
-            onClick={handleClick(onClick, disable)}
+            onClick={handleEvent(onClick, props)}
         >
             {text}
         </button>
@@ -205,7 +198,7 @@ Button.propTypes = {
     ]),
 };
 Button.defaultProps = {
-    disable: false,
+    disabled: false,
     onClick: () => {
     },
     size: ButtonSizes.normal,
@@ -213,7 +206,7 @@ Button.defaultProps = {
     type: ButtonTypes.standard,
 };
 Button.contextTypes = {
-    theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
+    theme: PropTypes.object.isRequired,
 };
 
 export default Radium(Button);

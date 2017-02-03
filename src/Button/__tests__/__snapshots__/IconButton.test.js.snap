@@ -1,0 +1,87 @@
+exports[`test circular icon 1`] = `
+<div
+  data-radium={true}
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(0,0,0,0)",
+      "border": "1px solid rgba(0,0,0,0)",
+      "borderRadius": "50%",
+      "cursor": "pointer",
+      "display": "inline-block",
+      "lineHeight": 0.6,
+      "transition": "all 0.25s linear 0ms",
+    }
+  }>
+  <CloseIcon
+    width={24} />
+</div>
+`;
+
+exports[`test icon rendering 1`] = `
+<div
+  data-radium={true}
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(0,0,0,0)",
+      "border": "1px solid rgba(0,0,0,0)",
+      "borderRadius": "0px",
+      "cursor": "pointer",
+      "display": "inline-block",
+      "lineHeight": 0.6,
+      "transition": "all 0.25s linear 0ms",
+    }
+  }>
+  <CloseIcon
+    width={24} />
+</div>
+`;
+
+exports[`test it can be disabled 1`] = `
+<div
+  data-radium={true}
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(0,0,0,0)",
+      "border": "1px solid rgba(0,0,0,0)",
+      "borderRadius": "0px",
+      "cursor": "not-allowed",
+      "display": "inline-block",
+      "lineHeight": 0.6,
+      "transition": "all 0.25s linear 0ms",
+    }
+  }>
+  <CloseIcon
+    width={24} />
+</div>
+`;
+
+exports[`test it can be resized 1`] = `
+<div
+  data-radium={true}
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(0,0,0,0)",
+      "border": "1px solid rgba(0,0,0,0)",
+      "borderRadius": "0px",
+      "cursor": "pointer",
+      "display": "inline-block",
+      "lineHeight": 0.6,
+      "transition": "all 0.25s linear 0ms",
+    }
+  }>
+  <CloseIcon
+    width={18} />
+</div>
+`;

@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
 import TrackingHover from './../utilities/TrackingHover';
+import {create as createTransition} from './../styles/Transitions';
 import Radium from './../utilities/Radium';
 
 const getStyles = (props) => {
@@ -7,6 +8,7 @@ const getStyles = (props) => {
         color,
         hoverColor,
         hovered,
+        padding,
         transition,
         width,
     } = props;
@@ -16,7 +18,7 @@ const getStyles = (props) => {
             fill: hovered ? hoverColor : color,
             height: `${width}px`,
             margin: 0,
-            padding: 0,
+            padding: `${padding}px`,
             transition,
             width: `${width}px`,
         },
@@ -27,22 +29,11 @@ const handleEvent = handler => evt => handler(evt);
 const SvgIcon = (props) => {
     const {
         children,
-        color,
-        hoverColor,
-        hovered,
         onClick,
         onMouseEnter,
         onMouseLeave,
-        transition,
-        width,
     } = props;
-    const styles = getStyles({
-        color,
-        hoverColor,
-        hovered,
-        transition,
-        width,
-    });
+    const styles = getStyles(props);
 
     return (
         <svg
@@ -88,11 +79,15 @@ SvgIcon.propTypes = {
      */
     onMouseLeave: PropTypes.func,
     /**
-     * Transition to apply to SVG; typically used for fill color on hover.
+     * Number of pixels to pad icon
+     */
+    padding: PropTypes.number,
+    /**
+     * Transition to apply to SVG; typically used for fill color on hover
      */
     transition: PropTypes.string,
     /**
-     * Width of the SVG; also applies this as the height.
+     * Width of the SVG; also applies this as the height
      */
     width: PropTypes.number,
 };
@@ -102,7 +97,8 @@ SvgIcon.defaultProps = {
     onClick: () => {},
     onMouseEnter: () => {},
     onMouseLeave: () => {},
-    transition: 'fill 0.25s linear 0ms',
+    padding: 0,
+    transition: createTransition('0.25s', 'fill', '0ms', 'linear'),
     width: 24,
 };
 

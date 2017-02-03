@@ -1,123 +1,227 @@
 import React from 'react';
 import {action, storiesOf} from '@kadira/storybook';
-import Button from './';
+import CloseIcon from './../Icons/CloseIcon';
+import Button, {IconButton} from './';
 import * as ButtonSizes from './Sizes';
 import * as ButtonTypes from './Types';
 
 storiesOf('Button')
     .addWithInfo('empty/blank',
-        `Button with no text or content`,
+        '',
         () => (
             <Button onClick={action('clicked')} />
         )
     )
-    .addWithInfo('standard button',
-        `Buttons default to a standard type`,
-        () => (
-            <Button text="Click Me" type={ButtonTypes.standard} onClick={action('clicked')} />
-        )
-    )
-    .addWithInfo('small, normal, large standard buttons',
-        `size is a numeric value that will scale the button by times the size's specified amount`,
+    .addWithInfo('types',
+        '',
         () => (
             <div>
-                <section>
-                    <h1>Standard Buttons</h1>
-                    <Button text="Click Me" size={ButtonSizes.small} />
-                    <Button text="Click Me" size={ButtonSizes.normal} />
-                    <Button text="Click Me" size={ButtonSizes.large} />
-                </section>
-                <section>
-                    <h1>Basic Buttons</h1>
-                    <Button text="Click Me" size={ButtonSizes.small} type={ButtonTypes.basic} />
-                    <Button text="Click Me" size={ButtonSizes.normal} type={ButtonTypes.basic} />
-                    <Button text="Click Me" size={ButtonSizes.large} type={ButtonTypes.basic} />
-                </section>
-                <section>
-                    <h1>Important Buttons</h1>
-                    <Button text="Click Me" size={ButtonSizes.small} type={ButtonTypes.important} />
-                    <Button text="Click Me" size={ButtonSizes.normal} type={ButtonTypes.important} />
-                    <Button text="Click Me" size={ButtonSizes.large} type={ButtonTypes.important} />
-                </section>
-                <section>
-                    <h1>Alt Buttons</h1>
-                    <Button text="Click Me" size={ButtonSizes.small} type={ButtonTypes.alt} />
-                    <Button text="Click Me" size={ButtonSizes.normal} type={ButtonTypes.alt} />
-                    <Button text="Click Me" size={ButtonSizes.large} type={ButtonTypes.alt} />
-                </section>
-                <section>
-                    <h1>Basic Alt Buttons</h1>
-                    <Button text="Click Me" size={ButtonSizes.small} type={ButtonTypes.basicAlt} />
-                    <Button text="Click Me" size={ButtonSizes.normal} type={ButtonTypes.basicAlt} />
-                    <Button text="Click Me" size={ButtonSizes.large} type={ButtonTypes.basicAlt} />
-                </section>
-                <section>
-                    <h1>Special Buttons</h1>
-                    <Button text="Click Me" size={ButtonSizes.small} type={ButtonTypes.special} />
-                    <Button text="Click Me" size={ButtonSizes.normal} type={ButtonTypes.special} />
-                    <Button text="Click Me" size={ButtonSizes.large} type={ButtonTypes.special} />
-                </section>
+                <Button text="Default is Standard" type={ButtonTypes.standard} onClick={action('clicked')} />
+                <Button text="Standard" type={ButtonTypes.standard} onClick={action('clicked')} />
+                <Button text="Important" type={ButtonTypes.important} onClick={action('clicked')} />
+                <Button text="Basic" type={ButtonTypes.basic} onClick={action('clicked')} />
+                <Button text="Alternative" type={ButtonTypes.alt} onClick={action('clicked')} />
+                <Button text="Basic Alternative" type={ButtonTypes.basicAlt} onClick={action('clicked')} />
+                <Button text="Special" type={ButtonTypes.special} onClick={action('clicked')} />
             </div>
         )
     )
-    .addWithInfo('basic button',
-        ``,
-        () => (
-            <Button text="Click Me" type={ButtonTypes.basic} onClick={action('clicked')} />
-        )
-    )
-    .addWithInfo('important button',
-        ``,
-        () => (
-            <Button text="Click Me" type={ButtonTypes.important} onClick={action('clicked')} />
-        )
-    )
-    .addWithInfo('alternative button',
-        ``,
-        () => (
-            <Button text="Click Me" type={ButtonTypes.alt} onClick={action('clicked')} />
-        )
-    )
-    .addWithInfo('basic alternative button',
-        ``,
-        () => (
-            <Button text="Click Me" type={ButtonTypes.basicAlt} onClick={action('clicked')} />
-        )
-    )
-    .addWithInfo('special button',
-        ``,
-        () => (
-            <Button text="Click Me" type={ButtonTypes.special} onClick={action('clicked')} />
-        )
-    )
     .addWithInfo('disabled buttons',
-        ``,
+        '',
+        () => (
+            <div>
+                <Button disabled text="Default is Standard" type={ButtonTypes.standard} onClick={action('clicked')} />
+                <Button disabled text="Standard" type={ButtonTypes.standard} onClick={action('clicked')} />
+                <Button disabled text="Important" type={ButtonTypes.important} onClick={action('clicked')} />
+                <Button disabled text="Basic" type={ButtonTypes.basic} onClick={action('clicked')} />
+                <Button disabled text="Alternative" type={ButtonTypes.alt} onClick={action('clicked')} />
+                <Button disabled text="Basic Alternative" type={ButtonTypes.basicAlt} onClick={action('clicked')} />
+                <Button disabled text="Special" type={ButtonTypes.special} onClick={action('clicked')} />
+            </div>
+        )
+    )
+    .addWithInfo('resizing',
+        '',
         () => (
             <div>
                 <section>
-                    <h1>Standard Buttons</h1>
-                    <Button text="Click Me" disable onClick={action('clicked')} />
+                    <Button text="Standard" size={ButtonSizes.small} />
+                    <Button text="Standard" size={ButtonSizes.normal} />
+                    <Button text="Standard" size={ButtonSizes.large} />
                 </section>
                 <section>
-                    <h1>Basic Buttons</h1>
-                    <Button text="Click Me" disable type={ButtonTypes.basic} onClick={action('clicked')} />
+                    <Button text="Important" size={ButtonSizes.small} type={ButtonTypes.important} />
+                    <Button text="Important" size={ButtonSizes.normal} type={ButtonTypes.important} />
+                    <Button text="Important" size={ButtonSizes.large} type={ButtonTypes.important} />
                 </section>
                 <section>
-                    <h1>Important Buttons</h1>
-                    <Button text="Click Me" disable type={ButtonTypes.important} onClick={action('clicked')} />
+                    <Button text="Basic" size={ButtonSizes.small} type={ButtonTypes.basic} />
+                    <Button text="Basic" size={ButtonSizes.normal} type={ButtonTypes.basic} />
+                    <Button text="Basic" size={ButtonSizes.large} type={ButtonTypes.basic} />
                 </section>
                 <section>
-                    <h1>Alt Buttons</h1>
-                    <Button text="Click Me" disable type={ButtonTypes.alt} onClick={action('clicked')} />
+                    <Button text="Alternative" size={ButtonSizes.small} type={ButtonTypes.alt} />
+                    <Button text="Alternative" size={ButtonSizes.normal} type={ButtonTypes.alt} />
+                    <Button text="Alternative" size={ButtonSizes.large} type={ButtonTypes.alt} />
                 </section>
                 <section>
-                    <h1>Basic Alt Buttons</h1>
-                    <Button text="Click Me" disable type={ButtonTypes.basicAlt} onClick={action('clicked')} />
+                    <Button text="Basic Alternative" size={ButtonSizes.small} type={ButtonTypes.basicAlt} />
+                    <Button text="Basic Alternative" size={ButtonSizes.normal} type={ButtonTypes.basicAlt} />
+                    <Button text="Basic Alternative" size={ButtonSizes.large} type={ButtonTypes.basicAlt} />
                 </section>
                 <section>
-                    <h1>Special Buttons</h1>
-                    <Button text="Click Me" disable type={ButtonTypes.special} onClick={action('clicked')} />
+                    <Button text="Special" size={ButtonSizes.small} type={ButtonTypes.special} />
+                    <Button text="Special" size={ButtonSizes.normal} type={ButtonTypes.special} />
+                    <Button text="Special" size={ButtonSizes.large} type={ButtonTypes.special} />
                 </section>
+            </div>
+        )
+    );
+
+storiesOf('IconButton')
+    .addWithInfo('hover colors',
+        '',
+        () => (
+            <IconButton
+                icon={CloseIcon}
+                backgroundColor="white"
+                color="blue"
+                hoverBackgroundColor="blue"
+                hoverColor="white"
+                onClick={action('clicked')}
+            />
+        )
+    )
+    .addWithInfo('circular',
+        '',
+        () => (
+            <IconButton
+                backgroundColor="blue"
+                circle
+                color="white"
+                hoverBackgroundColor="white"
+                hoverColor="blue"
+                icon={CloseIcon}
+                size={ButtonSizes.small}
+                onClick={action('clicked')}
+            />
+        )
+    )
+    .addWithInfo('border',
+        '',
+        () => (
+            <div>
+                <IconButton
+                    icon={CloseIcon}
+                    backgroundColor="white"
+                    border="1px solid green"
+                    color="blue"
+                    hoverBackgroundColor="blue"
+                    hoverColor="white"
+                    onClick={action('clicked')}
+                />
+                <IconButton
+                    backgroundColor="white"
+                    border="1px solid green"
+                    circle
+                    color="blue"
+                    hoverBackgroundColor="blue"
+                    hoverColor="white"
+                    icon={CloseIcon}
+                    size={ButtonSizes.small}
+                    onClick={action('clicked')}
+                />
+            </div>
+        )
+    )
+    .addWithInfo('disabled',
+        '',
+        () => (
+            <div>
+                <div>
+                    <h2>With Background colors</h2>
+                    <IconButton
+                        backgroundColor="white"
+                        disabled
+                        hoverBackgroundColor="blue"
+                        hoverColor="white"
+                        icon={CloseIcon}
+                        onClick={action('clicked')}
+                    />
+                    <IconButton
+                        backgroundColor="white"
+                        border="blue"
+                        disabled
+                        hoverBackgroundColor="blue"
+                        hoverColor="white"
+                        icon={CloseIcon}
+                        onClick={action('clicked')}
+                    />
+                    <IconButton
+                        backgroundColor="white"
+                        circle
+                        disabled
+                        hoverBackgroundColor="blue"
+                        hoverColor="white"
+                        icon={CloseIcon}
+                        onClick={action('clicked')}
+                    />
+                    <IconButton
+                        backgroundColor="white"
+                        border="blue"
+                        circle
+                        disabled
+                        hoverBackgroundColor="blue"
+                        hoverColor="white"
+                        icon={CloseIcon}
+                        onClick={action('clicked')}
+                    />
+                </div>
+                <div>
+                    <h2>Without Background colors</h2>
+                    <IconButton
+                        disabled
+                        hoverBackgroundColor="blue"
+                        hoverColor="white"
+                        icon={CloseIcon}
+                        onClick={action('clicked')}
+                    />
+                    <IconButton
+                        border="blue"
+                        disabled
+                        hoverBackgroundColor="blue"
+                        hoverColor="white"
+                        icon={CloseIcon}
+                        onClick={action('clicked')}
+                    />
+                    <IconButton
+                        circle
+                        disabled
+                        hoverBackgroundColor="blue"
+                        hoverColor="white"
+                        icon={CloseIcon}
+                        onClick={action('clicked')}
+                    />
+                    <IconButton
+                        border="blue"
+                        circle
+                        disabled
+                        hoverBackgroundColor="blue"
+                        hoverColor="white"
+                        icon={CloseIcon}
+                        onClick={action('clicked')}
+                    />
+                </div>
+            </div>
+        )
+    )
+    .addWithInfo('resizing',
+        '',
+        () => (
+            <div>
+                <IconButton disabled icon={CloseIcon} size={ButtonSizes.small} onClick={action('clicked')} />
+                <IconButton disabled icon={CloseIcon} size={ButtonSizes.normal} onClick={action('clicked')} />
+                <IconButton disabled icon={CloseIcon} size={ButtonSizes.large} onClick={action('clicked')} />
             </div>
         )
     );

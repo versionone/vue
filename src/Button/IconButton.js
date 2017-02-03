@@ -3,6 +3,7 @@ import {normal} from './Sizes';
 import Radium from './../utilities/Radium';
 import transparent from './../utilities/Transparent';
 import {create as createTransition} from './../styles/Transitions';
+import {createConditionalEventHandler} from './../utilities/component';
 
 const getStyles = (props, theme) => ({
     root: {
@@ -19,18 +20,12 @@ const getStyles = (props, theme) => ({
     },
 });
 
-const handleEvent = (handler, {disabled}) => evt => {
-    if (disabled) {
-        return;
-    }
-    handler(evt);
-};
-
 const IconButton = (props, context) => {
     const {
         color,
         disabled,
         hoverColor,
+        onClick,
         size,
     } = props;
     const {
@@ -42,12 +37,13 @@ const IconButton = (props, context) => {
     const width = baseIconSize * size;
     const iconColor = disabled ? disabledPrimaryColor : color;
     const iconHoverColor = disabled ? disabledPrimaryColor : hoverColor;
+    const handleClick = createConditionalEventHandler(!disabled)(onClick);
     const styles = getStyles(props, context.theme);
 
     return (
         <div
             style={styles.root}
-            onClick={handleEvent(props.onClick, props)}
+            onClick={handleClick}
         >
             {React.createElement(props.icon, {
                 color: iconColor,

@@ -4,6 +4,7 @@ import Radium from './../utilities/Radium';
 import transparent from './../utilities/Transparent';
 import {create as createTransition} from './../styles/Transitions';
 import {getForegroundForBackground} from './../utilities/colorManipulator';
+import {createConditionalEventHandler} from './../utilities/component';
 import * as ButtonSizes from './Sizes';
 import * as ButtonTypes from './Types';
 
@@ -146,23 +147,19 @@ const getStyles = (props, theme) => {
         },
     };
 };
-const handleEvent = (handler, {disabled}) => (evt) => {
-    if (disabled) {
-        return;
-    }
-    handler(evt);
-};
 
 const Button = (props, context) => {
     const {
+        disabled,
         onClick,
         text,
     } = props;
+    const handleClick = createConditionalEventHandler(!disabled)(onClick);
     const styles = getStyles(props, context.theme);
     return (
         <button
             style={styles.root}
-            onClick={handleEvent(onClick, props)}
+            onClick={handleClick}
         >
             {text}
         </button>

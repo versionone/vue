@@ -3,6 +3,7 @@ import Radium from './../utilities/Radium';
 import ThemeProvider from './../Theme';
 import * as Transitions from './../styles/Transitions';
 import {fullyVisible as opacityFullyVisible, hidden as opacityHidden} from './../utilities/Opacity';
+import {createEventHandler} from './../utilities/component';
 
 const getStyles = (props, context) => {
     const {
@@ -30,15 +31,14 @@ const getStyles = (props, context) => {
 
 const ErrorMessage = (props, context) => {
     const {
+        onClick,
         text,
-        // eslint-disable-next-line no-unused-vars
-        hidden,
-        ...rest
     } = props;
+    const handleClick = createEventHandler(onClick);
     const styles = getStyles(props, context);
-
+    
     return (
-        <div{...rest}>
+        <div onClick={handleClick}>
             <span style={styles.text}>
                 {text}
             </span>

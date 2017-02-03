@@ -91,3 +91,26 @@ exports[`test it can be resized 1`] = `
     width={18} />
 </div>
 `;
+
+exports[`test it can have a border 1`] = `
+<div
+  data-radium={true}
+  onClick={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(0,0,0,0)",
+      "border": "1px solid blue",
+      "borderRadius": "0px",
+      "cursor": "pointer",
+      "display": "inline-block",
+      "lineHeight": 0.6,
+      "transition": "all 0.25s linear 0ms",
+    }
+  }>
+  <CloseIcon
+    padding={6}
+    width={24} />
+</div>
+`;

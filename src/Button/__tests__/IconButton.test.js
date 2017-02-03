@@ -3,6 +3,7 @@ import CloseIcon from './../../Icons/CloseIcon';
 import {getRender, snapshot} from './../../../specHelpers/rendering';
 
 const renderIconButton = getRender(IconButton);
+const clickEvent = {test: true};
 
 test('icon rendering', () => {
     const iconButton = renderIconButton({
@@ -33,8 +34,9 @@ test('it can be clicked', () => {
         icon: CloseIcon,
         onClick,
     });
-    simulateClick(iconButton);
+    simulateClick(iconButton, clickEvent);
     expect(onClick).toHaveBeenCalledTimes(1);
+    expect(onClick).toHaveBeenCalledWith(clickEvent);
 });
 
 test('it can be disabled', () => {
@@ -49,6 +51,14 @@ test('it can be disabled', () => {
     expect(snapshot(iconButton)).toMatchSnapshot();
 });
 
-function simulateClick(wrapper) {
-    wrapper.simulate('click');
+test('it can have a border', () => {
+    const iconButton = renderIconButton({
+        border: '1px solid blue',
+        icon: CloseIcon,
+    });
+    expect(snapshot(iconButton)).toMatchSnapshot();
+});
+
+function simulateClick(wrapper, evt = {}) {
+    wrapper.simulate('click', evt);
 }

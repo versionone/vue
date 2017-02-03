@@ -3,14 +3,16 @@ import {getRender, snapshot} from './../../../specHelpers/rendering';
 import * as ButtonTypes from '../Types';
 
 const renderButton = getRender(Button);
+const clickEvent = {test: true};
 
 test('it is click-able with an event handler', () => {
     const onClick = jest.fn();
     const button = renderButton({
         onClick,
     });
-    simulateClick(button);
-    expect(onClick).toBeCalled();
+    simulateClick(button, clickEvent);
+    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(onClick).toHaveBeenCalledWith(clickEvent);
 });
 
 test('standard button', () => {
@@ -82,6 +84,6 @@ test('button can be disabled', () => {
     expect(snapshot(button)).toMatchSnapshot();
 });
 
-function simulateClick(wrapper) {
-    wrapper.simulate('click');
+function simulateClick(wrapper, evt = {}) {
+    wrapper.simulate('click', evt);
 }

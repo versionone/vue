@@ -2,9 +2,10 @@ import React, {PropTypes} from 'react';
 import {darken, toRgbaString} from '@andrew-codes/color-functions';
 import Radium from './../utilities/Radium';
 import ThemeProvider from './../Theme';
+import {createEventHandler} from './../utilities/component';
 import {IconButton} from './../Button';
-import {xxSmall} from './../Button/Sizes';
 import {CloseIcon} from './../Icons';
+import {xxSmall} from './../Button/Sizes';
 
 const getStyles = (props, context) => {
     const {
@@ -52,10 +53,6 @@ const getStyles = (props, context) => {
     });
 };
 
-const handleIconButtonClick = (handler, text) => (evt) => {
-    handler(evt, text);
-};
-
 const Chip = (props, context) => {
     const {
         backgroundColor,
@@ -75,6 +72,7 @@ const Chip = (props, context) => {
         width,
     }, context);
     const iconButtonDarkenCoefficient = 0.45;
+    const handleClick = createEventHandler(onRequestRemove, text);
 
     return (
         <div style={styles.root}>
@@ -87,7 +85,7 @@ const Chip = (props, context) => {
                         icon={CloseIcon}
                         size={xxSmall}
                         width={fontSize * lineHeight}
-                        onClick={handleIconButtonClick(onRequestRemove, text)}
+                        onClick={handleClick}
                     />
                 </div>
             </div>

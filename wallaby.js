@@ -3,6 +3,7 @@ module.exports = function(wallaby) {
         files: [
             'src/**/*.js',
             'package.json',
+            'specHelpers/*.js',
             '!src/**/*.test.js',
             '!src/**/examples/**/*.*',
             '!src/**/Stories.js',

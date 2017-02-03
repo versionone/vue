@@ -16,6 +16,7 @@ exports[`test circular icon 1`] = `
     }
   }>
   <CloseIcon
+    padding={6}
     width={24} />
 </div>
 `;
@@ -38,6 +39,7 @@ exports[`test icon rendering 1`] = `
     }
   }>
   <CloseIcon
+    padding={6}
     width={24} />
 </div>
 `;
@@ -60,6 +62,9 @@ exports[`test it can be disabled 1`] = `
     }
   }>
   <CloseIcon
+    color="#808080"
+    hoverColor="#808080"
+    padding={6}
     width={24} />
 </div>
 `;
@@ -82,6 +87,7 @@ exports[`test it can be resized 1`] = `
     }
   }>
   <CloseIcon
+    padding={6}
     width={18} />
 </div>
 `;

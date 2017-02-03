@@ -1,0 +1,59 @@
+exports[`test it can render text in the Chip 1`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "backgroundColor": "#ccc",
+      "borderRadius": "3px",
+      "boxSizing": "border-box",
+      "color": "#000",
+      "display": "flex",
+      "fontSize": "14px",
+      "lineHeight": "undefined",
+      "margin": "3px",
+      "padding": "6px",
+      "width": "200px",
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "alignSelf": "center",
+        "display": "flex",
+        "width": "100%",
+      }
+    }>
+    <span
+      data-radium={true}
+      style={
+        Object {
+          "alignSelf": "center",
+          "flex": 1,
+          "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+        }
+      }>
+      Hello Chip
+    </span>
+    <div
+      data-radium={true}
+      style={
+        Object {
+          "display": "flex",
+          "marginLeft": "14px",
+        }
+      }>
+      <IconButton
+        backgroundColor="rgba(0,0,0,0)"
+        circle={true}
+        color="rgba(89,89,89,1)"
+        disabled={false}
+        icon={[Function]}
+        onClick={[Function]}
+        size={0.375}
+        transition="all 0.25s linear 0ms"
+        width={14} />
+    </div>
+  </div>
+</div>
+`;

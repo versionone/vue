@@ -3,9 +3,8 @@ import {darken, toRgbaString} from '@andrew-codes/color-functions';
 import Radium from './../utilities/Radium';
 import ThemeProvider from './../Theme';
 import {IconButton} from './../Button';
+import {xxSmall} from './../Button/Sizes';
 import {CloseIcon} from './../Icons';
-
-const chipPaddingFontSizeDivisor = 3;
 
 const getStyles = (props, context) => {
     const {
@@ -19,12 +18,13 @@ const getStyles = (props, context) => {
     const {
         basicFontFamily,
         normalRadius,
+        smallGutter,
         xxSmallGutter,
     } = context.theme;
-    const padding = Math.floor(fontSize / chipPaddingFontSizeDivisor);
+
     return ({
         buttonWrapper: {
-            alignSelf: 'center',
+            display: 'flex',
             marginLeft: `${fontSize}px`,
         },
         root: {
@@ -36,7 +36,7 @@ const getStyles = (props, context) => {
             fontSize: `${fontSize}px`,
             lineHeight: `${lineHeight}`,
             margin: `${xxSmallGutter}px`,
-            padding: `${padding}px ${padding}px`,
+            padding: `${smallGutter}px`,
             width: fullWidth ? '100%' : `${width}px`,
         },
         text: {
@@ -52,11 +52,8 @@ const getStyles = (props, context) => {
     });
 };
 
-const handleIconButtonClick = (text, oid, handler) => (evt) => {
-    handler({
-        oid,
-        text,
-    }, evt);
+const handleIconButtonClick = (handler, text) => (evt) => {
+    handler(evt, text);
 };
 
 const Chip = (props, context) => {
@@ -66,7 +63,6 @@ const Chip = (props, context) => {
         fontSize,
         fullWidth,
         lineHeight,
-        oid,
         text,
         onRequestRemove,
         width,
@@ -89,8 +85,9 @@ const Chip = (props, context) => {
                         circle
                         color={toRgbaString(darken(backgroundColor, iconButtonDarkenCoefficient))}
                         icon={CloseIcon}
+                        size={xxSmall}
                         width={fontSize * lineHeight}
-                        onClick={handleIconButtonClick(text, oid, onRequestRemove)}
+                        onClick={handleIconButtonClick(onRequestRemove, text)}
                     />
                 </div>
             </div>
@@ -118,13 +115,6 @@ Chip.propTypes = {
      * Line height for the text of the Chip
      */
     lineHeight: PropTypes.number,
-    /**
-     * The unique identifier for the text of this Chip; useful when needing to reference a specific Chip for `onRequestRemove` callback
-     */
-    oid: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-    ]),
     /**
      * Function handling the clicking of the close icon of the Chip
      */

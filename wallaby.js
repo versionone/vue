@@ -17,8 +17,8 @@ module.exports = function(wallaby) {
             runner: 'node',
         },
         filesWithNoCoverageCalculated: [
-            'specSetup.js',
             'specHelpers/**/*.js',
+            'src/Icons/*.js'
         ],
         compilers: {
             '**/*.js': wallaby.compilers.babel(),

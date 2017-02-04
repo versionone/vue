@@ -1,4 +1,4 @@
-exports[`test it animates being hidden 1`] = `
+exports[`test error message animates being hidden 1`] = `
 <div
   data-radium={true}
   onClick={[Function]}>
@@ -20,7 +20,7 @@ exports[`test it animates being hidden 1`] = `
 </div>
 `;
 
-exports[`test it can render defaults properly 1`] = `
+exports[`test error message can render defaults properly 1`] = `
 <div
   data-radium={true}
   onClick={[Function]}>

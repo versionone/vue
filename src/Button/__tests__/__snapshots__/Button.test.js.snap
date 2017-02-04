@@ -140,6 +140,40 @@ exports[`test button can be disabled 1`] = `
   } />
 `;
 
+exports[`test button can be resized 1`] = `
+<button
+  data-radium={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+  style={
+    Object {
+      "alignItems": "flex-start",
+      "background": "#fff",
+      "border": "1px solid #030303",
+      "borderRadius": "6px",
+      "boxSizing": "border-box",
+      "color": "#030303",
+      "cursor": "pointer",
+      "display": "inline-block",
+      "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+      "fontSize": "10.5px",
+      "fontWeight": undefined,
+      "height": "24px",
+      "letterSpacing": "0.03em",
+      "lineHeight": "2.285",
+      "margin": "0",
+      "padding": "0 1em",
+      "textAlign": "center",
+      "textShadow": "none",
+      "transition": "all 0.5s linear 0ms",
+      "whiteSpace": "no-wrap",
+    }
+  } />
+`;
+
 exports[`test important button 1`] = `
 <button
   data-radium={true}
@@ -174,40 +208,6 @@ exports[`test important button 1`] = `
   }>
   Click me
 </button>
-`;
-
-exports[`test it can be resized 1`] = `
-<button
-  data-radium={true}
-  onBlur={[Function]}
-  onClick={[Function]}
-  onFocus={[Function]}
-  onMouseEnter={[Function]}
-  onMouseLeave={[Function]}
-  style={
-    Object {
-      "alignItems": "flex-start",
-      "background": "#fff",
-      "border": "1px solid #030303",
-      "borderRadius": "6px",
-      "boxSizing": "border-box",
-      "color": "#030303",
-      "cursor": "pointer",
-      "display": "inline-block",
-      "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
-      "fontSize": "10.5px",
-      "fontWeight": undefined,
-      "height": "24px",
-      "letterSpacing": "0.03em",
-      "lineHeight": "2.285",
-      "margin": "0",
-      "padding": "0 1em",
-      "textAlign": "center",
-      "textShadow": "none",
-      "transition": "all 0.5s linear 0ms",
-      "whiteSpace": "no-wrap",
-    }
-  } />
 `;
 
 exports[`test special button 1`] = `

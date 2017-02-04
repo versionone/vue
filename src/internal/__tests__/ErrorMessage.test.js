@@ -4,14 +4,14 @@ import {getRender, snapshot} from './../../../specHelpers/rendering';
 const renderErrorMessage = getRender(ErrorMessage);
 const evt = {test: true};
 
-test('it can render defaults properly', () => {
+test('error message can render defaults properly', () => {
     const component = renderErrorMessage({
         text: 'required field',
     });
     expect(snapshot(component)).toMatchSnapshot();
 });
 
-test('it animates being hidden', () => {
+test('error message animates being hidden', () => {
     const component = renderErrorMessage({
         hidden: true,
         text: 'required field',
@@ -19,7 +19,7 @@ test('it animates being hidden', () => {
     expect(snapshot(component)).toMatchSnapshot();
 });
 
-test('it is click-able', () => {
+test('error message is click-able', () => {
     const onClick = jest.fn();
     const component = renderErrorMessage({
         onClick,

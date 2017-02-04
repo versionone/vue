@@ -5,7 +5,7 @@ import * as ButtonTypes from '../Types';
 const renderButton = getRender(Button);
 const clickEvent = {test: true};
 
-test('it is click-able with an event handler', () => {
+test('button is click-able with an event handler', () => {
     const onClick = jest.fn();
     const button = renderButton({
         onClick,
@@ -68,7 +68,7 @@ test('special button', () => {
     expect(snapshot(button)).toMatchSnapshot();
 });
 
-test('it can be resized', () => {
+test('button can be resized', () => {
     const button = renderButton({size: 0.75});
     expect(snapshot(button)).toMatchSnapshot();
 });

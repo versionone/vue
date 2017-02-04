@@ -5,14 +5,14 @@ import {getRender, snapshot} from './../../../specHelpers/rendering';
 const renderIconButton = getRender(IconButton);
 const clickEvent = {test: true};
 
-test('icon rendering', () => {
+test('icon button renders with defaults', () => {
     const iconButton = renderIconButton({
         icon: CloseIcon,
     });
     expect(snapshot(iconButton)).toMatchSnapshot();
 });
 
-test('circular icon', () => {
+test('circular icon button', () => {
     const iconButton = renderIconButton({
         circle: true,
         icon: CloseIcon,
@@ -20,7 +20,7 @@ test('circular icon', () => {
     expect(snapshot(iconButton)).toMatchSnapshot();
 });
 
-test('it can be resized', () => {
+test('icon button can be resized', () => {
     const button = renderIconButton({
         icon: CloseIcon,
         size: 0.75
@@ -28,7 +28,7 @@ test('it can be resized', () => {
     expect(snapshot(button)).toMatchSnapshot();
 });
 
-test('it can be clicked', () => {
+test('icon button is click-able', () => {
     const onClick = jest.fn();
     const iconButton = renderIconButton({
         icon: CloseIcon,
@@ -39,7 +39,7 @@ test('it can be clicked', () => {
     expect(onClick).toHaveBeenCalledWith(clickEvent);
 });
 
-test('it can be disabled', () => {
+test('icon button can be disabled', () => {
     const onClick = jest.fn();
     const iconButton = renderIconButton({
         disabled: true,
@@ -51,7 +51,7 @@ test('it can be disabled', () => {
     expect(snapshot(iconButton)).toMatchSnapshot();
 });
 
-test('it can have a border', () => {
+test('icon button can have a border', () => {
     const iconButton = renderIconButton({
         border: '1px solid blue',
         icon: CloseIcon,

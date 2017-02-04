@@ -1,6 +1,6 @@
 import * as ButtonTypes from '../Types';
 
-test('individual button types are exported', () => {
+test('button types are exported', () => {
     expect(ButtonTypes.standard).toBeDefined();
     expect(ButtonTypes.basic).toBeDefined();
     expect(ButtonTypes.important).toBeDefined();

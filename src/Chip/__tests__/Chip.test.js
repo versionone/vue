@@ -11,6 +11,14 @@ test('it can render text in the Chip', () => {
     expect(snapshot(component)).toMatchSnapshot();
 });
 
+test('it can render as full width', () => {
+    const component = shallowRenderChip({
+        fullWidth: true,
+        text: 'Hello Chip',
+    });
+    expect(snapshot(component)).toMatchSnapshot();
+});
+
 test('it is click-able', () => {
     const onRequestRemove = jest.fn();
     const component = shallowRenderChip({

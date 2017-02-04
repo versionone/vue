@@ -55,48 +55,48 @@ test('List\'s list items are highlighted when hovered over', () => {
 });
 
 test('List can have a callback for when an item is highlighted', () => {
-    const onItemHighlighted = jest.fn();
+    const onHighlightItem = jest.fn();
     const component = mountList({
         children: getListItems(),
         highlightBackgroundColor: 'blue',
         highlightColor: 'white',
-        onItemHighlighted,
+        onHighlightItem,
     });
     simulateHover(component, evt);
-    expect(onItemHighlighted).toHaveBeenCalledTimes(1);
-    expect(onItemHighlighted.mock.calls[0][0].test).toBeTruthy();
-    expect(onItemHighlighted.mock.calls[0][1]).toEqual(2);
+    expect(onHighlightItem).toHaveBeenCalledTimes(1);
+    expect(onHighlightItem.mock.calls[0][0].test).toBeTruthy();
+    expect(onHighlightItem.mock.calls[0][1]).toEqual(2);
 });
 
 test('Up arrow key moves highlighted item up from the current highlighted item when list is active', () => {
-    const onItemHighlighted = jest.fn();
+    const onHighlightItem = jest.fn();
     const component = mountList({
         active: true,
         children: getListItems(),
         highlightBackgroundColor: 'blue',
         highlightColor: 'white',
         highlightedIndex: 2,
-        onItemHighlighted,
+        onHighlightItem,
     });
     simulateUpArrowKey(component);
-    expect(onItemHighlighted).toHaveBeenCalledTimes(1);
-    expect(onItemHighlighted.mock.calls[0][1]).toEqual(1);
+    expect(onHighlightItem).toHaveBeenCalledTimes(1);
+    expect(onHighlightItem.mock.calls[0][1]).toEqual(1);
     expect(snapshot(component)).toMatchSnapshot();
 });
 
 test('Down arrow key moves highlighted item down from the current highlighted item when list is active', () => {
-    const onItemHighlighted = jest.fn();
+    const onHighlightItem = jest.fn();
     const component = mountList({
         active: true,
         children: getListItems(),
         highlightBackgroundColor: 'blue',
         highlightColor: 'white',
         highlightedIndex: 1,
-        onItemHighlighted,
+        onHighlightItem,
     });
     simulateDownArrowKey(component);
-    expect(onItemHighlighted).toHaveBeenCalledTimes(1);
-    expect(onItemHighlighted.mock.calls[0][1]).toEqual(2);
+    expect(onHighlightItem).toHaveBeenCalledTimes(1);
+    expect(onHighlightItem.mock.calls[0][1]).toEqual(2);
     expect(snapshot(component)).toMatchSnapshot();
 });
 
@@ -117,20 +117,20 @@ test('Enter key selects the current highlighted item when list is active', () =>
 });
 
 test('List ignores keyUp events  when list is not active', () => {
-    const onItemHighlighted = jest.fn();
+    const onHighlightItem = jest.fn();
     const component = mountList({
         children: getListItems(),
         highlightBackgroundColor: 'blue',
         highlightColor: 'white',
         highlightedIndex: 2,
-        onItemHighlighted,
+        onHighlightItem,
     });
     simulateUpArrowKey(component);
-    expect(onItemHighlighted).not.toHaveBeenCalled();
+    expect(onHighlightItem).not.toHaveBeenCalled();
     simulateDownArrowKey(component);
-    expect(onItemHighlighted).not.toHaveBeenCalled();
+    expect(onHighlightItem).not.toHaveBeenCalled();
     simulateEnterKey(component);
-    expect(onItemHighlighted).not.toHaveBeenCalled();
+    expect(onHighlightItem).not.toHaveBeenCalled();
 });
 
 test('List selects item when clicking on a ListItem', () => {

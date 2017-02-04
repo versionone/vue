@@ -4,7 +4,7 @@ exports[`test Down arrow key moves highlighted item down from the current highli
   highlightBackgroundColor="blue"
   highlightColor="white"
   highlightedIndex={1}
-  onItemHighlighted={[Function]}>
+  onHighlightItem={[Function]}>
   <UI
     active={true}
     highlightBackgroundColor="blue"
@@ -12,7 +12,7 @@ exports[`test Down arrow key moves highlighted item down from the current highli
     highlightedIndex={1}
     massUpdateUI={[Function]}
     mountUI={[Function]}
-    onItemHighlighted={[Function]}
+    onHighlightItem={[Function]}
     setDefaultUI={[Function]}
     ui={
       Object {
@@ -31,7 +31,7 @@ exports[`test Down arrow key moves highlighted item down from the current highli
       highlightedIndex={1}
       massUpdateUI={[Function]}
       mountUI={[Function]}
-      onItemHighlighted={[Function]}
+      onHighlightItem={[Function]}
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
       onSelectItem={[Function]}
@@ -179,7 +179,7 @@ exports[`test Enter key selects the current highlighted item when list is active
       highlightedIndex={1}
       massUpdateUI={[Function]}
       mountUI={[Function]}
-      onItemHighlighted={[Function]}
+      onHighlightItem={[Function]}
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
       onSelectItem={[Function]}
@@ -392,7 +392,7 @@ exports[`test List can render ListItems with scroll bar 1`] = `
       massUpdateUI={[Function]}
       maxHeight={50}
       mountUI={[Function]}
-      onItemHighlighted={[Function]}
+      onHighlightItem={[Function]}
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
       onSelectItem={[Function]}
@@ -591,7 +591,7 @@ exports[`test Up arrow key moves highlighted item up from the current highlighte
   highlightBackgroundColor="blue"
   highlightColor="white"
   highlightedIndex={2}
-  onItemHighlighted={[Function]}>
+  onHighlightItem={[Function]}>
   <UI
     active={true}
     highlightBackgroundColor="blue"
@@ -599,7 +599,7 @@ exports[`test Up arrow key moves highlighted item up from the current highlighte
     highlightedIndex={2}
     massUpdateUI={[Function]}
     mountUI={[Function]}
-    onItemHighlighted={[Function]}
+    onHighlightItem={[Function]}
     setDefaultUI={[Function]}
     ui={
       Object {
@@ -618,7 +618,7 @@ exports[`test Up arrow key moves highlighted item up from the current highlighte
       highlightedIndex={2}
       massUpdateUI={[Function]}
       mountUI={[Function]}
-      onItemHighlighted={[Function]}
+      onHighlightItem={[Function]}
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
       onSelectItem={[Function]}

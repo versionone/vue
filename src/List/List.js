@@ -13,7 +13,7 @@ const handleHighlightItem = (index, updateUI, handler) => evt => {
 const handleKeyUp = (currentIndex, props) => evt => {
     const {
         active,
-        onItemHighlighted,
+        onHighlightItem,
         onSelectItem,
         updateUI
     } = props;
@@ -22,10 +22,10 @@ const handleKeyUp = (currentIndex, props) => evt => {
         return;
     }
     if (evt.keyCode === ArrowUp) {
-        return handleHighlightItem(currentIndex - 1, updateUI, onItemHighlighted)(evt);
+        return handleHighlightItem(currentIndex - 1, updateUI, onHighlightItem)(evt);
     }
     else if (evt.keyCode === ArrowDown) {
-        return handleHighlightItem(currentIndex + 1, updateUI, onItemHighlighted)(evt);
+        return handleHighlightItem(currentIndex + 1, updateUI, onHighlightItem)(evt);
     }
     else if (evt.keyCode === Enter) {
         return onSelectItem(evt, currentIndex);
@@ -40,7 +40,7 @@ const getChildProps = (child, props, index) => {
             highlightColor: props.highlightColor,
             highlighted: index === highlightedIndex,
             key: index,
-            onMouseEnter: handleHighlightItem(index, props.updateUI, props.onItemHighlighted),
+            onMouseEnter: handleHighlightItem(index, props.updateUI, props.onHighlightItem),
             onKeyUp: handleKeyUp(highlightedIndex, props),
             tabIndex: index,
         };
@@ -143,7 +143,7 @@ List.defaultProps = {
     active: false,
     highlightBackgroundColor: '#262626',
     highlightColor: '#fff',
-    onItemHighlighted: () => {
+    onHighlightItem: () => {
     },
     onMouseEnter: () => {
     },

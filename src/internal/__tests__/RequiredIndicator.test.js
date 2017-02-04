@@ -1,16 +1,16 @@
 import RequiredIndicator from '../RequiredIndicator';
-import {getRender, snapshot} from './../../../specHelpers/rendering';
+import {getShallow, snapshot} from './../../../specHelpers/rendering';
 
-const renderIndicator = getRender(RequiredIndicator);
+const shallowRenderIndicator = getShallow(RequiredIndicator);
 
 test('required indicator renders with defaults', () => {
-    const hiddenComponent = renderIndicator();
-    expect(snapshot(hiddenComponent)).toMatchSnapshot();
+    const component = shallowRenderIndicator();
+    expect(snapshot(component)).toMatchSnapshot();
 });
 
 test('required indicator renders with defaults', () => {
-    const hiddenComponent = renderIndicator({
+    const component = shallowRenderIndicator({
         hidden: true,
     });
-    expect(snapshot(hiddenComponent)).toMatchSnapshot();
+    expect(snapshot(component)).toMatchSnapshot();
 });

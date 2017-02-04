@@ -1,13 +1,13 @@
 import Button from '../Button';
-import {getRender, snapshot} from './../../../specHelpers/rendering';
+import {getShallow, snapshot} from './../../../specHelpers/rendering';
 import * as ButtonTypes from '../Types';
 
-const renderButton = getRender(Button);
+const shallowRenderButton = getShallow(Button);
 const clickEvent = {test: true};
 
 test('button is click-able with an event handler', () => {
     const onClick = jest.fn();
-    const button = renderButton({
+    const button = shallowRenderButton({
         onClick,
     });
     simulateClick(button, clickEvent);
@@ -16,12 +16,12 @@ test('button is click-able with an event handler', () => {
 });
 
 test('standard button', () => {
-    const buttonWithDefaultType = renderButton({
+    const buttonWithDefaultType = shallowRenderButton({
         text: 'Click me',
     });
     expect(snapshot(buttonWithDefaultType)).toMatchSnapshot();
 
-    const button = renderButton({
+    const button = shallowRenderButton({
         text: 'Click me',
         type: ButtonTypes.standard,
     });
@@ -29,7 +29,7 @@ test('standard button', () => {
 });
 
 test('basic button', () => {
-    const button = renderButton({
+    const button = shallowRenderButton({
         text: 'Click me',
         type: ButtonTypes.basic
     });
@@ -37,7 +37,7 @@ test('basic button', () => {
 });
 
 test('important button', () => {
-    const button = renderButton({
+    const button = shallowRenderButton({
         text: 'Click me',
         type: ButtonTypes.important,
     });
@@ -45,7 +45,7 @@ test('important button', () => {
 });
 
 test('alternative button', () => {
-    const button = renderButton({
+    const button = shallowRenderButton({
         text: 'Click me',
         type: ButtonTypes.alt,
     });
@@ -53,7 +53,7 @@ test('alternative button', () => {
 });
 
 test('basic alternative button', () => {
-    const button = renderButton({
+    const button = shallowRenderButton({
         text: 'Click me',
         type: ButtonTypes.basicAlt,
     });
@@ -61,7 +61,7 @@ test('basic alternative button', () => {
 });
 
 test('special button', () => {
-    const button = renderButton({
+    const button = shallowRenderButton({
         text: 'Click me',
         type: ButtonTypes.special,
     });
@@ -69,13 +69,13 @@ test('special button', () => {
 });
 
 test('button can be resized', () => {
-    const button = renderButton({size: 0.75});
+    const button = shallowRenderButton({size: 0.75});
     expect(snapshot(button)).toMatchSnapshot();
 });
 
 test('button can be disabled', () => {
     let onClick = jest.fn();
-    const button = renderButton({
+    const button = shallowRenderButton({
         disabled: true,
         onClick
     });

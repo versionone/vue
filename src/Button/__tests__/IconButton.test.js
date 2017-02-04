@@ -1,19 +1,19 @@
 import IconButton from './../IconButton';
 import CloseIcon from './../../Icons/CloseIcon';
-import {getRender, snapshot} from './../../../specHelpers/rendering';
+import {getShallow, snapshot} from './../../../specHelpers/rendering';
 
-const renderIconButton = getRender(IconButton);
+const shallowRenderIconButton = getShallow(IconButton);
 const clickEvent = {test: true};
 
 test('icon button renders with defaults', () => {
-    const iconButton = renderIconButton({
+    const iconButton = shallowRenderIconButton({
         icon: CloseIcon,
     });
     expect(snapshot(iconButton)).toMatchSnapshot();
 });
 
 test('circular icon button', () => {
-    const iconButton = renderIconButton({
+    const iconButton = shallowRenderIconButton({
         circle: true,
         icon: CloseIcon,
     });
@@ -21,7 +21,7 @@ test('circular icon button', () => {
 });
 
 test('icon button can be resized', () => {
-    const button = renderIconButton({
+    const button = shallowRenderIconButton({
         icon: CloseIcon,
         size: 0.75
     });
@@ -30,7 +30,7 @@ test('icon button can be resized', () => {
 
 test('icon button is click-able', () => {
     const onClick = jest.fn();
-    const iconButton = renderIconButton({
+    const iconButton = shallowRenderIconButton({
         icon: CloseIcon,
         onClick,
     });
@@ -41,7 +41,7 @@ test('icon button is click-able', () => {
 
 test('icon button can be disabled', () => {
     const onClick = jest.fn();
-    const iconButton = renderIconButton({
+    const iconButton = shallowRenderIconButton({
         disabled: true,
         icon: CloseIcon,
         onClick,
@@ -52,7 +52,7 @@ test('icon button can be disabled', () => {
 });
 
 test('icon button can have a border', () => {
-    const iconButton = renderIconButton({
+    const iconButton = shallowRenderIconButton({
         border: '1px solid blue',
         icon: CloseIcon,
     });

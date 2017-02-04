@@ -1,18 +1,18 @@
 import ErrorMessage from './../ErrorMessage';
-import {getRender, snapshot} from './../../../specHelpers/rendering';
+import {getShallow, snapshot} from './../../../specHelpers/rendering';
 
-const renderErrorMessage = getRender(ErrorMessage);
+const shallowRenderErrorMessage = getShallow(ErrorMessage);
 const evt = {test: true};
 
 test('error message can render defaults properly', () => {
-    const component = renderErrorMessage({
+    const component = shallowRenderErrorMessage({
         text: 'required field',
     });
     expect(snapshot(component)).toMatchSnapshot();
 });
 
 test('error message animates being hidden', () => {
-    const component = renderErrorMessage({
+    const component = shallowRenderErrorMessage({
         hidden: true,
         text: 'required field',
     });
@@ -21,7 +21,7 @@ test('error message animates being hidden', () => {
 
 test('error message is click-able', () => {
     const onClick = jest.fn();
-    const component = renderErrorMessage({
+    const component = shallowRenderErrorMessage({
         onClick,
     });
     simulateClick(component, evt);

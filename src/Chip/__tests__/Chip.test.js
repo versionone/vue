@@ -1,11 +1,11 @@
 import Chip from './../Chip';
-import {getRender, snapshot} from './../../../specHelpers/rendering';
+import {getShallow, snapshot} from './../../../specHelpers/rendering';
 
-const renderChip = getRender(Chip);
+const shallowRenderChip = getShallow(Chip);
 const clickEvent = {test: true};
 
 test('it can render text in the Chip', () => {
-    const component = renderChip({
+    const component = shallowRenderChip({
         text: 'Hello Chip',
     });
     expect(snapshot(component)).toMatchSnapshot();
@@ -13,7 +13,7 @@ test('it can render text in the Chip', () => {
 
 test('it is click-able', () => {
     const onRequestRemove = jest.fn();
-    const component = renderChip({
+    const component = shallowRenderChip({
         text: 'Hello Chip',
         onRequestRemove,
     });

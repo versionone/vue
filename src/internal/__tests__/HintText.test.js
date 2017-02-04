@@ -1,18 +1,18 @@
 import HintText from '../HintText';
-import {getRender, snapshot} from './../../../specHelpers/rendering';
+import {getShallow, snapshot} from './../../../specHelpers/rendering';
 
-const renderHintText = getRender(HintText);
+const shallowRenderHintText = getShallow(HintText);
 const evt = {test: true};
 
 test('hint text can display text content', () => {
-    const component = renderHintText({
+    const component = shallowRenderHintText({
         text: 'hint text',
     });
     expect(snapshot(component)).toMatchSnapshot();
 });
 
 test('hint text can be hidden', () => {
-    const component = renderHintText({
+    const component = shallowRenderHintText({
         hidden: true,
     });
     expect(snapshot(component)).toMatchSnapshot();
@@ -20,7 +20,7 @@ test('hint text can be hidden', () => {
 
 test('hint text is click-able', () => {
     const onClick = jest.fn();
-    const component = renderHintText({
+    const component = shallowRenderHintText({
         onClick,
     });
     simulateClick(component, evt);

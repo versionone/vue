@@ -52,7 +52,6 @@ function layerIsNotRendered() {
     return document.getElementsByTagName('div').length === 0;
 }
 function layerIsRendered(text) {
-    console.log(document.body.children[0].children.length)
     return document.getElementsByTagName('div').length > 0
         && document.getElementsByTagName('div')[0].children[0].innerHTML === text;
 }

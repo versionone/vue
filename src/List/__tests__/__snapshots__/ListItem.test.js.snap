@@ -1,0 +1,39 @@
+exports[`test ListItem can render as being highlighted 1`] = `
+<div
+  data-radium={true}
+  onKeyUp={[Function]}
+  onMouseEnter={[Function]}
+  style={
+    Object {
+      "backgroundColor": "blue",
+      "color": "pink",
+      "cursor": "pointer",
+      "padding": "6px 12px",
+    }
+  }>
+  <EventListener
+    onKeyUp={[Function]}
+    target="window" />
+  List Item
+</div>
+`;
+
+exports[`test ListItem can render as not highlighted 1`] = `
+<div
+  data-radium={true}
+  onKeyUp={[Function]}
+  onMouseEnter={[Function]}
+  style={
+    Object {
+      "backgroundColor": "rgba(0,0,0,0)",
+      "color": "initial",
+      "cursor": "pointer",
+      "padding": "6px 12px",
+    }
+  }>
+  <EventListener
+    onKeyUp={[Function]}
+    target="window" />
+  List Item
+</div>
+`;

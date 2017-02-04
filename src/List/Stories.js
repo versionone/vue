@@ -10,35 +10,56 @@ const listItems = [
     'Item ',
 ]
 storiesOf('List')
-    .addWithInfo('lists',
-        `Lists with hover colors, items, and subheaders`,
+    .addWithInfo('basic list',
+        ``,
         () => (
             <List
-                hoverColor="pink"
-                hoverBackgroundColor="blue"
+                highlightColor="pink"
+                highlightBackgroundColor="blue"
+                onSelectItem={action('selected item')}
             >
                 <SubHeader>Sub header text</SubHeader>
                 {listItems.map((item, index) => (
                     <ListItem
-                        itemOid={item}
-                        item={item}
                         key={index}
-                        onClick={action(`Clicked item ${(index+1)}`)}
-                        onSelect={action(`Selected item ${(index+1)}`)}
                     >
-                        {item}{(index+1)}
+                        {item}{(index + 1)}
                     </ListItem>
                 ))}
                 <SubHeader>Another sub header text</SubHeader>
                 {listItems.map((item, index) => (
                     <ListItem
-                        itemOid={item}
-                        item={item}
                         key={index}
-                        onClick={action(`Clicked item ${index+5}`)}
-                        onSelect={action(`Selected item ${index+5}`)}
                     >
-                        {item}{index+5}
+                        {item}{index + 5}
+                    </ListItem>
+                ))}
+            </List>
+        )
+    ).addWithInfo('with event listeners',
+        ``,
+        () => (
+            <List
+                highlightColor="pink"
+                highlightBackgroundColor="blue"
+                onItemHighlighted={action('highlighted')}
+                onMouseEnter={action('mouse entered list')}
+                onMouseLeave={action('mouse left list')}
+            >
+                <SubHeader>Sub header text</SubHeader>
+                {listItems.map((item, index) => (
+                    <ListItem
+                        key={index}
+                    >
+                        {item}{(index + 1)}
+                    </ListItem>
+                ))}
+                <SubHeader>Another sub header text</SubHeader>
+                {listItems.map((item, index) => (
+                    <ListItem
+                        key={index}
+                    >
+                        {item}{index + 5}
                     </ListItem>
                 ))}
             </List>
@@ -55,29 +76,82 @@ storiesOf('List')
         () => (
             <List
                 maxHeight={225}
+                onItemHighlighted={action('highlighted')}
             >
                 <SubHeader>Sub header text</SubHeader>
                 {listItems.map((item, index) => (
                     <ListItem
-                        itemOid={item}
-                        item={item}
                         key={index}
-                        onClick={action(`Clicked item ${(index+1)}`)}
-                        onSelect={action(`Selected item ${(index+1)}`)}
                     >
-                        {item}{(index+1)}
+                        {item}{(index + 1)}
                     </ListItem>
                 ))}
                 <SubHeader>Another sub header text</SubHeader>
                 {listItems.map((item, index) => (
                     <ListItem
-                        itemOid={item}
-                        item={item}
                         key={index}
-                        onClick={action(`Clicked item ${index+5}`)}
-                        onSelect={action(`Selected item ${index+5}`)}
                     >
-                        {item}{index+5}
+                        {item}{index + 5}
+                    </ListItem>
+                ))}
+            </List>
+        )
+    )
+    .addWithInfo('set highlighted item',
+        ``,
+        () => (
+            <List
+                highlightColor="pink"
+                highlightBackgroundColor="blue"
+                highlightedIndex={2}
+                maxHeight={225}
+                onItemHighlighted={action('highlighted')}
+            >
+                <SubHeader>Sub header text</SubHeader>
+                {listItems.map((item, index) => (
+                    <ListItem
+                        key={index}
+                    >
+                        {item}{(index + 1)}
+                    </ListItem>
+                ))}
+                <SubHeader>Another sub header text</SubHeader>
+                {listItems.map((item, index) => (
+                    <ListItem
+                        key={index}
+                    >
+                        {item}{index + 5}
+                    </ListItem>
+                ))}
+            </List>
+        )
+    )
+    .addWithInfo('keyboard navigation enabled',
+        ``,
+        () => (
+            <List
+                active={true}
+                highlightColor="pink"
+                highlightBackgroundColor="blue"
+                highlightedIndex={2}
+                maxHeight={225}
+                onItemHighlighted={action('highlighted')}
+                onSelectItem={action('selected item')}
+            >
+                <SubHeader>Sub header text</SubHeader>
+                {listItems.map((item, index) => (
+                    <ListItem
+                        key={index}
+                    >
+                        {item}{(index + 1)}
+                    </ListItem>
+                ))}
+                <SubHeader>Another sub header text</SubHeader>
+                {listItems.map((item, index) => (
+                    <ListItem
+                        key={index}
+                    >
+                        {item}{index + 5}
                     </ListItem>
                 ))}
             </List>

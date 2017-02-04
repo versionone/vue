@@ -1,20 +1,21 @@
-import React, {PropTypes} from 'react';
+import EventListener from 'react-event-listener';
+import React, {Component, PropTypes} from 'react';
 import Radium from './../utilities/Radium';
-import ThemeProvider from './../Theme';
 import transparent from './../utilities/Transparent';
+import {createEventHandler} from './../utilities/component';
 
-const getStyles = (props, context) => {
+const getStyles = (props, theme) => {
     const {
-        hovered,
+        highlighted,
     } = props;
     const {
         smallGutter,
         largeGutter,
-    } = context.theme;
-    const hoveredStyles = hovered
+    } = theme;
+    const hoveredStyles = highlighted
         ? {
-            backgroundColor: props.hoverBackgroundColor,
-            color: props.hoverColor,
+            backgroundColor: props.highlightBackgroundColor,
+            color: props.highlightColor,
         } : {
             backgroundColor: transparent,
             color: 'initial',
@@ -28,70 +29,97 @@ const getStyles = (props, context) => {
         },
     };
 };
-const handleEvent = (oid, handler) => (evt) => {
-    handler(oid, evt);
-};
 
-const ListItem = (props, context) => {
-    const styles = getStyles(props, context);
+class ListItem extends Component {
+    static propTypes = {
+        /**
+         * Content to render within the list item
+         */
+        children: PropTypes.node.isRequired,
+        /**
+         * Color of the background when in a highlighted state
+         */
+        highlightBackgroundColor: PropTypes.string,
+        /**
+         * Color of the text when in a highlighted state
+         */
+        highlightColor: PropTypes.string,
+        /**
+         * When true, indicates the component is in a highlighted state
+         */
+        highlighted: PropTypes.bool,
+        /**
+         * Event handler; fired once the item is highlighted AND a key is pressed
+         */
+        onKeyUp: PropTypes.func,
+        /**
+         * Event handler; fired once mouse enters the component
+         */
+        onMouseEnter: PropTypes.func,
+    };
 
-    return (
-        <div
-            style={styles.listItem}
-            onClick={handleEvent(props.itemOid, props.onClick)}
-            onMouseEnter={handleEvent(props.itemOid, props.onMouseEnter)}
-            onMouseLeave={handleEvent(props.itemOid, props.onMouseLeave)}
-        >
-            {props.children}
-        </div>
-    );
-};
-ListItem.propTypes = {
-    /**
-     * Content to render within the list item
-     */
-    children: PropTypes.node.isRequired,
-    /**
-     * Color of the background when in a hovered state
-     */
-    hoverBackgroundColor: PropTypes.string,
-    /**
-     * Color of the text when in a hovered state
-     */
-    hoverColor: PropTypes.string,
-    /**
-     * When true, indicates the component is in a hovered state
-     */
-    hovered: PropTypes.bool,
-    /**
-     * Data item that the ListItem is displaying
-     */
-    itemOid: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-    ]).isRequired,
-    /**
-     * Click event handler; fired once the ListItem is clicked
-     */
-    onClick: PropTypes.func,
-    /**
-     * Event handler; fired once mouse enters the component
-     */
-    onMouseEnter: PropTypes.func,
-    /**
-     * Event handler; fired once mouse leaves the component
-     */
-    onMouseLeave: PropTypes.func,
-};
-ListItem.defaultProps = {
-    onClick: () => {
-    },
-    onMouseEnter: () => {
-    },
-    onMouseLeave: () => {
+    static defaultProps = {
+        highlighted: false,
+        onClick: () => {
+        },
+        onMouseEnter: () => {
+        },
+        onKeyUp: () => {
+        },
+    };
+
+    static contextTypes = {
+        theme: PropTypes.object.isRequired,
+    };
+
+    constructor(...rest) {
+        super(...rest);
+        this.focusSelf = this.focusSelf.bind(this);
     }
-};
-ListItem.contextTypes = {
-    theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
-};
+
+    componentDidMount() {
+        if (this.props.highlighted){
+            this.focusSelf();
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.highlighted){
+            this.focusSelf();
+        }
+    }
+
+    focusSelf() {
+        this.root.focus();
+    }
+
+    render() {
+        const {
+            itemOid,
+            onKeyUp,
+            onMouseEnter,
+        } = this.props;
+        const handleMouseEnter = createEventHandler(onMouseEnter, itemOid);
+        const handleKeyUp = createEventHandler(onKeyUp, itemOid);
+        const styles = getStyles(this.props, this.context.theme);
+
+        return (
+            <div
+                ref={(el) => {
+                    this.root = el;
+                }}
+                style={styles.listItem}
+                onMouseEnter={handleMouseEnter}
+                onKeyUp={handleKeyUp}
+            >
+                <EventListener
+                    target="window"
+                    onKeyUp={handleKeyUp}
+                />
+                {this.props.children}
+            </div>
+        );
+    }
+}
+
 export default Radium(ListItem);

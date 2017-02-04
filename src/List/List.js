@@ -1,15 +1,60 @@
 import React, {PropTypes} from 'react';
+import ui from 'redux-ui';
 import ListItem from './ListItem';
 import Radium from './../utilities/Radium';
 import SubHeader from './../SubHeader';
-import ThemeProvider from './../Theme';
+import {ArrowDown, ArrowUp, Enter} from './../utilities/KeyCodes';
 import * as CustomPropTypes from './../utilities/CustomPropTypes';
 
-const getStyles = (props, context) => ({
+const handleHighlightItem = (index, updateUI, handler) => evt => {
+    updateUI('highlightedIndex', index);
+    handler(evt, index);
+};
+const handleKeyUp = (currentIndex, props) => evt => {
+    const {
+        active,
+        onItemHighlighted,
+        onSelectItem,
+        updateUI
+    } = props;
+
+    if (!active) {
+        return;
+    }
+    if (evt.keyCode === ArrowUp) {
+        return handleHighlightItem(currentIndex - 1, updateUI, onItemHighlighted)(evt);
+    }
+    else if (evt.keyCode === ArrowDown) {
+        return handleHighlightItem(currentIndex + 1, updateUI, onItemHighlighted)(evt);
+    }
+    else if (evt.keyCode === Enter) {
+        return onSelectItem(evt, currentIndex);
+    }
+};
+
+const getChildProps = (child, props, index) => {
+    if (child.type.displayName === 'ListItem') {
+        const highlightedIndex = props.ui.highlightedIndex || props.highlightedIndex || -1;
+        return {
+            highlightBackgroundColor: props.highlightBackgroundColor,
+            highlightColor: props.highlightColor,
+            highlighted: index === highlightedIndex,
+            key: index,
+            onMouseEnter: handleHighlightItem(index, props.updateUI, props.onItemHighlighted),
+            onKeyUp: handleKeyUp(highlightedIndex, props),
+            tabIndex: index,
+        };
+    }
+    return {
+        key: index,
+    };
+};
+
+const getStyles = (props, theme) => ({
     list: {
         backgroundColor: 'white',
-        fontFamily: context.theme.basicFontFamily,
-        fontSize: context.theme.smallFontSize,
+        fontFamily: theme.basicFontFamily,
+        fontSize: theme.smallFontSize,
         maxHeight: Boolean(props.maxHeight) && `${props.maxHeight}px`,
         overflow: 'auto',
     },
@@ -18,29 +63,38 @@ const getStyles = (props, context) => ({
 const List = (props, context) => {
     const {
         children,
-        hoverBackgroundColor,
-        hoverColor,
-        maxHeight,
+        onMouseEnter,
+        onMouseLeave,
+        onSelectItem,
     } = props;
-    const styles = getStyles({
-        maxHeight,
-    }, context);
+    const handleOnClick = (index) => (evt) => onSelectItem(evt, index);
 
+    const styles = getStyles(props, context.theme);
     return (
         <div
             style={styles.list}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
         >
             {React.Children
-                .map(children, (child, index) => Boolean(child) && React.cloneElement(child, {
-                    hoverBackgroundColor,
-                    hoverColor,
-                    key: index,
-                }))
+                .map(children, (child, index) =>
+                    Boolean(child) && (
+                        <div
+                            onClick={handleOnClick(index)}
+                        >
+                            {React.cloneElement(child, getChildProps(child, props, index))}
+                        </div>
+                    )
+                )
             }
         </div>
     );
 };
 List.propTypes = {
+    /**
+     * Indicates List should respond to keyup events
+     */
+    active: PropTypes.bool,
     /**
      * ListItem or SubHeader components.
      */
@@ -49,23 +103,61 @@ List.propTypes = {
         SubHeader,
     ]),
     /**
-     * Background color used on hovered list items.
+     * Background color used when list item is highlighted
      */
-    hoverBackgroundColor: PropTypes.string,
+    highlightBackgroundColor: PropTypes.string,
     /**
-     * Font color used on hovered list items.
+     * Font color used on when list item is highlighted
      */
-    hoverColor: PropTypes.string,
+    highlightColor: PropTypes.string,
+    /**
+     * Index of the currently highlighted list item
+     */
+    highlightedIndex: PropTypes.number,
     /**
      * Maximum height of the list before a scroll bar
      */
     maxHeight: PropTypes.number,
+    /**
+     * Callback fired when an item is highlighted
+     */
+    onItemHighlighted: PropTypes.func,
+    /**
+     * Callback fired when mouse enters List
+     */
+    onMouseEnter: PropTypes.func,
+    /**
+     * Callback fired when mouse leaves list
+     */
+    onMouseLeave: PropTypes.func,
+    /**
+     * Callback fired when an item is selected
+     */
+    onSelectItem: PropTypes.func,
+    /**
+     * Managed UI props; can be overridden
+     */
+    ui: PropTypes.object,
 };
 List.defaultProps = {
-    hoverBackgroundColor: '#262626',
-    hoverColor: '#fff',
+    active: false,
+    highlightBackgroundColor: '#262626',
+    highlightColor: '#fff',
+    onItemHighlighted: () => {
+    },
+    onMouseEnter: () => {
+    },
+    onMouseLeave: () => {
+    },
+    onSelectItem: () => {
+    }
 };
 List.contextTypes = {
-    theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
+    theme: PropTypes.object.isRequired,
 };
-export default Radium(List);
+export default Radium(ui({
+    key: 'List',
+    state: {
+        highlightedIndex: null,
+    }
+})(List));

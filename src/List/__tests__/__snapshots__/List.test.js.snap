@@ -1,0 +1,734 @@
+exports[`test Down arrow key moves highlighted item down from the current highlighted item when list is active 1`] = `
+<Connect(UI)
+  active={true}
+  highlightBackgroundColor="blue"
+  highlightColor="white"
+  highlightedIndex={1}
+  onItemHighlighted={[Function]}>
+  <UI
+    active={true}
+    highlightBackgroundColor="blue"
+    highlightColor="white"
+    highlightedIndex={1}
+    massUpdateUI={[Function]}
+    mountUI={[Function]}
+    onItemHighlighted={[Function]}
+    setDefaultUI={[Function]}
+    ui={
+      Object {
+        "List": Object {
+          "highlightedIndex": 2,
+        },
+        "__reducers": Object {},
+      }
+    }
+    unmountUI={[Function]}
+    updateUI={[Function]}>
+    <List
+      active={true}
+      highlightBackgroundColor="blue"
+      highlightColor="white"
+      highlightedIndex={1}
+      massUpdateUI={[Function]}
+      mountUI={[Function]}
+      onItemHighlighted={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onSelectItem={[Function]}
+      resetUI={[Function]}
+      setDefaultUI={[Function]}
+      ui={
+        Object {
+          "highlightedIndex": 2,
+        }
+      }
+      uiKey="List"
+      uiPath={
+        Array [
+          "List",
+        ]
+      }
+      unmountUI={[Function]}
+      updateUI={[Function]}>
+      <div
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        style={
+          Object {
+            "backgroundColor": "white",
+            "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+            "fontSize": 14,
+            "maxHeight": false,
+            "overflow": "auto",
+          }
+        }>
+        <div
+          onClick={[Function]}>
+          <SubHeader>
+            <header
+              data-radium={true}
+              style={
+                Object {
+                  "backgroundColor": "rgba(0,0,0,0)",
+                  "borderBottom": "1px dashed #a6a6a6",
+                  "color": "#a6a6a6",
+                  "padding": "6px 12px",
+                  "textTransform": "uppercase",
+                }
+              }>
+              Hello world
+            </header>
+          </SubHeader>
+        </div>
+        <div
+          onClick={[Function]}>
+          <ListItem
+            highlightBackgroundColor="blue"
+            highlightColor="white"
+            highlighted={false}
+            itemOid={0}
+            onClick={[Function]}
+            onKeyUp={[Function]}
+            onMouseEnter={[Function]}
+            tabIndex={1}>
+            <div
+              data-radium={true}
+              onKeyUp={[Function]}
+              onMouseEnter={[Function]}
+              style={
+                Object {
+                  "backgroundColor": "rgba(0,0,0,0)",
+                  "color": "initial",
+                  "cursor": "pointer",
+                  "padding": "6px 12px",
+                }
+              }>
+              <EventListener
+                onKeyUp={[Function]}
+                target="window" />
+              List
+            </div>
+          </ListItem>
+        </div>
+        <div
+          onClick={[Function]}>
+          <ListItem
+            highlightBackgroundColor="blue"
+            highlightColor="white"
+            highlighted={true}
+            itemOid={1}
+            onClick={[Function]}
+            onKeyUp={[Function]}
+            onMouseEnter={[Function]}
+            tabIndex={2}>
+            <div
+              data-radium={true}
+              onKeyUp={[Function]}
+              onMouseEnter={[Function]}
+              style={
+                Object {
+                  "backgroundColor": "blue",
+                  "color": "white",
+                  "cursor": "pointer",
+                  "padding": "6px 12px",
+                }
+              }>
+              <EventListener
+                onKeyUp={[Function]}
+                target="window" />
+              Items
+            </div>
+          </ListItem>
+        </div>
+      </div>
+    </List>
+  </UI>
+</Connect(UI)>
+`;
+
+exports[`test Enter key selects the current highlighted item when list is active 1`] = `
+<Connect(UI)
+  active={true}
+  highlightBackgroundColor="blue"
+  highlightColor="white"
+  highlightedIndex={1}
+  onSelectItem={[Function]}>
+  <UI
+    active={true}
+    highlightBackgroundColor="blue"
+    highlightColor="white"
+    highlightedIndex={1}
+    massUpdateUI={[Function]}
+    mountUI={[Function]}
+    onSelectItem={[Function]}
+    setDefaultUI={[Function]}
+    ui={
+      Object {
+        "List": Object {
+          "highlightedIndex": 2,
+        },
+        "__reducers": Object {},
+      }
+    }
+    unmountUI={[Function]}
+    updateUI={[Function]}>
+    <List
+      active={true}
+      highlightBackgroundColor="blue"
+      highlightColor="white"
+      highlightedIndex={1}
+      massUpdateUI={[Function]}
+      mountUI={[Function]}
+      onItemHighlighted={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onSelectItem={[Function]}
+      resetUI={[Function]}
+      setDefaultUI={[Function]}
+      ui={
+        Object {
+          "highlightedIndex": 2,
+        }
+      }
+      uiKey="List"
+      uiPath={
+        Array [
+          "List",
+        ]
+      }
+      unmountUI={[Function]}
+      updateUI={[Function]}>
+      <div
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        style={
+          Object {
+            "backgroundColor": "white",
+            "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+            "fontSize": 14,
+            "maxHeight": false,
+            "overflow": "auto",
+          }
+        }>
+        <div
+          onClick={[Function]}>
+          <SubHeader>
+            <header
+              data-radium={true}
+              style={
+                Object {
+                  "backgroundColor": "rgba(0,0,0,0)",
+                  "borderBottom": "1px dashed #a6a6a6",
+                  "color": "#a6a6a6",
+                  "padding": "6px 12px",
+                  "textTransform": "uppercase",
+                }
+              }>
+              Hello world
+            </header>
+          </SubHeader>
+        </div>
+        <div
+          onClick={[Function]}>
+          <ListItem
+            highlightBackgroundColor="blue"
+            highlightColor="white"
+            highlighted={false}
+            itemOid={0}
+            onClick={[Function]}
+            onKeyUp={[Function]}
+            onMouseEnter={[Function]}
+            tabIndex={1}>
+            <div
+              data-radium={true}
+              onKeyUp={[Function]}
+              onMouseEnter={[Function]}
+              style={
+                Object {
+                  "backgroundColor": "rgba(0,0,0,0)",
+                  "color": "initial",
+                  "cursor": "pointer",
+                  "padding": "6px 12px",
+                }
+              }>
+              <EventListener
+                onKeyUp={[Function]}
+                target="window" />
+              List
+            </div>
+          </ListItem>
+        </div>
+        <div
+          onClick={[Function]}>
+          <ListItem
+            highlightBackgroundColor="blue"
+            highlightColor="white"
+            highlighted={true}
+            itemOid={1}
+            onClick={[Function]}
+            onKeyUp={[Function]}
+            onMouseEnter={[Function]}
+            tabIndex={2}>
+            <div
+              data-radium={true}
+              onKeyUp={[Function]}
+              onMouseEnter={[Function]}
+              style={
+                Object {
+                  "backgroundColor": "blue",
+                  "color": "white",
+                  "cursor": "pointer",
+                  "padding": "6px 12px",
+                }
+              }>
+              <EventListener
+                onKeyUp={[Function]}
+                target="window" />
+              Items
+            </div>
+          </ListItem>
+        </div>
+      </div>
+    </List>
+  </UI>
+</Connect(UI)>
+`;
+
+exports[`test List can have a specified highlight color for its ListItems 1`] = `
+<UI
+  highlightBackgroundColor="blue"
+  highlightColor="white"
+  massUpdateUI={[Function]}
+  mountUI={[Function]}
+  setDefaultUI={[Function]}
+  ui={
+    Object {
+      "List": Object {
+        "highlightedIndex": null,
+      },
+      "__reducers": Object {},
+    }
+  }
+  unmountUI={[Function]}
+  updateUI={[Function]}>
+  <SubHeader>
+    Hello world
+  </SubHeader>
+  <ListItem
+    highlighted={false}
+    itemOid={0}
+    onClick={[Function]}
+    onKeyUp={[Function]}
+    onMouseEnter={[Function]}>
+    List
+  </ListItem>
+  <ListItem
+    highlighted={false}
+    itemOid={1}
+    onClick={[Function]}
+    onKeyUp={[Function]}
+    onMouseEnter={[Function]}>
+    Items
+  </ListItem>
+</UI>
+`;
+
+exports[`test List can render ListItems 1`] = `
+<UI
+  massUpdateUI={[Function]}
+  mountUI={[Function]}
+  setDefaultUI={[Function]}
+  ui={
+    Object {
+      "__reducers": Object {},
+    }
+  }
+  unmountUI={[Function]}
+  updateUI={[Function]}>
+  <SubHeader>
+    Hello world
+  </SubHeader>
+  <ListItem
+    highlighted={false}
+    itemOid={0}
+    onClick={[Function]}
+    onKeyUp={[Function]}
+    onMouseEnter={[Function]}>
+    List
+  </ListItem>
+  <ListItem
+    highlighted={false}
+    itemOid={1}
+    onClick={[Function]}
+    onKeyUp={[Function]}
+    onMouseEnter={[Function]}>
+    Items
+  </ListItem>
+</UI>
+`;
+
+exports[`test List can render ListItems with scroll bar 1`] = `
+<Connect(UI)
+  maxHeight={50}>
+  <UI
+    massUpdateUI={[Function]}
+    maxHeight={50}
+    mountUI={[Function]}
+    setDefaultUI={[Function]}
+    ui={
+      Object {
+        "List": Object {
+          "highlightedIndex": null,
+        },
+        "__reducers": Object {},
+      }
+    }
+    unmountUI={[Function]}
+    updateUI={[Function]}>
+    <List
+      active={false}
+      highlightBackgroundColor="#262626"
+      highlightColor="#fff"
+      massUpdateUI={[Function]}
+      maxHeight={50}
+      mountUI={[Function]}
+      onItemHighlighted={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onSelectItem={[Function]}
+      resetUI={[Function]}
+      setDefaultUI={[Function]}
+      ui={
+        Object {
+          "highlightedIndex": null,
+        }
+      }
+      uiKey="List"
+      uiPath={
+        Array [
+          "List",
+        ]
+      }
+      unmountUI={[Function]}
+      updateUI={[Function]}>
+      <div
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        style={
+          Object {
+            "backgroundColor": "white",
+            "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+            "fontSize": 14,
+            "maxHeight": "50px",
+            "overflow": "auto",
+          }
+        }>
+        <div
+          onClick={[Function]}>
+          <SubHeader>
+            <header
+              data-radium={true}
+              style={
+                Object {
+                  "backgroundColor": "rgba(0,0,0,0)",
+                  "borderBottom": "1px dashed #a6a6a6",
+                  "color": "#a6a6a6",
+                  "padding": "6px 12px",
+                  "textTransform": "uppercase",
+                }
+              }>
+              Hello world
+            </header>
+          </SubHeader>
+        </div>
+        <div
+          onClick={[Function]}>
+          <ListItem
+            highlightBackgroundColor="#262626"
+            highlightColor="#fff"
+            highlighted={false}
+            itemOid={0}
+            onClick={[Function]}
+            onKeyUp={[Function]}
+            onMouseEnter={[Function]}
+            tabIndex={1}>
+            <div
+              data-radium={true}
+              onKeyUp={[Function]}
+              onMouseEnter={[Function]}
+              style={
+                Object {
+                  "backgroundColor": "rgba(0,0,0,0)",
+                  "color": "initial",
+                  "cursor": "pointer",
+                  "padding": "6px 12px",
+                }
+              }>
+              <EventListener
+                onKeyUp={[Function]}
+                target="window" />
+              List
+            </div>
+          </ListItem>
+        </div>
+        <div
+          onClick={[Function]}>
+          <ListItem
+            highlightBackgroundColor="#262626"
+            highlightColor="#fff"
+            highlighted={false}
+            itemOid={1}
+            onClick={[Function]}
+            onKeyUp={[Function]}
+            onMouseEnter={[Function]}
+            tabIndex={2}>
+            <div
+              data-radium={true}
+              onKeyUp={[Function]}
+              onMouseEnter={[Function]}
+              style={
+                Object {
+                  "backgroundColor": "rgba(0,0,0,0)",
+                  "color": "initial",
+                  "cursor": "pointer",
+                  "padding": "6px 12px",
+                }
+              }>
+              <EventListener
+                onKeyUp={[Function]}
+                target="window" />
+              Items
+            </div>
+          </ListItem>
+        </div>
+      </div>
+    </List>
+  </UI>
+</Connect(UI)>
+`;
+
+exports[`test List's highlighted item can be set 1`] = `
+<UI
+  highlightBackgroundColor="blue"
+  highlightColor="white"
+  massUpdateUI={[Function]}
+  mountUI={[Function]}
+  setDefaultUI={[Function]}
+  ui={
+    Object {
+      "List": Object {
+        "highlightedIndex": null,
+      },
+      "__reducers": Object {},
+    }
+  }
+  unmountUI={[Function]}
+  updateUI={[Function]}>
+  <SubHeader>
+    Hello world
+  </SubHeader>
+  <ListItem
+    highlighted={false}
+    itemOid={0}
+    onClick={[Function]}
+    onKeyUp={[Function]}
+    onMouseEnter={[Function]}>
+    List
+  </ListItem>
+  <ListItem
+    highlighted={false}
+    itemOid={1}
+    onClick={[Function]}
+    onKeyUp={[Function]}
+    onMouseEnter={[Function]}>
+    Items
+  </ListItem>
+</UI>
+`;
+
+exports[`test List's list items are highlighted when hovered over 1`] = `
+<UI
+  highlightBackgroundColor="blue"
+  highlightColor="white"
+  massUpdateUI={[Function]}
+  mountUI={[Function]}
+  setDefaultUI={[Function]}
+  ui={
+    Object {
+      "List": Object {
+        "highlightedIndex": null,
+      },
+      "__reducers": Object {},
+    }
+  }
+  unmountUI={[Function]}
+  updateUI={[Function]}>
+  <SubHeader>
+    Hello world
+  </SubHeader>
+  <ListItem
+    highlighted={false}
+    itemOid={0}
+    onClick={[Function]}
+    onKeyUp={[Function]}
+    onMouseEnter={[Function]}>
+    List
+  </ListItem>
+  <ListItem
+    highlighted={false}
+    itemOid={1}
+    onClick={[Function]}
+    onKeyUp={[Function]}
+    onMouseEnter={[Function]}>
+    Items
+  </ListItem>
+</UI>
+`;
+
+exports[`test Up arrow key moves highlighted item up from the current highlighted item when list is active 1`] = `
+<Connect(UI)
+  active={true}
+  highlightBackgroundColor="blue"
+  highlightColor="white"
+  highlightedIndex={2}
+  onItemHighlighted={[Function]}>
+  <UI
+    active={true}
+    highlightBackgroundColor="blue"
+    highlightColor="white"
+    highlightedIndex={2}
+    massUpdateUI={[Function]}
+    mountUI={[Function]}
+    onItemHighlighted={[Function]}
+    setDefaultUI={[Function]}
+    ui={
+      Object {
+        "List": Object {
+          "highlightedIndex": 1,
+        },
+        "__reducers": Object {},
+      }
+    }
+    unmountUI={[Function]}
+    updateUI={[Function]}>
+    <List
+      active={true}
+      highlightBackgroundColor="blue"
+      highlightColor="white"
+      highlightedIndex={2}
+      massUpdateUI={[Function]}
+      mountUI={[Function]}
+      onItemHighlighted={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      onSelectItem={[Function]}
+      resetUI={[Function]}
+      setDefaultUI={[Function]}
+      ui={
+        Object {
+          "highlightedIndex": 1,
+        }
+      }
+      uiKey="List"
+      uiPath={
+        Array [
+          "List",
+        ]
+      }
+      unmountUI={[Function]}
+      updateUI={[Function]}>
+      <div
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        style={
+          Object {
+            "backgroundColor": "white",
+            "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+            "fontSize": 14,
+            "maxHeight": false,
+            "overflow": "auto",
+          }
+        }>
+        <div
+          onClick={[Function]}>
+          <SubHeader>
+            <header
+              data-radium={true}
+              style={
+                Object {
+                  "backgroundColor": "rgba(0,0,0,0)",
+                  "borderBottom": "1px dashed #a6a6a6",
+                  "color": "#a6a6a6",
+                  "padding": "6px 12px",
+                  "textTransform": "uppercase",
+                }
+              }>
+              Hello world
+            </header>
+          </SubHeader>
+        </div>
+        <div
+          onClick={[Function]}>
+          <ListItem
+            highlightBackgroundColor="blue"
+            highlightColor="white"
+            highlighted={true}
+            itemOid={0}
+            onClick={[Function]}
+            onKeyUp={[Function]}
+            onMouseEnter={[Function]}
+            tabIndex={1}>
+            <div
+              data-radium={true}
+              onKeyUp={[Function]}
+              onMouseEnter={[Function]}
+              style={
+                Object {
+                  "backgroundColor": "blue",
+                  "color": "white",
+                  "cursor": "pointer",
+                  "padding": "6px 12px",
+                }
+              }>
+              <EventListener
+                onKeyUp={[Function]}
+                target="window" />
+              List
+            </div>
+          </ListItem>
+        </div>
+        <div
+          onClick={[Function]}>
+          <ListItem
+            highlightBackgroundColor="blue"
+            highlightColor="white"
+            highlighted={false}
+            itemOid={1}
+            onClick={[Function]}
+            onKeyUp={[Function]}
+            onMouseEnter={[Function]}
+            tabIndex={2}>
+            <div
+              data-radium={true}
+              onKeyUp={[Function]}
+              onMouseEnter={[Function]}
+              style={
+                Object {
+                  "backgroundColor": "rgba(0,0,0,0)",
+                  "color": "initial",
+                  "cursor": "pointer",
+                  "padding": "6px 12px",
+                }
+              }>
+              <EventListener
+                onKeyUp={[Function]}
+                target="window" />
+              Items
+            </div>
+          </ListItem>
+        </div>
+      </div>
+    </List>
+  </UI>
+</Connect(UI)>
+`;

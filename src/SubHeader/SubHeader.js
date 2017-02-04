@@ -1,6 +1,5 @@
 import React, {PropTypes} from 'react';
 import Radium from './../utilities/Radium';
-import ThemeProvider from './../Theme';
 import transparent from './../utilities/Transparent';
 
 const getStyles = (props, context) => ({
@@ -32,7 +31,7 @@ SubHeader.propTypes = {
     ]),
 };
 SubHeader.contextTypes = {
-    theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
+    theme: PropTypes.object.isRequired,
 };
 
 export default Radium(SubHeader);

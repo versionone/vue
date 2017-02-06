@@ -9,7 +9,6 @@ import Popover, {Positions} from './../Popover';
 import SubHeader from './../SubHeader';
 import ThemeProvider from './../Theme';
 import transparent from './../utilities/Transparent';
-import {ArrowDown, ArrowUp, Enter} from './../utilities/KeyCodes';
 import * as Filters from './Filters';
 
 const matchOn = prop => valueToMatch => item => item[prop] === valueToMatch;
@@ -155,16 +154,13 @@ class Lookup extends Component {
         super(props, ...rest);
 
         this.handleChangeTextField = this.handleChangeTextField.bind(this);
-        this.handleKeyUp = this.handleKeyUp.bind(this);
         this.handleClickHintText = this.handleClickHintText.bind(this);
         this.handleLookupRootClick = this.handleLookupRootClick.bind(this);
-        this.handleItemClick = this.handleItemClick.bind(this);
-        this.handleItemMouseEnter = this.handleItemMouseEnter.bind(this);
+        this.handleItemSelection = this.handleItemSelection.bind(this);
         this.handleClosePopover = this.handleClosePopover.bind(this);
         this.handleChipRemove = this.handleChipRemove.bind(this);
 
         this.setSelectedItem = this.setSelectedItem.bind(this);
-        this.setHoveredItem = this.setHoveredItem.bind(this);
         this.getHeight = this.getHeight.bind(this);
         this.getStyles = this.getStyles.bind(this);
 
@@ -173,12 +169,11 @@ class Lookup extends Component {
         this.shouldApplyFilter = this.shouldApplyFilter.bind(this);
         this.combineWithSearchFilter = this.combineWithSearchFilter.bind(this);
         this.renderGroupedResultItems = this.renderGroupedResultItems.bind(this);
-        this.renderResultItems = this.renderResultItems.bind(this);
+        this.applyGroupFilter = this.applyGroupFilter.bind(this);
 
-        this.filteredItems = props.dataSource;
+        this.items = [];
 
         this.state = {
-            hoveredOid: 0,
             open: props.open,
             searchText: '',
             selectedItems: props.selectedItems,
@@ -255,34 +250,23 @@ class Lookup extends Component {
         this.props.onSelect(oid);
     }
 
-    setHoveredItem(oid) {
-        this.setState({
-            hoveredOid: oid,
-        });
-    }
-
     handleChangeTextField(evt) {
         this.setState({
             searchText: evt.target.value,
         });
     }
 
-    handleKeyUp(evt) {
-        const {
-            hoveredOid
-        } = this.state;
-        const currentHoveredIndex = this.filteredItems.findIndex(item => item.oid === hoveredOid);
-        if (evt.keyCode === ArrowDown) {
-            const newIndex = Math.max(0, Math.min(currentHoveredIndex + 1, this.filteredItems.length - 1));
-            this.setHoveredItem(this.filteredItems[newIndex].oid);
+    handleClickHintText() {
+        this.inputField.focus();
+    }
+
+    handleItemSelection(evt, index) {
+        let selectedItem = this.items.find((item, itemIndex) => itemIndex === index);
+        let selectedOid = selectedItem.oid;
+        if (!Boolean(selectedOid) && selectedOid !== 0) {
+            selectedOid = this.props.dataSource.indexOf(selectedItem);
         }
-        else if (evt.keyCode === ArrowUp) {
-            const newIndex = Math.max(0, Math.min(currentHoveredIndex - 1, this.filteredItems.length - 1));
-            this.setHoveredItem(this.filteredItems[newIndex].oid);
-        }
-        else if (evt.keyCode === Enter) {
-            this.setSelectedItem(hoveredOid);
-        }
+        this.setSelectedItem(selectedOid);
     }
 
     handleLookupRootClick() {
@@ -291,41 +275,19 @@ class Lookup extends Component {
         });
     }
 
-    handleClickHintText() {
-        this.inputField.focus();
-    }
-
-    handleItemClick(oid) {
-        this.setSelectedItem(oid);
-    }
-
-    handleItemMouseEnter(oid) {
-        this.setHoveredItem(oid);
-    }
-
     handleClosePopover() {
         this.setState({
             open: false,
         });
     }
 
-    handleChipRemove({
-        oid,
-        text,
-    }, evt) {
+    handleChipRemove(evt, oid) {
         evt.stopPropagation();
-        const newState = {
+        this.setState({
             open: false,
-        };
-        if (oid) {
-            newState.selectedItems = this.state.selectedItems
-                .filter(matchesOid(oid));
-        }
-        else {
-            newState.selectedItems = this.state.selectedItems
-                .filter(matchesStringValue(text));
-        }
-        this.setState(newState);
+            selectedItems: this.state.selectedItems
+                .filter(matchesOid(oid)),
+        });
     }
 
     getStyles() {
@@ -468,13 +430,10 @@ class Lookup extends Component {
         );
     }
 
-    renderListItem(item) {
+    renderListItem(item, index) {
         const {
             dataSourceConfig,
         } = this.props;
-        const {
-            hoveredOid,
-        } = this.state;
         let children = item.value;
         if (dataSourceConfig) {
             children = dataSourceConfig.renderItem(item.value, item.index);
@@ -482,11 +441,7 @@ class Lookup extends Component {
 
         return (
             <ListItem
-                itemOid={item.oid}
-                hovered={item.oid === hoveredOid}
-                key={item.oid}
-                onClick={this.handleItemClick}
-                onMouseEnter={this.handleItemMouseEnter}
+                key={index}
             >
                 {children}
             </ListItem>
@@ -502,19 +457,15 @@ class Lookup extends Component {
         && (!this.shouldApplyFilter() || this.props.searchFilter(searchText, value, index));
     }
 
-    renderResultItems(dataSource, groupFilter) {
+    applyGroupFilter(dataSource, groupFilter) {
         const filter = this.combineWithSearchFilter(groupFilter);
-        const filteredItems = dataSource
+        return dataSource
             .map((item, index) => ({
                 index,
                 oid: item.oid || index,
                 value: item,
             }))
             .filter((item, index) => filter(this.state.searchText, item.value, index));
-        this.filteredItems = filteredItems;
-
-        return filteredItems
-            .map(this.renderListItem);
     }
 
     renderGroupedResultItems(groups) {
@@ -523,14 +474,31 @@ class Lookup extends Component {
         } = this.props;
 
         if (typeof (groups) === 'string') {
-            return [
-                <SubHeader key="subheader">{groups}</SubHeader>,
-            ].concat(this.renderResultItems(dataSource, Filters.none));
+            this.items = [{
+                __type: 'SubHeader',
+                header: groups,
+            }]
+                .concat(this.applyGroupFilter(dataSource, Filters.none));
+        }
+        else {
+            this.items = groups.reduce((output, group) => output
+                    .concat([
+                        {
+                            __type: 'SubHeader',
+                            ...group,
+                        },
+                    ])
+                    .concat(this.applyGroupFilter(dataSource, group.filter))
+                , []);
         }
 
-        return groups.map((group, index) => [
-            <SubHeader key={`subheader${index}`}>{group.header}</SubHeader>,
-        ].concat(this.renderResultItems(dataSource, group.filter)));
+        return this.items
+            .map((item, index) => {
+                if (item.__type === 'SubHeader') {
+                    return <SubHeader key={`subheader${index}`}>{item.header}</SubHeader>
+                }
+                return this.renderListItem(item, index);
+            });
     }
 
     render() {
@@ -586,7 +554,6 @@ class Lookup extends Component {
                             type="text"
                             value={searchText}
                             onChange={this.handleChangeTextField}
-                            onKeyUp={this.handleKeyUp}
                         />
                     </div>
                 </div>
@@ -609,6 +576,7 @@ class Lookup extends Component {
                         <List
                             hoverBackgroundColor={listHoverBackgroundColor}
                             hoverColor={listHoverColor}
+                            onSelectItem={this.handleItemSelection}
                         >
                             {this.renderGroupedResultItems(resultGroups)}
                         </List>

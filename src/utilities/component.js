@@ -1,8 +1,8 @@
-export default function getDisplayName(WrappedComponent) {
+export const getDisplayName = (WrappedComponent) => {
     return WrappedComponent.displayName
         || WrappedComponent.name
         || 'Component';
-}
+};
 
 const doNothingHandler = () => () => null;
 export const createEventHandler = (handler, ...rest) => evt => handler(evt, ...rest);

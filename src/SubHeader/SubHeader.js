@@ -24,6 +24,7 @@ const SubHeader = (props, context) => {
         </header>
     );
 };
+SubHeader.displayName = 'SubHeader';
 SubHeader.propTypes = {
     children: PropTypes.oneOfType([
         PropTypes.string,

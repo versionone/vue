@@ -10,6 +10,21 @@ const handleHighlightItem = (index, updateUI, handler) => evt => {
     updateUI('highlightedIndex', index);
     handler(evt, index);
 };
+const getPreviousListItemIndex = (currentIndex, children) => {
+    let previousIndex = currentIndex - 1;
+    while (previousIndex >= 0 && children[previousIndex].type.displayName !== 'ListItem') {
+        previousIndex -= 1;
+    }
+    return Math.max(1, previousIndex);
+};
+const getNextListItemIndex = (currentIndex, children) => {
+    let nextIndex = currentIndex + 1;
+    while (nextIndex < children.length && children[nextIndex].type.displayName !== 'ListItem') {
+        nextIndex += 1;
+    }
+    return Math.min(children.length - 1, nextIndex);
+};
+
 const handleKeyUp = (currentIndex, props) => evt => {
     const {
         active,
@@ -22,10 +37,10 @@ const handleKeyUp = (currentIndex, props) => evt => {
         return;
     }
     if (evt.keyCode === ArrowUp) {
-        return handleHighlightItem(currentIndex - 1, updateUI, onHighlightItem)(evt);
+        return handleHighlightItem(getPreviousListItemIndex(currentIndex, props.children), updateUI, onHighlightItem)(evt);
     }
     else if (evt.keyCode === ArrowDown) {
-        return handleHighlightItem(currentIndex + 1, updateUI, onHighlightItem)(evt);
+        return handleHighlightItem(getNextListItemIndex(currentIndex, props.children), updateUI, onHighlightItem)(evt);
     }
     else if (evt.keyCode === Enter) {
         return onSelectItem(evt, currentIndex);

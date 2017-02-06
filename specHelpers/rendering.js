@@ -32,6 +32,7 @@ export const getMount = (Component) => (props = {}, context = {
 },) => mount(<Component {...props} />, {
     context,
     childContextTypes: {
+        store: PropTypes.object,
         theme: PropTypes.object,
     },
 });

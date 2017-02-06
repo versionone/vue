@@ -114,8 +114,8 @@ class Popover extends Component {
     }
 
     componentWillUnmount() {
-        this.handleResize.cancel();
-        this.handleScroll.cancel();
+        this.handleResize = null;
+        this.handleScroll = null;
     }
 
     setPlacement(scrolling) {

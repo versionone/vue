@@ -60,8 +60,9 @@ const Chip = (props, context) => {
         fontSize,
         fullWidth,
         lineHeight,
-        text,
+        oid,
         onRequestRemove,
+        text,
         width,
     } = props;
     const styles = getStyles({
@@ -72,7 +73,7 @@ const Chip = (props, context) => {
         width,
     }, context);
     const iconButtonDarkenCoefficient = 0.45;
-    const handleClick = createEventHandler(onRequestRemove, text);
+    const handleClick = createEventHandler(onRequestRemove, oid);
 
     return (
         <div style={styles.root}>
@@ -113,6 +114,13 @@ Chip.propTypes = {
      * Line height for the text of the Chip
      */
     lineHeight: PropTypes.number,
+    /**
+     * Unique identifier for this Chip
+     */
+    oid: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+    ]),
     /**
      * Function handling the clicking of the close icon of the Chip
      */

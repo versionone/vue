@@ -3,7 +3,7 @@ import React, {
     PropTypes
 } from 'react';
 import ThemeProvider from './../Theme';
-import getDisplayName from './component';
+import {getDisplayName} from './component';
 
 export default ComponentToTrackHover => class TrackingHover extends Component {
     static propTypes = Component.propTypes;

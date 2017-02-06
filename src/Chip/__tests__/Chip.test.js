@@ -22,12 +22,13 @@ test('it can render as full width', () => {
 test('it is click-able', () => {
     const onRequestRemove = jest.fn();
     const component = shallowRenderChip({
-        text: 'Hello Chip',
+        oid: 'Chip:1',
         onRequestRemove,
+        text: 'Hello Chip',
     });
     simulateRemoveChipClick(component, clickEvent);
     expect(onRequestRemove).toHaveBeenCalledTimes(1);
-    expect(onRequestRemove).toHaveBeenCalledWith(clickEvent, 'Hello Chip');
+    expect(onRequestRemove).toHaveBeenCalledWith(clickEvent, 'Chip:1');
 });
 
 function simulateRemoveChipClick(wrapper, evt = {}) {

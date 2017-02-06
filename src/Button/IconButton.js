@@ -109,4 +109,5 @@ IconButton.defaultProps = {
 IconButton.contextTypes = {
     theme: PropTypes.object.isRequired,
 };
+IconButton.displayName = 'IconButton';
 export default Radium(IconButton);

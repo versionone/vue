@@ -205,6 +205,7 @@ Button.defaultProps = {
 Button.contextTypes = {
     theme: PropTypes.object.isRequired,
 };
+Button.displayName = 'Button';
 
 export default Radium(Button);
 

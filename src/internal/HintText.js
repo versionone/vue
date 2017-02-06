@@ -66,5 +66,6 @@ HintText.propTypes = {
 HintText.contextTypes = {
     theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
 };
+HintText.displayName = 'HintText';
 
 export default Radium(HintText);

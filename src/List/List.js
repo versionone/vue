@@ -170,6 +170,8 @@ List.defaultProps = {
 List.contextTypes = {
     theme: PropTypes.object.isRequired,
 };
+List.displayName = 'List';
+
 export default Radium(ui({
     key: 'List',
     state: {

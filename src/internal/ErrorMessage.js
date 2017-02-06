@@ -36,7 +36,7 @@ const ErrorMessage = (props, context) => {
     } = props;
     const handleClick = createEventHandler(onClick);
     const styles = getStyles(props, context);
-    
+
     return (
         <div onClick={handleClick}>
             <span style={styles.text}>
@@ -59,5 +59,6 @@ ErrorMessage.defaultProps = {
 ErrorMessage.contextTypes = {
     theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
 };
+ErrorMessage.displayName = 'ErrorMessage';
 
 export default Radium(ErrorMessage);

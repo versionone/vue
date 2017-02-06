@@ -147,4 +147,5 @@ Chip.defaultProps = {
 Chip.contextTypes = {
     theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
 };
+Chip.displayName = 'Chip';
 export default Radium(Chip);

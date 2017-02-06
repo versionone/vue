@@ -46,5 +46,6 @@ RequiredIndicator.propTypes = {
 RequiredIndicator.contextTypes = {
     theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
 };
+RequiredIndicator.displayName = 'RequiredIndicator';
 
 export default Radium(RequiredIndicator);

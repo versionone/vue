@@ -68,10 +68,6 @@ class Lookup extends Component {
             ]).isRequired,
         }),
         /**
-         *
-         */
-        disabled: PropTypes.bool,
-        /**
          * If true, the field is 100% width
          */
         fullWidth: PropTypes.bool,
@@ -132,7 +128,6 @@ class Lookup extends Component {
         chipBackgroundColor: '#e9edf1',
         chipColor: '#474c54',
         dataSource: [],
-        disabled: false,
         fullWidth: false,
         hintText: '',
         listHoverBackgroundColor: '#262626',
@@ -292,7 +287,6 @@ class Lookup extends Component {
 
     getStyles() {
         const {
-            disabled,
             fullWidth,
         } = this.props;
         const {
@@ -339,7 +333,7 @@ class Lookup extends Component {
                 border: `0px solid ${transparent}`,
                 boxSizing: 'border-box',
                 color: textPrimaryColor,
-                cursor: disabled ? 'not-allowed' : 'initial',
+                cursor: 'initial',
                 fontFamily: basicFontFamily,
                 fontSize: `${smallFontSize}px`,
                 outline: 'none',

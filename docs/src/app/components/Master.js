@@ -172,7 +172,7 @@ class Master extends Component {
                     />
                     <FullWidthSection style={styles.footer}>
                         <IconButton
-                            iconStyle={styles.iconButton}
+                            iconStyle={styles.component}
                             iconClassName="vuidocs-icon-custom-github"
                             href="https://github.com/versionone/vue/"
                         />

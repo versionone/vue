@@ -7,5 +7,9 @@ test('a Button component is the default export', () => {
 });
 
 test('an IconButton component is exported', () => {
-    expect(new IconButton({})).toBeInstanceOf(IconButtonComponent);
+    expect(new IconButton({
+        store: {
+            getState: jest.fn(),
+        }
+    })).toBeInstanceOf(IconButtonComponent);
 });

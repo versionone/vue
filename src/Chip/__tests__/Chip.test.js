@@ -1,6 +1,7 @@
 import Chip from './../Chip';
-import {getShallow, snapshot} from './../../../specHelpers/rendering';
+import {getMount, getShallow, snapshot} from './../../../specHelpers/rendering';
 
+const mountChip = getMount(Chip);
 const shallowRenderChip = getShallow(Chip);
 const clickEvent = {test: true};
 
@@ -21,14 +22,14 @@ test('it can render as full width', () => {
 
 test('it is click-able', () => {
     const onRequestRemove = jest.fn();
-    const component = shallowRenderChip({
+    const component = mountChip({
         oid: 'Chip:1',
         onRequestRemove,
         text: 'Hello Chip',
     });
     simulateRemoveChipClick(component, clickEvent);
     expect(onRequestRemove).toHaveBeenCalledTimes(1);
-    expect(onRequestRemove).toHaveBeenCalledWith(clickEvent, 'Chip:1');
+    expect(onRequestRemove.mock.calls[0][1]).toEqual('Chip:1');
 });
 
 function simulateRemoveChipClick(wrapper, evt = {}) {

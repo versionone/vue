@@ -12,3 +12,4 @@ export const createConditionalEventHandler = (condition) => {
     }
     return doNothingHandler;
 };
+export const createEventHandlerIgnoringEventData = (handler, ...rest) => () => handler(...rest);

@@ -150,9 +150,11 @@ List.propTypes = {
      */
     onSelectItem: PropTypes.func,
     /**
-     * Managed UI props; can be overridden
+     * Managed UI state props; can be overridden
      */
-    ui: PropTypes.object,
+    ui: PropTypes.shape({
+        highlightedIndex: PropTypes.number,
+    }),
 };
 List.defaultProps = {
     active: false,

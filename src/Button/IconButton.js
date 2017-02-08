@@ -1,16 +1,14 @@
 import React, {PropTypes} from 'react';
+import ui from 'redux-ui';
 import {normal} from './Sizes';
 import Radium from './../utilities/Radium';
 import transparent from './../utilities/Transparent';
 import {create as createTransition} from './../styles/Transitions';
-import {createConditionalEventHandler} from './../utilities/component';
+import {createConditionalEventHandler, createEventHandlerIgnoringEventData} from './../utilities/component';
 
 const getStyles = (props, theme) => ({
     root: {
-        ':hover': {
-            backgroundColor: Boolean(props.disabled) ? props.backgroundColor : props.hoverBackgroundColor,
-        },
-        backgroundColor: props.backgroundColor,
+        backgroundColor: (!Boolean(props.disabled) && props.hovered || props.ui.hovered) ? props.hoverBackgroundColor : props.backgroundColor,
         border: (props.disabled && Boolean(props.border)) ? `1px solid ${theme.disabledPrimaryColor}` : Boolean(props.border) ? props.border : `1px solid ${transparent}`,
         borderRadius: props.circle ? '50%' : '0px',
         cursor: props.disabled ? 'not-allowed' : 'pointer',
@@ -25,8 +23,11 @@ const IconButton = (props, context) => {
         color,
         disabled,
         hoverColor,
+        hovered,
+        ui,
         onClick,
         size,
+        updateUI,
     } = props;
     const {
         baseIconSize,
@@ -38,16 +39,21 @@ const IconButton = (props, context) => {
     const iconColor = disabled ? disabledPrimaryColor : color;
     const iconHoverColor = disabled ? disabledPrimaryColor : hoverColor;
     const handleClick = createConditionalEventHandler(!disabled)(onClick);
+    const handleMouseEnter = createEventHandlerIgnoringEventData(updateUI, 'hovered', true);
+    const handleMouseLeave = createEventHandlerIgnoringEventData(updateUI, 'hovered', false);
     const styles = getStyles(props, context.theme);
 
     return (
         <div
             style={styles.root}
             onClick={handleClick}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
         >
             {React.createElement(props.icon, {
                 color: iconColor,
                 hoverColor: iconHoverColor,
+                hovered: hovered || ui.hovered,
                 padding: smallGutter,
                 width,
             })}
@@ -84,6 +90,10 @@ IconButton.propTypes = {
      */
     hoverColor: PropTypes.string,
     /**
+     * Indicates the IconButton is in a hovered state when true
+     */
+    hovered: PropTypes.bool,
+    /**
      * Icon to render within button
      */
     icon: PropTypes.func.isRequired,
@@ -96,6 +106,10 @@ IconButton.propTypes = {
      */
     size: PropTypes.number,
     transition: PropTypes.string,
+    /**
+     * Managed UI state props; can be overridden
+     */
+    ui: PropTypes.object,
 };
 IconButton.defaultProps = {
     backgroundColor: transparent,
@@ -110,4 +124,9 @@ IconButton.contextTypes = {
     theme: PropTypes.object.isRequired,
 };
 IconButton.displayName = 'IconButton';
-export default Radium(IconButton);
+export default Radium(ui({
+    uiKey: 'IconButton',
+    state: {
+        hovered: false,
+    }
+})(IconButton));

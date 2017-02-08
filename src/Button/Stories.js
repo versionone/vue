@@ -114,7 +114,7 @@ storiesOf('IconButton')
                 <IconButton
                     icon={CloseIcon}
                     backgroundColor="white"
-                    border="1px solid green"
+                    border="10px solid green"
                     color="blue"
                     hoverBackgroundColor="blue"
                     hoverColor="white"
@@ -122,7 +122,7 @@ storiesOf('IconButton')
                 />
                 <IconButton
                     backgroundColor="white"
-                    border="1px solid green"
+                    border="10px solid green"
                     circle
                     color="blue"
                     hoverBackgroundColor="blue"

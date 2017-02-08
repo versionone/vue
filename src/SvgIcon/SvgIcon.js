@@ -1,5 +1,4 @@
 import React, {PropTypes} from 'react';
-import TrackingHover from './../utilities/TrackingHover';
 import {create as createTransition} from './../styles/Transitions';
 import Radium from './../utilities/Radium';
 
@@ -63,7 +62,7 @@ SvgIcon.propTypes = {
      */
     hoverColor: PropTypes.string,
     /**
-     * Indicates the SvgIcon is in a hovered state if true; false otherwise
+     * Indicates the SvgIcon is in a hovered state when true
      */
     hovered: PropTypes.bool,
     /**
@@ -102,4 +101,4 @@ SvgIcon.defaultProps = {
     width: 24,
 };
 
-export default Radium(TrackingHover(SvgIcon));
+export default Radium(SvgIcon);

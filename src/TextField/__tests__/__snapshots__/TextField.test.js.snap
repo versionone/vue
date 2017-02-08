@@ -1,0 +1,1663 @@
+exports[`test TextField can be disabled 1`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "background": "rgba(0,0,0,0)",
+      "display": "inline-flex",
+      "position": "relative",
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "#ffffff",
+        "border": "1px solid rgba(0,0,0,0.26)",
+        "borderRadius": 3,
+        "boxShadow": "none",
+        "boxSizing": "border-box",
+        "height": "25px",
+        "outline": "none",
+        "padding": "3px 0px 3px 3px",
+        "position": "absolute",
+        "top": 0,
+        "width": "256px",
+      }
+    }>
+    <div>
+      <HintText
+        hidden={false}
+        onClick={[Function]}
+        text="" />
+    </div>
+  </div>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "rgba(0,0,0,0)",
+        "border": "1px solid rgba(0,0,0,0)",
+        "boxSizing": "border-box",
+        "display": "inline-flex",
+        "height": "25px",
+        "marginTop": "0px",
+        "minWidth": "256px",
+        "padding": "3px",
+        "width": "256px",
+        "zIndex": "1",
+      }
+    }>
+    <input
+      data-radium={true}
+      defaultValue=""
+      disabled={true}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      style={
+        Object {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgba(0,0,0,0)",
+          "color": "#31363e",
+          "cursor": "not-allowed",
+          "flex": 1,
+          "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+          "fontSize": "14px",
+          "height": "17px",
+          "outline": "none",
+          "padding": 0,
+          "position": "relative",
+          "width": "100%",
+        }
+      }
+      type="text" />
+  </div>
+</div>
+`;
+
+exports[`test TextField renders with a height when there is no hint text, default value, or value 1`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "background": "rgba(0,0,0,0)",
+      "display": "inline-flex",
+      "position": "relative",
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "#ffffff",
+        "border": "1px solid #878c94",
+        "borderRadius": 3,
+        "boxShadow": "none",
+        "boxSizing": "border-box",
+        "height": "25px",
+        "outline": "none",
+        "padding": "3px 0px 3px 3px",
+        "position": "absolute",
+        "top": 0,
+        "width": "256px",
+      }
+    }>
+    <div>
+      <HintText
+        hidden={false}
+        onClick={[Function]}
+        text="" />
+    </div>
+  </div>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "rgba(0,0,0,0)",
+        "border": "1px solid rgba(0,0,0,0)",
+        "boxSizing": "border-box",
+        "display": "inline-flex",
+        "height": "25px",
+        "marginTop": "0px",
+        "minWidth": "256px",
+        "padding": "3px",
+        "width": "256px",
+        "zIndex": "1",
+      }
+    }>
+    <input
+      data-radium={true}
+      defaultValue=""
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      style={
+        Object {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgba(0,0,0,0)",
+          "color": "#31363e",
+          "cursor": "initial",
+          "flex": 1,
+          "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+          "fontSize": "14px",
+          "height": "17px",
+          "outline": "none",
+          "padding": 0,
+          "position": "relative",
+          "width": "100%",
+        }
+      }
+      type="text" />
+  </div>
+</div>
+`;
+
+exports[`test TextFields auto-expands its height to accommodate hint text that is too large for the text field 1`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "background": "rgba(0,0,0,0)",
+      "display": "inline-flex",
+      "position": "relative",
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "#ffffff",
+        "border": "1px solid #878c94",
+        "borderRadius": 3,
+        "boxShadow": "none",
+        "boxSizing": "border-box",
+        "height": "59px",
+        "outline": "none",
+        "padding": "3px 0px 3px 3px",
+        "position": "absolute",
+        "top": 0,
+        "width": "256px",
+      }
+    }>
+    <div>
+      <HintText
+        hidden={false}
+        onClick={[Function]}
+        text="" />
+    </div>
+  </div>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "rgba(0,0,0,0)",
+        "border": "1px solid rgba(0,0,0,0)",
+        "boxSizing": "border-box",
+        "display": "inline-flex",
+        "height": "25px",
+        "marginTop": "34px",
+        "minWidth": "256px",
+        "padding": "3px",
+        "width": "256px",
+        "zIndex": "1",
+      }
+    }>
+    <input
+      data-radium={true}
+      defaultValue=""
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      style={
+        Object {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgba(0,0,0,0)",
+          "color": "#31363e",
+          "cursor": "initial",
+          "flex": 1,
+          "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+          "fontSize": "14px",
+          "height": "17px",
+          "outline": "none",
+          "padding": 0,
+          "position": "relative",
+          "width": "100%",
+        }
+      }
+      type="text" />
+  </div>
+</div>
+`;
+
+exports[`test TextFields auto-expands its height to accommodate hint text that is too large for the text field 2`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "background": "rgba(0,0,0,0)",
+      "display": "inline-flex",
+      "position": "relative",
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "rgba(255,208,199,1)",
+        "border": "1px solid #d52101",
+        "borderRadius": 3,
+        "boxShadow": "0 0 2px 2px rgba(255,208,199,1)",
+        "boxSizing": "border-box",
+        "height": "59px",
+        "outline": "none",
+        "padding": "3px 13px 3px 3px",
+        "position": "absolute",
+        "top": 0,
+        "width": "256px",
+      }
+    }>
+    <div>
+      <HintText
+        hidden={false}
+        onClick={[Function]}
+        text="" />
+    </div>
+  </div>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "rgba(0,0,0,0)",
+        "border": "1px solid rgba(0,0,0,0)",
+        "boxSizing": "border-box",
+        "display": "inline-flex",
+        "height": "25px",
+        "marginTop": "34px",
+        "minWidth": "256px",
+        "padding": "3px",
+        "width": "256px",
+        "zIndex": "1",
+      }
+    }>
+    <input
+      data-radium={true}
+      defaultValue=""
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      style={
+        Object {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgba(0,0,0,0)",
+          "color": "#31363e",
+          "cursor": "initial",
+          "flex": 1,
+          "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+          "fontSize": "14px",
+          "height": "17px",
+          "outline": "none",
+          "padding": 0,
+          "position": "relative",
+          "width": "100%",
+        }
+      }
+      type="text" />
+  </div>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "alignSelf": "center",
+        "margin": "34px 0 0 6px",
+        "zIndex": "1",
+      }
+    }>
+    <RequiredIndicator />
+  </div>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "alignSelf": "center",
+        "display": false,
+        "margin": "0 0 0 6px",
+        "padding": false,
+      }
+    }>
+    <ErrorMessage
+      hidden={false}
+      onClick={[Function]}
+      text="error message" />
+  </div>
+</div>
+`;
+
+exports[`test TextFields auto-expands its height to accommodate hint text that is too large for the text field 3`] = `
+<TextField
+  defaultValue=""
+  disabled={false}
+  fullWidth={false}
+  hintText="something else"
+  onBlur={[Function]}
+  onChange={[Function]}
+  onFocus={[Function]}
+  pending={false}
+  required={false}
+  width={256}>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "rgba(0,0,0,0)",
+        "display": "inline-flex",
+        "position": "relative",
+      }
+    }>
+    <div
+      data-radium={true}
+      style={
+        Object {
+          "background": "#ffffff",
+          "border": "1px solid #878c94",
+          "borderRadius": 3,
+          "boxShadow": "none",
+          "boxSizing": "border-box",
+          "height": "25px",
+          "outline": "none",
+          "padding": "3px 0px 3px 3px",
+          "position": "absolute",
+          "top": 0,
+          "width": "256px",
+        }
+      }>
+      <div>
+        <HintText
+          hidden={false}
+          onClick={[Function]}
+          text="something else">
+          <div
+            data-radium={true}
+            onClick={[Function]}
+            style={
+              Object {
+                "boxSizing": "border-box",
+                "width": "100%",
+              }
+            }>
+            <span
+              data-radium={true}
+              style={
+                Object {
+                  "color": "#878c94",
+                  "display": "block",
+                  "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+                  "fontSize": "14px",
+                  "lineHeight": 1.285,
+                  "opacity": 1,
+                  "transition": "opacity 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+                }
+              }>
+              something else
+            </span>
+          </div>
+        </HintText>
+      </div>
+    </div>
+    <div
+      data-radium={true}
+      style={
+        Object {
+          "background": "rgba(0,0,0,0)",
+          "border": "1px solid rgba(0,0,0,0)",
+          "boxSizing": "border-box",
+          "display": "inline-flex",
+          "height": "25px",
+          "marginTop": "0px",
+          "minWidth": "256px",
+          "padding": "3px",
+          "width": "256px",
+          "zIndex": "1",
+        }
+      }>
+      <input
+        data-radium={true}
+        defaultValue=""
+        disabled={false}
+        onBlur={[Function]}
+        onChange={[Function]}
+        onFocus={[Function]}
+        style={
+          Object {
+            "background": "rgba(0, 0, 0, 0)",
+            "border": "0px solid rgba(0,0,0,0)",
+            "color": "#31363e",
+            "cursor": "initial",
+            "flex": 1,
+            "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+            "fontSize": "14px",
+            "height": "17px",
+            "outline": "none",
+            "padding": 0,
+            "position": "relative",
+            "width": "100%",
+          }
+        }
+        type="text" />
+    </div>
+  </div>
+</TextField>
+`;
+
+exports[`test TextFields can be marked as required 1`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "background": "rgba(0,0,0,0)",
+      "display": "inline-flex",
+      "position": "relative",
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "#ffffff",
+        "border": "1px solid #878c94",
+        "borderRadius": 3,
+        "boxShadow": "none",
+        "boxSizing": "border-box",
+        "height": "25px",
+        "outline": "none",
+        "padding": "3px 0px 3px 3px",
+        "position": "absolute",
+        "top": 0,
+        "width": "256px",
+      }
+    }>
+    <div>
+      <HintText
+        hidden={false}
+        onClick={[Function]}
+        text="" />
+    </div>
+  </div>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "rgba(0,0,0,0)",
+        "border": "1px solid rgba(0,0,0,0)",
+        "boxSizing": "border-box",
+        "display": "inline-flex",
+        "height": "25px",
+        "marginTop": "0px",
+        "minWidth": "256px",
+        "padding": "3px",
+        "width": "256px",
+        "zIndex": "1",
+      }
+    }>
+    <input
+      data-radium={true}
+      defaultValue=""
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      style={
+        Object {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgba(0,0,0,0)",
+          "color": "#31363e",
+          "cursor": "initial",
+          "flex": 1,
+          "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+          "fontSize": "14px",
+          "height": "17px",
+          "outline": "none",
+          "padding": 0,
+          "position": "relative",
+          "width": "100%",
+        }
+      }
+      type="text" />
+  </div>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "alignSelf": "center",
+        "margin": "0px 0 0 6px",
+        "zIndex": "1",
+      }
+    }>
+    <RequiredIndicator />
+  </div>
+</div>
+`;
+
+exports[`test TextFields can be styled as pending 1`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "background": "rgba(0,0,0,0)",
+      "display": "inline-flex",
+      "position": "relative",
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "#FFF4A3",
+        "border": "1px solid #878c94",
+        "borderRadius": 3,
+        "boxShadow": "none",
+        "boxSizing": "border-box",
+        "height": "25px",
+        "outline": "none",
+        "padding": "3px 0px 3px 3px",
+        "position": "absolute",
+        "top": 0,
+        "width": "256px",
+      }
+    }>
+    <div>
+      <HintText
+        hidden={false}
+        onClick={[Function]}
+        text="" />
+    </div>
+  </div>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "rgba(0,0,0,0)",
+        "border": "1px solid rgba(0,0,0,0)",
+        "boxSizing": "border-box",
+        "display": "inline-flex",
+        "height": "25px",
+        "marginTop": "0px",
+        "minWidth": "256px",
+        "padding": "3px",
+        "width": "256px",
+        "zIndex": "1",
+      }
+    }>
+    <input
+      data-radium={true}
+      defaultValue=""
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      style={
+        Object {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgba(0,0,0,0)",
+          "color": "#31363e",
+          "cursor": "initial",
+          "flex": 1,
+          "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+          "fontSize": "14px",
+          "height": "17px",
+          "outline": "none",
+          "padding": 0,
+          "position": "relative",
+          "width": "100%",
+        }
+      }
+      type="text" />
+  </div>
+</div>
+`;
+
+exports[`test TextFields can have a specified width 1`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "background": "rgba(0,0,0,0)",
+      "display": "inline-flex",
+      "position": "relative",
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "#ffffff",
+        "border": "1px solid #878c94",
+        "borderRadius": 3,
+        "boxShadow": "none",
+        "boxSizing": "border-box",
+        "height": "25px",
+        "outline": "none",
+        "padding": "3px 0px 3px 3px",
+        "position": "absolute",
+        "top": 0,
+        "width": "100px",
+      }
+    }>
+    <div>
+      <HintText
+        hidden={false}
+        onClick={[Function]}
+        text="" />
+    </div>
+  </div>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "rgba(0,0,0,0)",
+        "border": "1px solid rgba(0,0,0,0)",
+        "boxSizing": "border-box",
+        "display": "inline-flex",
+        "height": "25px",
+        "marginTop": "0px",
+        "minWidth": "100px",
+        "padding": "3px",
+        "width": "100px",
+        "zIndex": "1",
+      }
+    }>
+    <input
+      data-radium={true}
+      defaultValue=""
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      style={
+        Object {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgba(0,0,0,0)",
+          "color": "#31363e",
+          "cursor": "initial",
+          "flex": 1,
+          "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+          "fontSize": "14px",
+          "height": "17px",
+          "outline": "none",
+          "padding": 0,
+          "position": "relative",
+          "width": "100%",
+        }
+      }
+      type="text" />
+  </div>
+</div>
+`;
+
+exports[`test TextFields can have an error message and styled as having an error 1`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "background": "rgba(0,0,0,0)",
+      "display": "inline-flex",
+      "position": "relative",
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "rgba(255,208,199,1)",
+        "border": "1px solid #d52101",
+        "borderRadius": 3,
+        "boxShadow": "0 0 2px 2px rgba(255,208,199,1)",
+        "boxSizing": "border-box",
+        "height": "25px",
+        "outline": "none",
+        "padding": "3px 0px 3px 3px",
+        "position": "absolute",
+        "top": 0,
+        "width": "256px",
+      }
+    }>
+    <div>
+      <HintText
+        hidden={false}
+        onClick={[Function]}
+        text="" />
+    </div>
+  </div>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "rgba(0,0,0,0)",
+        "border": "1px solid rgba(0,0,0,0)",
+        "boxSizing": "border-box",
+        "display": "inline-flex",
+        "height": "25px",
+        "marginTop": "0px",
+        "minWidth": "256px",
+        "padding": "3px",
+        "width": "256px",
+        "zIndex": "1",
+      }
+    }>
+    <input
+      data-radium={true}
+      defaultValue=""
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      style={
+        Object {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgba(0,0,0,0)",
+          "color": "#31363e",
+          "cursor": "initial",
+          "flex": 1,
+          "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+          "fontSize": "14px",
+          "height": "17px",
+          "outline": "none",
+          "padding": 0,
+          "position": "relative",
+          "width": "100%",
+        }
+      }
+      type="text" />
+  </div>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "alignSelf": "center",
+        "display": false,
+        "margin": "0 0 0 6px",
+        "padding": false,
+      }
+    }>
+    <ErrorMessage
+      hidden={false}
+      onClick={[Function]}
+      text="error: required" />
+  </div>
+</div>
+`;
+
+exports[`test TextFields can render as full width; ignoring any width prop value 1`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "background": "rgba(0,0,0,0)",
+      "display": "block",
+      "position": "relative",
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "#ffffff",
+        "border": "1px solid #878c94",
+        "borderRadius": 3,
+        "boxShadow": "none",
+        "boxSizing": "border-box",
+        "height": "25px",
+        "outline": "none",
+        "padding": "3px 0px 3px 3px",
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }>
+    <div>
+      <HintText
+        hidden={false}
+        onClick={[Function]}
+        text="" />
+    </div>
+  </div>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "rgba(0,0,0,0)",
+        "border": "1px solid rgba(0,0,0,0)",
+        "boxSizing": "border-box",
+        "display": "inline-flex",
+        "height": "25px",
+        "marginTop": "0px",
+        "minWidth": "100%",
+        "padding": "3px",
+        "width": "100%",
+        "zIndex": "1",
+      }
+    }>
+    <input
+      data-radium={true}
+      defaultValue=""
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      style={
+        Object {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgba(0,0,0,0)",
+          "color": "#31363e",
+          "cursor": "initial",
+          "flex": 1,
+          "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+          "fontSize": "14px",
+          "height": "17px",
+          "outline": "none",
+          "padding": 0,
+          "position": "relative",
+          "width": "100%",
+        }
+      }
+      type="text" />
+  </div>
+</div>
+`;
+
+exports[`test TextFields can render with a default value 1`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "background": "rgba(0,0,0,0)",
+      "display": "inline-flex",
+      "position": "relative",
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "#ffffff",
+        "border": "1px solid #878c94",
+        "borderRadius": 3,
+        "boxShadow": "none",
+        "boxSizing": "border-box",
+        "height": "25px",
+        "outline": "none",
+        "padding": "3px 0px 3px 3px",
+        "position": "absolute",
+        "top": 0,
+        "width": "256px",
+      }
+    }>
+    <div>
+      <HintText
+        hidden={true}
+        onClick={[Function]}
+        text="" />
+    </div>
+  </div>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "rgba(0,0,0,0)",
+        "border": "1px solid rgba(0,0,0,0)",
+        "boxSizing": "border-box",
+        "display": "inline-flex",
+        "height": "25px",
+        "marginTop": "0px",
+        "minWidth": "256px",
+        "padding": "3px",
+        "width": "256px",
+        "zIndex": "1",
+      }
+    }>
+    <input
+      data-radium={true}
+      defaultValue="a default value"
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      style={
+        Object {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgba(0,0,0,0)",
+          "color": "#31363e",
+          "cursor": "initial",
+          "flex": 1,
+          "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+          "fontSize": "14px",
+          "height": "17px",
+          "outline": "none",
+          "padding": 0,
+          "position": "relative",
+          "width": "100%",
+        }
+      }
+      type="text" />
+  </div>
+</div>
+`;
+
+exports[`test TextFields can render with an explicit value 1`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "background": "rgba(0,0,0,0)",
+      "display": "inline-flex",
+      "position": "relative",
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "#ffffff",
+        "border": "1px solid #878c94",
+        "borderRadius": 3,
+        "boxShadow": "none",
+        "boxSizing": "border-box",
+        "height": "25px",
+        "outline": "none",
+        "padding": "3px 0px 3px 3px",
+        "position": "absolute",
+        "top": 0,
+        "width": "256px",
+      }
+    }>
+    <div>
+      <HintText
+        hidden={false}
+        onClick={[Function]}
+        text="" />
+    </div>
+  </div>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "rgba(0,0,0,0)",
+        "border": "1px solid rgba(0,0,0,0)",
+        "boxSizing": "border-box",
+        "display": "inline-flex",
+        "height": "25px",
+        "marginTop": "0px",
+        "minWidth": "256px",
+        "padding": "3px",
+        "width": "256px",
+        "zIndex": "1",
+      }
+    }>
+    <input
+      data-radium={true}
+      defaultValue=""
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      style={
+        Object {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgba(0,0,0,0)",
+          "color": "#31363e",
+          "cursor": "initial",
+          "flex": 1,
+          "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+          "fontSize": "14px",
+          "height": "17px",
+          "outline": "none",
+          "padding": 0,
+          "position": "relative",
+          "width": "100%",
+        }
+      }
+      type="text"
+      value="a default value" />
+  </div>
+</div>
+`;
+
+exports[`test TextFields only display hint text when there is no value or default value 1`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "background": "rgba(0,0,0,0)",
+      "display": "inline-flex",
+      "position": "relative",
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "#ffffff",
+        "border": "1px solid #878c94",
+        "borderRadius": 3,
+        "boxShadow": "none",
+        "boxSizing": "border-box",
+        "height": "25px",
+        "outline": "none",
+        "padding": "3px 0px 3px 3px",
+        "position": "absolute",
+        "top": 0,
+        "width": "256px",
+      }
+    }>
+    <div>
+      <HintText
+        hidden={false}
+        onClick={[Function]}
+        text="hint text" />
+    </div>
+  </div>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "rgba(0,0,0,0)",
+        "border": "1px solid rgba(0,0,0,0)",
+        "boxSizing": "border-box",
+        "display": "inline-flex",
+        "height": "25px",
+        "marginTop": "0px",
+        "minWidth": "256px",
+        "padding": "3px",
+        "width": "256px",
+        "zIndex": "1",
+      }
+    }>
+    <input
+      data-radium={true}
+      defaultValue=""
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      style={
+        Object {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgba(0,0,0,0)",
+          "color": "#31363e",
+          "cursor": "initial",
+          "flex": 1,
+          "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+          "fontSize": "14px",
+          "height": "17px",
+          "outline": "none",
+          "padding": 0,
+          "position": "relative",
+          "width": "100%",
+        }
+      }
+      type="text" />
+  </div>
+</div>
+`;
+
+exports[`test TextFields only display hint text when there is no value or default value 2`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "background": "rgba(0,0,0,0)",
+      "display": "inline-flex",
+      "position": "relative",
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "#ffffff",
+        "border": "1px solid #878c94",
+        "borderRadius": 3,
+        "boxShadow": "none",
+        "boxSizing": "border-box",
+        "height": "25px",
+        "outline": "none",
+        "padding": "3px 0px 3px 3px",
+        "position": "absolute",
+        "top": 0,
+        "width": "256px",
+      }
+    }>
+    <div>
+      <HintText
+        hidden={true}
+        onClick={[Function]}
+        text="hint text" />
+    </div>
+  </div>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "rgba(0,0,0,0)",
+        "border": "1px solid rgba(0,0,0,0)",
+        "boxSizing": "border-box",
+        "display": "inline-flex",
+        "height": "25px",
+        "marginTop": "0px",
+        "minWidth": "256px",
+        "padding": "3px",
+        "width": "256px",
+        "zIndex": "1",
+      }
+    }>
+    <input
+      data-radium={true}
+      defaultValue=""
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      style={
+        Object {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgba(0,0,0,0)",
+          "color": "#31363e",
+          "cursor": "initial",
+          "flex": 1,
+          "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+          "fontSize": "14px",
+          "height": "17px",
+          "outline": "none",
+          "padding": 0,
+          "position": "relative",
+          "width": "100%",
+        }
+      }
+      type="text"
+      value="a value" />
+  </div>
+</div>
+`;
+
+exports[`test TextFields only display hint text when there is no value or default value 3`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "background": "rgba(0,0,0,0)",
+      "display": "inline-flex",
+      "position": "relative",
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "#ffffff",
+        "border": "1px solid #878c94",
+        "borderRadius": 3,
+        "boxShadow": "none",
+        "boxSizing": "border-box",
+        "height": "25px",
+        "outline": "none",
+        "padding": "3px 0px 3px 3px",
+        "position": "absolute",
+        "top": 0,
+        "width": "256px",
+      }
+    }>
+    <div>
+      <HintText
+        hidden={true}
+        onClick={[Function]}
+        text="hint text" />
+    </div>
+  </div>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "rgba(0,0,0,0)",
+        "border": "1px solid rgba(0,0,0,0)",
+        "boxSizing": "border-box",
+        "display": "inline-flex",
+        "height": "25px",
+        "marginTop": "0px",
+        "minWidth": "256px",
+        "padding": "3px",
+        "width": "256px",
+        "zIndex": "1",
+      }
+    }>
+    <input
+      data-radium={true}
+      defaultValue="a default value"
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      style={
+        Object {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgba(0,0,0,0)",
+          "color": "#31363e",
+          "cursor": "initial",
+          "flex": 1,
+          "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+          "fontSize": "14px",
+          "height": "17px",
+          "outline": "none",
+          "padding": 0,
+          "position": "relative",
+          "width": "100%",
+        }
+      }
+      type="text" />
+  </div>
+</div>
+`;
+
+exports[`test TextFields only display hint text when there is no value or default value 4`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "background": "rgba(0,0,0,0)",
+      "display": "inline-flex",
+      "position": "relative",
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "#ffffff",
+        "border": "1px solid #878c94",
+        "borderRadius": 3,
+        "boxShadow": "none",
+        "boxSizing": "border-box",
+        "height": "25px",
+        "outline": "none",
+        "padding": "3px 0px 3px 3px",
+        "position": "absolute",
+        "top": 0,
+        "width": "256px",
+      }
+    }>
+    <div>
+      <HintText
+        hidden={false}
+        onClick={[Function]}
+        text="hint text" />
+    </div>
+  </div>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "rgba(0,0,0,0)",
+        "border": "1px solid rgba(0,0,0,0)",
+        "boxSizing": "border-box",
+        "display": "inline-flex",
+        "height": "25px",
+        "marginTop": "0px",
+        "minWidth": "256px",
+        "padding": "3px",
+        "width": "256px",
+        "zIndex": "1",
+      }
+    }>
+    <input
+      data-radium={true}
+      defaultValue=""
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      style={
+        Object {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgba(0,0,0,0)",
+          "color": "#31363e",
+          "cursor": "initial",
+          "flex": 1,
+          "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+          "fontSize": "14px",
+          "height": "17px",
+          "outline": "none",
+          "padding": 0,
+          "position": "relative",
+          "width": "100%",
+        }
+      }
+      type="text"
+      value="a value" />
+  </div>
+</div>
+`;
+
+exports[`test TextFields respond to blur events and lose their focused styling when blurred 1`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "background": "rgba(0,0,0,0)",
+      "display": "inline-flex",
+      "position": "relative",
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "#ffffff",
+        "border": "1px solid #878c94",
+        "borderRadius": 3,
+        "boxShadow": "none",
+        "boxSizing": "border-box",
+        "height": "25px",
+        "outline": "none",
+        "padding": "3px 0px 3px 3px",
+        "position": "absolute",
+        "top": 0,
+        "width": "256px",
+      }
+    }>
+    <div>
+      <HintText
+        hidden={false}
+        onClick={[Function]}
+        text="" />
+    </div>
+  </div>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "rgba(0,0,0,0)",
+        "border": "1px solid rgba(0,0,0,0)",
+        "boxSizing": "border-box",
+        "display": "inline-flex",
+        "height": "25px",
+        "marginTop": "0px",
+        "minWidth": "256px",
+        "padding": "3px",
+        "width": "256px",
+        "zIndex": "1",
+      }
+    }>
+    <input
+      data-radium={true}
+      defaultValue=""
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      style={
+        Object {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgba(0,0,0,0)",
+          "color": "#31363e",
+          "cursor": "initial",
+          "flex": 1,
+          "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+          "fontSize": "14px",
+          "height": "17px",
+          "outline": "none",
+          "padding": 0,
+          "position": "relative",
+          "width": "100%",
+        }
+      }
+      type="text" />
+  </div>
+</div>
+`;
+
+exports[`test TextFields respond to focus events and styled as focused 1`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "background": "rgba(0,0,0,0)",
+      "display": "inline-flex",
+      "position": "relative",
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "#ffffff",
+        "border": "1px solid #878c94",
+        "borderRadius": 3,
+        "boxShadow": "0 0 2px 2px rgba(0,169,224,0.5)",
+        "boxSizing": "border-box",
+        "height": "25px",
+        "outline": "none",
+        "padding": "3px 0px 3px 3px",
+        "position": "absolute",
+        "top": 0,
+        "width": "256px",
+      }
+    }>
+    <div>
+      <HintText
+        hidden={false}
+        onClick={[Function]}
+        text="" />
+    </div>
+  </div>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "rgba(0,0,0,0)",
+        "border": "1px solid rgba(0,0,0,0)",
+        "boxSizing": "border-box",
+        "display": "inline-flex",
+        "height": "25px",
+        "marginTop": "0px",
+        "minWidth": "256px",
+        "padding": "3px",
+        "width": "256px",
+        "zIndex": "1",
+      }
+    }>
+    <input
+      data-radium={true}
+      defaultValue=""
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      style={
+        Object {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgba(0,0,0,0)",
+          "color": "#31363e",
+          "cursor": "initial",
+          "flex": 1,
+          "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+          "fontSize": "14px",
+          "height": "17px",
+          "outline": "none",
+          "padding": 0,
+          "position": "relative",
+          "width": "100%",
+        }
+      }
+      type="text" />
+  </div>
+</div>
+`;
+
+exports[`test TextFields will renders with a default width when no width is specified 1`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "background": "rgba(0,0,0,0)",
+      "display": "inline-flex",
+      "position": "relative",
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "#ffffff",
+        "border": "1px solid #878c94",
+        "borderRadius": 3,
+        "boxShadow": "none",
+        "boxSizing": "border-box",
+        "height": "25px",
+        "outline": "none",
+        "padding": "3px 0px 3px 3px",
+        "position": "absolute",
+        "top": 0,
+        "width": "256px",
+      }
+    }>
+    <div>
+      <HintText
+        hidden={false}
+        onClick={[Function]}
+        text="" />
+    </div>
+  </div>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "rgba(0,0,0,0)",
+        "border": "1px solid rgba(0,0,0,0)",
+        "boxSizing": "border-box",
+        "display": "inline-flex",
+        "height": "25px",
+        "marginTop": "0px",
+        "minWidth": "256px",
+        "padding": "3px",
+        "width": "256px",
+        "zIndex": "1",
+      }
+    }>
+    <input
+      data-radium={true}
+      defaultValue=""
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      style={
+        Object {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgba(0,0,0,0)",
+          "color": "#31363e",
+          "cursor": "initial",
+          "flex": 1,
+          "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+          "fontSize": "14px",
+          "height": "17px",
+          "outline": "none",
+          "padding": 0,
+          "position": "relative",
+          "width": "100%",
+        }
+      }
+      type="text" />
+  </div>
+</div>
+`;
+
+exports[`test TextFields will show the required indicator inside of the textbox when set to full width 1`] = `
+<div
+  data-radium={true}
+  style={
+    Object {
+      "background": "rgba(0,0,0,0)",
+      "display": "block",
+      "position": "relative",
+    }
+  }>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "#ffffff",
+        "border": "1px solid #878c94",
+        "borderRadius": 3,
+        "boxShadow": "none",
+        "boxSizing": "border-box",
+        "height": "25px",
+        "outline": "none",
+        "padding": "3px 0px 3px 3px",
+        "position": "absolute",
+        "top": 0,
+        "width": "100%",
+      }
+    }>
+    <div>
+      <HintText
+        hidden={false}
+        onClick={[Function]}
+        text="" />
+    </div>
+  </div>
+  <div
+    data-radium={true}
+    style={
+      Object {
+        "background": "rgba(0,0,0,0)",
+        "border": "1px solid rgba(0,0,0,0)",
+        "boxSizing": "border-box",
+        "display": "inline-flex",
+        "height": "25px",
+        "marginTop": "0px",
+        "minWidth": "100%",
+        "padding": "3px",
+        "width": "100%",
+        "zIndex": "1",
+      }
+    }>
+    <input
+      data-radium={true}
+      defaultValue=""
+      disabled={false}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      style={
+        Object {
+          "background": "rgba(0, 0, 0, 0)",
+          "border": "0px solid rgba(0,0,0,0)",
+          "color": "#31363e",
+          "cursor": "initial",
+          "flex": 1,
+          "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+          "fontSize": "14px",
+          "height": "17px",
+          "outline": "none",
+          "padding": 0,
+          "position": "relative",
+          "width": "100%",
+        }
+      }
+      type="text" />
+    <div
+      data-radium={true}
+      style={
+        Object {
+          "alignSelf": "center",
+          "margin": "0px 0 0 6px",
+          "zIndex": "1",
+        }
+      }>
+      <RequiredIndicator />
+    </div>
+  </div>
+</div>
+`;

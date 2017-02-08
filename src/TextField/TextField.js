@@ -49,6 +49,10 @@ class TextField extends Component {
          */
         required: PropTypes.bool,
         /**
+         * Explicitly sets the value of TextField
+         */
+        value: PropTypes.string,
+        /**
          * Width of the text field
          */
         width: PropTypes.number,
@@ -98,8 +102,8 @@ class TextField extends Component {
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            hasValue: this.state.hasValue || !!nextProps.defaultValue,
-            hintTextHeight: this.getHeight(),
+            hasValue: this.state.hasValue || Boolean(nextProps.defaultValue) || Boolean(nextProps.value),
+            hintTextHeight: nextProps.hintText !== this.props.hintText ? this.getHeight() : this.state.hintTextHeight,
         });
     }
 
@@ -107,7 +111,7 @@ class TextField extends Component {
         this.setState({
             hasValue: !!evt.target.value,
         });
-        this.props.onChange(evt.target.value);
+        this.props.onChange(evt, evt.target.value);
     }
 
     handleFocus(evt) {
@@ -292,11 +296,19 @@ class TextField extends Component {
 
     render() {
         const {
-            disabled, defaultValue, errorText, fullWidth, hintText, required,
+            disabled,
+            defaultValue,
+            errorText,
+            fullWidth,
+            hintText,
+            required,
+            value,
         } = this.props;
         const {
             hasValue,
         } = this.state;
+        const inputValue = Boolean(value) ? {value} : {};
+
         const styles = this.getStyles();
 
         return (
@@ -324,6 +336,7 @@ class TextField extends Component {
                     <input
                         defaultValue={defaultValue}
                         disabled={disabled}
+                        {...inputValue}
                         ref={(el) => {
                             this.inputField = el;
                         }}

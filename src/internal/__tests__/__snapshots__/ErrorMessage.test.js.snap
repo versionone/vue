@@ -6,7 +6,7 @@ exports[`test error message animates being hidden 1`] = `
     data-radium={true}
     style={
       Object {
-        "color": "#ffc0cb",
+        "color": "#d52101",
         "display": "block",
         "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
         "fontSize": "14px",
@@ -28,7 +28,7 @@ exports[`test error message can render defaults properly 1`] = `
     data-radium={true}
     style={
       Object {
-        "color": "#ffc0cb",
+        "color": "#d52101",
         "display": "block",
         "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
         "fontSize": "14px",

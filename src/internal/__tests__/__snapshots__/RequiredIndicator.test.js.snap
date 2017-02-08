@@ -4,7 +4,7 @@ exports[`test required indicator renders with defaults 1`] = `
   style={
     Object {
       "alignSelf": "center",
-      "color": "#ffc0cb",
+      "color": "#d52101",
       "fontSize": "14px",
       "lineHeight": 1.285,
       "opacity": 1,
@@ -21,7 +21,7 @@ exports[`test required indicator renders with defaults 2`] = `
   style={
     Object {
       "alignSelf": "center",
-      "color": "#ffc0cb",
+      "color": "#d52101",
       "fontSize": "14px",
       "lineHeight": 1.285,
       "opacity": 0,

@@ -56,7 +56,7 @@ exports[`test Lookup can provide custom render for selected text and items 1`] =
       style={
         Object {
           "background": "rgba(255,255,255,1)",
-          "border": "1px solid #808080",
+          "border": "1px solid #878c94",
           "borderRadius": "3px",
           "boxSizing": "border-box",
           "height": "25px",
@@ -96,7 +96,7 @@ exports[`test Lookup can provide custom render for selected text and items 1`] =
             "background": "rgba(0,0,0,0)",
             "border": "0px solid rgba(0,0,0,0)",
             "boxSizing": "border-box",
-            "color": "#030303",
+            "color": "#31363e",
             "cursor": "initial",
             "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
             "fontSize": "14px",
@@ -129,7 +129,7 @@ exports[`test Lookup can provide custom render for selected text and items 1`] =
     <div
       style={
         Object {
-          "background": "#fff",
+          "background": "#ffffff",
           "border": "1px solid rgba(0,0,0,1)",
           "boxSizing": "border-box",
           "width": "256px",
@@ -202,7 +202,7 @@ exports[`test Lookup can render the selected item as a Chip and then be updated 
       style={
         Object {
           "background": "rgba(255,255,255,1)",
-          "border": "1px solid #808080",
+          "border": "1px solid #878c94",
           "borderRadius": "3px",
           "boxSizing": "border-box",
           "height": "25px",
@@ -242,7 +242,7 @@ exports[`test Lookup can render the selected item as a Chip and then be updated 
             "background": "rgba(0,0,0,0)",
             "border": "0px solid rgba(0,0,0,0)",
             "boxSizing": "border-box",
-            "color": "#030303",
+            "color": "#31363e",
             "cursor": "initial",
             "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
             "fontSize": "14px",
@@ -275,7 +275,7 @@ exports[`test Lookup can render the selected item as a Chip and then be updated 
     <div
       style={
         Object {
-          "background": "#fff",
+          "background": "#ffffff",
           "border": "1px solid rgba(0,0,0,1)",
           "boxSizing": "border-box",
           "width": "256px",
@@ -348,7 +348,7 @@ exports[`test Lookup can render the selected item as a Chip and then be updated 
       style={
         Object {
           "background": "rgba(255,255,255,1)",
-          "border": "1px solid #808080",
+          "border": "1px solid #878c94",
           "borderRadius": "3px",
           "boxSizing": "border-box",
           "height": "25px",
@@ -388,7 +388,7 @@ exports[`test Lookup can render the selected item as a Chip and then be updated 
             "background": "rgba(0,0,0,0)",
             "border": "0px solid rgba(0,0,0,0)",
             "boxSizing": "border-box",
-            "color": "#030303",
+            "color": "#31363e",
             "cursor": "initial",
             "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
             "fontSize": "14px",
@@ -421,7 +421,7 @@ exports[`test Lookup can render the selected item as a Chip and then be updated 
     <div
       style={
         Object {
-          "background": "#fff",
+          "background": "#ffffff",
           "border": "1px solid rgba(0,0,0,1)",
           "boxSizing": "border-box",
           "width": "256px",
@@ -470,7 +470,7 @@ exports[`test Lookup defaults to being closed 1`] = `
       style={
         Object {
           "background": "rgba(255,255,255,1)",
-          "border": "1px solid #808080",
+          "border": "1px solid #878c94",
           "borderRadius": "3px",
           "boxSizing": "border-box",
           "height": "25px",
@@ -510,7 +510,7 @@ exports[`test Lookup defaults to being closed 1`] = `
             "background": "rgba(0,0,0,0)",
             "border": "0px solid rgba(0,0,0,0)",
             "boxSizing": "border-box",
-            "color": "#030303",
+            "color": "#31363e",
             "cursor": "initial",
             "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
             "fontSize": "14px",
@@ -543,7 +543,7 @@ exports[`test Lookup defaults to being closed 1`] = `
     <div
       style={
         Object {
-          "background": "#fff",
+          "background": "#ffffff",
           "border": "1px solid rgba(0,0,0,1)",
           "boxSizing": "border-box",
           "width": "256px",
@@ -592,7 +592,7 @@ exports[`test Lookup renders as a TextField when not open 1`] = `
       style={
         Object {
           "background": "rgba(255,255,255,1)",
-          "border": "1px solid #808080",
+          "border": "1px solid #878c94",
           "borderRadius": "3px",
           "boxSizing": "border-box",
           "height": "25px",
@@ -632,7 +632,7 @@ exports[`test Lookup renders as a TextField when not open 1`] = `
             "background": "rgba(0,0,0,0)",
             "border": "0px solid rgba(0,0,0,0)",
             "boxSizing": "border-box",
-            "color": "#030303",
+            "color": "#31363e",
             "cursor": "initial",
             "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
             "fontSize": "14px",
@@ -665,7 +665,7 @@ exports[`test Lookup renders as a TextField when not open 1`] = `
     <div
       style={
         Object {
-          "background": "#fff",
+          "background": "#ffffff",
           "border": "1px solid rgba(0,0,0,1)",
           "boxSizing": "border-box",
           "width": "256px",
@@ -738,7 +738,7 @@ exports[`test Lookup renders the explicitly set selected item as a Chip 1`] = `
       style={
         Object {
           "background": "rgba(255,255,255,1)",
-          "border": "1px solid #808080",
+          "border": "1px solid #878c94",
           "borderRadius": "3px",
           "boxSizing": "border-box",
           "height": "25px",
@@ -778,7 +778,7 @@ exports[`test Lookup renders the explicitly set selected item as a Chip 1`] = `
             "background": "rgba(0,0,0,0)",
             "border": "0px solid rgba(0,0,0,0)",
             "boxSizing": "border-box",
-            "color": "#030303",
+            "color": "#31363e",
             "cursor": "initial",
             "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
             "fontSize": "14px",
@@ -811,7 +811,7 @@ exports[`test Lookup renders the explicitly set selected item as a Chip 1`] = `
     <div
       style={
         Object {
-          "background": "#fff",
+          "background": "#ffffff",
           "border": "1px solid rgba(0,0,0,1)",
           "boxSizing": "border-box",
           "width": "256px",
@@ -884,7 +884,7 @@ exports[`test Lookup renders the explicitly set selected item as a Chip 2`] = `
       style={
         Object {
           "background": "rgba(255,255,255,1)",
-          "border": "1px solid #808080",
+          "border": "1px solid #878c94",
           "borderRadius": "3px",
           "boxSizing": "border-box",
           "height": "25px",
@@ -924,7 +924,7 @@ exports[`test Lookup renders the explicitly set selected item as a Chip 2`] = `
             "background": "rgba(0,0,0,0)",
             "border": "0px solid rgba(0,0,0,0)",
             "boxSizing": "border-box",
-            "color": "#030303",
+            "color": "#31363e",
             "cursor": "initial",
             "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
             "fontSize": "14px",
@@ -957,7 +957,7 @@ exports[`test Lookup renders the explicitly set selected item as a Chip 2`] = `
     <div
       style={
         Object {
-          "background": "#fff",
+          "background": "#ffffff",
           "border": "1px solid rgba(0,0,0,1)",
           "boxSizing": "border-box",
           "width": "256px",

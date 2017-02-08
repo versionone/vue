@@ -26,6 +26,6 @@ export const shuttle = '#61666e';
 export const mango = '#ea6c02';
 export const sunset = '#d52101';
 export const sunglow = '#eaab00';
-export const lightSunset = toRgbaString(lighten(sunset, 0.67));
+export const lightSunset = toRgbaString(lighten(sunset, 0.47));
 
 export const yellowAccent = '#FFF4A3';

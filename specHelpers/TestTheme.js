@@ -30,6 +30,7 @@ export default {
     smallFontSize: 14,
     smallGutter: 6,
     textPrimaryColor: '#030303',
+    textSecondaryColor: '#030303',
     textDisabledColor: '#808080',
     xLargeFontSize: 24,
     xLargeGutter: 16,

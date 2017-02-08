@@ -31,6 +31,7 @@ export default {
     smallFontSize: 14,
     smallGutter: 6,
     textPrimaryColor: colors.gunMetal,
+    textSecondaryColor: colors.aluminum,
     textDisabledColor: colors.minBlack,
     xLargeFontSize: 24,
     xLargeGutter: 16,

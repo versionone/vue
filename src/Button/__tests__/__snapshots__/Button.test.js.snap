@@ -9,11 +9,11 @@ exports[`test alternative button 1`] = `
   style={
     Object {
       "alignItems": "flex-start",
-      "background": "#ffa500",
-      "border": "1px solid #ffa500",
+      "background": "#eaab00",
+      "border": "1px solid #eaab00",
       "borderRadius": "6px",
       "boxSizing": "border-box",
-      "color": "#fff",
+      "color": "#ffffff",
       "cursor": "pointer",
       "display": "inline-block",
       "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
@@ -45,11 +45,11 @@ exports[`test basic alternative button 1`] = `
   style={
     Object {
       "alignItems": "flex-start",
-      "background": "#fff",
-      "border": "1px solid #030303",
+      "background": "#ffffff",
+      "border": "1px solid #31363e",
       "borderRadius": "6px",
       "boxSizing": "border-box",
-      "color": "#030303",
+      "color": "#31363e",
       "cursor": "pointer",
       "display": "inline-block",
       "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
@@ -81,11 +81,11 @@ exports[`test basic button 1`] = `
   style={
     Object {
       "alignItems": "flex-start",
-      "background": "#00ffff",
-      "border": "1px solid #00ffff",
+      "background": "#00a9e0",
+      "border": "1px solid #00a9e0",
       "borderRadius": "6px",
       "boxSizing": "border-box",
-      "color": "#fff",
+      "color": "#ffffff",
       "cursor": "pointer",
       "display": "inline-block",
       "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
@@ -117,11 +117,11 @@ exports[`test button can be disabled 1`] = `
   style={
     Object {
       "alignItems": "flex-start",
-      "background": "#fff",
+      "background": "#ffffff",
       "border": "1px solid rgba(0,0,0,0)",
       "borderRadius": "6px",
       "boxSizing": "border-box",
-      "color": "rgba(3,3,3,0.3)",
+      "color": "rgba(49,54,62,0.3)",
       "cursor": "not-allowed",
       "display": "inline-block",
       "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
@@ -151,11 +151,11 @@ exports[`test button can be resized 1`] = `
   style={
     Object {
       "alignItems": "flex-start",
-      "background": "#fff",
-      "border": "1px solid #030303",
+      "background": "#ffffff",
+      "border": "1px solid #31363e",
       "borderRadius": "6px",
       "boxSizing": "border-box",
-      "color": "#030303",
+      "color": "#31363e",
       "cursor": "pointer",
       "display": "inline-block",
       "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
@@ -185,11 +185,11 @@ exports[`test important button 1`] = `
   style={
     Object {
       "alignItems": "flex-start",
-      "background": "#f99643",
-      "border": "1px solid #f99643",
+      "background": "#ea6c02",
+      "border": "1px solid #ea6c02",
       "borderRadius": "6px",
       "boxSizing": "border-box",
-      "color": "#fff",
+      "color": "#ffffff",
       "cursor": "pointer",
       "display": "inline-block",
       "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
@@ -221,11 +221,11 @@ exports[`test special button 1`] = `
   style={
     Object {
       "alignItems": "flex-start",
-      "background": "#030303",
-      "border": "1px solid #030303",
+      "background": "#31363e",
+      "border": "1px solid #31363e",
       "borderRadius": "6px",
       "boxSizing": "border-box",
-      "color": "#fff",
+      "color": "#ffffff",
       "cursor": "pointer",
       "display": "inline-block",
       "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
@@ -257,11 +257,11 @@ exports[`test standard button 1`] = `
   style={
     Object {
       "alignItems": "flex-start",
-      "background": "#fff",
-      "border": "1px solid #030303",
+      "background": "#ffffff",
+      "border": "1px solid #31363e",
       "borderRadius": "6px",
       "boxSizing": "border-box",
-      "color": "#030303",
+      "color": "#31363e",
       "cursor": "pointer",
       "display": "inline-block",
       "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
@@ -293,11 +293,11 @@ exports[`test standard button 2`] = `
   style={
     Object {
       "alignItems": "flex-start",
-      "background": "#fff",
-      "border": "1px solid #030303",
+      "background": "#ffffff",
+      "border": "1px solid #31363e",
       "borderRadius": "6px",
       "boxSizing": "border-box",
-      "color": "#030303",
+      "color": "#31363e",
       "cursor": "pointer",
       "display": "inline-block",
       "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",

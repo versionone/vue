@@ -12,7 +12,7 @@ exports[`test hint text can be hidden 1`] = `
     data-radium={true}
     style={
       Object {
-        "color": undefined,
+        "color": "#878c94",
         "display": "block",
         "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
         "fontSize": "14px",
@@ -38,7 +38,7 @@ exports[`test hint text can display text content 1`] = `
     data-radium={true}
     style={
       Object {
-        "color": undefined,
+        "color": "#878c94",
         "display": "block",
         "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
         "fontSize": "14px",

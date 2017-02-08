@@ -3,7 +3,7 @@ import React, {PropTypes} from 'react';
 import {combineReducers, createStore} from 'redux';
 import {mount, render, shallow} from 'enzyme';
 import {reducer as uiReducer} from 'redux-ui';
-import theme from './TestTheme';
+import theme from './../src/styles/themes/v1Theme';
 
 const reducer = combineReducers({
     ui: uiReducer,

@@ -115,6 +115,10 @@ export default class ThemeProvider extends Component {
          */
         textPrimaryColor: PropTypes.string.isRequired,
         /**
+         * Secondary color for textual content; such as hint text.
+         */
+        textSecondaryColor: PropTypes.string.isRequired,
+        /**
          * Largest font size used for ...?
          */
         xLargeFontSize: PropTypes.number.isRequired,

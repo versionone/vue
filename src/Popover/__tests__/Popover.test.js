@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
-import {getMount, reset} from './../../../specHelpers/rendering';
 import Popover from './../Popover';
+import {getMount, reset} from './../../../specHelpers/rendering';
 
 afterEach(reset());
 const mountPopover = getMount(Popover);

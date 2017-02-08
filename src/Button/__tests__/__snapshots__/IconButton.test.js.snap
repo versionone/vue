@@ -10,10 +10,7 @@ exports[`test circular icon button 1`] = `
     setDefaultUI={[Function]}
     ui={
       Object {
-        "IconButton2239657a": Object {
-          "hovered": false,
-        },
-        "IconButtonb7b7bab": Object {
+        "IconButton": Object {
           "hovered": false,
         },
         "__reducers": Object {},
@@ -38,10 +35,10 @@ exports[`test circular icon button 1`] = `
           "hovered": false,
         }
       }
-      uiKey="IconButton2239657a"
+      uiKey="IconButton"
       uiPath={
         Array [
-          "IconButton2239657a",
+          "IconButton",
         ]
       }
       unmountUI={[Function]}
@@ -118,16 +115,7 @@ exports[`test icon button can be disabled 1`] = `
     setDefaultUI={[Function]}
     ui={
       Object {
-        "IconButton21128073": Object {
-          "hovered": false,
-        },
-        "IconButton2239657a": Object {
-          "hovered": false,
-        },
-        "IconButton3833ec0f": Object {
-          "hovered": false,
-        },
-        "IconButtonb7b7bab": Object {
+        "IconButton": Object {
           "hovered": false,
         },
         "__reducers": Object {},
@@ -152,10 +140,10 @@ exports[`test icon button can be disabled 1`] = `
           "hovered": false,
         }
       }
-      uiKey="IconButton3833ec0f"
+      uiKey="IconButton"
       uiPath={
         Array [
-          "IconButton3833ec0f",
+          "IconButton",
         ]
       }
       unmountUI={[Function]}
@@ -232,13 +220,7 @@ exports[`test icon button can be resized 1`] = `
     size={0.75}
     ui={
       Object {
-        "IconButton21128073": Object {
-          "hovered": false,
-        },
-        "IconButton2239657a": Object {
-          "hovered": false,
-        },
-        "IconButtonb7b7bab": Object {
+        "IconButton": Object {
           "hovered": false,
         },
         "__reducers": Object {},
@@ -263,10 +245,10 @@ exports[`test icon button can be resized 1`] = `
           "hovered": false,
         }
       }
-      uiKey="IconButton21128073"
+      uiKey="IconButton"
       uiPath={
         Array [
-          "IconButton21128073",
+          "IconButton",
         ]
       }
       unmountUI={[Function]}
@@ -347,22 +329,7 @@ exports[`test icon button can be set to be hovered 1`] = `
     setDefaultUI={[Function]}
     ui={
       Object {
-        "IconButton17ea6c36": Object {
-          "hovered": false,
-        },
-        "IconButton21128073": Object {
-          "hovered": false,
-        },
-        "IconButton2239657a": Object {
-          "hovered": false,
-        },
-        "IconButton3410b3c4": Object {
-          "hovered": false,
-        },
-        "IconButton3833ec0f": Object {
-          "hovered": false,
-        },
-        "IconButtonb7b7bab": Object {
+        "IconButton": Object {
           "hovered": false,
         },
         "__reducers": Object {},
@@ -391,10 +358,10 @@ exports[`test icon button can be set to be hovered 1`] = `
           "hovered": false,
         }
       }
-      uiKey="IconButton17ea6c36"
+      uiKey="IconButton"
       uiPath={
         Array [
-          "IconButton17ea6c36",
+          "IconButton",
         ]
       }
       unmountUI={[Function]}
@@ -470,19 +437,7 @@ exports[`test icon button can have a border 1`] = `
     setDefaultUI={[Function]}
     ui={
       Object {
-        "IconButton21128073": Object {
-          "hovered": false,
-        },
-        "IconButton2239657a": Object {
-          "hovered": false,
-        },
-        "IconButton3410b3c4": Object {
-          "hovered": false,
-        },
-        "IconButton3833ec0f": Object {
-          "hovered": false,
-        },
-        "IconButtonb7b7bab": Object {
+        "IconButton": Object {
           "hovered": false,
         },
         "__reducers": Object {},
@@ -508,10 +463,10 @@ exports[`test icon button can have a border 1`] = `
           "hovered": false,
         }
       }
-      uiKey="IconButton3410b3c4"
+      uiKey="IconButton"
       uiPath={
         Array [
-          "IconButton3410b3c4",
+          "IconButton",
         ]
       }
       unmountUI={[Function]}
@@ -584,7 +539,7 @@ exports[`test icon button renders with defaults 1`] = `
     setDefaultUI={[Function]}
     ui={
       Object {
-        "IconButtonb7b7bab": Object {
+        "IconButton": Object {
           "hovered": false,
         },
         "__reducers": Object {},
@@ -609,10 +564,10 @@ exports[`test icon button renders with defaults 1`] = `
           "hovered": false,
         }
       }
-      uiKey="IconButtonb7b7bab"
+      uiKey="IconButton"
       uiPath={
         Array [
-          "IconButtonb7b7bab",
+          "IconButton",
         ]
       }
       unmountUI={[Function]}

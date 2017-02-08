@@ -1,0 +1,15 @@
+exports[`test it renders text as a sub header 1`] = `
+<header
+  data-radium={true}
+  style={
+    Object {
+      "backgroundColor": "rgba(0,0,0,0)",
+      "borderBottom": "1px dashed #a6a6a6",
+      "color": "#a6a6a6",
+      "padding": "6px 12px",
+      "textTransform": "uppercase",
+    }
+  }>
+  Hello world.
+</header>
+`;

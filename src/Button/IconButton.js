@@ -125,7 +125,7 @@ IconButton.contextTypes = {
 };
 IconButton.displayName = 'IconButton';
 export default Radium(ui({
-    uiKey: 'IconButton',
+    key: 'IconButton',
     state: {
         hovered: false,
     }

@@ -10,12 +10,12 @@ const reducer = combineReducers({
 });
 const store = createStore(reducer);
 
-export const getShallow = (Component) => (props = {}, context = {
+export const getShallow = Component => (props = {}, context = {
     store,
     theme,
 }) => shallow(<Component {...props} />, {context});
 
-export const getRender = (Component) => (props = {}, context = {
+export const getRender = Component => (props = {}, context = {
     store,
     theme,
 }) => render(<Component {...props} />, {
@@ -26,7 +26,7 @@ export const getRender = (Component) => (props = {}, context = {
     },
 });
 
-export const getMount = (Component) => (props = {}, context = {
+export const getMount = Component => (props = {}, options = {}, context = {
     store,
     theme,
 },) => mount(<Component {...props} />, {
@@ -35,6 +35,14 @@ export const getMount = (Component) => (props = {}, context = {
         store: PropTypes.object,
         theme: PropTypes.object,
     },
+    ...options,
 });
 
-export const snapshot = (renderedComponent) => toJson(renderedComponent);
+export const snapshot = renderedComponent => toJson(renderedComponent);
+
+export const reset = component => () => {
+    if (Boolean(component)) {
+        component.unmount();
+    }
+    document.body.innerHTML = '';
+};

@@ -2,7 +2,7 @@ import React from 'react';
 import List from './../List';
 import ListItem from './../ListItem';
 import SubHeader from './../../SubHeader';
-import {getMount, getShallow, snapshot} from './../../../specHelpers/rendering';
+import {getMount, getShallow, snapshot, reset} from './../../../specHelpers/rendering';
 
 const renderList = getShallow(List);
 const mountList = getMount(List);

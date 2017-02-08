@@ -1,15 +1,16 @@
+// import React from 'react';
 import simulant from 'simulant';
+// import {render} from 'react-dom';
 import Lookup from './../Lookup';
-import {getMount, getShallow, snapshot} from './../../../specHelpers/rendering';
+import {getMount, getShallow, snapshot, reset} from './../../../specHelpers/rendering';
+import ThemeProvider from './../../Theme';
+import testTheme from './../../../specHelpers/TestTheme';
 
 const mountLookup = getMount(Lookup);
 const shallowRenderLookup = getShallow(Lookup);
 
 let component;
-afterEach(() => {
-    component.unmount();
-    document.body.innerHTML = '';
-});
+afterEach(reset(component));
 
 test('Lookup renders as a TextField when not open', () => {
     component = shallowRenderLookup({
@@ -17,6 +18,20 @@ test('Lookup renders as a TextField when not open', () => {
         open: false,
     });
     expect(snapshot(component)).toMatchSnapshot();
+});
+
+// Requried element.getBoundingClientRect does not populate with jsdom and therefore this cannot be tested.
+test.skip('Lookup can render hint text that is longer/larger than what would fit within the search text input field', () => {
+    const div = document.createElement('div');
+    document.body.appendChild(div);
+    render((
+        <ThemeProvider theme={testTheme}>
+            <Lookup
+                hintText="hint text, hint text, more hint text, do you believe in the power of the hint text....????"
+                width={10}
+            />
+        </ThemeProvider>
+    ), div);
 });
 
 test('Lookup defaults to being closed', () => {
@@ -51,14 +66,30 @@ test('Lookup can have a set widths', () => {
 });
 
 test('Lookup can be set to be full width', () => {
-    component = shallowRenderLookup({
+    window.getComputedStyle = jest.fn();
+    window.getComputedStyle.mockReturnValue({width: '600px'});
+    component = mountLookup({
         dataSource: getBasicDataSource(),
         fullWidth: true,
         open: true,
         resultGroups: 'Header',
-        width: 100,
     });
-    expect(snapshot(component)).toMatchSnapshot();
+    expect(lookupPopoverToBeWidth(component, 600)).toBeTruthy();
+});
+
+test('Lookup can be set to a width, then updated to be full width', () => {
+    window.getComputedStyle = jest.fn();
+    window.getComputedStyle.mockReturnValue({width: '500px'});
+    component = mountLookup({
+        dataSource: getBasicDataSource(),
+        open: true,
+        resultGroups: 'Header',
+        width: 300,
+    });
+    component.setProps({
+        fullWidth: true,
+    });
+    expect(lookupPopoverToBeWidth(component, 500)).toBeTruthy();
 });
 
 test('Lookup can render multiple groupings of results via their filters', () => {
@@ -84,6 +115,24 @@ test('Lookup can render multiple groupings of results via their filters', () => 
     ])).toBeTruthy();
 });
 
+test('Lookup can provide custom render for selected text and items', () => {
+    component = shallowRenderLookup({
+        dataSource: getDataSource(),
+        dataSourceConfig: getCustomTextRendererDataSourceConfig(),
+        open: true,
+        selectedItems: ['oid:1'],
+    });
+    expect(snapshot(component)).toMatchSnapshot();
+
+    component = mountLookup({
+        dataSource: getDataSource(),
+        dataSourceConfig: getCustomTextRendererDataSourceConfig(),
+        open: true,
+        resultGroups: 'Header',
+    });
+    expect(lookupGroupResultsMatchExactly(component, 0, 'Header', getBasicDataSource())).toBeTruthy();
+});
+
 test('Lookup renders the explicitly set selected item as a Chip', () => {
     component = shallowRenderLookup({
         dataSource: getBasicDataSource(),
@@ -97,6 +146,29 @@ test('Lookup renders the explicitly set selected item as a Chip', () => {
         dataSourceConfig: getDataSourceConfig(),
         open: true,
         selectedItems: ['oid:1'],
+    });
+    expect(snapshot(component)).toMatchSnapshot();
+});
+
+test('Lookup can render the selected item as a Chip and then be updated with a new selected item to render as a Chip', () => {
+    component = shallowRenderLookup({
+        dataSource: getBasicDataSource(),
+        open: true,
+        selectedItems: [0],
+    });
+    component.setProps({
+        selectedItems: [1],
+    });
+    expect(snapshot(component)).toMatchSnapshot();
+
+    component = shallowRenderLookup({
+        dataSource: getDataSource(),
+        dataSourceConfig: getDataSourceConfig(),
+        open: true,
+        selectedItems: ['oid:1'],
+    });
+    component.setProps({
+        selectedItems: ['oid:2'],
     });
     expect(snapshot(component)).toMatchSnapshot();
 });
@@ -125,6 +197,64 @@ test('Clicking on the Chip removal icon removes the Chip as the selected item', 
     expect(noSelectedItems(component)).toBeTruthy();
 });
 
+test('Lookup will filter results when search text is input/applied using the provided searchFilter prop', () => {
+    component = mountLookup({
+        dataSource: getBasicDataSource(),
+        open: true,
+        resultGroups: 'header',
+        searchFilter: (searchText, item) => item.indexOf(searchText) >= 0,
+        searchText: 'ing 1',
+    });
+    expect(lookupGroupResultsMatchExactly(component, 0, 'header', ['Testing 1'])).toBeTruthy();
+    component.setProps({
+        searchText: 'ing 2',
+    });
+    expect(lookupGroupResultsMatchExactly(component, 0, 'header', ['Testing 2'])).toBeTruthy();
+});
+
+test('Lookup can be accept entry of search text to be applied to the search filter', () => {
+    component = mountLookup({
+        dataSource: getBasicDataSource(),
+        open: true,
+        resultGroups: 'header',
+        searchFilter: (searchText, item) => item.indexOf(searchText) >= 0,
+        searchText: 'ing ',
+    });
+    simulateSearchTextEntry(component, 'ing 1');
+    expect(lookupGroupResultsMatchExactly(component, 0, 'header', ['Testing 1'])).toBeTruthy();
+});
+
+test('Clicking the hint text sends focus to the search text input field', () => {
+    component = mountLookup({
+        dataSource: getBasicDataSource(),
+        open: true,
+        resultGroups: 'header',
+        searchFilter: (searchText, item) => item.indexOf(searchText) >= 0,
+        searchText: 'ing ',
+    });
+    simulateClickHintTextLookup(component);
+    expect(searchTextToBeFocused()).toBeTruthy();
+});
+
+test('Clicking outside of the lookup will close the lookup', () => {
+    const mappedEventHandlers = {};
+    window.addEventListener = jest.fn().mockImplementation((event, cb) => {
+        mappedEventHandlers[event] = cb;
+    });
+    window.setTimeout = jest.fn().mockImplementation((cb) => cb());
+    component = mountLookup({
+        dataSource: getBasicDataSource(),
+        open: true,
+        resultGroups: 'header',
+        searchFilter: (searchText, item) => item.indexOf(searchText) >= 0,
+        searchText: 'ing ',
+    });
+    simulateClickAway(mappedEventHandlers);
+    expect(lookupIsClosed(component)).toBeTruthy();
+});
+
+// ---
+
 function lookupRendersOpen(wrapper) {
     return wrapper.find('Popover').props().open === true;
 }
@@ -147,7 +277,6 @@ function getDataSource() {
         },
     ];
 }
-
 function getRootElementOfPopover() {
     return document
         .body
@@ -203,6 +332,13 @@ function getDataSourceConfig() {
         text: 'name',
     };
 }
+function getCustomTextRendererDataSourceConfig() {
+    return {
+        oidKey: 'oid',
+        renderItem: item => item.name,
+        text: item => item.name,
+    };
+}
 function simulateChipRemoval(wrapper) {
     wrapper.find('IconButton').simulate('click');
 }
@@ -212,4 +348,23 @@ function noSelectedItems(wrapper) {
 function childrenAsArray(parent) {
     return Object.keys(parent.children)
         .map(key => parent.children[key]);
+}
+function simulateClickHintTextLookup(wrapper, evt = {}) {
+    wrapper.find('HintText').simulate('click', evt);
+}
+function simulateSearchTextEntry(wrapper, enteredText) {
+    wrapper.find('input').simulate('change', {target: {value: enteredText}});
+}
+function searchTextToBeFocused() {
+    return document.activeElement.tagName === 'INPUT';
+}
+function simulateClickAway(mappedEventHandlers) {
+    const evt = {
+        defaultPrevented: false,
+        target: window,
+    };
+    mappedEventHandlers['click'](evt);
+}
+function lookupIsClosed(wrapper) {
+    return wrapper.state().open === false;
 }

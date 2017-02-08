@@ -37,7 +37,6 @@ const configureGetChipValues = (dataSourceConfig, dataSource) => (oid) => {
         text,
     };
 };
-const matchesStringValue = value => stringValue => value !== stringValue;
 
 class Lookup extends Component {
     static propTypes = {
@@ -113,6 +112,10 @@ class Lookup extends Component {
          */
         searchFilter: PropTypes.func.isRequired,
         /**
+         * Explicitly set the search text to appear in the lookup
+         */
+        searchText: PropTypes.string,
+        /**
          * Sets the selected values of the lookup; is the string key of the selected object in the data source
          */
         selectedItems: PropTypes.arrayOf(PropTypes.oneOfType([
@@ -138,6 +141,7 @@ class Lookup extends Component {
         open: false,
         resultGroups: [],
         searchFilter: Filters.none,
+        searchText: '',
         selectedItems: [],
         width: 256,
     };
@@ -170,20 +174,18 @@ class Lookup extends Component {
 
         this.state = {
             open: props.open,
-            searchText: '',
+            searchText: props.searchText,
             selectedItems: props.selectedItems,
             width: props.width,
         };
     }
 
     componentDidMount() {
-        let newState = {};
+        const newState = {};
         if (this.props.fullWidth) {
-            newState = {
-                ...newState,
-                width: this.getFullWidth(),
-            };
+            newState.width = this.getFullWidth();
         }
+
         this.setState({
             ...newState,
             height: this.getHeight(),
@@ -191,29 +193,22 @@ class Lookup extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        let newState = {};
+        const newState = {};
         if (nextProps.fullWidth) {
-            newState = {
-                ...newState,
-                width: this.getFullWidth(),
-            };
+            newState.height = this.getHeight();
+            newState.width = this.getFullWidth();
         }
         else if (this.props.width !== nextProps.width) {
-            newState = {
-                ...newState,
-                width: nextProps.width,
-            };
+            newState.height = this.getHeight();
+            newState.width = nextProps.width;
+        }
+        if (this.props.searchText !== nextProps.searchText) {
+            newState.searchText = nextProps.searchText;
         }
         if (this.props.selectedItems !== nextProps.selectedItems) {
-            newState = {
-                ...newState,
-                selectedItems: nextProps.selectedItems,
-            };
+            newState.selectedItems = nextProps.selectedItems;
         }
-        this.setState({
-            ...newState,
-            height: this.getHeight(),
-        });
+        this.setState(newState);
     }
 
     getFullWidth() {
@@ -224,6 +219,7 @@ class Lookup extends Component {
     }
 
     getHeight() {
+        console.log(this.hintTextWrapper.getBoundingClientRect())
         return Math.max(
             this.inputField
                 .getBoundingClientRect()
@@ -258,9 +254,6 @@ class Lookup extends Component {
     handleItemSelection(evt, index) {
         let selectedItem = this.items.find((item, itemIndex) => itemIndex === index);
         let selectedOid = selectedItem.oid;
-        if (!Boolean(selectedOid) && selectedOid !== 0) {
-            selectedOid = this.props.dataSource.indexOf(selectedItem);
-        }
         this.setSelectedItem(selectedOid);
     }
 

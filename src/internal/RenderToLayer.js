@@ -98,7 +98,7 @@ class RenderToLayer extends Component {
             )
         );
         if (handlingClickAway) {
-            onComponentClickAway(event);
+            onComponentClickAway(evt);
         }
     }
 

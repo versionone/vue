@@ -3,7 +3,6 @@ import {
     getPosition,
     getViewportPosition,
     isColliding,
-    isInside,
     isOverlapping,
     isWithinBottomBoundary,
     isWithinBoundary,
@@ -126,14 +125,26 @@ test('isWithinBoundary can determine if an element position completely fits with
 });
 
 test('isColliding can determine if an element position is colliding with another element position', () => {
-    expect(isColliding(topLeftAnchorPoint)(getPositionColliding())).toBeTruthy();
     expect(isColliding(topLeftAnchorPoint)(getPositionNotOverlapping())).toBeFalsy();
+    expect(isColliding(topLeftAnchorPoint)(getAdjacentPosition())).toBeTruthy();
+    expect(isColliding(topLeftAnchorPoint)(getLeftCollidingPosition())).toBeTruthy();
+    expect(isColliding(topLeftAnchorPoint)(getRightCollidingPosition())).toBeTruthy();
+    expect(isColliding(topLeftAnchorPoint)(getTopCollidingPosition())).toBeTruthy();
+    expect(isColliding(topLeftAnchorPoint)(getLeftRightAroundPosition())).toBeTruthy();
+    expect(isColliding(topLeftAnchorPoint)(getTopBottomAroundPosition())).toBeTruthy();
+    expect(isColliding(topLeftAnchorPoint)(getBottomCollidingPosition())).toBeTruthy();
+    expect(isOverlapping(topLeftAnchorPoint)(getPositionCompletelyAroundAnchor())).toBeTruthy();
 });
 
 test('isOverlapping can determine if an element position overlaps with another element position', () => {
     expect(isOverlapping(topLeftAnchorPoint)(getPositionInside())).toBeTruthy();
-    expect(isOverlapping(topLeftAnchorPoint)(getPositionColliding())).toBeTruthy();
+    expect(isOverlapping(topLeftAnchorPoint)(getLeftCollidingPosition())).toBeTruthy();
+    expect(isOverlapping(topLeftAnchorPoint)(getRightCollidingPosition())).toBeTruthy();
+    expect(isOverlapping(topLeftAnchorPoint)(getTopCollidingPosition())).toBeTruthy();
+    expect(isOverlapping(topLeftAnchorPoint)(getBottomCollidingPosition())).toBeTruthy();
     expect(isOverlapping(topLeftAnchorPoint)(getPositionNotOverlapping())).toBeFalsy();
+    expect(isOverlapping(topLeftAnchorPoint)(getAdjacentPosition())).toBeTruthy();
+    expect(isOverlapping(topLeftAnchorPoint)(getPositionCompletelyAroundAnchor())).toBeTruthy();
 });
 
 test('adjustPositionRelativeWithin can determine a position relative to an anchor when the target position is off screen to the left of the anchor', () => {
@@ -280,12 +291,36 @@ function getPositionNotWithinBoundary() {
         right: 150,
     };
 }
-function getPositionColliding() {
+function getLeftCollidingPosition() {
     return {
-        bottom: 150,
-        left: 20,
+        bottom: 100,
+        left: -20,
         right: 80,
-        top: 80,
+        top: 0,
+    };
+}
+function getRightCollidingPosition() {
+    return {
+        bottom: 100,
+        left: 20,
+        right: 180,
+        top: 0,
+    };
+}
+function getTopCollidingPosition() {
+    return {
+        bottom: 100,
+        left: 0,
+        right: 80,
+        top: -100,
+    };
+}
+function getBottomCollidingPosition() {
+    return {
+        bottom: 400,
+        left: 0,
+        right: 100,
+        top: 20,
     };
 }
 function getPositionInside() {
@@ -327,4 +362,53 @@ function getTargetPosition() {
         top: 0,
         width: 100,
     };
+}
+function getAdjacentPosition() {
+    return {
+        bottom: 200,
+        center: 50,
+        height: 100,
+        left: 0,
+        middle: 50,
+        right: 100,
+        top: 100,
+        width: 100,
+    };
+}
+function getPositionCompletelyAroundAnchor() {
+    return {
+        bottom: 400,
+        center: 50,
+        height: 500,
+        left: -100,
+        middle: 50,
+        right: 400,
+        top: -100,
+        width: 500,
+    }
+}
+function getLeftRightAroundPosition() {
+    return {
+        bottom: 100,
+        center: 50,
+        height: 100,
+        left: -100,
+        middle: 250,
+        right: 400,
+        top: 0,
+        width: 500,
+    }
+}
+
+function getTopBottomAroundPosition() {
+    return {
+        bottom: 400,
+        center: 250,
+        height: 500,
+        left: 0,
+        middle: 50,
+        right: 100,
+        top: -100,
+        width: 100,
+    }
 }

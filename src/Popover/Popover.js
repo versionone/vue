@@ -154,6 +154,7 @@ class Popover extends Component {
         targetElement.style.left = `${Math.max(offScreenThresholdValue, adjustedToFitWithinWindow.left)}px`;
         targetElement.style.maxHeight = `${window.innerHeight}px`;
         targetElement.style.top = `${Math.max(offScreenThresholdValue, adjustedToFitWithinWindow.top)}px`;
+        targetElement.style.width = `${adjustedToFitWithinWindow.width}px`;
     }
 
     renderLayer() {

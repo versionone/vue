@@ -16,7 +16,7 @@ exports[`test Down arrow key moves highlighted item down to next highlight-able 
     setDefaultUI={[Function]}
     ui={
       Object {
-        "List": Object {
+        "Component": Object {
           "highlightedIndex": 4,
         },
         "__reducers": Object {},
@@ -42,10 +42,10 @@ exports[`test Down arrow key moves highlighted item down to next highlight-able 
           "highlightedIndex": 4,
         }
       }
-      uiKey="List"
+      uiKey="List-0"
       uiPath={
         Array [
-          "List",
+          "List-0",
         ]
       }
       unmountUI={[Function]}
@@ -242,7 +242,7 @@ exports[`test Enter key selects the current highlighted item when list is active
     setDefaultUI={[Function]}
     ui={
       Object {
-        "List": Object {
+        "Component": Object {
           "highlightedIndex": null,
         },
         "__reducers": Object {},
@@ -268,10 +268,10 @@ exports[`test Enter key selects the current highlighted item when list is active
           "highlightedIndex": null,
         }
       }
-      uiKey="List"
+      uiKey="List-0"
       uiPath={
         Array [
-          "List",
+          "List-0",
         ]
       }
       unmountUI={[Function]}
@@ -452,7 +452,7 @@ exports[`test List can render ListItems with scroll bar 1`] = `
     setDefaultUI={[Function]}
     ui={
       Object {
-        "List": Object {
+        "Component": Object {
           "highlightedIndex": null,
         },
         "__reducers": Object {},
@@ -478,10 +478,10 @@ exports[`test List can render ListItems with scroll bar 1`] = `
           "highlightedIndex": null,
         }
       }
-      uiKey="List"
+      uiKey="List-0"
       uiPath={
         Array [
-          "List",
+          "List-0",
         ]
       }
       unmountUI={[Function]}
@@ -672,7 +672,7 @@ exports[`test Up arrow key moves highlighted item up to next highlight-able item
     setDefaultUI={[Function]}
     ui={
       Object {
-        "List": Object {
+        "Component": Object {
           "highlightedIndex": 2,
         },
         "__reducers": Object {},
@@ -698,10 +698,10 @@ exports[`test Up arrow key moves highlighted item up to next highlight-able item
           "highlightedIndex": 2,
         }
       }
-      uiKey="List"
+      uiKey="List-0"
       uiPath={
         Array [
-          "List",
+          "List-0",
         ]
       }
       unmountUI={[Function]}

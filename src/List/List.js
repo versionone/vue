@@ -175,7 +175,6 @@ List.contextTypes = {
 List.displayName = 'List';
 
 export default Radium(ui({
-    key: 'List',
     state: {
         highlightedIndex: null,
     }

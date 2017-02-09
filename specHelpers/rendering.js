@@ -38,7 +38,55 @@ export const getMount = Component => (props = {}, options = {}, context = {
     ...options,
 });
 
-export const snapshot = renderedComponent => toJson(renderedComponent);
+const replaceUIKey = componentName => {
+    let index = 0;
+    return json => {
+        if (!Boolean(json.props) || !Boolean(json.props.uiKey)) {
+            return json;
+        }
+        const uiKey = `${componentName}-${index}`;
+        json.props.uiKey = uiKey;
+        json.props.uiPath = [uiKey];
+        index += 1;
+        return json;
+    };
+};
+const replaceUiKeyRecursively = (json) => {
+    if (!Boolean(json.type)) {
+        return json;
+    }
+    const replaceUIKeyInParent = replaceUIKey(json.type);
+    json = replaceUIKeyInParent(json);
+    if (!Boolean(json.children)) {
+        return json;
+    }
+    json.children = json.children.map((child, index) => replaceUiKeyRecursively(child));
+    return json;
+};
+
+const removeReduxUIGeneratedParts = (json) => {
+    if (!Boolean(json.children)
+        || json.children === 0
+        || json.children[0].type !== 'UI'
+        || !Boolean(json.children[0].props)
+        || !Boolean(json.children[0].props.ui)) {
+        return json;
+    }
+    json.children[0].props.ui = json.children[0].props.ui.mapKeys(key => {
+        if (key.indexOf('reducer') >= 0) {
+            return key;
+        }
+        return 'Component';
+    });
+    json.children[0].children = json.children[0].children.map(replaceUiKeyRecursively);
+    return json;
+};
+
+export const snapshot = renderedComponent => {
+    const componentJson = toJson(renderedComponent);
+    const componentWithoutReduxUIKeys = removeReduxUIGeneratedParts(componentJson);
+    return componentWithoutReduxUIKeys;
+};
 
 export const reset = component => () => {
     if (Boolean(component)) {

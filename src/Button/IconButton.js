@@ -8,7 +8,7 @@ import {createConditionalEventHandler, createEventHandlerIgnoringEventData} from
 
 const getStyles = (props, theme) => ({
     root: {
-        backgroundColor: (!Boolean(props.disabled) && props.hovered || props.ui.hovered) ? props.hoverBackgroundColor : props.backgroundColor,
+        backgroundColor: (Boolean(props.disabled) || (!props.hovered && !props.ui.hovered)) ? props.backgroundColor : props.hoverBackgroundColor,
         border: (props.disabled && Boolean(props.border)) ? `1px solid ${theme.disabledPrimaryColor}` : Boolean(props.border) ? props.border : `1px solid ${transparent}`,
         borderRadius: props.circle ? '50%' : '0px',
         cursor: props.disabled ? 'not-allowed' : 'pointer',
@@ -125,7 +125,6 @@ IconButton.contextTypes = {
 };
 IconButton.displayName = 'IconButton';
 export default Radium(ui({
-    key: 'IconButton',
     state: {
         hovered: false,
     }

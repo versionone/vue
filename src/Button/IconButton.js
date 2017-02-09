@@ -3,7 +3,7 @@ import ui from 'redux-ui';
 import {normal} from './Sizes';
 import Radium from './../utilities/Radium';
 import transparent from './../utilities/Transparent';
-import {create as createTransition} from './../styles/Transitions';
+import {create as createTransition} from '../utilities/Transitions';
 import {createConditionalEventHandler, createEventHandlerIgnoringEventData} from './../utilities/component';
 
 const getStyles = (props, theme) => ({

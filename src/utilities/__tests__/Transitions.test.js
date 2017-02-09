@@ -1,4 +1,4 @@
-import {create, easeInOutFunction, easeOut, easeOutFunction} from './Transitions';
+import {create, easeInOutFunction, easeOut, easeOutFunction} from '../utilities/Transitions';
 
 suite('Transitions', () => {
     test('it exports easing functions', () => {

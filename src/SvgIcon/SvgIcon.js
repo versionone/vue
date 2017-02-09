@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import {create as createTransition} from './../styles/Transitions';
+import {create as createTransition} from '../utilities/Transitions';
 import Radium from './../utilities/Radium';
 
 const getStyles = (props) => {

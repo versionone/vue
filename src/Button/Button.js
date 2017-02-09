@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import {setOpacity, darken, toRgbaString} from '@andrew-codes/color-functions';
 import Radium from './../utilities/Radium';
 import transparent from './../utilities/Transparent';
-import {create as createTransition} from './../styles/Transitions';
+import {create as createTransition} from '../utilities/Transitions';
 import {getForegroundForBackground} from './../utilities/colorManipulator';
 import {createConditionalEventHandler} from './../utilities/component';
 import * as ButtonSizes from './Sizes';

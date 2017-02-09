@@ -1,14 +1,20 @@
 import {
+    adjustPositionRelativeWithin,
     getPosition,
     getViewportPosition,
+    isColliding,
+    isInside,
+    isOverlapping,
     isWithinBottomBoundary,
+    isWithinBoundary,
     isWithinLeftBoundary,
     isWithinRightBoundary,
     isWithinTopBoundary,
-    isWithinXBoundary
+    isWithinXBoundary,
+    isWithinYBoundary
 } from './../position';
 
-const testPosition = {
+const topLeftAnchorPoint = {
     bottom: 100,
     center: 50,
     height: 100,
@@ -18,8 +24,44 @@ const testPosition = {
     top: 0,
     width: 100,
 };
+const topRightAnchorPoint = {
+    bottom: 100,
+    center: 250,
+    height: 100,
+    left: 200,
+    middle: 50,
+    right: 300,
+    top: 0,
+    width: 100,
+};
+const bottomLeftAnchorPoint = {
+    bottom: 300,
+    center: 50,
+    height: 100,
+    left: 0,
+    middle: 250,
+    right: 100,
+    top: 200,
+    width: 100,
+};
+const toLeft = {
+    horizontal: 'left',
+    vertical: 'middle',
+};
+const toRight = {
+    horizontal: 'right',
+    vertical: 'middle',
+};
+const toTop = {
+    horizontal: 'center',
+    vertical: 'top',
+};
+const toBottom = {
+    horizontal: 'center',
+    vertical: 'bottom',
+};
 
-test('viewPort position can be obtained', () => {
+test('getViewportPosition can get the position of the viewport', () => {
     window.innerHeight = 800;
     window.document.documentElement.clientHeight = 786;
     window.document.documentElement.clientWidth = 600;
@@ -33,7 +75,7 @@ test('viewPort position can be obtained', () => {
     });
 });
 
-test('the position of an element can be obtained', () => {
+test('getPosition can obtain the position of a provided element', () => {
     const el = {
         getBoundingClientRect: jest.fn().mockReturnValue({
             bottom: 100,
@@ -45,48 +87,117 @@ test('the position of an element can be obtained', () => {
         offsetWidth: 100,
     };
     const position = getPosition(el);
-    expect(position).toEqual(testPosition);
+    expect(position).toEqual(topLeftAnchorPoint);
 });
 
-test('can determine if an element position is to the right the left boundary of another element position', () => {
-    expect(isWithinLeftBoundary(testPosition)(getPositionWithinLeftBoundary())).toBeTruthy();
-    expect(isWithinLeftBoundary(testPosition)(getPositionNotWithinLeftBoundary())).toBeFalsy();
+test('isWithinLeftBoundary can determine if an element position is to the right the left boundary of another element position', () => {
+    expect(isWithinLeftBoundary(topLeftAnchorPoint)(getPositionWithinLeftBoundary())).toBeTruthy();
+    expect(isWithinLeftBoundary(topLeftAnchorPoint)(getPositionNotWithinLeftBoundary())).toBeFalsy();
 });
 
-test('can determine if an element position is to the left the right boundary of another element position', () => {
-    expect(isWithinRightBoundary(testPosition)(getPositionWithinRightBoundary())).toBeTruthy();
-    expect(isWithinRightBoundary(testPosition)(getPositionNotWithinRightBoundary())).toBeFalsy();
+test('isWithinRightBoundary can determine if an element position is to the left the right boundary of another element position', () => {
+    expect(isWithinRightBoundary(topLeftAnchorPoint)(getPositionWithinRightBoundary())).toBeTruthy();
+    expect(isWithinRightBoundary(topLeftAnchorPoint)(getPositionNotWithinRightBoundary())).toBeFalsy();
 });
 
-test('can determine if an element position is below the top boundary of another element position', () => {
-    expect(isWithinTopBoundary(testPosition)(getPositionWithinTopBoundary())).toBeTruthy();
-    expect(isWithinTopBoundary(testPosition)(getPositionNotWithinTopBoundary())).toBeFalsy();
+test('isWithinTopBoundary can determine if an element position is below the top boundary of another element position', () => {
+    expect(isWithinTopBoundary(topLeftAnchorPoint)(getPositionWithinTopBoundary())).toBeTruthy();
+    expect(isWithinTopBoundary(topLeftAnchorPoint)(getPositionNotWithinTopBoundary())).toBeFalsy();
 });
 
-test('can determine if an element position is above the bottom boundary of another element position', () => {
-    expect(isWithinBottomBoundary(testPosition)(getPositionWithinBottomBoundary())).toBeTruthy();
-    expect(isWithinBottomBoundary(testPosition)(getPositionNotWithinBottomBoundary())).toBeFalsy();
+test('isWithinBottomBoundary can determine if an element position is above the bottom boundary of another element position', () => {
+    expect(isWithinBottomBoundary(topLeftAnchorPoint)(getPositionWithinBottomBoundary())).toBeTruthy();
+    expect(isWithinBottomBoundary(topLeftAnchorPoint)(getPositionNotWithinBottomBoundary())).toBeFalsy();
 });
 
-test('can determine if an element position fits horizontally within another element position', () => {
-    expect(isWithinXBoundary(testPosition)(getPositionWithinXBoundary())).toBeTruthy();
-    expect(isWithinXBoundary(testPosition)(getPositionNotWithinXBoundary())).toBeFalsy();
+test('isWithinXBoundary can determine if an element position fits horizontally within another element position', () => {
+    expect(isWithinXBoundary(topLeftAnchorPoint)(getPositionWithinXBoundary())).toBeTruthy();
+    expect(isWithinXBoundary(topLeftAnchorPoint)(getPositionNotWithinXBoundary())).toBeFalsy();
 });
 
-test('can determine if an element position fits vertically within another element position', () => {
-    throw new Error('Not Implemented Error');
+test('isWithinYBoundary can determine if an element position fits vertically within another element position', () => {
+    expect(isWithinYBoundary(topLeftAnchorPoint)(getPositionWithinYBoundary())).toBeTruthy();
+    expect(isWithinYBoundary(topLeftAnchorPoint)(getPositionNotWithinYBoundary())).toBeFalsy();
 });
 
-test('can determine if an element position completely fits within another element position', () => {
-    throw new Error('Not Implemented Error');
+test('isWithinBoundary can determine if an element position completely fits within another element position', () => {
+    expect(isWithinBoundary(topLeftAnchorPoint)(getPositionWithinBoundary())).toBeTruthy();
+    expect(isWithinBoundary(topLeftAnchorPoint)(getPositionNotWithinBoundary())).toBeFalsy();
 });
 
-test('can determine if an element position is colliding with another element position', () => {
-    throw new Error('Not Implemented Error');
+test('isColliding can determine if an element position is colliding with another element position', () => {
+    expect(isColliding(topLeftAnchorPoint)(getPositionColliding())).toBeTruthy();
+    expect(isColliding(topLeftAnchorPoint)(getPositionNotOverlapping())).toBeFalsy();
 });
 
-test('can determine if an element position overlaps another element position', () => {
-    throw new Error('Not Implemented Error');
+test('isOverlapping can determine if an element position overlaps with another element position', () => {
+    expect(isOverlapping(topLeftAnchorPoint)(getPositionInside())).toBeTruthy();
+    expect(isOverlapping(topLeftAnchorPoint)(getPositionColliding())).toBeTruthy();
+    expect(isOverlapping(topLeftAnchorPoint)(getPositionNotOverlapping())).toBeFalsy();
+});
+
+test('adjustPositionRelativeWithin can determine a position relative to an anchor when the target position is off screen to the left of the anchor', () => {
+    expect(adjustPositionRelativeWithin(getBoundingPosition(), topLeftAnchorPoint, toLeft)(getTargetPosition(), toRight)).toEqual({
+        bottom: 100,
+        center: 50,
+        height: 100,
+        left: 100,
+        middle: 50,
+        right: 200,
+        top: 0,
+        width: 100,
+    });
+});
+test('adjustPositionRelativeWithin can determine a position relative to an anchor when target position is off screen above the anchor', () => {
+    expect(adjustPositionRelativeWithin(getBoundingPosition(), topLeftAnchorPoint, toTop)(getTargetPosition(), toBottom)).toEqual({
+        bottom: 200,
+        center: 50,
+        height: 100,
+        left: 0,
+        middle: 50,
+        right: 100,
+        top: 100,
+        width: 100,
+    });
+});
+
+test('adjustPositionRelativeWithin can determine a position relative to an anchor when target position is off screen to the right the anchor', () => {
+    expect(adjustPositionRelativeWithin(getBoundingPosition(), topRightAnchorPoint, toRight)(getTargetPosition(), toLeft)).toEqual({
+        bottom: 100,
+        center: 50,
+        height: 100,
+        left: 100,
+        middle: 50,
+        right: 200,
+        top: 0,
+        width: 100,
+    });
+});
+
+test('adjustPositionRelativeWithin can determine a position relative to an anchor when target position is off screen below the anchor', () => {
+    expect(adjustPositionRelativeWithin(getBoundingPosition(), bottomLeftAnchorPoint, toBottom)(getTargetPosition(), toTop)).toEqual({
+        bottom: 200,
+        center: 50,
+        height: 100,
+        left: 0,
+        middle: 50,
+        right: 100,
+        top: 100,
+        width: 100,
+    });
+});
+
+test('adjustPositionRelativeWithin can determine a position relative to an anchor when target position is within the screen', () => {
+    expect(adjustPositionRelativeWithin(getBoundingPosition(), bottomLeftAnchorPoint, toTop)(getTargetPosition(), toBottom)).toEqual({
+        bottom: 200,
+        center: 50,
+        height: 100,
+        left: 0,
+        middle: 50,
+        right: 100,
+        top: 100,
+        width: 100,
+    });
 });
 
 function getPositionWithinLeftBoundary() {
@@ -139,5 +250,81 @@ function getPositionNotWithinXBoundary() {
     return {
         left: 20,
         right: 150,
+    };
+}
+function getPositionWithinYBoundary() {
+    return {
+        top: 20,
+        bottom: 80,
+    };
+}
+function getPositionNotWithinYBoundary() {
+    return {
+        top: -10,
+        bottom: 150,
+    };
+}
+function getPositionWithinBoundary() {
+    return {
+        bottom: 80,
+        left: 20,
+        right: 80,
+        top: 80,
+    };
+}
+function getPositionNotWithinBoundary() {
+    return {
+        bottom: 150,
+        left: 20,
+        top: 20,
+        right: 150,
+    };
+}
+function getPositionColliding() {
+    return {
+        bottom: 150,
+        left: 20,
+        right: 80,
+        top: 80,
+    };
+}
+function getPositionInside() {
+    return {
+        bottom: 80,
+        left: 20,
+        right: 80,
+        top: 20,
+    };
+}
+function getPositionNotOverlapping() {
+    return {
+        bottom: 300,
+        left: 150,
+        right: 300,
+        top: 150,
+    };
+}
+function getBoundingPosition() {
+    return {
+        bottom: 300,
+        center: 150,
+        height: 300,
+        left: 0,
+        middle: 150,
+        right: 300,
+        top: 0,
+        width: 300,
+    };
+}
+function getTargetPosition() {
+    return {
+        bottom: 100,
+        center: 50,
+        height: 100,
+        left: 0,
+        middle: 50,
+        right: 100,
+        top: 0,
+        width: 100,
     };
 }

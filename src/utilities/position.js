@@ -56,33 +56,28 @@ export const isWithinBoundary = (boundingPosition) => {
     return position => isWithinX(position) && isWithinY(position);
 };
 
-export const isColliding = referencePosition => position => (position.top > referencePosition.bottom
+export const isColliding = referencePosition => position => !(position.top > referencePosition.bottom
 || position.right < referencePosition.left
 || position.bottom < referencePosition.top
 || position.left > referencePosition.right);
 
-export const isInside = referencePosition => position => position.top <= referencePosition.top
-&& referencePosition.top <= position.bottom
-&& position.top <= referencePosition.bottom
-&& referencePosition.bottom <= position.bottom
-&& position.left <= referencePosition.left
-&& referencePosition.left <= position.right
-&& position.left <= referencePosition.right
-&& referencePosition.right <= position.right;
-
 export const isOverlapping = (referencePosition) => {
     const isCollidingWithReference = isColliding(referencePosition);
-    const isInsideReference = isInside(referencePosition);
+    const isWithinReference = isWithinBoundary(referencePosition);
 
-    return position => isCollidingWithReference(position) || isInsideReference(position);
+    return position => isCollidingWithReference(position) || isWithinReference(position);
 };
 
 export const adjustPositionRelativeWithin = (boundingPosition, anchorPosition, anchorOrigin) => {
-    const isWithinLeft = isWithinLeftBoundary(boundingPosition);
-    const isWithinRight = isWithinRightBoundary(boundingPosition);
-    const isWithinTop = isWithinTopBoundary(boundingPosition);
-    const isWithinBottom = isWithinBottomBoundary(boundingPosition);
-    const isInsideAnchor = isInside(anchorPosition);
+    const isWithinLeftOfBoundary = isWithinLeftBoundary(boundingPosition);
+    const isWithinRightOfBoundary = isWithinRightBoundary(boundingPosition);
+    const isWithinTopOfBoundary = isWithinTopBoundary(boundingPosition);
+    const isWithinBottomOfBoundary = isWithinBottomBoundary(boundingPosition);
+
+    const isWithinLeftOfAnchor = isWithinLeftBoundary(anchorPosition);
+    const isWithinRightOfAnchor = isWithinRightBoundary(anchorPosition);
+    const isWithinTopOfAnchor = isWithinTopBoundary(anchorPosition);
+    const isWithinBottomOfAnchor = isWithinBottomBoundary(anchorPosition);
     const isOverlappingAnchor = isOverlapping(anchorPosition);
 
     return (targetPosition, targetOrigin) => {
@@ -95,47 +90,57 @@ export const adjustPositionRelativeWithin = (boundingPosition, anchorPosition, a
             right: relativeLeftPositionToAnchor + targetPosition.width,
             top: relativeTopPositionToAnchor,
         };
-        if (isInsideAnchor(relativePosition)) {
+
+        if (!isOverlappingAnchor(relativePosition)) {
             return relativePosition;
         }
         const nonOverlappingRelativePosition = {
             ...relativePosition,
         };
-        if (!isWithinLeft(nonOverlappingRelativePosition)) {
+
+        // Adjust if not within viewport in any direction
+        if (!isWithinLeftOfBoundary(nonOverlappingRelativePosition)) {
             const leftDifference = Math.abs(nonOverlappingRelativePosition.left - boundingPosition.left);
             nonOverlappingRelativePosition.left = 0;
             nonOverlappingRelativePosition.right += leftDifference;
-            if (isOverlappingAnchor(nonOverlappingRelativePosition)) {
-                nonOverlappingRelativePosition.left = anchorPosition.right;
-                nonOverlappingRelativePosition.right = anchorPosition.right + nonOverlappingRelativePosition.width;
-            }
         }
-        else if (!isWithinRight(nonOverlappingRelativePosition)) {
+        else if (!isWithinRightOfBoundary(nonOverlappingRelativePosition)) {
             const rightDifference = Math.abs(nonOverlappingRelativePosition.right - boundingPosition.right);
             nonOverlappingRelativePosition.right = 0;
             nonOverlappingRelativePosition.left -= rightDifference;
-            if (isOverlappingAnchor(nonOverlappingRelativePosition)) {
-                nonOverlappingRelativePosition.left = anchorPosition.left - nonOverlappingRelativePosition.width;
-                nonOverlappingRelativePosition.right = anchorPosition.left;
-            }
         }
-        else if (!isWithinTop(nonOverlappingRelativePosition)) {
+        else if (!isWithinTopOfBoundary(nonOverlappingRelativePosition)) {
             const topDifference = Math.abs(nonOverlappingRelativePosition.top - boundingPosition.top);
             nonOverlappingRelativePosition.top = 0;
             nonOverlappingRelativePosition.bottom += topDifference;
-            if (isOverlappingAnchor(nonOverlappingRelativePosition)) {
+        }
+        else if (!isWithinBottomOfBoundary(nonOverlappingRelativePosition)) {
+            const bottomDifference = Math.abs(nonOverlappingRelativePosition.bottom - boundingPosition.bottom);
+            nonOverlappingRelativePosition.bottom = 0;
+            nonOverlappingRelativePosition.top += bottomDifference;
+        }
+        if (!isOverlappingAnchor(nonOverlappingRelativePosition)) {
+            return nonOverlappingRelativePosition;
+        }
+
+        // Adjust if overlapping anchor in any direction
+        if (anchorOrigin.vertical === 'top') {
+            if (isWithinTopOfAnchor(nonOverlappingRelativePosition)) {
                 nonOverlappingRelativePosition.top = anchorPosition.bottom;
                 nonOverlappingRelativePosition.bottom = anchorPosition.bottom + nonOverlappingRelativePosition.height;
             }
         }
-        else if (!isWithinBottom(nonOverlappingRelativePosition)) {
-            const bottomDifference = Math.abs(nonOverlappingRelativePosition.bottom - boundingPosition.bottom);
-            nonOverlappingRelativePosition.bottom = 0;
-            nonOverlappingRelativePosition.top += bottomDifference;
-            if (isOverlappingAnchor(nonOverlappingRelativePosition)) {
-                nonOverlappingRelativePosition.bottom = anchorPosition.top;
-                nonOverlappingRelativePosition.top = anchorPosition.top + nonOverlappingRelativePosition.height;
-            }
+        else if (anchorOrigin.vertical === 'bottom' && isWithinBottomOfAnchor(nonOverlappingRelativePosition)) {
+            nonOverlappingRelativePosition.bottom = anchorPosition.top;
+            nonOverlappingRelativePosition.top = anchorPosition.top - nonOverlappingRelativePosition.height;
+        }
+        else if (anchorOrigin.horizontal === 'left' && isWithinLeftOfAnchor(nonOverlappingRelativePosition)) {
+            nonOverlappingRelativePosition.left = anchorPosition.right;
+            nonOverlappingRelativePosition.right = anchorPosition.right + nonOverlappingRelativePosition.width;
+        }
+        else if (isWithinRightOfAnchor(nonOverlappingRelativePosition)) {
+            nonOverlappingRelativePosition.left = anchorPosition.left - nonOverlappingRelativePosition.width;
+            nonOverlappingRelativePosition.right = anchorPosition.left;
         }
 
         return nonOverlappingRelativePosition;

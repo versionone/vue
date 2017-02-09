@@ -5,7 +5,7 @@ export default type => (props, propName, componentName) => {
     if (propName === 'children') {
         let error = null;
         React.Children.forEach(prop, (el) => {
-            if (error) {
+            if (Boolean(error)) {
                 return;
             }
             if (el.type.displayName !== type.displayName) {

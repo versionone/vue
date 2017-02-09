@@ -1,4 +1,4 @@
-import React, { Component, PropTypes, } from 'react';
+import React, {Component, PropTypes} from 'react';
 import ErrorMessage from './../internal/ErrorMessage';
 import HintText from './../internal/HintText';
 import Radium from './../utilities/Radium';
@@ -29,18 +29,6 @@ class TextField extends Component {
          */
         hintText: PropTypes.string,
         /**
-         * Text field state; used when value has changed, but not persisted
-         */
-        pending: PropTypes.bool,
-        /**
-         * Indicate the text field is required for user input
-         */
-        required: PropTypes.bool,
-        /**
-         * Width of the text field
-         */
-        width: PropTypes.number,
-        /**
          * Callback fired when text field looses focus
          */
         onBlur: PropTypes.func,
@@ -52,6 +40,22 @@ class TextField extends Component {
          * Callback fired when text field is focused
          */
         onFocus: PropTypes.func,
+        /**
+         * Text field state; used when value has changed, but not persisted
+         */
+        pending: PropTypes.bool,
+        /**
+         * Indicate the text field is required for user input
+         */
+        required: PropTypes.bool,
+        /**
+         * Explicitly sets the value of TextField
+         */
+        value: PropTypes.string,
+        /**
+         * Width of the text field
+         */
+        width: PropTypes.number,
     };
     static defaultProps = {
         defaultValue: '',
@@ -68,7 +72,9 @@ class TextField extends Component {
         required: false,
         width: 256,
     };
-    static contextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
+    static contextTypes = {
+        theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
+    };
 
     constructor(props, ...rest) {
         super(props, ...rest);
@@ -89,28 +95,36 @@ class TextField extends Component {
     }
 
     componentDidMount() {
-        this.setState({ hintTextHeight: this.getHeight(this.props), });
+        this.setState({
+            hintTextHeight: this.getHeight(this.props),
+        });
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            hasValue: this.state.hasValue || !!nextProps.defaultValue,
-            hintTextHeight: this.getHeight(),
+            hasValue: this.state.hasValue || Boolean(nextProps.defaultValue) || Boolean(nextProps.value),
+            hintTextHeight: nextProps.hintText !== this.props.hintText ? this.getHeight() : this.state.hintTextHeight,
         });
     }
 
     handleChange(evt) {
-        this.setState({ hasValue: !!evt.target.value, });
-        this.props.onChange(evt.target.value);
+        this.setState({
+            hasValue: !!evt.target.value,
+        });
+        this.props.onChange(evt, evt.target.value);
     }
 
     handleFocus(evt) {
-        this.setState({ focused: true, });
+        this.setState({
+            focused: true,
+        });
         this.props.onFocus(evt);
     }
 
     handleBlur(evt) {
-        this.setState({ focused: false, });
+        this.setState({
+            focused: false,
+        });
         this.props.onBlur(evt);
     }
 
@@ -123,26 +137,34 @@ class TextField extends Component {
         const inputWrapperHeight = this.inputWrapper
             .getBoundingClientRect()
             .height;
-        const hintTextHeight = this.hintTextWrapper.getBoundingClientRect().height;
+        const hintTextHeight = this.hintTextWrapper
+            .getBoundingClientRect()
+            .height;
         return Math.max(inputWrapperHeight, hintTextHeight);
     }
 
     getStyles() {
-        const { hintTextHeight, } = this.state;
-        const { disabled, fullWidth, required, width, } = this.props;
+        const {
+            hintTextHeight,
+        } = this.state;
+        const {
+            disabled,
+            fullWidth,
+            required,
+            width,
+        } = this.props;
         const {
             basicFontFamily,
-            smallFontSize,
             normalLineHeight,
-            xxSmallGutter,
-            textPrimaryColor,
             normalRadius,
+            smallFontSize,
+            textPrimaryColor,
+            xxSmallGutter,
         } = this.context.theme;
 
         const borderHeight = 2;
         const paddingHeightMultiplier = 2;
         const paddingHeight = xxSmallGutter * paddingHeightMultiplier;
-
         const textHeight = Math.floor(smallFontSize * normalLineHeight);
         const textFieldHeight = textHeight + paddingHeight + borderHeight;
         const isHintTextMultipleLines = hintTextHeight > textFieldHeight;
@@ -253,8 +275,12 @@ class TextField extends Component {
     }
 
     getHintTextBoxShadow() {
-        const { errorText, } = this.props;
-        const { focused, } = this.state;
+        const {
+            errorText,
+        } = this.props;
+        const {
+            focused,
+        } = this.state;
         const {
             errorSecondaryColor,
             focusedSecondaryColor,
@@ -269,8 +295,20 @@ class TextField extends Component {
     }
 
     render() {
-        const { disabled, defaultValue, errorText, fullWidth, hintText, required, } = this.props;
-        const { hasValue, } = this.state;
+        const {
+            disabled,
+            defaultValue,
+            errorText,
+            fullWidth,
+            hintText,
+            required,
+            value,
+        } = this.props;
+        const {
+            hasValue,
+        } = this.state;
+        const inputValue = Boolean(value) ? {value} : {};
+
         const styles = this.getStyles();
 
         return (
@@ -298,6 +336,7 @@ class TextField extends Component {
                     <input
                         defaultValue={defaultValue}
                         disabled={disabled}
+                        {...inputValue}
                         ref={(el) => {
                             this.inputField = el;
                         }}

@@ -1,12 +1,11 @@
+/.storybook
+/docs
+/scripts
+/specHelpers
 /src
 .editorconfig
-.eslintrc
 .gitignore
-specSetup.js
+eslint.*.js
 wallaby.js
-docs
-scripts
-.storybook
-/specHelpers
 release
 /v*

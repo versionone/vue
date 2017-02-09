@@ -1,0 +1,631 @@
+exports[`test circular icon button 1`] = `
+<Connect(UI)
+  circle={true}
+  icon={[Function]}>
+  <UI
+    circle={true}
+    icon={[Function]}
+    massUpdateUI={[Function]}
+    mountUI={[Function]}
+    setDefaultUI={[Function]}
+    ui={
+      Object {
+        "Component": Object {
+          "hovered": false,
+        },
+        "__reducers": Object {},
+      }
+    }
+    unmountUI={[Function]}
+    updateUI={[Function]}>
+    <IconButton
+      backgroundColor="rgba(0,0,0,0)"
+      circle={true}
+      disabled={false}
+      icon={[Function]}
+      massUpdateUI={[Function]}
+      mountUI={[Function]}
+      onClick={[Function]}
+      resetUI={[Function]}
+      setDefaultUI={[Function]}
+      size={1}
+      transition="all 0.25s linear 0ms"
+      ui={
+        Object {
+          "hovered": false,
+        }
+      }
+      uiKey="IconButton-0"
+      uiPath={
+        Array [
+          "IconButton-0",
+        ]
+      }
+      unmountUI={[Function]}
+      updateUI={[Function]}>
+      <div
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        style={
+          Object {
+            "backgroundColor": "rgba(0,0,0,0)",
+            "border": "1px solid rgba(0,0,0,0)",
+            "borderRadius": "50%",
+            "cursor": "pointer",
+            "display": "inline-block",
+            "lineHeight": 0.6,
+            "transition": "all 0.25s linear 0ms",
+          }
+        }>
+        <CloseIcon
+          hovered={false}
+          padding={6}
+          width={24}>
+          <SvgIcon
+            color="#000"
+            hoverColor="#000"
+            hovered={false}
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            padding={6}
+            transition="fill 0.25s linear 0ms"
+            width={24}>
+            <svg
+              data-radium={true}
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              style={
+                Object {
+                  "fill": "#000",
+                  "height": "24px",
+                  "margin": 0,
+                  "padding": "6px",
+                  "transition": "fill 0.25s linear 0ms",
+                  "width": "24px",
+                }
+              }
+              viewBox="0 0 24 24"
+              x="0px"
+              y="0px">
+              <polygon
+                points="24,5 19,0 12,7.2 4.9,0 0,5 7.2,12 0,19 4.9,24 12,16.8 19,24 24,19 16.8,12 " />
+            </svg>
+          </SvgIcon>
+        </CloseIcon>
+      </div>
+    </IconButton>
+  </UI>
+</Connect(UI)>
+`;
+
+exports[`test icon button can be disabled 1`] = `
+<Connect(UI)
+  disabled={true}
+  icon={[Function]}
+  onClick={[Function]}>
+  <UI
+    disabled={true}
+    icon={[Function]}
+    massUpdateUI={[Function]}
+    mountUI={[Function]}
+    onClick={[Function]}
+    setDefaultUI={[Function]}
+    ui={
+      Object {
+        "Component": Object {
+          "hovered": false,
+        },
+        "__reducers": Object {},
+      }
+    }
+    unmountUI={[Function]}
+    updateUI={[Function]}>
+    <IconButton
+      backgroundColor="rgba(0,0,0,0)"
+      circle={false}
+      disabled={true}
+      icon={[Function]}
+      massUpdateUI={[Function]}
+      mountUI={[Function]}
+      onClick={[Function]}
+      resetUI={[Function]}
+      setDefaultUI={[Function]}
+      size={1}
+      transition="all 0.25s linear 0ms"
+      ui={
+        Object {
+          "hovered": false,
+        }
+      }
+      uiKey="IconButton-0"
+      uiPath={
+        Array [
+          "IconButton-0",
+        ]
+      }
+      unmountUI={[Function]}
+      updateUI={[Function]}>
+      <div
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        style={
+          Object {
+            "backgroundColor": "rgba(0,0,0,0)",
+            "border": "1px solid rgba(0,0,0,0)",
+            "borderRadius": "0px",
+            "cursor": "not-allowed",
+            "display": "inline-block",
+            "lineHeight": 0.6,
+            "transition": "all 0.25s linear 0ms",
+          }
+        }>
+        <CloseIcon
+          color="rgba(0,0,0,0.26)"
+          hoverColor="rgba(0,0,0,0.26)"
+          hovered={false}
+          padding={6}
+          width={24}>
+          <SvgIcon
+            color="rgba(0,0,0,0.26)"
+            hoverColor="rgba(0,0,0,0.26)"
+            hovered={false}
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            padding={6}
+            transition="fill 0.25s linear 0ms"
+            width={24}>
+            <svg
+              data-radium={true}
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              style={
+                Object {
+                  "fill": "rgba(0,0,0,0.26)",
+                  "height": "24px",
+                  "margin": 0,
+                  "padding": "6px",
+                  "transition": "fill 0.25s linear 0ms",
+                  "width": "24px",
+                }
+              }
+              viewBox="0 0 24 24"
+              x="0px"
+              y="0px">
+              <polygon
+                points="24,5 19,0 12,7.2 4.9,0 0,5 7.2,12 0,19 4.9,24 12,16.8 19,24 24,19 16.8,12 " />
+            </svg>
+          </SvgIcon>
+        </CloseIcon>
+      </div>
+    </IconButton>
+  </UI>
+</Connect(UI)>
+`;
+
+exports[`test icon button can be resized 1`] = `
+<Connect(UI)
+  icon={[Function]}
+  size={0.75}>
+  <UI
+    icon={[Function]}
+    massUpdateUI={[Function]}
+    mountUI={[Function]}
+    setDefaultUI={[Function]}
+    size={0.75}
+    ui={
+      Object {
+        "Component": Object {
+          "hovered": false,
+        },
+        "__reducers": Object {},
+      }
+    }
+    unmountUI={[Function]}
+    updateUI={[Function]}>
+    <IconButton
+      backgroundColor="rgba(0,0,0,0)"
+      circle={false}
+      disabled={false}
+      icon={[Function]}
+      massUpdateUI={[Function]}
+      mountUI={[Function]}
+      onClick={[Function]}
+      resetUI={[Function]}
+      setDefaultUI={[Function]}
+      size={0.75}
+      transition="all 0.25s linear 0ms"
+      ui={
+        Object {
+          "hovered": false,
+        }
+      }
+      uiKey="IconButton-0"
+      uiPath={
+        Array [
+          "IconButton-0",
+        ]
+      }
+      unmountUI={[Function]}
+      updateUI={[Function]}>
+      <div
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        style={
+          Object {
+            "backgroundColor": "rgba(0,0,0,0)",
+            "border": "1px solid rgba(0,0,0,0)",
+            "borderRadius": "0px",
+            "cursor": "pointer",
+            "display": "inline-block",
+            "lineHeight": 0.6,
+            "transition": "all 0.25s linear 0ms",
+          }
+        }>
+        <CloseIcon
+          hovered={false}
+          padding={6}
+          width={18}>
+          <SvgIcon
+            color="#000"
+            hoverColor="#000"
+            hovered={false}
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            padding={6}
+            transition="fill 0.25s linear 0ms"
+            width={18}>
+            <svg
+              data-radium={true}
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              style={
+                Object {
+                  "fill": "#000",
+                  "height": "18px",
+                  "margin": 0,
+                  "padding": "6px",
+                  "transition": "fill 0.25s linear 0ms",
+                  "width": "18px",
+                }
+              }
+              viewBox="0 0 24 24"
+              x="0px"
+              y="0px">
+              <polygon
+                points="24,5 19,0 12,7.2 4.9,0 0,5 7.2,12 0,19 4.9,24 12,16.8 19,24 24,19 16.8,12 " />
+            </svg>
+          </SvgIcon>
+        </CloseIcon>
+      </div>
+    </IconButton>
+  </UI>
+</Connect(UI)>
+`;
+
+exports[`test icon button can be set to be hovered 1`] = `
+<Connect(UI)
+  border="1px solid blue"
+  hoverBackgroundColor="#fff"
+  hoverColor="#3b8"
+  hovered={true}
+  icon={[Function]}>
+  <UI
+    border="1px solid blue"
+    hoverBackgroundColor="#fff"
+    hoverColor="#3b8"
+    hovered={true}
+    icon={[Function]}
+    massUpdateUI={[Function]}
+    mountUI={[Function]}
+    setDefaultUI={[Function]}
+    ui={
+      Object {
+        "Component": Object {
+          "hovered": false,
+        },
+        "__reducers": Object {},
+      }
+    }
+    unmountUI={[Function]}
+    updateUI={[Function]}>
+    <IconButton
+      backgroundColor="rgba(0,0,0,0)"
+      border="1px solid blue"
+      circle={false}
+      disabled={false}
+      hoverBackgroundColor="#fff"
+      hoverColor="#3b8"
+      hovered={true}
+      icon={[Function]}
+      massUpdateUI={[Function]}
+      mountUI={[Function]}
+      onClick={[Function]}
+      resetUI={[Function]}
+      setDefaultUI={[Function]}
+      size={1}
+      transition="all 0.25s linear 0ms"
+      ui={
+        Object {
+          "hovered": false,
+        }
+      }
+      uiKey="IconButton-0"
+      uiPath={
+        Array [
+          "IconButton-0",
+        ]
+      }
+      unmountUI={[Function]}
+      updateUI={[Function]}>
+      <div
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#fff",
+            "border": "1px solid blue",
+            "borderRadius": "0px",
+            "cursor": "pointer",
+            "display": "inline-block",
+            "lineHeight": 0.6,
+            "transition": "all 0.25s linear 0ms",
+          }
+        }>
+        <CloseIcon
+          hoverColor="#3b8"
+          hovered={true}
+          padding={6}
+          width={24}>
+          <SvgIcon
+            color="#000"
+            hoverColor="#3b8"
+            hovered={true}
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            padding={6}
+            transition="fill 0.25s linear 0ms"
+            width={24}>
+            <svg
+              data-radium={true}
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              style={
+                Object {
+                  "fill": "#3b8",
+                  "height": "24px",
+                  "margin": 0,
+                  "padding": "6px",
+                  "transition": "fill 0.25s linear 0ms",
+                  "width": "24px",
+                }
+              }
+              viewBox="0 0 24 24"
+              x="0px"
+              y="0px">
+              <polygon
+                points="24,5 19,0 12,7.2 4.9,0 0,5 7.2,12 0,19 4.9,24 12,16.8 19,24 24,19 16.8,12 " />
+            </svg>
+          </SvgIcon>
+        </CloseIcon>
+      </div>
+    </IconButton>
+  </UI>
+</Connect(UI)>
+`;
+
+exports[`test icon button can have a border 1`] = `
+<Connect(UI)
+  border="1px solid blue"
+  icon={[Function]}>
+  <UI
+    border="1px solid blue"
+    icon={[Function]}
+    massUpdateUI={[Function]}
+    mountUI={[Function]}
+    setDefaultUI={[Function]}
+    ui={
+      Object {
+        "Component": Object {
+          "hovered": false,
+        },
+        "__reducers": Object {},
+      }
+    }
+    unmountUI={[Function]}
+    updateUI={[Function]}>
+    <IconButton
+      backgroundColor="rgba(0,0,0,0)"
+      border="1px solid blue"
+      circle={false}
+      disabled={false}
+      icon={[Function]}
+      massUpdateUI={[Function]}
+      mountUI={[Function]}
+      onClick={[Function]}
+      resetUI={[Function]}
+      setDefaultUI={[Function]}
+      size={1}
+      transition="all 0.25s linear 0ms"
+      ui={
+        Object {
+          "hovered": false,
+        }
+      }
+      uiKey="IconButton-0"
+      uiPath={
+        Array [
+          "IconButton-0",
+        ]
+      }
+      unmountUI={[Function]}
+      updateUI={[Function]}>
+      <div
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        style={
+          Object {
+            "backgroundColor": "rgba(0,0,0,0)",
+            "border": "1px solid blue",
+            "borderRadius": "0px",
+            "cursor": "pointer",
+            "display": "inline-block",
+            "lineHeight": 0.6,
+            "transition": "all 0.25s linear 0ms",
+          }
+        }>
+        <CloseIcon
+          hovered={false}
+          padding={6}
+          width={24}>
+          <SvgIcon
+            color="#000"
+            hoverColor="#000"
+            hovered={false}
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            padding={6}
+            transition="fill 0.25s linear 0ms"
+            width={24}>
+            <svg
+              data-radium={true}
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              style={
+                Object {
+                  "fill": "#000",
+                  "height": "24px",
+                  "margin": 0,
+                  "padding": "6px",
+                  "transition": "fill 0.25s linear 0ms",
+                  "width": "24px",
+                }
+              }
+              viewBox="0 0 24 24"
+              x="0px"
+              y="0px">
+              <polygon
+                points="24,5 19,0 12,7.2 4.9,0 0,5 7.2,12 0,19 4.9,24 12,16.8 19,24 24,19 16.8,12 " />
+            </svg>
+          </SvgIcon>
+        </CloseIcon>
+      </div>
+    </IconButton>
+  </UI>
+</Connect(UI)>
+`;
+
+exports[`test icon button renders with defaults 1`] = `
+<Connect(UI)
+  icon={[Function]}>
+  <UI
+    icon={[Function]}
+    massUpdateUI={[Function]}
+    mountUI={[Function]}
+    setDefaultUI={[Function]}
+    ui={
+      Object {
+        "Component": Object {
+          "hovered": false,
+        },
+        "__reducers": Object {},
+      }
+    }
+    unmountUI={[Function]}
+    updateUI={[Function]}>
+    <IconButton
+      backgroundColor="rgba(0,0,0,0)"
+      circle={false}
+      disabled={false}
+      icon={[Function]}
+      massUpdateUI={[Function]}
+      mountUI={[Function]}
+      onClick={[Function]}
+      resetUI={[Function]}
+      setDefaultUI={[Function]}
+      size={1}
+      transition="all 0.25s linear 0ms"
+      ui={
+        Object {
+          "hovered": false,
+        }
+      }
+      uiKey="IconButton-0"
+      uiPath={
+        Array [
+          "IconButton-0",
+        ]
+      }
+      unmountUI={[Function]}
+      updateUI={[Function]}>
+      <div
+        onClick={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        style={
+          Object {
+            "backgroundColor": "rgba(0,0,0,0)",
+            "border": "1px solid rgba(0,0,0,0)",
+            "borderRadius": "0px",
+            "cursor": "pointer",
+            "display": "inline-block",
+            "lineHeight": 0.6,
+            "transition": "all 0.25s linear 0ms",
+          }
+        }>
+        <CloseIcon
+          hovered={false}
+          padding={6}
+          width={24}>
+          <SvgIcon
+            color="#000"
+            hoverColor="#000"
+            hovered={false}
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            padding={6}
+            transition="fill 0.25s linear 0ms"
+            width={24}>
+            <svg
+              data-radium={true}
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              style={
+                Object {
+                  "fill": "#000",
+                  "height": "24px",
+                  "margin": 0,
+                  "padding": "6px",
+                  "transition": "fill 0.25s linear 0ms",
+                  "width": "24px",
+                }
+              }
+              viewBox="0 0 24 24"
+              x="0px"
+              y="0px">
+              <polygon
+                points="24,5 19,0 12,7.2 4.9,0 0,5 7.2,12 0,19 4.9,24 12,16.8 19,24 24,19 16.8,12 " />
+            </svg>
+          </SvgIcon>
+        </CloseIcon>
+      </div>
+    </IconButton>
+  </UI>
+</Connect(UI)>
+`;

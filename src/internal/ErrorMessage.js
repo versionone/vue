@@ -1,58 +1,64 @@
-import React, { Component, PropTypes, } from 'react';
+import React, {PropTypes} from 'react';
 import Radium from './../utilities/Radium';
 import ThemeProvider from './../Theme';
-import * as Transitions from './../styles/Transitions';
-import { fullyVisible as opacityFullyVisible, hidden as opacityHidden, } from './../utilities/Opacity';
+import * as Transitions from './../utilities/Transitions';
+import {fullyVisible as opacityFullyVisible, hidden as opacityHidden} from './../utilities/Opacity';
+import {createEventHandler} from './../utilities/component';
 
-class ErrorMessage extends Component {
-    static propTypes = {
-        hidden: PropTypes.bool,
-        text: PropTypes.string,
-        onClick: PropTypes.func,
-    };
-    static defaultProps = {
-        hidden: false,
-        text: '',
-        onClick: () => {
+const getStyles = (props, context) => {
+    const {
+        hidden,
+    } = props;
+    const {
+        errorPrimaryColor,
+        basicFontFamily,
+        smallFontSize,
+        normalLineHeight,
+    } = context.theme;
+
+    return {
+        text: {
+            color: errorPrimaryColor,
+            display: 'block',
+            fontFamily: basicFontFamily,
+            fontSize: `${smallFontSize}px`,
+            lineHeight: normalLineHeight,
+            opacity: hidden ? opacityHidden : opacityFullyVisible,
+            transition: Transitions.create('450ms', 'opacity', '0ms', 'cubic-bezier(0.23, 1, 0.32, 1)'),
         },
     };
-    static contextTypes = { theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired, };
+};
 
-    constructor(...args) {
-        super(...args);
-        this.getStyles = this.getStyles.bind(this);
-    }
+const ErrorMessage = (props, context) => {
+    const {
+        onClick,
+        text,
+    } = props;
+    const handleClick = createEventHandler(onClick);
+    const styles = getStyles(props, context);
 
-    getStyles() {
-        const { hidden, } = this.props;
-        const {
-            errorPrimaryColor,
-            basicFontFamily,
-            smallFontSize,
-            normalLineHeight,
-        } = this.context.theme;
+    return (
+        <div onClick={handleClick}>
+            <span style={styles.text}>
+                {text}
+            </span>
+        </div>
+    );
+};
+ErrorMessage.propTypes = {
+    hidden: PropTypes.bool,
+    onClick: PropTypes.func,
+    text: PropTypes.string,
+};
+ErrorMessage.defaultProps = {
+    hidden: false,
+    onClick: () => {
+    },
+    text: '',
+};
+ErrorMessage.contextTypes = {
+    theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
+};
+ErrorMessage.displayName = 'ErrorMessage';
 
-        return {
-            text: {
-                color: errorPrimaryColor,
-                display: 'block',
-                fontFamily: basicFontFamily,
-                fontSize: `${smallFontSize}px`,
-                lineHeight: normalLineHeight,
-                opacity: hidden ? opacityHidden : opacityFullyVisible,
-                transition: Transitions.create('450ms', 'opacity', '0ms', 'cubic-bezier(0.23, 1, 0.32, 1)'),
-            },
-        };
-    }
-
-    render() {
-        // eslint-disable-next-line no-unused-vars
-        const { text, hidden, ...rest } = this.props;
-        const styles = this.getStyles();
-
-        return (
-            <div {...rest}><span style={styles.text}>{text}</span></div>
-        );
-    }
-}
 export default Radium(ErrorMessage);

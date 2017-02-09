@@ -6,7 +6,7 @@
     "v1-icon-builder": "build.js"
   },
   "scripts": {
-    "test": "cross-env NODE_ENV=test node_modules/.bin/mocha --ui tdd --require specSetup.js --compilers js:babel-core/register src/**/*.spec.js --recursive"
+    "test": "jest"
   },
   "keywords": [
     "VersionOne",
@@ -17,8 +17,8 @@
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.18.2",
-    "chai": "^3.5.0",
-    "mocha": "^3.2.0",
+    "babel-jest": "^18.0.0",
+    "jest": "^18.1.0",
     "temp": "^0.8.3"
   },
   "dependencies": {
@@ -27,5 +27,8 @@
     "rimraf": "^2.5.4",
     "uppercamelcase": "^1.1.0",
     "yargs": "^6.4.0"
+  },
+  "jest": {
+    "testRegex": "/__tests__/.*$"
   }
 }

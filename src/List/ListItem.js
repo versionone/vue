@@ -34,23 +34,16 @@ const ListItem = (props, context) => {
     const {
         children,
         itemOid,
-        onKeyUp,
         onMouseEnter,
     } = props;
     const handleMouseEnter = createEventHandler(onMouseEnter, itemOid);
-    const handleKeyUp = createEventHandler(onKeyUp, itemOid);
     const styles = getStyles(props, context.theme);
 
     return (
         <div
             style={styles.listItem}
             onMouseEnter={handleMouseEnter}
-            onKeyUp={handleKeyUp}
         >
-            <EventListener
-                target="window"
-                onKeyUp={handleKeyUp}
-            />
             {children}
         </div>
     );
@@ -73,21 +66,13 @@ ListItem.propTypes = {
      */
     highlighted: PropTypes.bool,
     /**
-     * Event handler; fired once the item is highlighted AND a key is pressed
-     */
-    onKeyUp: PropTypes.func,
-    /**
      * Event handler; fired once mouse enters the component
      */
     onMouseEnter: PropTypes.func,
 };
 ListItem.defaultProps = {
     highlighted: false,
-    onClick: () => {
-    },
     onMouseEnter: () => {
-    },
-    onKeyUp: () => {
     },
 };
 ListItem.contextTypes = {

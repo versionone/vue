@@ -1,4 +1,5 @@
 import React from 'react';
+import simulant from 'simulant';
 import List from './../List';
 import ListItem from './../ListItem';
 import SubHeader from './../../SubHeader';
@@ -9,10 +10,7 @@ const mountList = getMount(List);
 const evt = {test: true};
 
 let component;
-afterEach(() => {
-    component.unmount();
-    document.body.innerHTML = '';
-});
+afterEach(reset(component));
 
 test('List can render ListItems', () => {
     component = renderList({
@@ -74,7 +72,7 @@ test('List can have a callback for when an item is highlighted', () => {
     expect(onHighlightItem.mock.calls[0][1]).toEqual(2);
 });
 
-test('Up arrow key moves highlighted item up to next highlight-able item when list is active', () => {
+test('Holding the up arrow key moves highlighted item up to next highlight-able item when list is active', () => {
     const onHighlightItem = jest.fn();
     component = mountList({
         active: true,
@@ -90,7 +88,7 @@ test('Up arrow key moves highlighted item up to next highlight-able item when li
     expect(snapshot(component)).toMatchSnapshot();
 });
 
-test('Down arrow key moves highlighted item down to next highlight-able item when list is active', () => {
+test('Holding the down arrow key moves highlighted item down to next highlight-able item when list is active', () => {
     const onHighlightItem = jest.fn();
     component = mountList({
         active: true,
@@ -194,14 +192,17 @@ function simulateHover(wrapper, evt = {}) {
 function simulateMouseLeave(wrapper, evt = {}) {
     wrapper.find('ListItem').at(1).simulate('mouseleave', evt);
 }
-function simulateUpArrowKey(wrapper) {
-    wrapper.find('ListItem').at(1).simulate('keyup', {keyCode: 38});
+function simulateUpArrowKey() {
+    const evt = simulant('keydown', {keyCode: 38});
+    simulant.fire(window, evt);
 }
-function simulateDownArrowKey(wrapper) {
-    wrapper.find('ListItem').at(1).simulate('keyup', {keyCode: 40});
+function simulateDownArrowKey() {
+    const evt = simulant('keydown', {keyCode: 40});
+    simulant.fire(window, evt);
 }
-function simulateEnterKey(wrapper) {
-    wrapper.find('ListItem').at(1).simulate('keyup', {keyCode: 13});
+function simulateEnterKey() {
+    const evt = simulant('keyup', {keyCode: 13});
+    simulant.fire(window, evt);
 }
 function simulateMouseEnter(wrapper, evt = {}) {
     wrapper.simulate('mouseenter', evt);

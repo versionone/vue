@@ -37,21 +37,6 @@ test('ListItem responds to hover event', () => {
     expect(onMouseEnter).toHaveBeenCalledWith(evt, 'ListItem');
 });
 
-test('ListItem responds to keyup event', () => {
-    const onKeyUp = jest.fn();
-    const component = shallowRenderListItem({
-        children: 'List Item',
-        itemOid: 'ListItem',
-        onKeyUp,
-    });
-    simulateKeyUp(component, evt);
-    expect(onKeyUp).toHaveBeenCalledTimes(1);
-    expect(onKeyUp).toHaveBeenCalledWith(evt, 'ListItem');
-});
-
 function simulateHover(wrapper, evt = {}) {
     wrapper.simulate('mouseenter', evt);
-}
-function simulateKeyUp(wrapper, evt = {}) {
-    wrapper.simulate('keyup', evt);
 }

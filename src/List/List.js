@@ -1,13 +1,15 @@
-import React, {PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react';
+import scrollIntoView from 'scroll-into-view';
 import ui from 'redux-ui';
 import ListItem from './ListItem';
 import Radium from './../utilities/Radium';
 import SubHeader from './../SubHeader';
+import {createConditionalEventHandler} from './../utilities/component';
 import {ArrowDown, ArrowUp, Enter} from './../utilities/KeyCodes';
 import * as CustomPropTypes from './../utilities/CustomPropTypes';
 
-const handleHighlightItem = (index, updateUI, handler) => evt => {
-    updateUI('highlightedIndex', index);
+const handleHighlightItem = (index, updateUI, handler, keyboardTriggered = false) => evt => {
+    updateUI({highlightedIndex: index, keyboardTriggered});
     handler(evt, index);
 };
 const getPreviousListItemIndex = (currentIndex, children) => {
@@ -37,10 +39,10 @@ const handleKeyUp = (currentIndex, props) => evt => {
         return;
     }
     if (evt.keyCode === ArrowUp) {
-        return handleHighlightItem(getPreviousListItemIndex(currentIndex, props.children), updateUI, onHighlightItem)(evt);
+        return handleHighlightItem(getPreviousListItemIndex(currentIndex, props.children), updateUI, onHighlightItem, true)(evt);
     }
     else if (evt.keyCode === ArrowDown) {
-        return handleHighlightItem(getNextListItemIndex(currentIndex, props.children), updateUI, onHighlightItem)(evt);
+        return handleHighlightItem(getNextListItemIndex(currentIndex, props.children), updateUI, onHighlightItem, true)(evt);
     }
     else if (evt.keyCode === Enter) {
         return onSelectItem(evt, currentIndex);
@@ -75,36 +77,72 @@ const getStyles = (props, theme) => ({
     },
 });
 
-const List = (props, context) => {
-    const {
-        children,
-        onMouseEnter,
-        onMouseLeave,
-        onSelectItem,
-    } = props;
-    const handleOnClick = (index) => (evt) => onSelectItem(evt, index);
+class List extends Component {
+    constructor(...rest) {
+        super(...rest);
+        this.listItemEls = {};
 
-    const styles = getStyles(props, context.theme);
-    return (
-        <div
-            style={styles.list}
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-        >
-            {React.Children
-                .map(children, (child, index) =>
-                    Boolean(child) && (
-                        <div
-                            onClick={handleOnClick(index)}
-                        >
-                            {React.cloneElement(child, getChildProps(child, props, index))}
-                        </div>
+        this.scrollToHighlightedItem = this.scrollToHighlightedItem.bind(this);
+    }
+
+    componentDidMount() {
+        this.scrollToHighlightedItem();
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.highlightedIndex !== nextProps.highlightedIndex || this.props.ui.highlightedIndex !== nextProps.ui.highlightedIndex) {
+            this.scrollToHighlightedItem();
+        }
+    }
+
+    scrollToHighlightedItem() {
+        const {
+            highlightedIndex,
+            ui,
+        } = this.props;
+        if (!ui.keyboardTriggered) {
+            return;
+        }
+        const highlightedItemIndex = ui.highlightedIndex || highlightedIndex;
+        const highlightedEl = this.listItemEls[highlightedItemIndex];
+        if (!Boolean(highlightedEl)) {
+            return;
+        }
+        scrollIntoView(highlightedEl);
+    }
+
+    render() {
+        const {
+            children,
+            onMouseEnter,
+            onMouseLeave,
+            onSelectItem,
+        } = this.props;
+        const styles = getStyles(this.props, this.context.theme);
+
+        return (
+            <div
+                style={styles.list}
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
+            >
+                {React.Children
+                    .map(children, (child, index) => Boolean(child) && (
+                            <div
+                                ref={(el) => {
+                                    this.listItemEls[index] = el;
+                                }}
+                                onClick={createConditionalEventHandler(child.type.displayName === 'ListItem')(onSelectItem, index)}
+                            >
+                                {React.cloneElement(child, getChildProps(child, this.props, index))}
+                            </div>
+                        )
                     )
-                )
-            }
-        </div>
-    );
-};
+                }
+            </div>
+        );
+    }
+}
 List.propTypes = {
     /**
      * Indicates List should respond to keyup events
@@ -154,6 +192,7 @@ List.propTypes = {
      */
     ui: PropTypes.shape({
         highlightedIndex: PropTypes.number,
+        keyboardTriggered: PropTypes.bool,
     }),
 };
 List.defaultProps = {
@@ -177,5 +216,6 @@ List.displayName = 'List';
 export default Radium(ui({
     state: {
         highlightedIndex: null,
+        keyboardTriggered: false,
     }
 })(List));

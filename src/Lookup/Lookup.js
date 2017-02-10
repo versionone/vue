@@ -219,7 +219,6 @@ class Lookup extends Component {
     }
 
     getHeight() {
-        console.log(this.hintTextWrapper.getBoundingClientRect())
         return Math.max(
             this.inputField
                 .getBoundingClientRect()

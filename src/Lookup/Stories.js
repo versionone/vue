@@ -210,6 +210,7 @@ storiesOf('Lookup')
             <div>
                 <Lookup
                     dataSource={basicDataSource}
+                    hintText="hint text"
                     multiValue
                     resultGroups={[
                         {
@@ -227,12 +228,38 @@ storiesOf('Lookup')
             </div>
         )
     )
-    .addWithInfo('multi-value, many selected',
+    .addWithInfo('many selected',
         ``,
         () => (
             <div>
                 <Lookup
                     dataSource={basicDataSource}
+                    hintText="hint text"
+                    multiValue
+                    resultGroups={[
+                        {
+                            header: 'SubSet Results',
+                            filter: (value, index) => index === 1,
+                        },
+                        {
+                            header: 'Rest of the Results',
+                            filter: (value, index) => index !== 1,
+                        },
+                    ]}
+                    searchFilter={Filters.caseInsensitive}
+                    selectedItems={[0,1,4]}
+                    onSelect={action('selected')}
+                />
+            </div>
+        )
+    )
+    .addWithInfo('many selected, long hint text',
+        ``,
+        () => (
+            <div>
+                <Lookup
+                    dataSource={basicDataSource}
+                    hintText="hint text that is so long, it will surely wrap, but do not neglect its importance...the longer it is, the more important it must be, right?"
                     multiValue
                     resultGroups={[
                         {

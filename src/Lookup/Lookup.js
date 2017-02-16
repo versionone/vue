@@ -155,13 +155,13 @@ class Lookup extends Component {
     constructor(props, ...rest) {
         super(props, ...rest);
 
-        this.setSelectedItem = this.setSelectedItem.bind(this);
-
+        this.addItem = this.addItem.bind(this);
         this.applyGroupFilter = this.applyGroupFilter.bind(this);
         this.combineWithSearchFilter = this.combineWithSearchFilter.bind(this);
-        this.getHeight = this.getHeight.bind(this);
+        this.getDimensions = this.getDimensions.bind(this);
         this.getStyles = this.getStyles.bind(this);
-        this.removeSelectedItem = this.removeSelectedItem.bind(this);
+        this.hasValue = this.hasValue.bind(this);
+        this.removeItem = this.removeItem.bind(this);
         this.shouldApplyFilter = this.shouldApplyFilter.bind(this);
 
         this.handleChangeTextField = this.handleChangeTextField.bind(this);
@@ -186,34 +186,36 @@ class Lookup extends Component {
     }
 
     componentDidMount() {
-        const newState = {};
-        if (this.props.fullWidth) {
-            newState.width = this.getFullWidth();
-        }
-
-        this.setState({
-            ...newState,
-            height: this.getHeight(),
-        });
+        this.setState(this.getDimensions(this.props.fullWidth));
     }
 
     componentWillReceiveProps(nextProps) {
-        const newState = {};
-        if (nextProps.fullWidth) {
-            newState.height = this.getHeight();
-            newState.width = this.getFullWidth();
-        }
-        else if (this.props.width !== nextProps.width) {
-            newState.height = this.getHeight();
-            newState.width = nextProps.width;
-        }
+        let newState = {};
         if (this.props.searchText !== nextProps.searchText) {
             newState.searchText = nextProps.searchText;
         }
         if (this.props.selectedItems !== nextProps.selectedItems) {
             newState.selectedItems = nextProps.selectedItems;
         }
-        this.setState(newState);
+        this.setState(newState, () => this.setState(this.getDimensions(nextProps.fullWidth)));
+    }
+
+    addItem(index) {
+        const {
+            fullWidth,
+            multiValue,
+        } = this.props;
+        const selectedItem = this.items.find((item, itemIndex) => itemIndex === index);
+        const newSelection = [selectedItem.oid];
+        const selectedItems = multiValue ? this.state.selectedItems.concat(newSelection) : newSelection;
+
+        this.setState({
+            ...this.getDimensions(fullWidth),
+            open: false,
+            searchText: '',
+            selectedItems,
+        });
+        this.props.onSelect(selectedItem.oid);
     }
 
     applyGroupFilter(dataSource, groupFilter) {
@@ -234,20 +236,42 @@ class Lookup extends Component {
 
     getFullWidth() {
         return parseInt(window
-            .getComputedStyle(this.rootEl)
+            .getComputedStyle(this.lookupWrapper)
             .width
             .replace('px', ''), 10);
     }
 
-    getHeight() {
-        return Math.max(
-            this.inputField
-                .getBoundingClientRect()
-                .height,
-            this.hintTextWrapper
-                .getBoundingClientRect()
-                .height
-        );
+    getDimensions(fullWidth) {
+        const {
+            width
+        } = this.props;
+        const {
+            xxSmallGutter
+        } = this.context.theme;
+        if (!Boolean(this.hintTextWrapper)) {
+            return {};
+        }
+        const hintTextHeight = this.hintTextWrapper
+            .getBoundingClientRect()
+            .height;
+        const textHeight = this.inputFieldWrapper
+            .getBoundingClientRect()
+            .height;
+        const selectedItemsHeight = this.selectedItemsWrapper
+            .getBoundingClientRect()
+            .height;
+        const dimensions = {
+            hintTextHeight,
+            textHeight,
+            overallHeight: Math.max(
+                textHeight,
+                hintTextHeight,
+                selectedItemsHeight,
+            ) + xxSmallGutter + xxSmallGutter + 2,
+            width: fullWidth ? this.getFullWidth() : width,
+        };
+        console.log(dimensions);
+        return dimensions;
     }
 
     getStyles() {
@@ -256,14 +280,15 @@ class Lookup extends Component {
             fullWidth,
         } = this.props;
         const {
-            height,
+            hintTextHeight,
+            textHeight,
+            overallHeight,
             width,
         } = this.state;
         const {
             basicFontFamily,
             fieldBorderColor,
             normalBackground,
-            normalLineHeight,
             normalRadius,
             smallFontSize,
             textPrimaryColor,
@@ -272,24 +297,20 @@ class Lookup extends Component {
         const darkenCoefficient = 0.55;
         const paddingMultiplier = 2;
         const borderHeight = 2;
-        const textHeight = Math.floor(smallFontSize * normalLineHeight);
         const paddingHeight = xxSmallGutter * paddingMultiplier;
         const textFieldHeight = textHeight + paddingHeight + borderHeight;
-        const isHintTextMultipleLines = height > textFieldHeight;
-        const marginTop = isHintTextMultipleLines ? `${height - textHeight}px` : '0px';
-        const hintTextWrapperHeight = isHintTextMultipleLines
-            ? (height + paddingHeight + borderHeight)
-            : textFieldHeight;
+        const isHintTextMultipleLines = hintTextHeight > textFieldHeight;
+        const marginTop = isHintTextMultipleLines ? `${hintTextHeight - textHeight}px` : '0px';
         const computedWidth = fullWidth ? '100%' : `${width}px`;
-        const totalWidthWithoutChipsWidth = fullWidth ? '100%' : `${width}px`;
 
         return {
             chipWrapper: {
                 display: multiValue ? 'inline-flex' : 'flex',
+                height: `${textFieldHeight}px`,
+                width: !multiValue ? ' 100%' : undefined,
             },
             hintTextWrapper: {
                 boxSizing: 'border-box',
-                height: `${hintTextWrapperHeight}px`,
                 padding: `${xxSmallGutter}px`,
                 position: 'absolute',
                 top: '0px',
@@ -308,13 +329,12 @@ class Lookup extends Component {
                 position: 'relative',
                 width: '100%',
             },
-            inputWrapper: {
+            textFieldWrapper: {
                 background: transparent,
                 border: `1px solid ${transparent}`,
                 boxSizing: 'border-box',
                 display: 'inline-flex',
-                marginTop,
-                minWidth: width,
+                marginTop: this.hasValue() ? `0px` : marginTop,
                 padding: `0px ${xxSmallGutter}px`,
                 width: '100%',
                 zIndex: 11,
@@ -324,15 +344,13 @@ class Lookup extends Component {
                 border: `1px solid ${fieldBorderColor}`,
                 borderRadius: `${normalRadius}px`,
                 boxSizing: 'border-box',
+                height: `${overallHeight}px`,
                 display: 'flex',
-                height: `${hintTextWrapperHeight}px`,
+                flexWrap: 'wrap',
                 position: 'absolute',
                 top: 0,
                 width,
                 zIndex: 12,
-            },
-            paddingForPopover: {
-                height: `${hintTextWrapperHeight}px`,
             },
             resultsPaper: {
                 background: normalBackground,
@@ -342,46 +360,29 @@ class Lookup extends Component {
             },
             root: {
                 background: transparent,
-                height: `${hintTextWrapperHeight}px`,
                 position: 'relative',
                 width: computedWidth,
             },
-            selectedItems: {
-                background: transparent,
-                display: multiValue ? 'inline-flex' : 'flex',
-                height: `${hintTextWrapperHeight}px`,
-            },
-            textFieldWrapper: {
-                height: `${textFieldHeight}px`,
+            selectedItemsWrapper: {
+                flex: 1,
                 position: 'relative',
-                width: totalWidthWithoutChipsWidth,
             },
         };
     }
 
-    removeSelectedItem(oid) {
+    hasValue() {
+        return !_.isEmpty(this.state.selectedItems) && Boolean(this.state.searchText);
+    }
+
+    removeItem(oid) {
         const selectedItems = this.state.selectedItems
             .filter((item) => item !== oid);
 
         this.setState({
+            ...this.getDimensions(),
             open: false,
             selectedItems,
         });
-    }
-
-    setSelectedItem(oid) {
-        const {
-            multiValue
-        } = this.props;
-        const newSelection = [oid];
-        const selectedItems = multiValue ? this.state.selectedItems.concat(newSelection) : newSelection;
-
-        this.setState({
-            open: false,
-            searchText: '',
-            selectedItems,
-        });
-        this.props.onSelect(oid);
     }
 
     shouldApplyFilter() {
@@ -396,7 +397,7 @@ class Lookup extends Component {
 
     handleChipRemove(evt, oid) {
         evt.stopPropagation();
-        this.removeSelectedItem(oid)
+        this.removeItem(oid)
     }
 
     handleClickHintText() {
@@ -410,9 +411,7 @@ class Lookup extends Component {
     }
 
     handleItemSelection(evt, index) {
-        let selectedItem = this.items.find((item, itemIndex) => itemIndex === index);
-        let selectedOid = selectedItem.oid;
-        this.setSelectedItem(selectedOid);
+        this.addItem(index);
     }
 
     handleLookupRootClick() {
@@ -441,28 +440,19 @@ class Lookup extends Component {
 
         const getChipValues = configureGetChipValues(dataSourceConfig, dataSource);
 
-        return (
-            <div
-                ref={(el) => {
-                    this.chipList = el;
-                }}
-                style={styles.selectedItems}
-            >
-                {selectedItems.map((item, index) => (
-                    <div style={styles.chipWrapper}>
-                        <Chip
-                            fullWidth
-                            backgroundColor={chipBackgroundColor}
-                            color={chipColor}
-                            fontSize={smallFontSize}
-                            key={index}
-                            onRequestRemove={this.handleChipRemove}
-                            {...getChipValues(item, index)}
-                        />
-                    </div>
-                ))}
+        return selectedItems.map((item, index) => (
+            <div style={styles.chipWrapper} key={index}>
+                <Chip
+                    fullWidth
+                    backgroundColor={chipBackgroundColor}
+                    color={chipColor}
+                    fontSize={smallFontSize}
+                    key={index}
+                    onRequestRemove={this.handleChipRemove}
+                    {...getChipValues(item, index)}
+                />
             </div>
-        );
+        ));
     }
 
     renderListItem(item, index) {
@@ -536,14 +526,15 @@ class Lookup extends Component {
                 style={styles.root}
                 onClick={this.handleLookupRootClick}
             >
-                <div style={styles.paddingForPopover} />
                 <div style={styles.lookupWrapper} ref={(el) => {
-                    this.popoverAnchor = el;
+                    this.lookupWrapper = el;
                 }}>
                     {this.renderChips(styles)}
                     <div
-
-                        style={styles.textFieldWrapper}
+                        ref={(el) => {
+                            this.selectedItemsWrapper = el;
+                        }}
+                        style={styles.selectedItemsWrapper}
                     >
                         <div style={styles.hintTextWrapper}>
                             <div
@@ -560,9 +551,9 @@ class Lookup extends Component {
                         </div>
                         <div
                             ref={(el) => {
-                                this.inputWrapper = el;
+                                this.inputFieldWrapper = el;
                             }}
-                            style={styles.inputWrapper}
+                            style={styles.inputFieldWrapper}
                         >
                             <input
                                 ref={(el) => {
@@ -577,7 +568,7 @@ class Lookup extends Component {
                     </div>
                 </div>
                 <Popover
-                    anchor={this.popoverAnchor}
+                    anchor={this.lookupWrapper}
                     anchorOrigin={{
                         horizontal: Positions.left,
                         vertical: Positions.bottom,

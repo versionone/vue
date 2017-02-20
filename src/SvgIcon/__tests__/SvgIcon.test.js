@@ -16,6 +16,7 @@ test('will render an SVG element with its children and the correct viewbox value
 
 test('SvgIcons can have a color', () => {
     component = shallowRenderSvgIcon({
+        children: getSvgPath(),
         color: 'blue',
         transition: 'fill 0.5s linear 0ms',
     });
@@ -24,6 +25,7 @@ test('SvgIcons can have a color', () => {
 
 test('SvgIcons can be set to be in a hovered state', () => {
     component = shallowRenderSvgIcon({
+        children: getSvgPath(),
         hoverColor: 'blue',
         hovered: true,
     });
@@ -32,6 +34,7 @@ test('SvgIcons can be set to be in a hovered state', () => {
 
 test('SvgIcons can be hovered', () => {
     component = shallowRenderSvgIcon({
+        children: getSvgPath(),
         hoverColor: 'blue',
     });
     simulateMouseEnter(component);
@@ -50,6 +53,7 @@ test('SvgIcons can have a width and are always rendered a squares', () => {
 test('allows standard events to be handled by event handlers', () => {
     const onClick = jest.fn();
     const component = shallowRenderSvgIcon({
+        children: getSvgPath(),
         onClick,
     });
     const evt = {test: true};

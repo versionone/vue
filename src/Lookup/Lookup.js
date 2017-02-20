@@ -1,3 +1,5 @@
+// TODO: Fix the instances in this file that break the rule below and remove the disabling of this rule for this file.
+/* eslint-disable no-underscore-dangle */
 import React, {Component, PropTypes} from 'react';
 import _ from 'underscore';
 import {darken, toRgbaString} from '@andrew-codes/color-functions';

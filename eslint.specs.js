@@ -29,8 +29,11 @@ module.exports = {
         'linebreak-style': [
             0, 'windows',
         ],
-        'object-curly-spacing': [
-            0, 'never',
+        'object-curly-newline': [
+            2,
+            {
+                minProperties: 1,
+            },
         ],
         'react/no-did-mount-set-state': 0,
     },

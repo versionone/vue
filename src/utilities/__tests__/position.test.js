@@ -60,7 +60,7 @@ const toBottom = {
     vertical: 'bottom',
 };
 
-test('getViewportPosition can get the position of the viewport', () => {
+test.skip('getViewportPosition can get the position of the viewport', () => {
     window.innerHeight = 800;
     window.document.documentElement.clientHeight = 786;
     window.document.documentElement.clientWidth = 600;

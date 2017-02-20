@@ -2,6 +2,10 @@
   "name": "@versionone/vue",
   "version": "0.0.1",
   "description": "Open-source and community supported collection of common UI components built with React. As an open-sourced and community supported project, VersionOne Vue is not formally supported by VersionOne.",
+  "private": true,
+  "publishConfig": {
+    "registry": "http://artifactory.dev.corp.versionone.net/artifactory/api/npm/local-npm"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/versionone/vue.git"
@@ -13,7 +17,6 @@
     "build": "cross-env NODE_ENV=release node_modules/.bin/babel src --ignore Stories.js,*.test.js,_meta.js,examples/*.* --out-dir ./",
     "test:packages:v1-icon-builder": "cd packages/v1-icon-builder && npm test && cd ../../",
     "test": "jest",
-    "test:ci": "npm run lint && npm test && npm run test:packages:v1-icon-builder",
     "lint": "npm run lint:src & npm run lint:tests",
     "lint:src": "eslint src/**/*.js --ignore-pattern *.spec.js --config eslint.src.js",
     "lint:tests": "eslint src/**/__tests__/*.test.js --config eslint.specs.js",
@@ -24,8 +27,6 @@
     "start": "cd docs && npm start && cd ../",
     "prestart:dev": "npm run build:icons",
     "start:dev": "start-storybook -p 9001",
-    "preversion": "npm test",
-    "publish": "npm run test && npm run build && npm publish --registry http://artifactory.dev.corp.versionone.net/artifactory/api/npm/local-npm",
     "postpublish": "npm run clean && npm run publish:docs",
     "publish:docs": "cd docs && npm run gh-pages:build -p && cd ../",
     "verify": "node scripts/verify",
@@ -116,6 +117,9 @@
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
     "underscore": "^1.8.3"
+  },
+  "optionalDependencies": {
+    "fsevents": "*"
   },
   "dependencies": {
     "@andrew-codes/color-functions": "^1.4.2",

@@ -19,7 +19,7 @@
     "test": "jest",
     "lint": "npm run lint:src & npm run lint:tests",
     "lint:src": "eslint src/**/*.js --ignore-pattern src/__tests__/*.test.js --ignore-pattern src/**/__tests__/**/*.js --config eslint.src.js",
-    "lint:tests": "eslint src/__tests__/*.test.js src/**/__tests__/*.test.js --config eslint.specs.js",
+    "lint:tests": "eslint **/__tests__/*.test.js --config eslint.specs.js",
     "lint:watch": "npm run lint:src:watch & npm run lint:specs:watch",
     "lint:src:watch": "esw --watch --color src/**/*.js --ignore-pattern src/__tests__/*.test.js --ignore-pattern src/**/__tests__/**/*.js --config eslint.src.js",
     "lint:specs:watch": "esw --watch --color src/__tests__/*.test.js src/**/__tests__/*.test.js --config eslint.specs.js",

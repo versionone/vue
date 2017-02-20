@@ -103,7 +103,7 @@ class TextField extends Component {
     componentWillReceiveProps(nextProps) {
         this.setState({
             hasValue: this.state.hasValue || Boolean(nextProps.defaultValue) || Boolean(nextProps.value),
-            hintTextHeight: nextProps.hintText !== this.props.hintText ? this.getHeight() : this.state.hintTextHeight,
+            hintTextHeight: nextProps.hintText === this.props.hintText ? this.state.hintTextHeight : this.getHeight(),
         });
     }
 
@@ -307,7 +307,9 @@ class TextField extends Component {
         const {
             hasValue,
         } = this.state;
-        const inputValue = Boolean(value) ? {value} : {};
+        const inputValue = value ? {
+            value,
+        } : {};
 
         const styles = this.getStyles();
 

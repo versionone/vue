@@ -195,7 +195,7 @@ Button.propTypes = {
     ]),
 };
 Button.defaultProps = {
-    disabled: false,
+    disable: false,
     onClick: () => {
     },
     size: ButtonSizes.normal,

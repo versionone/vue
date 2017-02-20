@@ -31,51 +31,51 @@ export const getPosition = (element) => {
     return position;
 };
 
-export const isWithinLeftBoundary = boundingPosition => position => position.left >= boundingPosition.left;
-export const isWithinRightBoundary = boundingPosition => position => position.right <= boundingPosition.right;
+export const isWithinLeftBoundary = (boundingPosition) => (position) => position.left >= boundingPosition.left;
+export const isWithinRightBoundary = (boundingPosition) => (position) => position.right <= boundingPosition.right;
 export const isWithinXBoundary = (boundingPosition) => {
     const isWithinLeft = isWithinLeftBoundary(boundingPosition);
     const isWithinRight = isWithinRightBoundary(boundingPosition);
 
-    return position => isWithinLeft(position) && isWithinRight(position);
+    return (position) => isWithinLeft(position) && isWithinRight(position);
 };
 
-export const isWithinTopBoundary = boundingPosition => position => position.top >= boundingPosition.top;
-export const isWithinBottomBoundary = boundingPosition => position => position.bottom <= boundingPosition.bottom;
+export const isWithinTopBoundary = (boundingPosition) => (position) => position.top >= boundingPosition.top;
+export const isWithinBottomBoundary = (boundingPosition) => (position) => position.bottom <= boundingPosition.bottom;
 export const isWithinYBoundary = (boundingPosition) => {
     const isWithinTop = isWithinTopBoundary(boundingPosition);
     const isWithinBottom = isWithinBottomBoundary(boundingPosition);
 
-    return position => isWithinTop(position) && isWithinBottom(position);
+    return (position) => isWithinTop(position) && isWithinBottom(position);
 };
 
 export const isWithinBoundary = (boundingPosition) => {
     const isWithinX = isWithinXBoundary(boundingPosition);
     const isWithinY = isWithinYBoundary(boundingPosition);
 
-    return position => isWithinX(position) && isWithinY(position);
+    return (position) => isWithinX(position) && isWithinY(position);
 };
 
-export const isOutsideBoundary = boundingPosition => position => (
+export const isOutsideBoundary = (boundingPosition) => (position) => (
     position.bottom < boundingPosition.top
     || position.top > boundingPosition.bottom
     || position.left > boundingPosition.right
     || position.right < boundingPosition.left
 );
 
-export const isColliding = referencePosition => {
+export const isColliding = (referencePosition) => {
     const isWithinReference = isWithinBoundary(referencePosition);
     const isOutsideReference = isOutsideBoundary(referencePosition);
-    return position => !(isWithinReference(position) || isOutsideReference(position));
+    return (position) => !(isWithinReference(position) || isOutsideReference(position));
 };
 
 export const isOverlapping = (referencePosition) => {
     const isCollidingWithReference = isColliding(referencePosition);
     const isWithinReference = isWithinBoundary(referencePosition);
-    return position => {
+    return (position) => {
         const isReferenceWithinPosition = isWithinBoundary(position);
         return isCollidingWithReference(position) || isWithinReference(position) || isReferenceWithinPosition(referencePosition);
-    }
+    };
 };
 
 export const adjustPositionRelativeWithin = (boundingPosition, anchorPosition, anchorOrigin) => {

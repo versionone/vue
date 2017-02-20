@@ -10,6 +10,6 @@ export function emphasize(color, coefficient = defaultEmphasizeCoefficient) {
 }
 
 export function getForegroundForBackground(backgroundColor, foregroundColors = []) {
-    return foregroundColors.find(color => getContrastRatio(color, backgroundColor) >= 11)
+    return foregroundColors.find((color) => getContrastRatio(color, backgroundColor) >= 11)
         || toRgbaString(emphasize(backgroundColor, 100));
 }

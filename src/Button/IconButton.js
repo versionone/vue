@@ -1,22 +1,32 @@
 import React, {PropTypes} from 'react';
-import ui from 'redux-ui';
+import reduxUI from 'redux-ui';
 import {normal} from './Sizes';
 import Radium from './../utilities/Radium';
 import transparent from './../utilities/Transparent';
 import {create as createTransition} from '../utilities/Transitions';
 import {createConditionalEventHandler, createEventHandlerIgnoringEventData} from './../utilities/component';
 
-const getStyles = (props, theme) => ({
-    root: {
-        backgroundColor: (Boolean(props.disabled) || (!props.hovered && !props.ui.hovered)) ? props.backgroundColor : props.hoverBackgroundColor,
-        border: (props.disabled && Boolean(props.border)) ? `1px solid ${theme.disabledPrimaryColor}` : Boolean(props.border) ? props.border : `1px solid ${transparent}`,
-        borderRadius: props.circle ? '50%' : '0px',
-        cursor: props.disabled ? 'not-allowed' : 'pointer',
-        display: 'inline-block',
-        lineHeight: 0.6,
-        transition: props.transition,
-    },
-});
+const getStyles = (props, theme) => {
+    let border = `1px solid ${transparent}`;
+    const hasBorderProp = Boolean(props.border);
+    if (props.disabled && hasBorderProp) {
+        border = `1px solid ${theme.disabledPrimaryColor}`;
+    }
+    else if (hasBorderProp) {
+        border = props.border;
+    }
+    return {
+        root: {
+            backgroundColor: (Boolean(props.disabled) || (!props.hovered && !props.ui.hovered)) ? props.backgroundColor : props.hoverBackgroundColor,
+            border,
+            borderRadius: props.circle ? '50%' : '0px',
+            cursor: props.disabled ? 'not-allowed' : 'pointer',
+            display: 'inline-block',
+            lineHeight: 0.6,
+            transition: props.transition,
+        },
+    };
+};
 
 const IconButton = (props, context) => {
     const {
@@ -110,6 +120,10 @@ IconButton.propTypes = {
      * Managed UI state props; can be overridden
      */
     ui: PropTypes.object,
+    /**
+     * Callback fired when a ui prop related action is dispatched
+     */
+    updateUI: PropTypes.func.isRequired,
 };
 IconButton.defaultProps = {
     backgroundColor: transparent,
@@ -124,8 +138,8 @@ IconButton.contextTypes = {
     theme: PropTypes.object.isRequired,
 };
 IconButton.displayName = 'IconButton';
-export default Radium(ui({
+export default Radium(reduxUI({
     state: {
         hovered: false,
-    }
+    },
 })(IconButton));

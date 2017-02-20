@@ -21,7 +21,7 @@ exports[`test circular icon button 1`] = `
     <IconButton
       backgroundColor="rgba(0,0,0,0)"
       circle={true}
-      disabled={false}
+      disable={false}
       icon={[Function]}
       massUpdateUI={[Function]}
       mountUI={[Function]}
@@ -103,11 +103,11 @@ exports[`test circular icon button 1`] = `
 
 exports[`test icon button can be disabled 1`] = `
 <Connect(UI)
-  disabled={true}
+  disable={true}
   icon={[Function]}
   onClick={[Function]}>
   <UI
-    disabled={true}
+    disable={true}
     icon={[Function]}
     massUpdateUI={[Function]}
     mountUI={[Function]}
@@ -126,7 +126,7 @@ exports[`test icon button can be disabled 1`] = `
     <IconButton
       backgroundColor="rgba(0,0,0,0)"
       circle={false}
-      disabled={true}
+      disable={true}
       icon={[Function]}
       massUpdateUI={[Function]}
       mountUI={[Function]}
@@ -231,7 +231,7 @@ exports[`test icon button can be resized 1`] = `
     <IconButton
       backgroundColor="rgba(0,0,0,0)"
       circle={false}
-      disabled={false}
+      disable={false}
       icon={[Function]}
       massUpdateUI={[Function]}
       mountUI={[Function]}
@@ -341,7 +341,7 @@ exports[`test icon button can be set to be hovered 1`] = `
       backgroundColor="rgba(0,0,0,0)"
       border="1px solid blue"
       circle={false}
-      disabled={false}
+      disable={false}
       hoverBackgroundColor="#fff"
       hoverColor="#3b8"
       hovered={true}
@@ -449,7 +449,7 @@ exports[`test icon button can have a border 1`] = `
       backgroundColor="rgba(0,0,0,0)"
       border="1px solid blue"
       circle={false}
-      disabled={false}
+      disable={false}
       icon={[Function]}
       massUpdateUI={[Function]}
       mountUI={[Function]}
@@ -550,7 +550,7 @@ exports[`test icon button renders with defaults 1`] = `
     <IconButton
       backgroundColor="rgba(0,0,0,0)"
       circle={false}
-      disabled={false}
+      disable={false}
       icon={[Function]}
       massUpdateUI={[Function]}
       mountUI={[Function]}

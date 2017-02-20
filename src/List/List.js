@@ -1,13 +1,17 @@
 import EventListener from 'react-event-listener';
 import React, {Component, PropTypes} from 'react';
 import scrollIntoView from 'scroll-into-view';
-import ui from 'redux-ui';
+import reduxUI from 'redux-ui';
 import ListItem from './ListItem';
 import Radium from './../utilities/Radium';
 import SubHeader from './../SubHeader';
 import {createConditionalEventHandler} from './../utilities/component';
 import {ArrowDown, ArrowUp, Enter} from './../utilities/KeyCodes';
 import * as CustomPropTypes from './../utilities/CustomPropTypes';
+
+const noSelectedItemIndex = -1;
+const lowestSelectedItemIndex = 0;
+const selectedItemIndexIncrement = 1;
 
 class List extends Component {
     constructor(...rest) {
@@ -46,8 +50,8 @@ class List extends Component {
             } = this.props;
             const highlightedIndex = this.getCurrentIndex();
             return {
-                highlightBackgroundColor: highlightBackgroundColor,
-                highlightColor: highlightColor,
+                highlightBackgroundColor,
+                highlightColor,
                 highlighted: index === highlightedIndex,
                 key: index,
                 onMouseEnter: this.handleMouseEnterItem(index),
@@ -59,23 +63,23 @@ class List extends Component {
     }
 
     getCurrentIndex() {
-        return this.props.ui.highlightedIndex || this.props.highlightedIndex || -1;
+        return this.props.ui.highlightedIndex || this.props.highlightedIndex || noSelectedItemIndex;
     }
 
     getNextListItemIndex() {
-        let nextIndex = this.getCurrentIndex() + 1;
+        let nextIndex = this.getCurrentIndex() + selectedItemIndexIncrement;
         while (nextIndex < this.props.children.length && this.props.children[nextIndex].type.displayName !== 'ListItem') {
-            nextIndex += 1;
+            nextIndex += selectedItemIndexIncrement;
         }
-        return Math.min(this.props.children.length - 1, nextIndex);
+        return Math.min(this.props.children.length - selectedItemIndexIncrement, nextIndex);
     }
 
     getPreviousListItemIndex() {
-        let previousIndex = this.getCurrentIndex() - 1;
-        while (previousIndex >= 0 && this.props.children[previousIndex].type.displayName !== 'ListItem') {
-            previousIndex -= 1;
+        let previousIndex = this.getCurrentIndex() - selectedItemIndexIncrement;
+        while (previousIndex >= lowestSelectedItemIndex && this.props.children[previousIndex].type.displayName !== 'ListItem') {
+            previousIndex -= selectedItemIndexIncrement;
         }
-        return Math.max(1, previousIndex);
+        return Math.max(selectedItemIndexIncrement, previousIndex);
     }
 
     highlightItem(evt, index, keyboardTriggered = false) {
@@ -95,7 +99,7 @@ class List extends Component {
         }
         const highlightedIndex = this.getCurrentIndex();
         const highlightedEl = this.listItemEls[highlightedIndex];
-        if (!Boolean(highlightedEl)) {
+        if (!highlightedEl) {
             return;
         }
         scrollIntoView(highlightedEl);
@@ -107,7 +111,7 @@ class List extends Component {
         } = this.props;
 
         if (!active) {
-            return;
+            return null;
         }
 
         if (evt.keyCode === ArrowUp) {
@@ -116,6 +120,7 @@ class List extends Component {
         else if (evt.keyCode === ArrowDown) {
             return this.highlightItem(evt, this.getNextListItemIndex(), true);
         }
+        return null;
     }
 
     handleKeyUp(evt) {
@@ -125,12 +130,12 @@ class List extends Component {
         } = this.props;
 
         if (!active) {
-            return;
+            return null;
         }
-
         if (evt.keyCode === Enter) {
             return onSelectItem(evt, this.getCurrentIndex(this.props));
         }
+        return null;
     }
 
     handleMouseEnterItem(index) {
@@ -139,10 +144,10 @@ class List extends Component {
 
     getStyles() {
         const {
-            maxHeight
+            maxHeight,
         } = this.props;
         const {
-            theme
+            theme,
         } = this.context;
 
         return {
@@ -177,7 +182,8 @@ class List extends Component {
                     onKeyUp={this.handleKeyUp}
                 />
                 {React.Children
-                    .map(children, (child, index) => Boolean(child) && (
+                    .map(children, (child, index) => Boolean(child)
+                        && (
                             <div
                                 ref={(el) => {
                                     this.listItemEls[index] = el;
@@ -224,7 +230,7 @@ List.propTypes = {
     /**
      * Callback fired when an item is highlighted
      */
-    onItemHighlighted: PropTypes.func,
+    onHighlightItem: PropTypes.func,
     /**
      * Callback fired when mouse enters List
      */
@@ -244,6 +250,10 @@ List.propTypes = {
         highlightedIndex: PropTypes.number,
         keyboardTriggered: PropTypes.bool,
     }),
+    /**
+     * Callback fired when a ui prop related action is dispatched
+     */
+    updateUI: PropTypes.func.isRequired,
 };
 List.defaultProps = {
     active: false,
@@ -256,16 +266,16 @@ List.defaultProps = {
     onMouseLeave: () => {
     },
     onSelectItem: () => {
-    }
+    },
 };
 List.contextTypes = {
     theme: PropTypes.object.isRequired,
 };
 List.displayName = 'List';
 
-export default Radium(ui({
+export default Radium(reduxUI({
     state: {
         highlightedIndex: null,
         keyboardTriggered: false,
-    }
+    },
 })(List));

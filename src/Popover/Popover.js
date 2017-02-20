@@ -13,7 +13,7 @@ const resizeThrottleValue = 50;
 const scrollThrottleValue = 50;
 const offScreenThresholdValue = 0;
 const centerAlignmentDivisor = 2;
-const getTargetPosition = targetElement => ({
+const getTargetPosition = (targetElement) => ({
     bottom: targetElement.offsetHeight,
     center: targetElement.offsetWidth / centerAlignmentDivisor,
     height: targetElement.offsetHeight,

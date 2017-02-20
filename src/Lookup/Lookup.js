@@ -11,9 +11,9 @@ import ThemeProvider from './../Theme';
 import transparent from './../utilities/Transparent';
 import * as Filters from './Filters';
 
-const matchOn = prop => valueToMatch => item => item[prop] === valueToMatch;
+const matchOn = (prop) => (valueToMatch) => (item) => item[prop] === valueToMatch;
 const matchOid = matchOn('oid');
-const matchesOid = oid => matchOid(oid);
+const matchesOid = (oid) => matchOid(oid);
 
 const configureGetChipValues = (dataSourceConfig, dataSource) => (oid) => {
     if (!dataSourceConfig) {
@@ -251,8 +251,8 @@ class Lookup extends Component {
     }
 
     handleItemSelection(evt, index) {
-        let selectedItem = this.items.find((item, itemIndex) => itemIndex === index);
-        let selectedOid = selectedItem.oid;
+        const selectedItem = this.items.find((item, itemIndex) => itemIndex === index);
+        const selectedOid = selectedItem.oid;
         this.setSelectedItem(selectedOid);
     }
 
@@ -460,10 +460,12 @@ class Lookup extends Component {
         } = this.props;
 
         if (typeof (groups) === 'string') {
-            this.items = [{
-                __type: 'SubHeader',
-                header: groups,
-            }]
+            this.items = [
+                {
+                    __type: 'SubHeader',
+                    header: groups,
+                },
+            ]
                 .concat(this.applyGroupFilter(dataSource, Filters.none));
         }
         else {
@@ -481,7 +483,7 @@ class Lookup extends Component {
         return this.items
             .map((item, index) => {
                 if (item.__type === 'SubHeader') {
-                    return <SubHeader key={`subheader${index}`}>{item.header}</SubHeader>
+                    return <SubHeader key={`subheader${index}`}>{item.header}</SubHeader>;
                 }
                 return this.renderListItem(item, index);
             });

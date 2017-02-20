@@ -23,7 +23,7 @@ const getStyles = (props) => {
         },
     };
 };
-const handleEvent = handler => evt => handler(evt);
+const handleEvent = (handler) => (evt) => handler(evt);
 
 const SvgIcon = (props) => {
     const {

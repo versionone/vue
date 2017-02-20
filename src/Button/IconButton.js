@@ -1,27 +1,37 @@
 import React, {PropTypes} from 'react';
-import ui from 'redux-ui';
+import reduxUI from 'redux-ui';
 import {normal} from './Sizes';
 import Radium from './../utilities/Radium';
 import transparent from './../utilities/Transparent';
 import {create as createTransition} from '../utilities/Transitions';
 import {createConditionalEventHandler, createEventHandlerIgnoringEventData} from './../utilities/component';
 
-const getStyles = (props, theme) => ({
-    root: {
-        backgroundColor: (Boolean(props.disabled) || (!props.hovered && !props.ui.hovered)) ? props.backgroundColor : props.hoverBackgroundColor,
-        border: (props.disabled && Boolean(props.border)) ? `1px solid ${theme.disabledPrimaryColor}` : Boolean(props.border) ? props.border : `1px solid ${transparent}`,
-        borderRadius: props.circle ? '50%' : '0px',
-        cursor: props.disabled ? 'not-allowed' : 'pointer',
-        display: 'inline-block',
-        lineHeight: 0.6,
-        transition: props.transition,
-    },
-});
+const getStyles = (props, theme) => {
+    let border = `1px solid ${transparent}`;
+    const hasBorderProp = Boolean(props.border);
+    if (props.disable && hasBorderProp) {
+        border = `1px solid ${theme.disabledPrimaryColor}`;
+    }
+    else if (hasBorderProp) {
+        border = props.border;
+    }
+    return {
+        root: {
+            backgroundColor: (Boolean(props.disable) || (!props.hovered && !props.ui.hovered)) ? props.backgroundColor : props.hoverBackgroundColor,
+            border,
+            borderRadius: props.circle ? '50%' : '0px',
+            cursor: props.disable ? 'not-allowed' : 'pointer',
+            display: 'inline-block',
+            lineHeight: 0.6,
+            transition: props.transition,
+        },
+    };
+};
 
 const IconButton = (props, context) => {
     const {
         color,
-        disabled,
+        disable,
         hoverColor,
         hovered,
         ui,
@@ -36,9 +46,9 @@ const IconButton = (props, context) => {
     } = context.theme;
 
     const width = baseIconSize * size;
-    const iconColor = disabled ? disabledPrimaryColor : color;
-    const iconHoverColor = disabled ? disabledPrimaryColor : hoverColor;
-    const handleClick = createConditionalEventHandler(!disabled)(onClick);
+    const iconColor = disable ? disabledPrimaryColor : color;
+    const iconHoverColor = disable ? disabledPrimaryColor : hoverColor;
+    const handleClick = createConditionalEventHandler(!disable)(onClick);
     const handleMouseEnter = createEventHandlerIgnoringEventData(updateUI, 'hovered', true);
     const handleMouseLeave = createEventHandlerIgnoringEventData(updateUI, 'hovered', false);
     const styles = getStyles(props, context.theme);
@@ -80,7 +90,7 @@ IconButton.propTypes = {
     /**
      * Disables the button from responding to event handlers
      */
-    disabled: PropTypes.bool,
+    disable: PropTypes.bool,
     /**
      * Background color when hovered
      */
@@ -110,11 +120,15 @@ IconButton.propTypes = {
      * Managed UI state props; can be overridden
      */
     ui: PropTypes.object,
+    /**
+     * Callback fired when a ui prop related action is dispatched
+     */
+    updateUI: PropTypes.func.isRequired,
 };
 IconButton.defaultProps = {
     backgroundColor: transparent,
     circle: false,
-    disabled: false,
+    disable: false,
     onClick: () => {
     },
     size: normal,
@@ -124,8 +138,8 @@ IconButton.contextTypes = {
     theme: PropTypes.object.isRequired,
 };
 IconButton.displayName = 'IconButton';
-export default Radium(ui({
+export default Radium(reduxUI({
     state: {
         hovered: false,
-    }
+    },
 })(IconButton));

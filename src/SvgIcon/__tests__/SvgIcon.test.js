@@ -45,6 +45,7 @@ test('SvgIcons can be hovered', () => {
 
 test('SvgIcons can have a width and are always rendered a squares', () => {
     const component = shallowRenderSvgIcon({
+        children: getSvgPath(),
         width: 100,
     });
     expect(snapshot(component)).toMatchSnapshot();

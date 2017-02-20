@@ -9,7 +9,7 @@ test('ListItem can render as not highlighted', () => {
         children: 'List Item',
         highlightBackgroundColor: 'blue',
         highlightColor: 'pink',
-        itemOid: 'ListItem',
+        oid: 'ListItem',
     });
     expect(snapshot(component)).toMatchSnapshot();
 });
@@ -20,7 +20,7 @@ test('ListItem can render as being highlighted', () => {
         highlightBackgroundColor: 'blue',
         highlightColor: 'pink',
         highlighted: true,
-        itemOid: 'ListItem',
+        oid: 'ListItem',
     });
     expect(snapshot(component)).toMatchSnapshot();
 });
@@ -29,7 +29,7 @@ test('ListItem responds to hover event', () => {
     const onMouseEnter = jest.fn();
     const component = shallowRenderListItem({
         children: 'List Item',
-        itemOid: 'ListItem',
+        oid: 'ListItem',
         onMouseEnter,
     });
     simulateHover(component, evt);

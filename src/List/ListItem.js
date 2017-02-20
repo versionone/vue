@@ -1,5 +1,4 @@
-import EventListener from 'react-event-listener';
-import React, {Component, PropTypes} from 'react';
+import React, {PropTypes} from 'react';
 import Radium from './../utilities/Radium';
 import transparent from './../utilities/Transparent';
 import {createEventHandler} from './../utilities/component';
@@ -33,10 +32,10 @@ const getStyles = (props, theme) => {
 const ListItem = (props, context) => {
     const {
         children,
-        itemOid,
+        oid,
         onMouseEnter,
     } = props;
-    const handleMouseEnter = createEventHandler(onMouseEnter, itemOid);
+    const handleMouseEnter = createEventHandler(onMouseEnter, oid);
     const styles = getStyles(props, context.theme);
 
     return (
@@ -65,6 +64,13 @@ ListItem.propTypes = {
      * When true, indicates the component is in a highlighted state
      */
     highlighted: PropTypes.bool,
+    /**
+     * Unique oid for the item represented by the ListItem
+     */
+    oid: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string,
+    ]),
     /**
      * Event handler; fired once mouse enters the component
      */

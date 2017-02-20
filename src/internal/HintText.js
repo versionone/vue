@@ -32,9 +32,9 @@ const getStyles = (props, context) => {
 };
 const defaultProps = {
     hidden: false,
-    text: '',
     onClick: () => {
     },
+    text: '',
 };
 const HintText = (props, context) => {
     const propsWithDefaults = {

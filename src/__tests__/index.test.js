@@ -29,7 +29,7 @@ test('vue exports the Button component and other related parts', () => {
     expect(new IconButton({
         store: {
             getState: jest.fn(),
-        }
+        },
     })).toBeInstanceOf(IconButtonComponent);
     expect(ButtonTypes).toEqual(ButtonTypesImport);
     expect(ButtonSizes).toEqual(ButtonSizesImport);
@@ -46,7 +46,7 @@ test('vue exports a List component and other related parts', () => {
     expect(new List({
         store: {
             getState: jest.fn(),
-        }
+        },
     })).toBeInstanceOf(ListComponent);
 });
 

@@ -17,8 +17,8 @@ class RenderToLayer extends Component {
         },
     };
     static contextTypes = {
-        theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
         store: PropTypes.object,
+        theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
     };
 
     constructor(...rest) {

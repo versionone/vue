@@ -1,10 +1,9 @@
-var fs = require('fs');
-var path = require('path');
-var rimraf = require('rimraf');
-var dirs = require('./directories');
+const fs = require('fs');
+const path = require('path');
+const rimraf = require('rimraf');
+const dirs = require('./directories');
 
-var fsItems = fs.readdirSync(dirs.src);
-fsItems = fsItems
+fs.readdirSync(dirs.src)
     .map(toDeployedDirectory(dirs.app))
     .filter(hasMatchingDeployedDirectory())
     .forEach(deleteDeployedDirectory());

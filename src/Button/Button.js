@@ -150,11 +150,11 @@ const getStyles = (props, theme) => {
 
 const Button = (props, context) => {
     const {
-        disabled,
+        disable,
         onClick,
         text,
     } = props;
-    const handleClick = createConditionalEventHandler(!disabled)(onClick);
+    const handleClick = createConditionalEventHandler(!disable)(onClick);
     const styles = getStyles(props, context.theme);
     return (
         <button

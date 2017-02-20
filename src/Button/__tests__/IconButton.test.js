@@ -27,7 +27,7 @@ test('circular icon button', () => {
 test('icon button can be resized', () => {
     component = mountIconButton({
         icon: CloseIcon,
-        size: 0.75
+        size: 0.75,
     });
     expect(snapshot(component)).toMatchSnapshot();
 });
@@ -46,7 +46,7 @@ test('icon button is click-able', () => {
 test('icon button can be disabled', () => {
     const onClick = jest.fn();
     component = mountIconButton({
-        disabled: true,
+        disable: true,
         icon: CloseIcon,
         onClick,
     });

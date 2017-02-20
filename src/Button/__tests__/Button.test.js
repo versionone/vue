@@ -31,7 +31,7 @@ test('standard button', () => {
 test('basic button', () => {
     const button = shallowRenderButton({
         text: 'Click me',
-        type: ButtonTypes.basic
+        type: ButtonTypes.basic,
     });
     expect(snapshot(button)).toMatchSnapshot();
 });
@@ -76,8 +76,8 @@ test('button can be resized', () => {
 test('button can be disabled', () => {
     let onClick = jest.fn();
     const button = shallowRenderButton({
-        disabled: true,
-        onClick
+        disable: true,
+        onClick,
     });
     simulateClick(button);
     expect(onClick).not.toBeCalled();

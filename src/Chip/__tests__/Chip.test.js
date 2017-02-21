@@ -3,7 +3,9 @@ import {getMount, getShallow, snapshot} from './../../../specHelpers/rendering';
 
 const mountChip = getMount(Chip);
 const shallowRenderChip = getShallow(Chip);
-const clickEvent = {test: true};
+const clickEvent = {
+    test: true,
+};
 
 test('it can render text in the Chip', () => {
     const component = shallowRenderChip({
@@ -32,6 +34,6 @@ test('it is click-able', () => {
     expect(onRequestRemove.mock.calls[0][1]).toEqual('Chip:1');
 });
 
-function simulateRemoveChipClick(wrapper, evt = {}) {
-    wrapper.find('IconButton').simulate('click', evt);
+function simulateRemoveChipClick(wrapper, e = {}) {
+    wrapper.find('IconButton').simulate('click', e);
 }

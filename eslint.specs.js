@@ -25,6 +25,11 @@ module.exports = {
         'react',
     ],
     rules: {
+        'arrow-parens': [
+            2,
+            'always',
+        ],
+        'class-methods-use-this': 0,
         'comma-dangle': 0,
         'linebreak-style': [
             0, 'windows',

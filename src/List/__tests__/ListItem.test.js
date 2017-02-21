@@ -2,7 +2,9 @@ import ListItem from '../ListItem';
 import {getShallow, snapshot} from './../../../specHelpers/rendering';
 
 const shallowRenderListItem = getShallow(ListItem);
-const evt = {test: true};
+const evt = {
+    test: true,
+};
 
 test('ListItem can render as not highlighted', () => {
     const component = shallowRenderListItem({
@@ -37,6 +39,6 @@ test('ListItem responds to hover event', () => {
     expect(onMouseEnter).toHaveBeenCalledWith(evt, 'ListItem');
 });
 
-function simulateHover(wrapper, evt = {}) {
-    wrapper.simulate('mouseenter', evt);
+function simulateHover(wrapper, e = {}) {
+    wrapper.simulate('mouseenter', e);
 }

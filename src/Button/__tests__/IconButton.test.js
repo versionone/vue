@@ -4,7 +4,9 @@ import {getMount, getShallow, reset, snapshot} from './../../../specHelpers/rend
 
 const shallowRenderIconButton = getShallow(IconButton);
 const mountIconButton = getMount(IconButton);
-const clickEvent = {test: true};
+const clickEvent = {
+    test: true,
+};
 
 let component;
 afterEach(reset(component));
@@ -74,6 +76,6 @@ test('icon button can be set to be hovered', () => {
     expect(snapshot(component)).toMatchSnapshot();
 });
 
-function simulateClick(wrapper, evt = {}) {
-    wrapper.simulate('click', evt);
+function simulateClick(wrapper, e = {}) {
+    wrapper.simulate('click', e);
 }

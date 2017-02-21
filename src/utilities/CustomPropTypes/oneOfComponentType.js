@@ -1,20 +1,20 @@
 import React from 'react';
 
 const lowestMatchingIndex = 0;
-const isOneOf = typeNames => name => typeNames.indexOf(name) >= lowestMatchingIndex;
+const isOneOf = (typeNames) => (name) => typeNames.indexOf(name) >= lowestMatchingIndex;
 
-export default types => (props, propName, componentName) => {
+export default (types) => (props, propName, componentName) => {
     const prop = props[propName];
-    const typeNames = types.map(type => type.displayName);
+    const typeNames = types.map((type) => type.displayName);
     const isOneOfTypes = isOneOf(typeNames);
     if (propName !== 'children' && isOneOfTypes(prop.displayName)) {
         return null;
     }
-    const typeNamesForError = typeNames.map(name => `\`${name}\``).join(', ');
+    const typeNamesForError = typeNames.map((name) => `\`${name}\``).join(', ');
 
     if (propName === 'children') {
         const childrenNames = React.Children.toArray(prop)
-            .map(child => child.type.displayName);
+            .map((child) => child.type.displayName);
         const hasOnlyValidChildren = childrenNames
             .reduce((output, childName) => output && isOneOfTypes(childName), true);
 

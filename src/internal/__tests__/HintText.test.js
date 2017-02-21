@@ -2,7 +2,9 @@ import HintText from '../HintText';
 import {getShallow, snapshot} from './../../../specHelpers/rendering';
 
 const shallowRenderHintText = getShallow(HintText);
-const evt = {test: true};
+const evt = {
+    test: true,
+};
 
 test('hint text can display text content', () => {
     const component = shallowRenderHintText({
@@ -28,6 +30,6 @@ test('hint text is click-able', () => {
     expect(onClick).toHaveBeenCalledWith(evt);
 });
 
-function simulateClick(wrapper, evt = {}) {
-    wrapper.simulate('click', evt);
+function simulateClick(wrapper, e = {}) {
+    wrapper.simulate('click', e);
 }

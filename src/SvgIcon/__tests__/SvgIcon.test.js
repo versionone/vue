@@ -44,7 +44,7 @@ test('SvgIcons can be hovered', () => {
 });
 
 test('SvgIcons can have a width and are always rendered a squares', () => {
-    const component = shallowRenderSvgIcon({
+    component = shallowRenderSvgIcon({
         children: getSvgPath(),
         width: 100,
     });
@@ -53,11 +53,13 @@ test('SvgIcons can have a width and are always rendered a squares', () => {
 
 test('allows standard events to be handled by event handlers', () => {
     const onClick = jest.fn();
-    const component = shallowRenderSvgIcon({
+    component = shallowRenderSvgIcon({
         children: getSvgPath(),
         onClick,
     });
-    const evt = {test: true};
+    const evt = {
+        test: true,
+    };
     simulateClick(component, evt);
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(onClick).toHaveBeenCalledWith(evt);

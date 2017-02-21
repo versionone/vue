@@ -7,7 +7,9 @@ import {getMount, getShallow, snapshot, reset} from './../../../specHelpers/rend
 
 const renderList = getShallow(List);
 const mountList = getMount(List);
-const evt = {test: true};
+const evt = {
+    test: true,
+};
 
 let component;
 afterEach(reset(component));
@@ -186,28 +188,40 @@ function getListItems() {
                 </ListItem>
             )));
 }
-function simulateHover(wrapper, evt = {}) {
-    wrapper.find('ListItem').at(1).simulate('mouseenter', evt);
+function simulateHover(wrapper, e = {}) {
+    wrapper.find('ListItem')
+        .at(1)
+        .simulate('mouseenter', e);
 }
-function simulateMouseLeave(wrapper, evt = {}) {
-    wrapper.find('ListItem').at(1).simulate('mouseleave', evt);
+function simulateMouseLeave(wrapper, e = {}) {
+    wrapper.find('ListItem')
+        .at(1)
+        .simulate('mouseleave', e);
 }
 function simulateUpArrowKey() {
-    const evt = simulant('keydown', {keyCode: 38});
-    simulant.fire(window, evt);
+    const e = simulant('keydown', {
+        keyCode: 38,
+    });
+    simulant.fire(window, e);
 }
 function simulateDownArrowKey() {
-    const evt = simulant('keydown', {keyCode: 40});
-    simulant.fire(window, evt);
+    const e = simulant('keydown', {
+        keyCode: 40,
+    });
+    simulant.fire(window, e);
 }
 function simulateEnterKey() {
-    const evt = simulant('keyup', {keyCode: 13});
-    simulant.fire(window, evt);
+    const e = simulant('keyup', {
+        keyCode: 13,
+    });
+    simulant.fire(window, e);
 }
-function simulateMouseEnter(wrapper, evt = {}) {
-    wrapper.simulate('mouseenter', evt);
+function simulateMouseEnter(wrapper, e = {}) {
+    wrapper.simulate('mouseenter', e);
 }
-function simulateClickItem(wrapper, evt = {}) {
-    wrapper.find('ListItem').at(1).simulate('click', evt);
+function simulateClickItem(wrapper, e = {}) {
+    wrapper.find('ListItem')
+        .at(1)
+        .simulate('click', e);
 }
 

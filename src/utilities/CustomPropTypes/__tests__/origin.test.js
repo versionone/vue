@@ -4,8 +4,12 @@ import {validatorFails, validatorPasses} from '../../../../specHelpers/callValid
 
 test('both vertical and horizontal origin properties are required', () => {
     expect(validatorFails(origin, <div prop={{}} />, 'prop')).toBeTruthy();
-    expect(validatorFails(origin, <div prop={{horizontal: 'center'}} />, 'prop')).toBeTruthy();
-    expect(validatorFails(origin, <div prop={{vertical: 'middle'}} />, 'prop')).toBeTruthy();
+    expect(validatorFails(origin, <div prop={{
+        horizontal: 'center',
+    }} />, 'prop')).toBeTruthy();
+    expect(validatorFails(origin, <div prop={{
+        vertical: 'middle',
+    }} />, 'prop')).toBeTruthy();
 });
 test('valid origin props pass', () => {
     expect(validatorPasses(origin, <div prop={{

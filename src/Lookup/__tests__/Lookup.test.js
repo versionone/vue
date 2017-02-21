@@ -1,4 +1,4 @@
-// import React from 'react';
+import React from 'react';
 import simulant from 'simulant';
 // import {render} from 'react-dom';
 import Lookup from './../Lookup';
@@ -6,6 +6,7 @@ import {getMount, getShallow, snapshot, reset} from './../../../specHelpers/rend
 import ThemeProvider from './../../Theme';
 import testTheme from './../../../specHelpers/TestTheme';
 
+jest.useFakeTimers();
 const mountLookup = getMount(Lookup);
 const shallowRenderLookup = getShallow(Lookup);
 
@@ -21,18 +22,18 @@ test('Lookup renders as a TextField when not open', () => {
 });
 
 // Requried element.getBoundingClientRect does not populate with jsdom and therefore this cannot be tested.
-test.skip('Lookup can render hint text that is longer/larger than what would fit within the search text input field', () => {
-    const div = document.createElement('div');
-    document.body.appendChild(div);
-    render((
-        <ThemeProvider theme={testTheme}>
-            <Lookup
-                hintText="hint text, hint text, more hint text, do you believe in the power of the hint text....????"
-                width={10}
-            />
-        </ThemeProvider>
-    ), div);
-});
+// test.skip('Lookup can render hint text that is longer/larger than what would fit within the search text input field', () => {
+// const div = document.createElement('div');
+// document.body.appendChild(div);
+// render((
+//     <ThemeProvider theme={testTheme}>
+//         <Lookup
+//             hintText="hint text, hint text, more hint text, do you believe in the power of the hint text....????"
+//             width={10}
+//         />
+//     </ThemeProvider>
+// ), div);
+// });
 
 test('Lookup defaults to being closed', () => {
     component = shallowRenderLookup();
@@ -67,7 +68,9 @@ test('Lookup can have a set widths', () => {
 
 test('Lookup can be set to be full width', () => {
     window.getComputedStyle = jest.fn();
-    window.getComputedStyle.mockReturnValue({width: '600px'});
+    window.getComputedStyle.mockReturnValue({
+        width: '600px',
+    });
     component = mountLookup({
         dataSource: getBasicDataSource(),
         fullWidth: true,
@@ -79,7 +82,9 @@ test('Lookup can be set to be full width', () => {
 
 test('Lookup can be set to a width, then updated to be full width', () => {
     window.getComputedStyle = jest.fn();
-    window.getComputedStyle.mockReturnValue({width: '500px'});
+    window.getComputedStyle.mockReturnValue({
+        width: '500px',
+    });
     component = mountLookup({
         dataSource: getBasicDataSource(),
         open: true,
@@ -98,12 +103,12 @@ test('Lookup can render multiple groupings of results via their filters', () => 
         open: true,
         resultGroups: [
             {
-                header: 'Header 1',
                 filter: () => true,
+                header: 'Header 1',
             },
             {
-                header: 'Header 2',
                 filter: (searchText, value, index) => index === 1,
+                header: 'Header 2',
             },
         ],
     });
@@ -241,7 +246,6 @@ test('Clicking outside of the lookup will close the lookup', () => {
     window.addEventListener = jest.fn().mockImplementation((event, cb) => {
         mappedEventHandlers[event] = cb;
     });
-    window.setTimeout = jest.fn().mockImplementation((cb) => cb());
     component = mountLookup({
         dataSource: getBasicDataSource(),
         open: true,
@@ -249,6 +253,7 @@ test('Clicking outside of the lookup will close the lookup', () => {
         searchFilter: (searchText, item) => item.indexOf(searchText) >= 0,
         searchText: 'ing ',
     });
+    jest.runAllTimers();
     simulateClickAway(mappedEventHandlers);
     expect(lookupIsClosed(component)).toBeTruthy();
 });
@@ -294,7 +299,7 @@ function lookupGroupResultsMatchExactly(wrapper, groupIndex, headerText, results
 
     return groupHeader.innerHTML === headerText
         && groupItems
-            .map(groupItem => groupItem.children[0].innerHTML)
+            .map((groupItem) => groupItem.children[0].innerHTML)
             .reduce((output, text, index) => output && text.indexOf(results[index]) >= 0, true);
 }
 function getGroupStartIndex(items, groupIndex) {
@@ -328,15 +333,15 @@ function firstListItemIsSelected(wrapper, selectedText) {
 function getDataSourceConfig() {
     return {
         oidKey: 'oid',
-        renderItem: item => item.name,
+        renderItem: (item) => item.name,
         text: 'name',
     };
 }
 function getCustomTextRendererDataSourceConfig() {
     return {
         oidKey: 'oid',
-        renderItem: item => item.name,
-        text: item => item.name,
+        renderItem: (item) => item.name,
+        text: (item) => item.name,
     };
 }
 function simulateChipRemoval(wrapper) {
@@ -347,13 +352,17 @@ function noSelectedItems(wrapper) {
 }
 function childrenAsArray(parent) {
     return Object.keys(parent.children)
-        .map(key => parent.children[key]);
+        .map((key) => parent.children[key]);
 }
 function simulateClickHintTextLookup(wrapper, evt = {}) {
     wrapper.find('HintText').simulate('click', evt);
 }
 function simulateSearchTextEntry(wrapper, enteredText) {
-    wrapper.find('input').simulate('change', {target: {value: enteredText}});
+    wrapper.find('input').simulate('change', {
+        target: {
+            value: enteredText,
+        },
+    });
 }
 function searchTextToBeFocused() {
     return document.activeElement.tagName === 'INPUT';
@@ -363,7 +372,7 @@ function simulateClickAway(mappedEventHandlers) {
         defaultPrevented: false,
         target: window,
     };
-    mappedEventHandlers['click'](evt);
+    mappedEventHandlers.click(evt);
 }
 function lookupIsClosed(wrapper) {
     return wrapper.state().open === false;

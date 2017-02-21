@@ -3,7 +3,9 @@ import {getShallow, snapshot} from './../../../specHelpers/rendering';
 import * as ButtonTypes from '../Types';
 
 const shallowRenderButton = getShallow(Button);
-const clickEvent = {test: true};
+const clickEvent = {
+    test: true,
+};
 
 test('button is click-able with an event handler', () => {
     const onClick = jest.fn();
@@ -69,12 +71,14 @@ test('special button', () => {
 });
 
 test('button can be resized', () => {
-    const button = shallowRenderButton({size: 0.75});
+    const button = shallowRenderButton({
+        size: 0.75,
+    });
     expect(snapshot(button)).toMatchSnapshot();
 });
 
 test('button can be disabled', () => {
-    let onClick = jest.fn();
+    const onClick = jest.fn();
     const button = shallowRenderButton({
         disable: true,
         onClick,

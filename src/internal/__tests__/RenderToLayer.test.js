@@ -1,8 +1,8 @@
 import React from 'react';
 import RenderToLayer from '../RenderToLayer';
 import {getMount, reset} from './../../../specHelpers/rendering';
-jest.useFakeTimers();
 
+jest.useFakeTimers();
 const mountRenderToLayer = getMount(RenderToLayer);
 let component;
 afterEach(reset(component));
@@ -121,5 +121,5 @@ function layerIsRendered(text) {
         && document.getElementsByTagName('div')[0].children[0].innerHTML === text;
 }
 function simulateClickAway(mappedEventHandlers, evt) {
-    mappedEventHandlers['click'](evt);
+    mappedEventHandlers.click(evt);
 }

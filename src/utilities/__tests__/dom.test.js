@@ -9,7 +9,7 @@ test('isDescendant will only return true if the child is a descendant of the par
 function getParent() {
     return {
         parentNode: null,
-    }
+    };
 }
 function getNode(parent = null) {
     return {

@@ -13,8 +13,12 @@ test('invalid CSS styles are considered invalid', () => {
 
 function getProps() {
     return {
-        correct: {background: 'blue'},
-        incorrect: {backgroundLineColor: 'blue'}
+        correct: {
+            background: 'blue',
+        },
+        incorrect: {
+            backgroundLineColor: 'blue',
+        }
     };
 }
 

@@ -265,14 +265,14 @@ function getPositionNotWithinXBoundary() {
 }
 function getPositionWithinYBoundary() {
     return {
-        top: 20,
         bottom: 80,
+        top: 20,
     };
 }
 function getPositionNotWithinYBoundary() {
     return {
-        top: -10,
         bottom: 150,
+        top: -10,
     };
 }
 function getPositionWithinBoundary() {
@@ -287,8 +287,8 @@ function getPositionNotWithinBoundary() {
     return {
         bottom: 150,
         left: 20,
-        top: 20,
         right: 150,
+        top: 20,
     };
 }
 function getLeftCollidingPosition() {
@@ -385,7 +385,7 @@ function getPositionCompletelyAroundAnchor() {
         right: 400,
         top: -100,
         width: 500,
-    }
+    };
 }
 function getLeftRightAroundPosition() {
     return {
@@ -397,7 +397,7 @@ function getLeftRightAroundPosition() {
         right: 400,
         top: 0,
         width: 500,
-    }
+    };
 }
 
 function getTopBottomAroundPosition() {
@@ -410,5 +410,5 @@ function getTopBottomAroundPosition() {
         right: 100,
         top: -100,
         width: 100,
-    }
+    };
 }

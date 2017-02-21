@@ -1,11 +1,11 @@
 import React from 'react';
 
-export default type => (props, propName, componentName) => {
+export default (type) => (props, propName, componentName) => {
     const prop = props[propName];
     if (propName === 'children') {
         let error = null;
         React.Children.forEach(prop, (el) => {
-            if (Boolean(error)) {
+            if (error) {
                 return;
             }
             if (el.type.displayName !== type.displayName) {

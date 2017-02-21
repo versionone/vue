@@ -2,7 +2,9 @@ import ErrorMessage from './../ErrorMessage';
 import {getShallow, snapshot} from './../../../specHelpers/rendering';
 
 const shallowRenderErrorMessage = getShallow(ErrorMessage);
-const evt = {test: true};
+const evt = {
+    test: true,
+};
 
 test('error message can render defaults properly', () => {
     const component = shallowRenderErrorMessage({
@@ -29,6 +31,6 @@ test('error message is click-able', () => {
     expect(onClick).toHaveBeenCalledWith(evt);
 });
 
-function simulateClick(wrapper, evt = {}) {
-    wrapper.simulate('click', evt);
+function simulateClick(wrapper, e = {}) {
+    wrapper.simulate('click', e);
 }

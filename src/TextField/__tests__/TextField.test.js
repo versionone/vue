@@ -6,10 +6,10 @@ const shallowRenderTextField = getShallow(TextField);
 
 let component;
 const evt = {
-    test: true,
     target: {
         value: 'a'
-    }
+    },
+    test: true,
 };
 afterEach(reset(component));
 
@@ -65,7 +65,7 @@ test('TextFields will renders with a default width when no width is specified', 
 });
 
 test('TextFields can have a specified width', () => {
-    const component = shallowRenderTextField({
+    component = shallowRenderTextField({
         width: 100,
     });
     expect(snapshot(component)).toMatchSnapshot();
@@ -96,8 +96,8 @@ test('TextFields only display hint text when there is no value or default value'
     expect(snapshot(component)).toMatchSnapshot();
 
     component = shallowRenderTextField({
-        value: 'a value',
-        hintText: 'hint text'
+        hintText: 'hint text',
+        value: 'a value'
     });
     expect(snapshot(component)).toMatchSnapshot();
 });
@@ -202,21 +202,21 @@ function inputIsFocused(wrapper) {
 function clickHintText(wrapper) {
     wrapper.find('HintText').simulate('click');
 }
-function typeInTextField(wrapper, evt = {}) {
+function typeInTextField(wrapper, e = {}) {
     wrapper.find('input')
-        .simulate('keydown', evt);
+        .simulate('keydown', e);
     wrapper.find('input')
-        .simulate('keyup', evt);
+        .simulate('keyup', e);
     wrapper.find('input')
-        .simulate('input', evt);
+        .simulate('input', e);
     wrapper.find('input')
-        .simulate('change', evt);
+        .simulate('change', e);
 }
-function focusTextField(wrapper, evt = {}) {
-    wrapper.find('input').simulate('focus', evt);
+function focusTextField(wrapper, e = {}) {
+    wrapper.find('input').simulate('focus', e);
 }
-function blurTextField(wrapper, evt = {}) {
-    wrapper.find('input').simulate('blur', evt);
+function blurTextField(wrapper, e = {}) {
+    wrapper.find('input').simulate('blur', e);
 }
 function textFieldHasAdjustedHeightBy(wrapper, adjustment) {
     return wrapper.find('input')

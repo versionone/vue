@@ -16,7 +16,7 @@
     "build": "cross-env NODE_ENV=release node_modules/.bin/babel src --ignore Stories.js,*.test.js,_meta.js,examples/*.* --out-dir ./",
     "test:packages:v1-icon-builder": "cd packages/v1-icon-builder && npm test && cd ../../",
     "test": "jest",
-    "test:all": "npm test && npm test:packages:v1-icon-builder",
+    "test:all": "npm test && npm run test:packages:v1-icon-builder",
     "lint": "npm run lint:src & npm run lint:tests",
     "lint:src": "eslint src/**/*.js --ignore-pattern src/__tests__/*.test.js --ignore-pattern src/**/__tests__/**/*.js --config eslint.src.js",
     "lint:tests": "eslint **/__tests__/*.test.js --config eslint.specs.js",

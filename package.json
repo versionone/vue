@@ -27,15 +27,13 @@
     "start": "cd docs && npm start && cd ../",
     "prestart:dev": "npm run build:icons",
     "start:dev": "start-storybook -p 9001",
-    "preversion": "npm run lint && npm run test:all",
-    "prepublish": "npm run build",
-    "postpublish": "npm run clean",
+    "preversion": "npm run lint && npm run test:all && npm run build",
+    "preparepublish": "npm run build",
     "publish:docs": "cd docs && npm run gh-pages:build -p && cd ../",
     "verify": "node scripts/verify",
     "install:icon-builder": "cd packages/v1-icon-builder && npm install && cd ../../",
     "install:docs": "cd docs && npm install && cd ../",
-    "preinstall": "npm run verify && npm run install:icon-builder",
-    "postinstall": "npm run install:docs"
+    "setup": "npm install && npm run install:docs && npm run install:icon-builder"
   },
   "keywords": [
     "react",

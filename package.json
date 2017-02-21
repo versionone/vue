@@ -1,5 +1,5 @@
 {
-  "name": "vue",
+  "name": "v1-vue",
   "version": "0.0.1",
   "description": "Open-source and community supported collection of common UI components built with React. As an open-sourced and community supported project, VersionOne Vue is not formally supported by VersionOne.",
   "publishConfig": {

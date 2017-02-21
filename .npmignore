@@ -1,11 +1,15 @@
+.idea
 /.storybook
 /docs
+/packages
 /scripts
 /specHelpers
 /src
 .editorconfig
 .gitignore
 eslint.*.js
+.eslintignore
 wallaby.js
 release
 /v*
+yarn.lock

@@ -1,6 +1,7 @@
 import React from 'react';
 import RenderToLayer from '../RenderToLayer';
 import {getMount, reset} from './../../../specHelpers/rendering';
+jest.useFakeTimers();
 
 const mountRenderToLayer = getMount(RenderToLayer);
 let component;
@@ -45,7 +46,7 @@ test('clicking anywhere in the document will fire the onComponentClickAway event
     window.addEventListener = jest.fn().mockImplementation((event, cb) => {
         mappedEventHandlers[event] = cb;
     });
-    window.setTimeout = jest.fn().mockImplementation((cb) => cb());
+    // window.setTimeout.mockImplementation((cb) => cb());
     const evt = {
         defaultPrevented: false,
         target: window,
@@ -55,6 +56,7 @@ test('clicking anywhere in the document will fire the onComponentClickAway event
         open: true,
         render,
     });
+    jest.runAllTimers();
     simulateClickAway(mappedEventHandlers, evt);
     expect(handleClickAway).toHaveBeenCalledTimes(1);
     expect(handleClickAway).toHaveBeenCalledWith(evt);
@@ -68,7 +70,6 @@ test('clicking anywhere in the document will not fire the onComponentClickAway e
     window.addEventListener = jest.fn().mockImplementation((event, cb) => {
         mappedEventHandlers[event] = cb;
     });
-    window.setTimeout = jest.fn().mockImplementation((cb) => cb());
     const evt = {
         defaultPrevented: true,
         target: window,
@@ -78,6 +79,7 @@ test('clicking anywhere in the document will not fire the onComponentClickAway e
         open: true,
         render,
     });
+    jest.runAllTimers();
     simulateClickAway(mappedEventHandlers, evt);
     expect(handleClickAway).not.toHaveBeenCalledTimes(1);
 });
@@ -95,7 +97,6 @@ test('clicking within the rendered layer will not fire the onComponentClickAway 
     window.addEventListener = jest.fn().mockImplementation((event, cb) => {
         mappedEventHandlers[event] = cb;
     });
-    window.setTimeout = jest.fn().mockImplementation((cb) => cb());
     component = mountRenderToLayer({
         onComponentClickAway: handleClickAway,
         open: true,
@@ -105,6 +106,7 @@ test('clicking within the rendered layer will not fire the onComponentClickAway 
         defaultPrevented: false,
         target: document.getElementsByTagName('li')[0],
     };
+    jest.runAllTimers();
     simulateClickAway(mappedEventHandlers, evt);
     expect(handleClickAway).not.toHaveBeenCalledTimes(1);
 });

@@ -18,7 +18,7 @@ function getTheme() {
     return {
         values: {
             _name: 'Test Theme',
-            themeProperty: 'theme property value'
-        }
+            themeProperty: 'theme property value',
+        },
     };
 }

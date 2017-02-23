@@ -1,6 +1,7 @@
 import * as buttonSizes from './Button/Sizes';
 import * as buttonTypes from './Button/Types';
 
+export {default as AssetLookup} from './Lookup/AssetLookup';
 export {default as Button} from './Button';
 export const ButtonSizes = buttonSizes;
 export const ButtonTypes = buttonTypes;
@@ -14,3 +15,5 @@ export {default as SubHeader} from './SubHeader';
 export {default as SvgIcon} from './SvgIcon';
 export {default as TextField} from './TextField';
 export {default as ThemeProvider} from './ThemeProvider';
+export {default as VueProvider} from './VueProvider';
+export {default as V1Provider} from './V1Provider';

@@ -10,7 +10,7 @@ test('AssetLookup handles server errors from fetching items gracefully', () => {
             query: 'my query',
         },
         {
-            sdk: {
+            v1: {
                 query,
             },
         });
@@ -29,7 +29,7 @@ test('AssetLookup fetches data when created', () => {
             query: 'my query',
         },
         {
-            sdk: {
+            v1: {
                 query,
             },
         });
@@ -49,7 +49,7 @@ test('AssetLookup re-queries when its query prop changes', () => {
             query: 'my query',
         },
         {
-            sdk: {
+            v1: {
                 query,
             },
         });

@@ -1,5 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import ThemeProvider from './../ThemeProvider';
+import V1Provider from './../V1Provider';
 
 export default class VueProvider extends Component {
     static propTypes = {
@@ -8,35 +9,37 @@ export default class VueProvider extends Component {
          */
         children: PropTypes.node.isRequired,
         /**
-         * Instance of the VersionOne JavaScript SDK
-         */
-        sdk: PropTypes.shape({
-            query: PropTypes.func.isRequired
-        }).isRequired,
-        /**
          * Theme to be used with Vue
          */
         theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
+        /**
+         * Instance of the VersionOne JavaScript SDK
+         */
+        v1: PropTypes.shape({
+            query: PropTypes.func.isRequired,
+        }).isRequired,
     };
 
     static
     childContextTypes = {
-        sdk: PropTypes.shape({
-            query: PropTypes.func.isRequired
+        v1: PropTypes.shape({
+            query: PropTypes.func.isRequired,
         }).isRequired,
     };
 
     getChildContext() {
         return {
-            sdk: this.props.sdk,
+            v1: this.props.v1,
         };
     }
 
     render() {
-        return React.createElement(new ThemeProvider({
-                children: this.props.children,
-                theme: this.props.theme,
-            })
+        return (
+            <V1Provider v1={this.props.v1}>
+                <ThemeProvider theme={this.props.theme}>
+                    {this.props.children}
+                </ThemeProvider>
+            </V1Provider>
         );
     }
 }

@@ -1,4 +1,4 @@
-import VueProvider from '../index';
+import VueProvider from './../';
 import ExpectedProvider from './../VueProvider';
 
 test('Vue exports a Vue Provider', () => {

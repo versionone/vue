@@ -58,8 +58,8 @@ class AssetLookup extends Component {
             from: PropTypes.string.isRequired,
             select: PropTypes.oneOfType([
                 PropTypes.string,
-                PropTypes.arrayOf(PropTypes.string)
-            ]).isRequired
+                PropTypes.arrayOf(PropTypes.string),
+            ]).isRequired,
         }).isRequired,
         /**
          * Header text when one group, otherwise array of groups with header and group filter func
@@ -113,8 +113,8 @@ class AssetLookup extends Component {
         width: 256,
     };
     static contextTypes = {
-        sdk: PropTypes.shape({
-            query: PropTypes.func.isRequired
+        v1: PropTypes.shape({
+            query: PropTypes.func.isRequired,
         }).isRequired,
     };
 
@@ -129,8 +129,14 @@ class AssetLookup extends Component {
         this.fetchDataSource(this.props.query);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (this.props.query !== nextProps.query) {
+            this.fetchDataSource(nextProps.query);
+        }
+    }
+
     fetchDataSource(query) {
-        this.context.sdk
+        this.context.v1
             .query(query)
             .then((results) => {
                 this.setState({
@@ -141,12 +147,6 @@ class AssetLookup extends Component {
             .catch(() => {
                 this.setState([]);
             });
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (this.props.query !== nextProps.query) {
-            this.fetchDataSource(nextProps.query);
-        }
     }
 
     render() {

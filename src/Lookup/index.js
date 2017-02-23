@@ -1,3 +1,4 @@
-import AutoComplete from './Lookup';
+import Lookup from './Lookup';;
 
-export default AutoComplete;
+export default Lookup;
+export {default as AssetLookup} from './AssetLookup';

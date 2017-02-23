@@ -9,28 +9,34 @@ const reducer = combineReducers({
     ui: uiReducer,
 });
 const store = createStore(reducer);
-
-export const getShallow = Component => (props = {}, context = {
+const ctx = {
     store,
     theme,
-}) => shallow(<Component {...props} />, {context});
+};
 
-export const getRender = Component => (props = {}, context = {
-    store,
-    theme,
-}) => render(<Component {...props} />, {
-    context,
+export const getShallow = Component => (props = {}, context = {}) => shallow(<Component {...props} />, {
+    context: {
+        ...ctx,
+        ...context,
+    },
+});
+
+export const getRender = Component => (props = {}, context ={}) => render(<Component {...props} />, {
+    context: {
+        ...ctx,
+        ...context,
+    },
     childContextTypes: {
         store: PropTypes.object,
         theme: PropTypes.object,
     },
 });
 
-export const getMount = Component => (props = {}, options = {}, context = {
-    store,
-    theme,
-},) => mount(<Component {...props} />, {
-    context,
+export const getMount = Component => (props = {}, options = {}, context = {}) => mount(<Component {...props} />, {
+    context:{
+        ...ctx,
+        ...context,
+    },
     childContextTypes: {
         store: PropTypes.object,
         theme: PropTypes.object,

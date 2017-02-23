@@ -25,7 +25,8 @@ const complexDataSource = [
         name: 'Billy',
         oid: 'oid:1',
         title: 'Project Admin'
-    }, {
+    },
+    {
         name: 'Andre',
         oid: 'oid:2',
         title: 'Developer'
@@ -181,25 +182,26 @@ storiesOf('Lookup')
                 />
             </div>
         )
-    ).addWithInfo('result list groupings and filtering',
-    `Grouping results with a filter`,
-    () => (
-        <div>
-            <Lookup
-                dataSource={basicDataSource}
-                resultGroups={[
-                    {
-                        header: 'SubSet Results',
-                        filter: (value, index) => index === 1,
-                    },
-                    {
-                        header: 'Rest of the Results',
-                        filter: (value, index) => index !== 1,
-                    },
-                ]}
-                searchFilter={Filters.caseInsensitive}
-                onSelect={action('selected')}
-            />
-        </div>
     )
-);
+    .addWithInfo('result list groupings and filtering',
+        `Grouping results with a filter`,
+        () => (
+            <div>
+                <Lookup
+                    dataSource={basicDataSource}
+                    resultGroups={[
+                        {
+                            header: 'SubSet Results',
+                            filter: (value, index) => index === 1,
+                        },
+                        {
+                            header: 'Rest of the Results',
+                            filter: (value, index) => index !== 1,
+                        },
+                    ]}
+                    searchFilter={Filters.caseInsensitive}
+                    onSelect={action('selected')}
+                />
+            </div>
+        )
+    );

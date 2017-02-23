@@ -108,7 +108,7 @@ class Lookup extends Component {
                     PropTypes.node,
                 ]).isRequired,
             })),
-        ]),
+        ]).isRequired,
         /**
          * Callback function used to filter the lookup; accepts searchText, value of each item, and its index
          */
@@ -445,12 +445,14 @@ class Lookup extends Component {
         && (!this.shouldApplyFilter() || this.props.searchFilter(searchText, value, index));
     }
 
-    applyGroupFilter(dataSource, groupFilter) {
+    applyGroupFilter(dataSource, groupFilter, dataSourceConfig) {
         const filter = this.combineWithSearchFilter(groupFilter);
         return dataSource
             .map((item, index) => ({
                 index,
-                oid: item.oid || index,
+                oid: dataSourceConfig
+                    ? item[dataSourceConfig.oidKey] || index
+                    : index,
                 value: item,
             }))
             .filter((item, index) => filter(this.state.searchText, item.value, index));
@@ -459,6 +461,7 @@ class Lookup extends Component {
     renderGroupedResultItems(groups) {
         const {
             dataSource,
+            dataSourceConfig,
         } = this.props;
 
         if (typeof (groups) === 'string') {
@@ -468,7 +471,7 @@ class Lookup extends Component {
                     header: groups,
                 },
             ]
-                .concat(this.applyGroupFilter(dataSource, Filters.none));
+                .concat(this.applyGroupFilter(dataSource, Filters.none, dataSourceConfig));
         }
         else {
             this.items = groups.reduce((output, group) => output
@@ -478,7 +481,7 @@ class Lookup extends Component {
                             ...group,
                         },
                     ])
-                    .concat(this.applyGroupFilter(dataSource, group.filter))
+                    .concat(this.applyGroupFilter(dataSource, group.filter, dataSourceConfig))
                 , []);
         }
 

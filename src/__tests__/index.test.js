@@ -32,9 +32,7 @@ import * as ButtonTypesImport from '../Button/Types';
 
 test('vue exports an AssetLookup component', () => {
     expect(new AssetLookup({}, {
-        v1: {
-            query: jest.fn().mockReturnValue(Promise.resolve([])),
-        },
+        query: jest.fn().mockReturnValue(Promise.resolve([])),
     })).toBeInstanceOf(AssetLookupComponent);
 });
 
@@ -86,7 +84,7 @@ test('vue exports the ThemeProvider component', () => {
 });
 
 test('vue exports the VueProvider component', () => {
-    expect(new VueProvider()).toBeInstanceOf(VueProviderComponent);
+    expect(VueProvider).toBeDefined();
 });
 
 test('vue exports the V1Provider component', () => {

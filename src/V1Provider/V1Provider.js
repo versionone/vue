@@ -7,23 +7,19 @@ class V1Provider extends Component {
          */
         children: PropTypes.node.isRequired,
         /**
-         * Instance of the VersionOne JavaScript SDK
+         * Query function used to resolve meta queries to hydrated asset item data
          */
-        v1: PropTypes.shape({
-            query: PropTypes.func.isRequired,
-        }).isRequired,
+        runQuery: PropTypes.func.isRequired,
     };
 
     static
     childContextTypes = {
-        v1: PropTypes.shape({
-            query: PropTypes.func.isRequired,
-        }).isRequired,
+        runQuery: PropTypes.func.isRequired,
     };
 
     getChildContext() {
         return {
-            v1: this.props.v1,
+            runQuery: this.props.runQuery,
         };
     }
 

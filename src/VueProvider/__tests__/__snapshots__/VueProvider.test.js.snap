@@ -1,5 +1,6 @@
 exports[`test VueProvider provides the theme prop and V1 SDK prop to children via React's context 1`] = `
 <VueProvider
+  runQuery={[Function]}
   theme={
     Object {
       "values": Object {
@@ -7,18 +8,9 @@ exports[`test VueProvider provides the theme prop and V1 SDK prop to children vi
         "themeProperty": "theme property value",
       },
     }
-  }
-  v1={
-    Object {
-      "query": [Function],
-    }
   }>
   <V1Provider
-    v1={
-      Object {
-        "query": [Function],
-      }
-    }>
+    runQuery={[Function]}>
     <ThemeProvider
       theme={
         Object {

@@ -12,6 +12,7 @@ const store = createStore(reducer);
 const ctx = {
     store,
     theme,
+    runQuery: jest.fn().mockReturnValue(Promise.resolve([])),
 };
 
 export const getShallow = Component => (props = {}, context = {}) => shallow(<Component {...props} />, {
@@ -19,9 +20,14 @@ export const getShallow = Component => (props = {}, context = {}) => shallow(<Co
         ...ctx,
         ...context,
     },
+    childContextTypes: {
+        store: PropTypes.object,
+        theme: PropTypes.object,
+        runQuery: PropTypes.func,
+    },
 });
 
-export const getRender = Component => (props = {}, context ={}) => render(<Component {...props} />, {
+export const getRender = Component => (props = {}, context = {}) => render(<Component {...props} />, {
     context: {
         ...ctx,
         ...context,
@@ -29,17 +35,19 @@ export const getRender = Component => (props = {}, context ={}) => render(<Compo
     childContextTypes: {
         store: PropTypes.object,
         theme: PropTypes.object,
+        runQuery: PropTypes.func,
     },
 });
 
 export const getMount = Component => (props = {}, options = {}, context = {}) => mount(<Component {...props} />, {
-    context:{
+    context: {
         ...ctx,
         ...context,
     },
     childContextTypes: {
         store: PropTypes.object,
         theme: PropTypes.object,
+        runQuery: PropTypes.func,
     },
     ...options,
 });

@@ -1,18 +1,21 @@
 import React from 'react';
 import V1Provider from 'vue/V1Provider';
-import AssetLookup from 'vue/AssetLookup';
+import AssetLookup from 'vue/Lookup/AssetLookup';
 
 export default () => {
-    const v1Sdk = {
-        query: (query) => Promise.resolve([]),
-    };
+    const runQuery = (query) => Promise.resolve([
+        {
+            Oid: 'Team:1',
+            Name: 'Imua',
+        }
+    ]);
 
     return (
-        <V1Provider v1={v1Sdk}>
+        <V1Provider runQuery={runQuery}>
             <AssetLookup
                 dataSourceConfig={{
                     oidKey: 'Oid',
-                    render: (item) => item.Name,
+                    renderItem: (item) => item.Name,
                     text: 'Name',
                 }}
                 hintText="hint text"
@@ -20,6 +23,7 @@ export default () => {
                     from: 'Team',
                     select: ['Name', 'Oid']
                 }}
+                resultGroups="All Results"
             />
         </V1Provider>
     )

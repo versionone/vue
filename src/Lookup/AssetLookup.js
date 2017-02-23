@@ -73,7 +73,7 @@ class AssetLookup extends Component {
                     PropTypes.node,
                 ]).isRequired,
             })),
-        ]),
+        ]).isRequired,
         /**
          * Callback function used to filter the lookup; accepts searchText, value of each item, and its index
          */
@@ -113,9 +113,7 @@ class AssetLookup extends Component {
         width: 256,
     };
     static contextTypes = {
-        v1: PropTypes.shape({
-            query: PropTypes.func.isRequired,
-        }).isRequired,
+        query: PropTypes.func.isRequired,
     };
 
     constructor(...rest) {
@@ -126,6 +124,9 @@ class AssetLookup extends Component {
         };
 
         this.fetchDataSource = this.fetchDataSource.bind(this);
+    }
+
+    componentDidMount() {
         this.fetchDataSource(this.props.query);
     }
 
@@ -136,13 +137,11 @@ class AssetLookup extends Component {
     }
 
     fetchDataSource(query) {
-        this.context.v1
-            .query(query)
+        this.context.query(query)
             .then((results) => {
                 this.setState({
                     dataSource: results,
                 });
-                return true;
             })
             .catch(() => {
                 this.setState([]);

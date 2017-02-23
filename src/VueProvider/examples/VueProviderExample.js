@@ -1,16 +1,15 @@
 import React from 'react';
 import TextField from 'vue/TextField';
+import VueProvider from 'vue/VueProvider';
 import v1Theme from './../../styles/themes/v1Theme';
 
 export default () => {
-    const v1 = {
-        query: () => Promise.resolve([]),
-    };
+    const query = () => Promise.resolve([]);
 
     return (
         <VueProvider
+            runQuery={query}
             theme={v1Theme}
-            v1={v1}
         >
             <TextField
                 hintText="hint text"

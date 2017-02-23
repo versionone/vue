@@ -1,1 +1,1 @@
-Enable application of a common theme across all Vue components and provide V1 functionality to all Vue components. This is essentially a combination of using [ThemeProvider](/components/ThemeProvider) and [V1Provider](/components/V1Provider).
+Enable application of a common theme across all Vue components and provide V1 functionality to all Vue components. This is essentially a combination of using [ThemeProvider](#/component/ThemeProvider) and [V1Provider](#/component/V1Provider).

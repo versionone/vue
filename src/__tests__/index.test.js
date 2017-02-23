@@ -6,7 +6,7 @@ import LookupComponent from './../Lookup';
 import PopoverComponent from './../Popover';
 import SubHeaderComponent from './../SubHeader';
 import TextFieldComponent from './../TextField';
-import ThemeProviderComponent from './../Theme';
+import ThemeProviderComponent from './../ThemeProvider';
 import {
     Button,
     ButtonSizes,

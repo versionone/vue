@@ -4,7 +4,7 @@ import {findDOMNode} from 'react-dom';
 import {throttle} from 'underscore';
 import Radium from './../utilities/Radium';
 import RenderToLayer from './../internal/RenderToLayer';
-import ThemeProvider from './../Theme';
+import ThemeProvider from './../ThemeProvider';
 import {adjustPositionRelativeWithin, getPosition, getViewportPosition} from './../utilities/position';
 import * as CustomPropTypes from './../utilities/CustomPropTypes';
 import * as Positions from './Positions';

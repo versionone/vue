@@ -9,7 +9,7 @@ import List, {ListItem} from './../List';
 import Radium from './../utilities/Radium';
 import Popover, {Positions} from './../Popover';
 import SubHeader from './../SubHeader';
-import ThemeProvider from './../Theme';
+import ThemeProvider from './../ThemeProvider';
 import transparent from './../utilities/Transparent';
 import * as Filters from './Filters';
 

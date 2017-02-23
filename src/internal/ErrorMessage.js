@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import Radium from './../utilities/Radium';
-import ThemeProvider from './../Theme';
+import ThemeProvider from './../ThemeProvider';
 import * as Transitions from './../utilities/Transitions';
 import {fullyVisible as opacityFullyVisible, hidden as opacityHidden} from './../utilities/Opacity';
 import {createEventHandler} from './../utilities/component';

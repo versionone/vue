@@ -13,4 +13,4 @@ export {default as Popover} from './Popover';
 export {default as SubHeader} from './SubHeader';
 export {default as SvgIcon} from './SvgIcon';
 export {default as TextField} from './TextField';
-export {default as ThemeProvider} from './Theme';
+export {default as ThemeProvider} from './ThemeProvider';

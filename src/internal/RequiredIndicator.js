@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {fullyVisible as opacityFullyVisible, hidden as opacityHidden} from './../utilities/Opacity';
 import Radium from './../utilities/Radium';
-import ThemeProvider from './../Theme';
+import ThemeProvider from './../ThemeProvider';
 
 const getStyles = (props, context) => {
     const {

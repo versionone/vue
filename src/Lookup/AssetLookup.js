@@ -113,7 +113,9 @@ class AssetLookup extends Component {
         width: 256,
     };
     static contextTypes = {
-        query: PropTypes.func.isRequired,
+        sdk: PropTypes.shape({
+            query: PropTypes.func.isRequired
+        }).isRequired,
     };
 
     constructor(...rest) {
@@ -128,7 +130,8 @@ class AssetLookup extends Component {
     }
 
     fetchDataSource(query) {
-        this.context.query(query)
+        this.context.sdk
+            .query(query)
             .then((results) => {
                 this.setState({
                     dataSource: results,

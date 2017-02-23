@@ -1,0 +1,5 @@
+exports[`test VueProvider provides the theme prop to children via React's context 1`] = `
+<span>
+  Hello world
+</span>
+`;

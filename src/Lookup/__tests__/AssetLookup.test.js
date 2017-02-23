@@ -10,7 +10,9 @@ test('AssetLookup handles server errors from fetching items gracefully', () => {
             query: 'my query',
         },
         {
-            query,
+            sdk: {
+                query,
+            },
         });
     expect(query).toHaveBeenCalledTimes(1);
     return rejectedPromise
@@ -27,7 +29,9 @@ test('AssetLookup fetches data when created', () => {
             query: 'my query',
         },
         {
-            query,
+            sdk: {
+                query,
+            },
         });
     expect(query).toHaveBeenCalledTimes(1);
     expect(query).toHaveBeenCalledWith('my query');
@@ -45,7 +49,9 @@ test('AssetLookup re-queries when its query prop changes', () => {
             query: 'my query',
         },
         {
-            query,
+            sdk: {
+                query,
+            },
         });
     expect(query).toHaveBeenCalledTimes(1);
     expect(query).toHaveBeenCalledWith('my query');

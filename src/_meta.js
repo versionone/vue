@@ -1,3 +1,4 @@
+export {default as assetLookup} from './AssetLookup/_meta';
 export {default as button} from './Button/_meta';
 export {default as chip} from './Chip/_meta';
 export {default as iconButton} from './IconButton/_meta';

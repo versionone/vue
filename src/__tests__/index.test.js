@@ -1,4 +1,4 @@
-import AssetLookupComponent from './../Lookup/AssetLookup';
+import AssetLookupComponent from './../AssetLookup';
 import ButtonComponent from './../Button';
 import ChipComponent from './../Chip';
 import IconButtonComponent from './../IconButton';
@@ -31,9 +31,7 @@ import * as ButtonSizesImport from '../Button/Sizes';
 import * as ButtonTypesImport from '../Button/Types';
 
 test('vue exports an AssetLookup component', () => {
-    expect(new AssetLookup({}, {
-        query: jest.fn().mockReturnValue(Promise.resolve([])),
-    })).toBeInstanceOf(AssetLookupComponent);
+    expect(AssetLookup).toEqual(AssetLookupComponent);
 });
 
 test('vue exports the Button component and other related parts', () => {

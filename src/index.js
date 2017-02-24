@@ -1,7 +1,7 @@
 import * as buttonSizes from './Button/Sizes';
 import * as buttonTypes from './Button/Types';
 
-export {default as AssetLookup} from './Lookup/AssetLookup';
+export {default as AssetLookup} from './AssetLookup';
 export {default as Button} from './Button';
 export const ButtonSizes = buttonSizes;
 export const ButtonTypes = buttonTypes;

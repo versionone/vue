@@ -1,20 +1,8 @@
 import React, {Component, PropTypes} from 'react';
-import {combineReducers, createStore} from 'redux';
-import {Provider} from 'react-redux';
-import {reducer as uiReducer} from 'redux-ui';
 import v1Theme from './../styles/themes/v1Theme';
-
-const reducer = combineReducers({
-    ui: uiReducer,
-});
-const store = createStore(reducer);
 
 export default class ThemeProvider extends Component {
     static propTypes = {
-        /**
-         * Component(s) that are a parent to any child using Vue
-         */
-        children: PropTypes.element,
         /**
          * Theme to be used with Vue
          */
@@ -162,10 +150,6 @@ export default class ThemeProvider extends Component {
     }
 
     render() {
-        return (
-            <Provider store={store}>
-                {this.props.children}
-            </Provider>
-        );
+        return this.props.children;
     }
 }

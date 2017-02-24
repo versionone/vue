@@ -3,10 +3,6 @@ import {Component, PropTypes} from 'react';
 class V1Provider extends Component {
     static propTypes = {
         /**
-         * Component(s) that are a parent to any child using Vue requiring interactions with V1 instances
-         */
-        children: PropTypes.node.isRequired,
-        /**
          * Query function used to resolve meta queries to hydrated asset item data
          */
         runQuery: PropTypes.func.isRequired,

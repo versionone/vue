@@ -113,7 +113,7 @@ class AssetLookup extends Component {
         width: 256,
     };
     static contextTypes = {
-        query: PropTypes.func.isRequired,
+        runQuery: PropTypes.func.isRequired,
     };
 
     constructor(...rest) {
@@ -137,7 +137,7 @@ class AssetLookup extends Component {
     }
 
     fetchDataSource(query) {
-        this.context.query(query)
+        this.context.runQuery(query)
             .then((results) => {
                 this.setState({
                     dataSource: results,

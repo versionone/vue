@@ -8,6 +8,7 @@ test('AssetLookup handles server errors from fetching items gracefully', () => {
     const query = jest.fn().mockReturnValue(rejectedPromise);
     const component = mount(
         {
+            ...getRequiredLookupProps(),
             query: 'my query',
         },
         {},
@@ -27,6 +28,7 @@ test('AssetLookup fetches data when created', () => {
     const query = jest.fn().mockReturnValue(results);
     const component = mount(
         {
+            ...getRequiredLookupProps(),
             query: 'my query',
         },
         {},
@@ -46,6 +48,7 @@ test('AssetLookup re-queries when its query prop changes', () => {
     const results = Promise.resolve(dataSource);
     const query = jest.fn().mockReturnValue(results);
     const component = mount({
+            ...getRequiredLookupProps(),
             query: 'my query',
         },
         {},
@@ -73,4 +76,14 @@ function getDataSource() {
         'item 1',
         'item 2',
     ];
+}
+
+function getRequiredLookupProps() {
+    return {
+        dataSourceConfig: {
+            displayValue: (item) => item,
+            oidKey: '',
+            renderItem: (item) => item,
+        }
+    }
 }

@@ -16,12 +16,12 @@ class AssetLookup extends Component {
          * Defines mechanism to convert data source item to: text, rendered list item, and unique key
          */
         dataSourceConfig: PropTypes.shape({
-            oidKey: PropTypes.string.isRequired,
-            renderItem: PropTypes.func.isRequired,
-            text: PropTypes.oneOfType([
+            displayValue: PropTypes.oneOfType([
                 PropTypes.string,
                 PropTypes.func,
             ]).isRequired,
+            oidKey: PropTypes.string.isRequired,
+            renderItem: PropTypes.func.isRequired,
         }).isRequired,
         /**
          * If true, the field is 100% width
@@ -77,7 +77,7 @@ class AssetLookup extends Component {
         /**
          * Callback function used to filter the lookup; accepts searchText, value of each item, and its index
          */
-        searchFilter: PropTypes.func.isRequired,
+        searchFilter: PropTypes.func,
         /**
          * Explicitly set the search text to appear in the lookup
          */

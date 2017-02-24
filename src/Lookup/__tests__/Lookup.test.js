@@ -331,14 +331,14 @@ function getDataSourceConfig() {
     return {
         oidKey: 'oid',
         renderItem: (item) => item.name,
-        displayValue: 'name',
+        renderSelectedItem: 'name',
     };
 }
 function getCustomTextRendererDataSourceConfig() {
     return {
         oidKey: 'oid',
         renderItem: (item) => item.name,
-        displayValue: (item) => item.name,
+        renderSelectedItem: (item) => item.name,
     };
 }
 function simulateChipRemoval(wrapper) {

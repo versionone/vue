@@ -27,11 +27,11 @@ const configureGetChipValues = (dataSourceConfig, dataSource) => (oid) => {
     const matchOnOidKey = matchOn(dataSourceConfig.oidKey);
     const itemData = dataSource.find(matchOnOidKey(oid));
     let text;
-    if (typeof (dataSourceConfig.displayValue) === 'string') {
-        text = itemData[dataSourceConfig.displayValue];
+    if (typeof (dataSourceConfig.renderSelectedItem) === 'string') {
+        text = itemData[dataSourceConfig.renderSelectedItem];
     }
     else {
-        text = dataSourceConfig.displayValue(itemData);
+        text = dataSourceConfig.renderSelectedItem(itemData);
     }
 
     return {
@@ -61,12 +61,12 @@ class Lookup extends Component {
          * Defines mechanism to convert data source item to: text, rendered list item, and unique key
          */
         dataSourceConfig: PropTypes.shape({
-            displayValue: PropTypes.oneOfType([
+            oidKey: PropTypes.string.isRequired,
+            renderItem: PropTypes.func.isRequired,
+            renderSelectedItem: PropTypes.oneOfType([
                 PropTypes.string,
                 PropTypes.func,
             ]).isRequired,
-            oidKey: PropTypes.string.isRequired,
-            renderItem: PropTypes.func.isRequired,
         }),
         /**
          * If true, the field is 100% width

@@ -16,12 +16,12 @@ class AssetLookup extends Component {
          * Defines mechanism to convert data source item to: text, rendered list item, and unique key
          */
         dataSourceConfig: PropTypes.shape({
-            displayValue: PropTypes.oneOfType([
+            oidKey: PropTypes.string.isRequired,
+            renderItem: PropTypes.func.isRequired,
+            renderSelectedItem: PropTypes.oneOfType([
                 PropTypes.string,
                 PropTypes.func,
             ]).isRequired,
-            oidKey: PropTypes.string.isRequired,
-            renderItem: PropTypes.func.isRequired,
         }).isRequired,
         /**
          * If true, the field is 100% width

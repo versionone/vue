@@ -33,7 +33,7 @@ const getStylesBasedOnType = (props, theme) => {
         textPrimaryColor,
     } = theme;
     const {
-        disabled,
+        disable,
         type,
     } = props;
     const inverseColors = [
@@ -41,7 +41,7 @@ const getStylesBasedOnType = (props, theme) => {
         lightInverseColor,
     ];
 
-    if (disabled) {
+    if (disable) {
         const disabledColorOpacity = 0.3;
         const color = toRgbaString(setOpacity(textPrimaryColor, disabledColorOpacity));
         return {
@@ -103,7 +103,7 @@ const getStylesBasedOnType = (props, theme) => {
 };
 const getStyles = (props, theme) => {
     const {
-        disabled,
+        disable,
         size,
     } = props;
     const {
@@ -129,7 +129,7 @@ const getStyles = (props, theme) => {
             border: `1px solid ${transparent}`,
             borderRadius: `${borderRadius}px`,
             boxSizing: 'border-box',
-            cursor: disabled ? 'not-allowed' : 'pointer',
+            cursor: disable ? 'not-allowed' : 'pointer',
             display: 'inline-block',
             fontFamily: basicFontFamily,
             fontSize: `${fontSize}px`,
@@ -208,4 +208,3 @@ Button.contextTypes = {
 Button.displayName = 'Button';
 
 export default Radium(Button);
-

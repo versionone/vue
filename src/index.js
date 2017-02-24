@@ -6,7 +6,7 @@ export {default as Button} from './Button';
 export const ButtonSizes = buttonSizes;
 export const ButtonTypes = buttonTypes;
 export {default as Chip} from './Chip';
-export {default as IconButton} from './Button/IconButton';
+export {default as IconButton} from './IconButton';
 export {default as List} from './List';
 export {default as ListItem} from './List/ListItem';
 export {default as Lookup} from './Lookup';

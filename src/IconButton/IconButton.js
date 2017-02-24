@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import reduxUI from 'redux-ui';
-import {normal} from './Sizes';
+import {normal} from './../Button/Sizes';
 import Radium from './../utilities/Radium';
 import transparent from './../utilities/Transparent';
 import {create as createTransition} from '../utilities/Transitions';
@@ -123,7 +123,7 @@ IconButton.propTypes = {
     /**
      * Callback fired when a ui prop related action is dispatched
      */
-    updateUI: PropTypes.func.isRequired,
+    updateUI: PropTypes.func,
 };
 IconButton.defaultProps = {
     backgroundColor: transparent,
@@ -133,6 +133,8 @@ IconButton.defaultProps = {
     },
     size: normal,
     transition: createTransition('0.25s', 'all', '0ms', 'linear'),
+    updateUI: () => {
+    },
 };
 IconButton.contextTypes = {
     theme: PropTypes.object.isRequired,

@@ -1,5 +1,6 @@
 export {default as button} from './Button/_meta';
 export {default as chip} from './Chip/_meta';
+export {default as iconButton} from './IconButton/_meta';
 export {default as list} from './List/_meta';
 export {default as lookup} from './Lookup/_meta';
 export {default as popover} from './Popover/_meta';

@@ -13,12 +13,12 @@ const basicDataSource = [
 const complexDataSourceConfig = {
     oidKey: 'oid',
     renderItem: (item) => `${item.name} - ${item.title}`,
-    text: 'name',
+    renderSelectedItem: 'name',
 };
 const complexDataSourceConfigWithCustomTextRender = {
     oidKey: 'oid',
     renderItem: (item) => `${item.name} - ${item.title}`,
-    text: (item) => `${item.title}: ${item.name}`,
+    renderSelectedItem: (item) => `${item.title}: ${item.name}`,
 };
 const complexDataSource = [
     {

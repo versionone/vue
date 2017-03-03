@@ -6,6 +6,7 @@ VersionOne Vue is an open-source and community supported collection of common UI
 Required software:
 
 - **node@^4.4.0**
+    - *tests will not work with node@7.3 or node@7.4*
 - **npm@^3.0.0**
   
 You can run `npm run verify` to determine if you meet the above requirements. If you do not **and** have already attempted to run Vue, then you need to run the following commands: `rm -rf node_modules docs/node_modules` and `npm install npm@^3.0.0 -g`.

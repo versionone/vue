@@ -85,5 +85,5 @@ function getRequiredLookupProps() {
             oidKey: '',
             renderItem: (item) => item,
         }
-    }
+    };
 }

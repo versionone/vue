@@ -62,6 +62,14 @@ module.exports = {
         ],
         'react/no-did-mount-set-state': 0,
         'react/no-unused-prop-types': 0,
+        'react/prop-types': [
+            2,
+            {
+                ignore: [
+                    'children',
+                ],
+            },
+        ],
         'react/sort-prop-types': [
             2,
             {

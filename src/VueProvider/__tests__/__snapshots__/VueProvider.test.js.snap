@@ -20,7 +20,16 @@ exports[`test VueProvider provides the theme prop and V1 SDK prop to children vi
           },
         }
       }>
-      <Provider>
+      <Provider
+        store={
+          Object {
+            "dispatch": [Function],
+            "getState": [Function],
+            "replaceReducer": [Function],
+            "subscribe": [Function],
+            Symbol(Symbol.observable): [Function],
+          }
+        }>
         <span>
           Hello World
         </span>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {action, storiesOf} from '@kadira/storybook';
 import Lookup from './';
-import * as Filters from './Filters';
+import * as Filters from './../Lookup/Filters';
 
 const basicDataSource = [
     'Billy',

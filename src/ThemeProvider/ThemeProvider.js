@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import {Component, PropTypes} from 'react';
 import v1Theme from './../styles/themes/v1Theme';
 
 export default class ThemeProvider extends Component {

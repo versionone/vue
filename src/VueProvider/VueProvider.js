@@ -41,8 +41,8 @@ VueProvider.propTypes = {
     theme: PropTypes.shape(ThemeProvider.themeDefinition),
 };
 VueProvider.defaultProps = {
-  runQuery: () => {
-      console.warn('You have not specified a runQuery function in `VueProvider`.');
-  },
+    runQuery: () => {
+        console.warn('You have not specified a runQuery function in `VueProvider`.');
+    },
 };
 export default VueProvider;

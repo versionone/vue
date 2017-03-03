@@ -3,7 +3,7 @@ import ErrorMessage from './../internal/ErrorMessage';
 import HintText from './../internal/HintText';
 import Radium from './../utilities/Radium';
 import RequiredIndicator from './../internal/RequiredIndicator';
-import ThemeProvider from './../Theme';
+import ThemeProvider from './../ThemeProvider';
 import transparent from './../utilities/Transparent';
 
 class TextField extends Component {

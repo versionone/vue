@@ -1,0 +1,1 @@
+Enable application of a common theme across all Vue components, as well as override specific instances with different themes. Favor using the [VueProvider](#/component/VueProvider) instead. Use this only if you wish to override the theme for a specific instance of a component.

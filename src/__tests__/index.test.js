@@ -1,13 +1,17 @@
+import AssetLookupComponent from './../AssetLookup';
 import ButtonComponent from './../Button';
 import ChipComponent from './../Chip';
-import IconButtonComponent from './../Button/IconButton';
+import IconButtonComponent from './../IconButton';
 import ListComponent from './../List';
 import LookupComponent from './../Lookup';
 import PopoverComponent from './../Popover';
 import SubHeaderComponent from './../SubHeader';
 import TextFieldComponent from './../TextField';
-import ThemeProviderComponent from './../Theme';
+import ThemeProviderComponent from './../ThemeProvider';
+import VueProviderComponent from './../VueProvider';
+import V1ProviderComponent from './../V1Provider';
 import {
+    AssetLookup,
     Button,
     ButtonSizes,
     ButtonTypes,
@@ -19,10 +23,16 @@ import {
     Popover,
     SubHeader,
     TextField,
-    ThemeProvider
+    ThemeProvider,
+    VueProvider,
+    V1Provider
 } from '../index';
 import * as ButtonSizesImport from '../Button/Sizes';
 import * as ButtonTypesImport from '../Button/Types';
+
+test('vue exports an AssetLookup component', () => {
+    expect(AssetLookup).toEqual(AssetLookupComponent);
+});
 
 test('vue exports the Button component and other related parts', () => {
     expect(new Button({})).toBeInstanceOf(ButtonComponent);
@@ -34,6 +44,7 @@ test('vue exports the Button component and other related parts', () => {
     expect(ButtonTypes).toEqual(ButtonTypesImport);
     expect(ButtonSizes).toEqual(ButtonSizesImport);
 });
+
 test('vue exports a Chip component', () => {
     expect(new Chip({})).toBeInstanceOf(ChipComponent);
 });
@@ -68,4 +79,12 @@ test('vue exports the TextField component', () => {
 
 test('vue exports the ThemeProvider component', () => {
     expect(new ThemeProvider()).toBeInstanceOf(ThemeProviderComponent);
+});
+
+test('vue exports the VueProvider component', () => {
+    expect(VueProvider).toBeDefined();
+});
+
+test('vue exports the V1Provider component', () => {
+    expect(new V1Provider()).toBeInstanceOf(V1ProviderComponent);
 });

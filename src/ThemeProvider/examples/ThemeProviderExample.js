@@ -1,5 +1,5 @@
 import React from 'react';
-import ThemeProvider from 'vue/Theme';
+import ThemeProvider from 'vue/ThemeProvider';
 import TextField from 'vue/TextField';
 import v1Theme from './../../styles/themes/v1Theme';
 

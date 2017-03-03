@@ -2,7 +2,7 @@ import {Component, PropTypes} from 'react';
 // eslint-disable-next-line camelcase
 import {unmountComponentAtNode, unstable_renderSubtreeIntoContainer} from 'react-dom';
 import {isDescendant} from './../utilities/dom';
-import ThemeProvider from './../Theme';
+import ThemeProvider from './../ThemeProvider';
 
 const immediateTimeOutValue = 0;
 
@@ -67,7 +67,7 @@ class RenderToLayer extends Component {
 
         const layer = this.createLayer();
         setTimeout(() => {
-            window.addEventListener('click', this.handleClickAway);
+            addEventListener('click', this.handleClickAway);
         }, immediateTimeOutValue);
         this.layerElement = unstable_renderSubtreeIntoContainer(this, render(), layer);
     }
@@ -76,7 +76,7 @@ class RenderToLayer extends Component {
         if (!this.layer) {
             return;
         }
-        window.removeEventListener('click', this.handleClickAway);
+        removeEventListener('click', this.handleClickAway);
         unmountComponentAtNode(this.layer);
         document.body.removeChild(this.layer);
         this.layer = null;

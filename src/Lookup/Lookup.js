@@ -9,7 +9,7 @@ import List, {ListItem} from './../List';
 import Radium from './../utilities/Radium';
 import Popover, {Positions} from './../Popover';
 import SubHeader from './../SubHeader';
-import ThemeProvider from './../Theme';
+import ThemeProvider from './../ThemeProvider';
 import transparent from './../utilities/Transparent';
 import * as Filters from './Filters';
 
@@ -27,11 +27,11 @@ const configureGetChipValues = (dataSourceConfig, dataSource) => (oid) => {
     const matchOnOidKey = matchOn(dataSourceConfig.oidKey);
     const itemData = dataSource.find(matchOnOidKey(oid));
     let text;
-    if (typeof (dataSourceConfig.text) === 'string') {
-        text = itemData[dataSourceConfig.text];
+    if (typeof (dataSourceConfig.renderSelectedItem) === 'string') {
+        text = itemData[dataSourceConfig.renderSelectedItem];
     }
     else {
-        text = dataSourceConfig.text(itemData);
+        text = dataSourceConfig.renderSelectedItem(itemData);
     }
 
     return {
@@ -63,7 +63,7 @@ class Lookup extends Component {
         dataSourceConfig: PropTypes.shape({
             oidKey: PropTypes.string.isRequired,
             renderItem: PropTypes.func.isRequired,
-            text: PropTypes.oneOfType([
+            renderSelectedItem: PropTypes.oneOfType([
                 PropTypes.string,
                 PropTypes.func,
             ]).isRequired,
@@ -108,11 +108,11 @@ class Lookup extends Component {
                     PropTypes.node,
                 ]).isRequired,
             })),
-        ]),
+        ]).isRequired,
         /**
          * Callback function used to filter the lookup; accepts searchText, value of each item, and its index
          */
-        searchFilter: PropTypes.func.isRequired,
+        searchFilter: PropTypes.func,
         /**
          * Explicitly set the search text to appear in the lookup
          */
@@ -445,12 +445,14 @@ class Lookup extends Component {
         && (!this.shouldApplyFilter() || this.props.searchFilter(searchText, value, index));
     }
 
-    applyGroupFilter(dataSource, groupFilter) {
+    applyGroupFilter(dataSource, groupFilter, dataSourceConfig) {
         const filter = this.combineWithSearchFilter(groupFilter);
         return dataSource
             .map((item, index) => ({
                 index,
-                oid: item.oid || index,
+                oid: dataSourceConfig
+                    ? item[dataSourceConfig.oidKey] || index
+                    : index,
                 value: item,
             }))
             .filter((item, index) => filter(this.state.searchText, item.value, index));
@@ -459,6 +461,7 @@ class Lookup extends Component {
     renderGroupedResultItems(groups) {
         const {
             dataSource,
+            dataSourceConfig,
         } = this.props;
 
         if (typeof (groups) === 'string') {
@@ -468,7 +471,7 @@ class Lookup extends Component {
                     header: groups,
                 },
             ]
-                .concat(this.applyGroupFilter(dataSource, Filters.none));
+                .concat(this.applyGroupFilter(dataSource, Filters.none, dataSourceConfig));
         }
         else {
             this.items = groups.reduce((output, group) => output
@@ -478,7 +481,7 @@ class Lookup extends Component {
                             ...group,
                         },
                     ])
-                    .concat(this.applyGroupFilter(dataSource, group.filter))
+                    .concat(this.applyGroupFilter(dataSource, group.filter, dataSourceConfig))
                 , []);
         }
 

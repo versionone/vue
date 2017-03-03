@@ -1,3 +1,3 @@
-import AutoComplete from './Lookup';
+import Lookup from './Lookup';
 
-export default AutoComplete;
+export default Lookup;

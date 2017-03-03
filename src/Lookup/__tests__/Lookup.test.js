@@ -1,10 +1,7 @@
 import React from 'react';
 import simulant from 'simulant';
-// import {render} from 'react-dom';
 import Lookup from './../Lookup';
 import {getMount, getShallow, snapshot, reset} from './../../../specHelpers/rendering';
-import ThemeProvider from './../../Theme';
-import testTheme from './../../../specHelpers/TestTheme';
 
 jest.useFakeTimers();
 const mountLookup = getMount(Lookup);
@@ -334,14 +331,14 @@ function getDataSourceConfig() {
     return {
         oidKey: 'oid',
         renderItem: (item) => item.name,
-        text: 'name',
+        renderSelectedItem: 'name',
     };
 }
 function getCustomTextRendererDataSourceConfig() {
     return {
         oidKey: 'oid',
         renderItem: (item) => item.name,
-        text: (item) => item.name,
+        renderSelectedItem: (item) => item.name,
     };
 }
 function simulateChipRemoval(wrapper) {

@@ -1,9 +1,9 @@
 import React, {PropTypes} from 'react';
 import {darken, toRgbaString} from '@andrew-codes/color-functions';
 import Radium from './../utilities/Radium';
-import ThemeProvider from './../Theme';
+import ThemeProvider from './../ThemeProvider';
 import {createEventHandler} from './../utilities/component';
-import {IconButton} from './../Button';
+import IconButton from './../IconButton';
 import {CloseIcon} from './../Icons';
 import {xxSmall} from './../Button/Sizes';
 

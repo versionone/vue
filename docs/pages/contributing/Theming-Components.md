@@ -11,7 +11,7 @@ keywords:
   - visual
   - guide
   - stylesheet
-  ---
+---
 
 This guide will provide all the details necessary to theme a component. This includes how to create a theme-enabled component, as well as the general process in which theming occurs.
 

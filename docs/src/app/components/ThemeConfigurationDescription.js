@@ -4,7 +4,7 @@ import recast from 'recast';
 import {parse} from 'react-docgen';
 import {parse as parseDoctrine} from 'doctrine';
 import MarkdownElement from './MarkdownElement';
-import ThemeProvider from './../../../../src/Theme';
+import ThemeProvider from './../../../../src/ThemeProvider';
 import themeDefinitionPropHandler from './../themePropHandler';
 import themePropDocblockHandler from './../themePropDocblockHandler';
 

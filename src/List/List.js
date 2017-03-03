@@ -253,7 +253,7 @@ List.propTypes = {
     /**
      * Callback fired when a ui prop related action is dispatched
      */
-    updateUI: PropTypes.func.isRequired,
+    updateUI: PropTypes.func,
 };
 List.defaultProps = {
     active: false,
@@ -266,6 +266,8 @@ List.defaultProps = {
     onMouseLeave: () => {
     },
     onSelectItem: () => {
+    },
+    updateUI: () => {
     },
 };
 List.contextTypes = {

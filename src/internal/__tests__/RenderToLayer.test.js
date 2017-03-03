@@ -43,10 +43,9 @@ test('clicking anywhere in the document will fire the onComponentClickAway event
     const render = jest.fn();
     render.mockReturnValue(<div></div>);
     const mappedEventHandlers = {};
-    window.addEventListener = jest.fn().mockImplementation((event, cb) => {
+    global.window.addEventListener = jest.fn().mockImplementation((event, cb) => {
         mappedEventHandlers[event] = cb;
     });
-    // window.setTimeout.mockImplementation((cb) => cb());
     const evt = {
         defaultPrevented: false,
         target: window,

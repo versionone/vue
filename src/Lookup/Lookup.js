@@ -551,7 +551,7 @@ class Lookup extends Component {
                     </div>
                 </div>
                 <Popover
-                    anchor={this.rootEl}
+                    anchorElement={this.rootEl}
                     anchorOrigin={{
                         horizontal: Positions.left,
                         vertical: Positions.bottom,

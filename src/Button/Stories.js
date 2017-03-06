@@ -1,7 +1,6 @@
 import React from 'react';
 import {action, storiesOf} from '@kadira/storybook';
-import CloseIcon from './../Icons/CloseIcon';
-import Button, {IconButton} from './';
+import Button from './';
 import * as ButtonSizes from './Sizes';
 import * as ButtonTypes from './Types';
 

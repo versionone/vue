@@ -49,6 +49,9 @@ const SvgIcon = (props, context) => {
         </svg>
     );
 };
+SvgIcon.contextTypes = {
+    theme: PropTypes.object.isRequired,
+};
 SvgIcon.propTypes = {
     /**
      * SVG element's body to be rendered.

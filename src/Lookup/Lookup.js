@@ -296,11 +296,13 @@ class Lookup extends Component {
         } = this.props;
         const {
             height,
+            open,
             width,
         } = this.state;
         const {
             basicFontFamily,
             fieldBorderColor,
+            focusedPrimaryColor,
             normalBackground,
             normalLineHeight,
             normalRadius,
@@ -385,7 +387,7 @@ class Lookup extends Component {
             },
             prependIcon: {
                 alignItems: 'center',
-                background: normalBackground,
+                background: open ? focusedPrimaryColor: normalBackground,
                 border: `1px solid ${fieldBorderColor}`,
                 borderRadius: !inline && `${normalRadius}px 0 0 ${normalRadius}px`,
                 boxSizing: 'border-box',
@@ -549,6 +551,9 @@ class Lookup extends Component {
             selectedItems,
             open,
         } = this.state;
+        const {
+            normalBackground,
+        } = this.context.theme;
         const isHintTextHidden = Boolean(searchText) || !_.isEmpty(selectedItems);
         const styles = this.getStyles();
 
@@ -560,7 +565,9 @@ class Lookup extends Component {
                     <div
                         style={styles.prependIcon}
                     >
-                        {prependIcon}
+                        {React.createElement(prependIcon, {
+                            color: normalBackground
+                        })}
                     </div>
                 )}
                 <div

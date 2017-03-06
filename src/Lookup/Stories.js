@@ -230,7 +230,7 @@ storiesOf('Lookup')
                 <Lookup
                     dataSource={basicDataSource}
                     inline
-                    prependIcon={<FilterIcon />}
+                    prependIcon={FilterIcon}
                     resultGroups={[
                         {
                             header: 'SubSet Results',
@@ -253,7 +253,7 @@ storiesOf('Lookup')
             <div>
                 <Lookup
                     dataSource={basicDataSource}
-                    prependIcon={<FilterIcon />}
+                    prependIcon={FilterIcon}
                     resultGroups={[
                         {
                             header: 'SubSet Results',

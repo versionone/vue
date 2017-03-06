@@ -204,4 +204,27 @@ storiesOf('Lookup')
                 />
             </div>
         )
+    )
+    .addWithInfo('inlined; no border',
+        ``,
+        () => (
+            <div>
+                <Lookup
+                    dataSource={basicDataSource}
+                    inline
+                    resultGroups={[
+                        {
+                            header: 'SubSet Results',
+                            filter: (value, index) => index === 1,
+                        },
+                        {
+                            header: 'Rest of the Results',
+                            filter: (value, index) => index !== 1,
+                        },
+                    ]}
+                    searchFilter={Filters.caseInsensitive}
+                    onSelect={action('selected')}
+                />
+            </div>
+        )
     );

@@ -77,6 +77,10 @@ class Lookup extends Component {
          */
         hintText: PropTypes.string,
         /**
+         * When true, renders without border. Useful for using within other components.
+         */
+        inline: PropTypes.bool,
+        /**
          *
          */
         listHoverBackgroundColor: PropTypes.string,
@@ -135,6 +139,7 @@ class Lookup extends Component {
         dataSource: [],
         fullWidth: false,
         hintText: '',
+        inline: false,
         listHoverBackgroundColor: '#262626',
         listHoverColor: '#fff',
         minimumNumberOfCharactersToFilter: 3,
@@ -282,6 +287,7 @@ class Lookup extends Component {
     getStyles() {
         const {
             fullWidth,
+            inline,
         } = this.props;
         const {
             height,
@@ -313,8 +319,8 @@ class Lookup extends Component {
         return {
             hintTextWrapper: {
                 background: 'rgba(255,255,255,1)',
-                border: `1px solid ${fieldBorderColor}`,
-                borderRadius: `${normalRadius}px`,
+                border: !inline && `1px solid ${fieldBorderColor}`,
+                borderRadius: !inline && `${normalRadius}px`,
                 boxSizing: 'border-box',
                 height: `${hintTextWrapperHeight}px`,
                 padding: `${xxSmallGutter}px`,

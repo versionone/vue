@@ -3,7 +3,9 @@ import SvgIcon from './../SvgIcon';
 
 const AddIcon = props => (
     <SvgIcon {...props}>
-        <path d="M12,4c-4.4,0-8,3.6-8,8s3.6,8,8,8s8-3.6,8-8S16.4,4,12,4z M17,13h-4.1v3.9h-2V13H7v-2h3.9V6.9h2V11H17V13z"/>
+        <path
+        d="M8,0.5C3.9,0.5,0.5,3.9,0.5,8s3.4,7.5,7.5,7.5s7.5-3.4,7.5-7.5S12.1,0.5,8,0.5z M13,9H8.9v3.9h-2V9H3V7h3.9V2.9h2V7H13V9z"
+    />
     </SvgIcon>
 );
 AddIcon.displayName = 'AddIcon';

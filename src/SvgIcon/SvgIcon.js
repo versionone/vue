@@ -37,7 +37,7 @@ const SvgIcon = (props) => {
     return (
         <svg
             style={styles.root}
-            viewBox="0 0 24 24"
+            viewBox="0 0 16 16"
             x="0px"
             y="0px"
             onClick={handleEvent(onClick)}

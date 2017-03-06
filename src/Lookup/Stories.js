@@ -1,6 +1,6 @@
 import React from 'react';
 import {action, storiesOf} from '@kadira/storybook';
-import AddIcon from './../Icons/AddIcon';
+import FilterIcon from './../Icons/FilterIcon';
 import Lookup from './';
 import * as Filters from './Filters';
 
@@ -230,7 +230,7 @@ storiesOf('Lookup')
                 <Lookup
                     dataSource={basicDataSource}
                     inline
-                    prependIcon={<AddIcon />}
+                    prependIcon={<FilterIcon />}
                     resultGroups={[
                         {
                             header: 'SubSet Results',
@@ -253,7 +253,7 @@ storiesOf('Lookup')
             <div>
                 <Lookup
                     dataSource={basicDataSource}
-                    prependIcon={<AddIcon />}
+                    prependIcon={<FilterIcon />}
                     resultGroups={[
                         {
                             header: 'SubSet Results',

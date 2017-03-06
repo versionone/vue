@@ -6,7 +6,7 @@ export default {
     altColor: colors.sunglow,
     basicColor: colors.cerulean,
     basicFontFamily: '\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif',
-    baseIconSize: 24,
+    baseIconSize: 16,
     boldFont: 600,
     borderPrimaryColor: colors.black,
     darkInverseColor: colors.white,

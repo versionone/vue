@@ -2,37 +2,38 @@ import React, {PropTypes} from 'react';
 import {create as createTransition} from '../utilities/Transitions';
 import Radium from './../utilities/Radium';
 
-const getStyles = (props) => {
+const getStyles = (props, theme) => {
     const {
         color,
         hoverColor,
         hovered,
         padding,
         transition,
-        width,
+        size,
     } = props;
+    let iconSize = Boolean(size) ? size : theme.baseIconSize;
 
     return {
         root: {
             fill: hovered ? hoverColor : color,
-            height: `${width}px`,
+            height: `${iconSize}px`,
             margin: 0,
             padding: `${padding}px`,
             transition,
-            width: `${width}px`,
+            width: `${iconSize}px`,
         },
     };
 };
 const handleEvent = (handler) => (evt) => handler(evt);
 
-const SvgIcon = (props) => {
+const SvgIcon = (props, context) => {
     const {
         children,
         onClick,
         onMouseEnter,
         onMouseLeave,
     } = props;
-    const styles = getStyles(props);
+    const styles = getStyles(props, context.theme);
 
     return (
         <svg
@@ -82,13 +83,13 @@ SvgIcon.propTypes = {
      */
     padding: PropTypes.number,
     /**
+     * Width/Height of the SVG
+     */
+    size: PropTypes.number,
+    /**
      * Transition to apply to SVG; typically used for fill color on hover
      */
     transition: PropTypes.string,
-    /**
-     * Width of the SVG; also applies this as the height
-     */
-    width: PropTypes.number,
 };
 SvgIcon.defaultProps = {
     color: '#000',
@@ -98,7 +99,6 @@ SvgIcon.defaultProps = {
     onMouseLeave: () => {},
     padding: 0,
     transition: createTransition('0.25s', 'fill', '0ms', 'linear'),
-    width: 24,
 };
 
 export default Radium(SvgIcon);

@@ -384,11 +384,14 @@ class Lookup extends Component {
                 height: `${hintTextWrapperHeight}px`,
             },
             prependIcon: {
+                alignItems: 'center',
                 background: normalBackground,
-                boxSizing: 'border-box',
-                height: `${hintTextWrapperHeight}px`,
                 border: `1px solid ${fieldBorderColor}`,
                 borderRadius: !inline && `${normalRadius}px 0 0 ${normalRadius}px`,
+                boxSizing: 'border-box',
+                display: 'flex',
+                height: `${hintTextWrapperHeight}px`,
+                padding: `${xxSmallGutter}px`,
             },
             root: {
                 display: 'flex',

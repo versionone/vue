@@ -1,5 +1,6 @@
 import React from 'react';
 import {action, storiesOf} from '@kadira/storybook';
+import AddIcon from './../Icons/AddIcon';
 import Lookup from './';
 import * as Filters from './Filters';
 
@@ -212,6 +213,47 @@ storiesOf('Lookup')
                 <Lookup
                     dataSource={basicDataSource}
                     inline
+                    resultGroups={[
+                        {
+                            header: 'SubSet Results',
+                            filter: (value, index) => index === 1,
+                        },
+                        {
+                            header: 'Rest of the Results',
+                            filter: (value, index) => index !== 1,
+                        },
+                    ]}
+                    searchFilter={Filters.caseInsensitive}
+                    onSelect={action('selected')}
+                />
+                <br />
+                <Lookup
+                    dataSource={basicDataSource}
+                    inline
+                    prependIcon={<AddIcon />}
+                    resultGroups={[
+                        {
+                            header: 'SubSet Results',
+                            filter: (value, index) => index === 1,
+                        },
+                        {
+                            header: 'Rest of the Results',
+                            filter: (value, index) => index !== 1,
+                        },
+                    ]}
+                    searchFilter={Filters.caseInsensitive}
+                    onSelect={action('selected')}
+                />
+            </div>
+        )
+    )
+    .addWithInfo('prepend an icon',
+        ``,
+        () => (
+            <div>
+                <Lookup
+                    dataSource={basicDataSource}
+                    prependIcon={<AddIcon />}
                     resultGroups={[
                         {
                             header: 'SubSet Results',

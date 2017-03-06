@@ -101,6 +101,10 @@ class Lookup extends Component {
          */
         open: PropTypes.bool,
         /**
+         * If provided, will prepend the icon to the Lookup field.
+         */
+        prependIcon: PropTypes.node,
+        /**
          * Header text when one group, otherwise array of groups with header and group filter func
          */
         resultGroups: PropTypes.oneOfType([
@@ -220,7 +224,7 @@ class Lookup extends Component {
 
     getFullWidth() {
         return parseInt(window
-            .getComputedStyle(this.rootEl)
+            .getComputedStyle(this.popoverAnchorEl)
             .width
             .replace('px', ''), 10);
     }
@@ -288,6 +292,7 @@ class Lookup extends Component {
         const {
             fullWidth,
             inline,
+            prependIcon,
         } = this.props;
         const {
             height,
@@ -315,12 +320,28 @@ class Lookup extends Component {
             ? (height + paddingHeight + borderHeight)
             : textFieldHeight;
         const computedWidth = fullWidth ? '100%' : `${width}px`;
+        const hasIcon = Boolean(prependIcon);
+        let border = {
+            borderBottom: `1px solid ${fieldBorderColor}`,
+            borderRight: `1px solid ${fieldBorderColor}`,
+            borderTop: `1px solid ${fieldBorderColor}`,
+        };
+        if (!hasIcon) {
+            border.borderLeft = `1px solid ${fieldBorderColor}`;
+        }
+        if (inline) {
+            border = {};
+        }
+        let borderRadius = `${normalRadius}px`;
+        if (hasIcon) {
+            borderRadius = `0 ${normalRadius}px ${normalRadius}px 0`;
+        }
 
         return {
             hintTextWrapper: {
                 background: 'rgba(255,255,255,1)',
-                border: !inline && `1px solid ${fieldBorderColor}`,
-                borderRadius: !inline && `${normalRadius}px`,
+                ...border,
+                borderRadius: !inline && borderRadius,
                 boxSizing: 'border-box',
                 height: `${hintTextWrapperHeight}px`,
                 padding: `${xxSmallGutter}px`,
@@ -352,20 +373,32 @@ class Lookup extends Component {
                 width,
                 zIndex: 11,
             },
+            lookupRoot: {
+                background: transparent,
+                display: 'flex',
+                height: `${hintTextWrapperHeight}px`,
+                position: 'relative',
+                width: computedWidth,
+            },
             paddingForPopover: {
                 height: `${hintTextWrapperHeight}px`,
+            },
+            prependIcon: {
+                background: normalBackground,
+                boxSizing: 'border-box',
+                height: `${hintTextWrapperHeight}px`,
+                border: `1px solid ${fieldBorderColor}`,
+                borderRadius: !inline && `${normalRadius}px 0 0 ${normalRadius}px`,
+            },
+            root: {
+                display: 'flex',
+                width: computedWidth,
             },
             resultsPaper: {
                 background: normalBackground,
                 border: `1px solid ${toRgbaString(darken(fieldBorderColor, darkenCoefficient))}`,
                 boxSizing: 'border-box',
                 width: `${width}px`,
-            },
-            root: {
-                background: transparent,
-                height: `${hintTextWrapperHeight}px`,
-                position: 'relative',
-                width: computedWidth,
             },
             selectedItems: {
                 background: transparent,
@@ -505,6 +538,7 @@ class Lookup extends Component {
             hintText,
             listHoverBackgroundColor,
             listHoverColor,
+            prependIcon,
             resultGroups,
         } = this.props;
         const {
@@ -517,70 +551,81 @@ class Lookup extends Component {
 
         return (
             <div
-                ref={(el) => {
-                    this.rootEl = el;
-                }}
                 style={styles.root}
-                onClick={this.handleLookupRootClick}
             >
-                <div style={styles.paddingForPopover} />
-                {this.renderChip(styles)}
-                <div style={styles.textFieldWrapper}>
-                    <div style={styles.hintTextWrapper}>
+                {Boolean(prependIcon) && (
+                    <div
+                        style={styles.prependIcon}
+                    >
+                        {prependIcon}
+                    </div>
+                )}
+                <div
+                    ref={(el) => {
+                        this.popoverAnchorEl = el;
+                    }}
+                    style={styles.lookupRoot}
+                    onClick={this.handleLookupRootClick}
+                >
+                    <div style={styles.paddingForPopover} />
+                    {this.renderChip(styles)}
+                    <div style={styles.textFieldWrapper}>
+                        <div style={styles.hintTextWrapper}>
+                            <div
+                                ref={(el) => {
+                                    this.hintTextWrapper = el;
+                                }}
+                            >
+                                <HintText
+                                    hidden={isHintTextHidden}
+                                    text={hintText}
+                                    onClick={this.handleClickHintText}
+                                />
+                            </div>
+                        </div>
                         <div
                             ref={(el) => {
-                                this.hintTextWrapper = el;
+                                this.inputWrapper = el;
                             }}
+                            style={styles.inputWrapper}
                         >
-                            <HintText
-                                hidden={isHintTextHidden}
-                                text={hintText}
-                                onClick={this.handleClickHintText}
+                            <input
+                                ref={(el) => {
+                                    this.inputField = el;
+                                }}
+                                style={styles.input}
+                                type="text"
+                                value={searchText}
+                                onChange={this.handleChangeTextField}
                             />
                         </div>
                     </div>
-                    <div
-                        ref={(el) => {
-                            this.inputWrapper = el;
+                    <Popover
+                        anchorElement={this.popoverAnchorEl}
+                        anchorOrigin={{
+                            horizontal: Positions.left,
+                            vertical: Positions.bottom,
                         }}
-                        style={styles.inputWrapper}
+                        open={open}
+                        targetOrigin={{
+                            horizontal: Positions.left,
+                            vertical: Positions.top,
+                        }}
+                        onRequestClose={this.handleClosePopover}
                     >
-                        <input
-                            ref={(el) => {
-                                this.inputField = el;
-                            }}
-                            style={styles.input}
-                            type="text"
-                            value={searchText}
-                            onChange={this.handleChangeTextField}
-                        />
-                    </div>
-                </div>
-                <Popover
-                    anchorElement={this.rootEl}
-                    anchorOrigin={{
-                        horizontal: Positions.left,
-                        vertical: Positions.bottom,
-                    }}
-                    open={open}
-                    targetOrigin={{
-                        horizontal: Positions.left,
-                        vertical: Positions.top,
-                    }}
-                    onRequestClose={this.handleClosePopover}
-                >
-                    <div
-                        style={styles.resultsPaper}
-                    >
-                        <List
-                            hoverBackgroundColor={listHoverBackgroundColor}
-                            hoverColor={listHoverColor}
-                            onSelectItem={this.handleItemSelection}
+                        <div
+                            style={styles.resultsPaper}
                         >
-                            {this.renderGroupedResultItems(resultGroups)}
-                        </List>
-                    </div>
-                </Popover>
+                            <List
+                                hoverBackgroundColor={listHoverBackgroundColor}
+                                hoverColor={listHoverColor}
+                                onSelectItem={this.handleItemSelection}
+                            >
+                                {this.renderGroupedResultItems(resultGroups)}
+                            </List>
+                        </div>
+                    </Popover>
+                </div>
             </div>
         );
     }

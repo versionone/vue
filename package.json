@@ -1,6 +1,6 @@
 {
   "name": "v1-vue",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Open-source and community supported collection of common UI components built with React. As an open-sourced and community supported project, VersionOne Vue is not formally supported by VersionOne.",
   "publishConfig": {
     "registry": "http://artifactory.dev.corp.versionone.net/artifactory/api/npm/local-npm"

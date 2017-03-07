@@ -11,7 +11,7 @@ const getStyles = (props, theme) => {
         transition,
         size,
     } = props;
-    let iconSize = Boolean(size) ? size : theme.baseIconSize;
+    const iconSize = size ? size : theme.baseIconSize;
 
     return {
         root: {

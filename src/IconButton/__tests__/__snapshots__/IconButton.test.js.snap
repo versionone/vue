@@ -61,7 +61,7 @@ exports[`test circular icon button 1`] = `
         <CloseIcon
           hovered={false}
           padding={6}
-          width={24}>
+          width={16}>
           <SvgIcon
             color="#000"
             hoverColor="#000"
@@ -71,7 +71,7 @@ exports[`test circular icon button 1`] = `
             onMouseLeave={[Function]}
             padding={6}
             transition="fill 0.25s linear 0ms"
-            width={24}>
+            width={16}>
             <svg
               data-radium={true}
               onClick={[Function]}
@@ -80,14 +80,14 @@ exports[`test circular icon button 1`] = `
               style={
                 Object {
                   "fill": "#000",
-                  "height": "24px",
+                  "height": "16px",
                   "margin": 0,
                   "padding": "6px",
                   "transition": "fill 0.25s linear 0ms",
-                  "width": "24px",
+                  "width": "16px",
                 }
               }
-              viewBox="0 0 24 24"
+              viewBox="0 0 16 16"
               x="0px"
               y="0px">
               <polygon
@@ -168,7 +168,7 @@ exports[`test icon button can be disabled 1`] = `
           hoverColor="rgba(0,0,0,0.26)"
           hovered={false}
           padding={6}
-          width={24}>
+          width={16}>
           <SvgIcon
             color="rgba(0,0,0,0.26)"
             hoverColor="rgba(0,0,0,0.26)"
@@ -178,7 +178,7 @@ exports[`test icon button can be disabled 1`] = `
             onMouseLeave={[Function]}
             padding={6}
             transition="fill 0.25s linear 0ms"
-            width={24}>
+            width={16}>
             <svg
               data-radium={true}
               onClick={[Function]}
@@ -187,14 +187,14 @@ exports[`test icon button can be disabled 1`] = `
               style={
                 Object {
                   "fill": "rgba(0,0,0,0.26)",
-                  "height": "24px",
+                  "height": "16px",
                   "margin": 0,
                   "padding": "6px",
                   "transition": "fill 0.25s linear 0ms",
-                  "width": "24px",
+                  "width": "16px",
                 }
               }
-              viewBox="0 0 24 24"
+              viewBox="0 0 16 16"
               x="0px"
               y="0px">
               <polygon
@@ -271,7 +271,7 @@ exports[`test icon button can be resized 1`] = `
         <CloseIcon
           hovered={false}
           padding={6}
-          width={18}>
+          width={12}>
           <SvgIcon
             color="#000"
             hoverColor="#000"
@@ -281,7 +281,7 @@ exports[`test icon button can be resized 1`] = `
             onMouseLeave={[Function]}
             padding={6}
             transition="fill 0.25s linear 0ms"
-            width={18}>
+            width={12}>
             <svg
               data-radium={true}
               onClick={[Function]}
@@ -290,14 +290,14 @@ exports[`test icon button can be resized 1`] = `
               style={
                 Object {
                   "fill": "#000",
-                  "height": "18px",
+                  "height": "16px",
                   "margin": 0,
                   "padding": "6px",
                   "transition": "fill 0.25s linear 0ms",
-                  "width": "18px",
+                  "width": "16px",
                 }
               }
-              viewBox="0 0 24 24"
+              viewBox="0 0 16 16"
               x="0px"
               y="0px">
               <polygon
@@ -385,7 +385,7 @@ exports[`test icon button can be set to be hovered 1`] = `
           hoverColor="#3b8"
           hovered={true}
           padding={6}
-          width={24}>
+          width={16}>
           <SvgIcon
             color="#000"
             hoverColor="#3b8"
@@ -395,7 +395,7 @@ exports[`test icon button can be set to be hovered 1`] = `
             onMouseLeave={[Function]}
             padding={6}
             transition="fill 0.25s linear 0ms"
-            width={24}>
+            width={16}>
             <svg
               data-radium={true}
               onClick={[Function]}
@@ -404,14 +404,14 @@ exports[`test icon button can be set to be hovered 1`] = `
               style={
                 Object {
                   "fill": "#3b8",
-                  "height": "24px",
+                  "height": "16px",
                   "margin": 0,
                   "padding": "6px",
                   "transition": "fill 0.25s linear 0ms",
-                  "width": "24px",
+                  "width": "16px",
                 }
               }
-              viewBox="0 0 24 24"
+              viewBox="0 0 16 16"
               x="0px"
               y="0px">
               <polygon
@@ -489,7 +489,7 @@ exports[`test icon button can have a border 1`] = `
         <CloseIcon
           hovered={false}
           padding={6}
-          width={24}>
+          width={16}>
           <SvgIcon
             color="#000"
             hoverColor="#000"
@@ -499,7 +499,7 @@ exports[`test icon button can have a border 1`] = `
             onMouseLeave={[Function]}
             padding={6}
             transition="fill 0.25s linear 0ms"
-            width={24}>
+            width={16}>
             <svg
               data-radium={true}
               onClick={[Function]}
@@ -508,14 +508,14 @@ exports[`test icon button can have a border 1`] = `
               style={
                 Object {
                   "fill": "#000",
-                  "height": "24px",
+                  "height": "16px",
                   "margin": 0,
                   "padding": "6px",
                   "transition": "fill 0.25s linear 0ms",
-                  "width": "24px",
+                  "width": "16px",
                 }
               }
-              viewBox="0 0 24 24"
+              viewBox="0 0 16 16"
               x="0px"
               y="0px">
               <polygon
@@ -590,7 +590,7 @@ exports[`test icon button renders with defaults 1`] = `
         <CloseIcon
           hovered={false}
           padding={6}
-          width={24}>
+          width={16}>
           <SvgIcon
             color="#000"
             hoverColor="#000"
@@ -600,7 +600,7 @@ exports[`test icon button renders with defaults 1`] = `
             onMouseLeave={[Function]}
             padding={6}
             transition="fill 0.25s linear 0ms"
-            width={24}>
+            width={16}>
             <svg
               data-radium={true}
               onClick={[Function]}
@@ -609,14 +609,14 @@ exports[`test icon button renders with defaults 1`] = `
               style={
                 Object {
                   "fill": "#000",
-                  "height": "24px",
+                  "height": "16px",
                   "margin": 0,
                   "padding": "6px",
                   "transition": "fill 0.25s linear 0ms",
-                  "width": "24px",
+                  "width": "16px",
                 }
               }
-              viewBox="0 0 24 24"
+              viewBox="0 0 16 16"
               x="0px"
               y="0px">
               <polygon

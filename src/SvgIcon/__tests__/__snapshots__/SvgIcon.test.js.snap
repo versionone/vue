@@ -7,14 +7,14 @@ exports[`test SvgIcons can be hovered 1`] = `
   style={
     Object {
       "fill": "#000",
-      "height": "24px",
+      "height": "16px",
       "margin": 0,
       "padding": "0px",
       "transition": "fill 0.25s linear 0ms",
-      "width": "24px",
+      "width": "16px",
     }
   }
-  viewBox="0 0 24 24"
+  viewBox="0 0 16 16"
   x="0px"
   y="0px">
   <path
@@ -31,14 +31,14 @@ exports[`test SvgIcons can be hovered 2`] = `
   style={
     Object {
       "fill": "#000",
-      "height": "24px",
+      "height": "16px",
       "margin": 0,
       "padding": "0px",
       "transition": "fill 0.25s linear 0ms",
-      "width": "24px",
+      "width": "16px",
     }
   }
-  viewBox="0 0 24 24"
+  viewBox="0 0 16 16"
   x="0px"
   y="0px">
   <path
@@ -55,14 +55,14 @@ exports[`test SvgIcons can be set to be in a hovered state 1`] = `
   style={
     Object {
       "fill": "blue",
-      "height": "24px",
+      "height": "16px",
       "margin": 0,
       "padding": "0px",
       "transition": "fill 0.25s linear 0ms",
-      "width": "24px",
+      "width": "16px",
     }
   }
-  viewBox="0 0 24 24"
+  viewBox="0 0 16 16"
   x="0px"
   y="0px">
   <path
@@ -79,14 +79,14 @@ exports[`test SvgIcons can have a color 1`] = `
   style={
     Object {
       "fill": "blue",
-      "height": "24px",
+      "height": "16px",
       "margin": 0,
       "padding": "0px",
       "transition": "fill 0.5s linear 0ms",
-      "width": "24px",
+      "width": "16px",
     }
   }
-  viewBox="0 0 24 24"
+  viewBox="0 0 16 16"
   x="0px"
   y="0px">
   <path
@@ -103,14 +103,14 @@ exports[`test SvgIcons can have a width and are always rendered a squares 1`] = 
   style={
     Object {
       "fill": "#000",
-      "height": "100px",
+      "height": "16px",
       "margin": 0,
       "padding": "0px",
       "transition": "fill 0.25s linear 0ms",
-      "width": "100px",
+      "width": "16px",
     }
   }
-  viewBox="0 0 24 24"
+  viewBox="0 0 16 16"
   x="0px"
   y="0px">
   <path
@@ -127,14 +127,14 @@ exports[`test will render an SVG element with its children and the correct viewb
   style={
     Object {
       "fill": "#000",
-      "height": "24px",
+      "height": "16px",
       "margin": 0,
       "padding": "0px",
       "transition": "fill 0.25s linear 0ms",
-      "width": "24px",
+      "width": "16px",
     }
   }
-  viewBox="0 0 24 24"
+  viewBox="0 0 16 16"
   x="0px"
   y="0px">
   <path

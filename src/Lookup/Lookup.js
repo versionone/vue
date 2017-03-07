@@ -11,6 +11,7 @@ import Popover, {Positions} from './../Popover';
 import SubHeader from './../SubHeader';
 import ThemeProvider from './../ThemeProvider';
 import transparent from './../utilities/Transparent';
+import {create} from './../utilities/Transitions';
 import * as Filters from './Filters';
 
 const matchOn = (prop) => (valueToMatch) => (item) => item[prop] === valueToMatch;
@@ -323,13 +324,14 @@ class Lookup extends Component {
             : textFieldHeight;
         const computedWidth = fullWidth ? '100%' : `${width}px`;
         const hasIcon = Boolean(prependIcon);
+        const borderColor = open ? focusedPrimaryColor : fieldBorderColor;
         let border = {
-            borderBottom: `1px solid ${fieldBorderColor}`,
-            borderRight: `1px solid ${fieldBorderColor}`,
-            borderTop: `1px solid ${fieldBorderColor}`,
+            borderBottom: `1px solid ${borderColor}`,
+            borderRight: `1px solid ${borderColor}`,
+            borderTop: `1px solid ${borderColor}`,
         };
         if (!hasIcon) {
-            border.borderLeft = `1px solid ${fieldBorderColor}`;
+            border.borderLeft = `1px solid ${borderColor}`;
         }
         if (inline) {
             border = {};
@@ -387,12 +389,13 @@ class Lookup extends Component {
             },
             prependIcon: {
                 alignItems: 'center',
-                background: open ? focusedPrimaryColor: normalBackground,
-                border: `1px solid ${fieldBorderColor}`,
+                background: open ? focusedPrimaryColor : fieldBorderColor,
+                border: `1px solid ${borderColor}`,
                 borderRadius: !inline && `${normalRadius}px 0 0 ${normalRadius}px`,
                 boxSizing: 'border-box',
                 display: 'flex',
                 height: `${hintTextWrapperHeight}px`,
+                transition: create('250ms'),
                 padding: `${xxSmallGutter}px`,
             },
             root: {

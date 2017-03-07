@@ -569,7 +569,7 @@ class Lookup extends Component {
                         style={styles.prependIcon}
                     >
                         {React.createElement(prependIcon, {
-                            color: normalBackground
+                            color: normalBackground,
                         })}
                     </div>
                 )}

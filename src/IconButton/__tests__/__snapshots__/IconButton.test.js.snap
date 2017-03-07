@@ -61,7 +61,7 @@ exports[`test circular icon button 1`] = `
         <CloseIcon
           hovered={false}
           padding={6}
-          width={16}>
+          size={16}>
           <SvgIcon
             color="#000"
             hoverColor="#000"
@@ -70,8 +70,8 @@ exports[`test circular icon button 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             padding={6}
-            transition="fill 0.25s linear 0ms"
-            width={16}>
+            size={16}
+            transition="fill 0.25s linear 0ms">
             <svg
               data-radium={true}
               onClick={[Function]}
@@ -168,7 +168,7 @@ exports[`test icon button can be disabled 1`] = `
           hoverColor="rgba(0,0,0,0.26)"
           hovered={false}
           padding={6}
-          width={16}>
+          size={16}>
           <SvgIcon
             color="rgba(0,0,0,0.26)"
             hoverColor="rgba(0,0,0,0.26)"
@@ -177,8 +177,8 @@ exports[`test icon button can be disabled 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             padding={6}
-            transition="fill 0.25s linear 0ms"
-            width={16}>
+            size={16}
+            transition="fill 0.25s linear 0ms">
             <svg
               data-radium={true}
               onClick={[Function]}
@@ -271,7 +271,7 @@ exports[`test icon button can be resized 1`] = `
         <CloseIcon
           hovered={false}
           padding={6}
-          width={12}>
+          size={12}>
           <SvgIcon
             color="#000"
             hoverColor="#000"
@@ -280,8 +280,8 @@ exports[`test icon button can be resized 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             padding={6}
-            transition="fill 0.25s linear 0ms"
-            width={12}>
+            size={12}
+            transition="fill 0.25s linear 0ms">
             <svg
               data-radium={true}
               onClick={[Function]}
@@ -290,11 +290,11 @@ exports[`test icon button can be resized 1`] = `
               style={
                 Object {
                   "fill": "#000",
-                  "height": "16px",
+                  "height": "12px",
                   "margin": 0,
                   "padding": "6px",
                   "transition": "fill 0.25s linear 0ms",
-                  "width": "16px",
+                  "width": "12px",
                 }
               }
               viewBox="0 0 16 16"
@@ -385,7 +385,7 @@ exports[`test icon button can be set to be hovered 1`] = `
           hoverColor="#3b8"
           hovered={true}
           padding={6}
-          width={16}>
+          size={16}>
           <SvgIcon
             color="#000"
             hoverColor="#3b8"
@@ -394,8 +394,8 @@ exports[`test icon button can be set to be hovered 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             padding={6}
-            transition="fill 0.25s linear 0ms"
-            width={16}>
+            size={16}
+            transition="fill 0.25s linear 0ms">
             <svg
               data-radium={true}
               onClick={[Function]}
@@ -489,7 +489,7 @@ exports[`test icon button can have a border 1`] = `
         <CloseIcon
           hovered={false}
           padding={6}
-          width={16}>
+          size={16}>
           <SvgIcon
             color="#000"
             hoverColor="#000"
@@ -498,8 +498,8 @@ exports[`test icon button can have a border 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             padding={6}
-            transition="fill 0.25s linear 0ms"
-            width={16}>
+            size={16}
+            transition="fill 0.25s linear 0ms">
             <svg
               data-radium={true}
               onClick={[Function]}
@@ -590,7 +590,7 @@ exports[`test icon button renders with defaults 1`] = `
         <CloseIcon
           hovered={false}
           padding={6}
-          width={16}>
+          size={16}>
           <SvgIcon
             color="#000"
             hoverColor="#000"
@@ -599,8 +599,8 @@ exports[`test icon button renders with defaults 1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             padding={6}
-            transition="fill 0.25s linear 0ms"
-            width={16}>
+            size={16}
+            transition="fill 0.25s linear 0ms">
             <svg
               data-radium={true}
               onClick={[Function]}

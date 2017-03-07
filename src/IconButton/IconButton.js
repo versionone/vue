@@ -45,7 +45,7 @@ const IconButton = (props, context) => {
         smallGutter,
     } = context.theme;
 
-    const width = baseIconSize * size;
+    const iconSize = baseIconSize * size;
     const iconColor = disable ? disabledPrimaryColor : color;
     const iconHoverColor = disable ? disabledPrimaryColor : hoverColor;
     const handleClick = createConditionalEventHandler(!disable)(onClick);
@@ -65,7 +65,7 @@ const IconButton = (props, context) => {
                 hoverColor: iconHoverColor,
                 hovered: hovered || ui.hovered,
                 padding: smallGutter,
-                width,
+                size: iconSize,
             })}
         </div>
     );

@@ -59,7 +59,6 @@ const Chip = (props, context) => {
         color,
         fontSize,
         fullWidth,
-        lineHeight,
         oid,
         onRequestRemove,
         text,
@@ -85,7 +84,6 @@ const Chip = (props, context) => {
                         color={toRgbaString(darken(backgroundColor, iconButtonDarkenCoefficient))}
                         icon={CloseIcon}
                         size={xxSmall}
-                        width={fontSize * lineHeight}
                         onClick={handleClick}
                     />
                 </div>

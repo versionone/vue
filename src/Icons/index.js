@@ -1,5 +1,9 @@
 import AddIconComponent from './AddIcon';
 export const AddIcon = AddIconComponent;
+import ArrowRightIconComponent from './ArrowRightIcon';
+export const ArrowRightIcon = ArrowRightIconComponent;
+import CheckIconComponent from './CheckIcon';
+export const CheckIcon = CheckIconComponent;
 import ChevronDownIconComponent from './ChevronDownIcon';
 export const ChevronDownIcon = ChevronDownIconComponent;
 import CloseIconComponent from './CloseIcon';

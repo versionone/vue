@@ -81,7 +81,7 @@ class Popover extends Component {
             open: this.props.open,
         };
         this.setPlacement = this.setPlacement.bind(this);
-        this.handleResize = throttle(this.setPlacement, resizeThrottleValue);
+        this.handleResize = throttle(this.setPlacement.bind(this, false), resizeThrottleValue);
         this.handleScroll = throttle(this.setPlacement.bind(this, true), scrollThrottleValue);
         this.renderLayer = this.renderLayer.bind(this);
         this.handleComponentClickAway = this.handleComponentClickAway.bind(this);
@@ -118,7 +118,7 @@ class Popover extends Component {
         this.handleScroll = null;
     }
 
-    setPlacement(scrolling) {
+    setPlacement(scrolling, evt) {
         const {
             anchorElement,
             anchorOrigin,
@@ -149,7 +149,7 @@ class Popover extends Component {
         const adjustedToFitWithinWindow = adjustRelativeWithinViewport(targetPosition, targetOrigin);
 
         if (scrolling && autoCloseWhenOffScreen) {
-            this.autoCloseWhenOffScreen(anchorPosition);
+            this.autoCloseWhenOffScreen(evt, anchorPosition);
         }
         targetElement.style.left = `${Math.max(offScreenThresholdValue, adjustedToFitWithinWindow.left)}px`;
         targetElement.style.maxHeight = `${window.innerHeight}px`;
@@ -179,23 +179,23 @@ class Popover extends Component {
         );
     }
 
-    handleComponentClickAway() {
-        this.requestClose('clickedAway');
+    handleComponentClickAway(evt) {
+        this.requestClose(evt, 'clickedAway');
     }
 
-    requestClose(reason) {
+    requestClose(evt, reason) {
         const {
             onRequestClose,
         } = this.props;
-        onRequestClose(reason);
+        onRequestClose(evt, reason);
     }
 
-    autoCloseWhenOffScreen(anchorPosition) {
+    autoCloseWhenOffScreen(evt, anchorPosition) {
         if (anchorPosition.top < offScreenThresholdValue
             || anchorPosition.top > window.innerHeight
             || anchorPosition.left < offScreenThresholdValue
             || anchorPosition.left > window.innerWidth) {
-            this.requestClose('offScreen');
+            this.requestClose(evt, 'offScreen');
         }
     }
 

@@ -238,8 +238,20 @@ test('Lookup can be accept entry of search text to be applied to the search filt
     expect(lookupGroupResultsMatchExactly(component, 0, 'header', ['Testing 1'])).toBeTruthy();
 });
 
-test('Clicking the Lookup will activate it', () => {
-    const onActivate = jest.fn();
+test('Clicking the Lookup will activate it only if it is not already active', () => {
+    let onActivate = jest.fn();
+    component = mountLookup({
+        dataSource: getBasicDataSource(),
+        onActivate,
+        open: false,
+        resultGroups: 'header',
+        searchFilter: (searchText, item) => item.indexOf(searchText) >= 0,
+        searchText: 'ing ',
+    });
+    simulateClickHintTextLookup(component);
+    expect(onActivate).toHaveBeenCalledTimes(1);
+
+    onActivate = jest.fn();
     component = mountLookup({
         dataSource: getBasicDataSource(),
         onActivate,
@@ -249,7 +261,7 @@ test('Clicking the Lookup will activate it', () => {
         searchText: 'ing ',
     });
     simulateClickHintTextLookup(component);
-    expect(onActivate).toHaveBeenCalledTimes(1);
+    expect(onActivate).not.toHaveBeenCalled();
 });
 
 test('Clicking the hint text sends focus to the search text input field', () => {

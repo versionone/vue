@@ -12,6 +12,7 @@ import SubHeader from './../SubHeader';
 import ThemeProvider from './../ThemeProvider';
 import transparent from './../utilities/Transparent';
 import {create} from './../utilities/Transitions';
+import {isDescendant} from './../utilities/dom';
 import * as Filters from './Filters';
 
 const matchOn = (prop) => (valueToMatch) => (item) => item[prop] === valueToMatch;
@@ -272,20 +273,25 @@ class Lookup extends Component {
         this.setSelectedItem(evt, selectedOid);
     }
 
-    handleLookupRootClick() {
+    handleLookupRootClick(evt) {
+        if (!this.state.open) {
+            this.props.onActivate(evt);
+        }
         this.setState({
-            open: !this.state.open,
+            open: true,
         }, () => {
             this.inputField.focus();
         });
-        this.props.onActivate();
     }
 
-    handleClosePopover(reason) {
+    handleClosePopover(evt, reason) {
+        if (isDescendant(this.rootEl, evt.target)) {
+            return;
+        }
         this.setState({
             open: false,
         });
-        this.props.onDeactivate(reason);
+        this.props.onDeactivate(evt, reason);
     }
 
     handleChipRemove(evt, oid) {
@@ -570,6 +576,9 @@ class Lookup extends Component {
 
         return (
             <div
+                ref={(el) => {
+                    this.rootEl = el;
+                }}
                 style={styles.root}
             >
                 {Boolean(prependIcon) && (

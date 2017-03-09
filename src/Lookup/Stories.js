@@ -38,6 +38,11 @@ const complexDataSource = [
         title: 'Project Lead'
     },
 ];
+const standardEventHandlers = {
+    onActivate: action('activated'),
+    onDeactivate: action('deactivated'),
+    onSelect: action('selected'),
+};
 
 storiesOf('Lookup')
     .addWithInfo('datasource is array of strings',
@@ -47,7 +52,7 @@ storiesOf('Lookup')
                 <Lookup
                     dataSource={basicDataSource}
                     resultGroups="All Results"
-                    onSelect={action('selected')}
+                    {...standardEventHandlers}
                 />
             </div>
         )
@@ -59,7 +64,7 @@ storiesOf('Lookup')
                 dataSource={complexDataSource}
                 dataSourceConfig={complexDataSourceConfig}
                 resultGroups="All Results"
-                onSelect={action('selected')}
+                {...standardEventHandlers}
             />
         )
     )
@@ -71,20 +76,20 @@ storiesOf('Lookup')
                     dataSource={basicDataSource}
                     resultGroups="Results"
                     selectedItems={[1]}
-                    onSelect={action('selected')}
+                    {...standardEventHandlers}
                 />
                 <Lookup
                     dataSource={complexDataSource}
                     dataSourceConfig={complexDataSourceConfigWithCustomTextRender}
                     resultGroups="Results"
                     selectedItems={['oid:2']}
-                    onSelect={action('selected')}
+                    {...standardEventHandlers}
                 />
                 <Lookup
                     dataSource={basicDataSource}
                     open
                     resultGroups="Results"
-                    onSelect={action('selected')}
+                    {...standardEventHandlers}
                 />
             </div>
         )
@@ -98,13 +103,13 @@ storiesOf('Lookup')
                     dataSource={basicDataSource}
                     hintText="hint text"
                     resultGroups="Results"
-                    onSelect={action('selected')}
+                    {...standardEventHandlers}
                 />
                 <Lookup
                     dataSource={basicDataSource}
                     hintText="hint text that is so long, it will surely wrap, but do not neglect its importance...the longer it is, the more important it must be, right?"
                     resultGroups="Results"
-                    onSelect={action('selected')}
+                    {...standardEventHandlers}
                 />
             </div>
         )
@@ -121,14 +126,14 @@ storiesOf('Lookup')
                     hintText="hint text"
                     resultGroups="Results"
                     width={250}
-                    onSelect={action('selected')}
+                    {...standardEventHandlers}
                 />
                 <Lookup
                     dataSource={basicDataSource}
                     fullWidth
                     hintText="hint text"
                     resultGroups="Results"
-                    onSelect={action('selected')}
+                    {...standardEventHandlers}
                 />
             </div>
         )
@@ -140,7 +145,7 @@ storiesOf('Lookup')
                 dataSource={complexDataSource}
                 dataSourceConfig={complexDataSourceConfigWithCustomTextRender}
                 resultGroups="All Results"
-                onSelect={action('selected')}
+                {...standardEventHandlers}
             />
         )
     )
@@ -152,14 +157,14 @@ storiesOf('Lookup')
                     dataSource={basicDataSource}
                     resultGroups="All Results"
                     searchFilter={Filters.caseInsensitive}
-                    onSelect={action('selected')}
+                    {...standardEventHandlers}
                 />
                 <Lookup
                     dataSource={complexDataSource}
                     dataSourceConfig={complexDataSourceConfig}
                     resultGroups="All Results"
                     searchFilter={(searchText, value) => Filters.caseInsensitive(searchText, value.name)}
-                    onSelect={action('selected')}
+                    {...standardEventHandlers}
                 />
             </div>
         ))
@@ -179,7 +184,7 @@ storiesOf('Lookup')
                             filter: (value, index) => index !== 1,
                         },
                     ]}
-                    onSelect={action('selected')}
+                    {...standardEventHandlers}
                 />
             </div>
         )
@@ -201,7 +206,7 @@ storiesOf('Lookup')
                         },
                     ]}
                     searchFilter={Filters.caseInsensitive}
-                    onSelect={action('selected')}
+                    {...standardEventHandlers}
                 />
             </div>
         )
@@ -224,7 +229,7 @@ storiesOf('Lookup')
                         },
                     ]}
                     searchFilter={Filters.caseInsensitive}
-                    onSelect={action('selected')}
+                    {...standardEventHandlers}
                 />
                 <br />
                 <Lookup
@@ -242,7 +247,7 @@ storiesOf('Lookup')
                         },
                     ]}
                     searchFilter={Filters.caseInsensitive}
-                    onSelect={action('selected')}
+                    {...standardEventHandlers}
                 />
             </div>
         )
@@ -265,7 +270,7 @@ storiesOf('Lookup')
                         },
                     ]}
                     searchFilter={Filters.caseInsensitive}
-                    onSelect={action('selected')}
+                    {...standardEventHandlers}
                 />
             </div>
         )

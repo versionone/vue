@@ -1,7 +1,7 @@
 import React from 'react';
 import simulant from 'simulant';
 import Lookup from './../Lookup';
-import {getMount, getShallow, snapshot, reset} from './../../../specHelpers/rendering';
+import {getMount, getShallow, reset, snapshot} from './../../../specHelpers/rendering';
 
 jest.useFakeTimers();
 const mountLookup = getMount(Lookup);
@@ -189,6 +189,18 @@ test('Lookup can select an item and render it as a Chip', () => {
     expect(firstListItemIsSelected(component, 'Testing 1')).toBeTruthy();
 });
 
+test('selecting an item causes the Lookup to deactivate', () => {
+    const onDeactivate = jest.fn();
+    component = mountLookup({
+        dataSource: getBasicDataSource(),
+        onDeactivate,
+        open: true,
+        resultGroups: 'header',
+    });
+    simulateSelectionOfFirstListItem();
+    expect(onDeactivate).toHaveBeenCalledTimes(1);
+});
+
 test('Clicking on the Chip removal icon removes the Chip as the selected item', () => {
     component = mountLookup({
         dataSource: getBasicDataSource(),
@@ -226,6 +238,20 @@ test('Lookup can be accept entry of search text to be applied to the search filt
     expect(lookupGroupResultsMatchExactly(component, 0, 'header', ['Testing 1'])).toBeTruthy();
 });
 
+test('Clicking the Lookup will activate it', () => {
+    const onActivate = jest.fn();
+    component = mountLookup({
+        dataSource: getBasicDataSource(),
+        onActivate,
+        open: true,
+        resultGroups: 'header',
+        searchFilter: (searchText, item) => item.indexOf(searchText) >= 0,
+        searchText: 'ing ',
+    });
+    simulateClickHintTextLookup(component);
+    expect(onActivate).toHaveBeenCalledTimes(1);
+});
+
 test('Clicking the hint text sends focus to the search text input field', () => {
     component = mountLookup({
         dataSource: getBasicDataSource(),
@@ -238,21 +264,24 @@ test('Clicking the hint text sends focus to the search text input field', () => 
     expect(searchTextToBeFocused()).toBeTruthy();
 });
 
-test('Clicking outside of the lookup will close the lookup', () => {
+test('Clicking outside of the lookup will close/deactivate the lookup', () => {
     const mappedEventHandlers = {};
     window.addEventListener = jest.fn().mockImplementation((event, cb) => {
         mappedEventHandlers[event] = cb;
     });
+    const onDeactivate = jest.fn();
     component = mountLookup({
         dataSource: getBasicDataSource(),
         open: true,
         resultGroups: 'header',
+        onDeactivate,
         searchFilter: (searchText, item) => item.indexOf(searchText) >= 0,
         searchText: 'ing ',
     });
     jest.runAllTimers();
     simulateClickAway(mappedEventHandlers);
     expect(lookupIsClosed(component)).toBeTruthy();
+    expect(onDeactivate).toHaveBeenCalledTimes(1);
 });
 
 // ---

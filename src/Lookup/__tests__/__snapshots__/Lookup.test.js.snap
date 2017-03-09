@@ -81,7 +81,6 @@ exports[`test Lookup can provide custom render for selected text and items 1`] =
         <div>
           <HintText
             hidden={true}
-            onClick={[Function]}
             text="" />
         </div>
       </div>
@@ -110,7 +109,7 @@ exports[`test Lookup can provide custom render for selected text and items 1`] =
               "boxSizing": "border-box",
               "color": "#31363e",
               "cursor": "initial",
-              "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+              "fontFamily": "'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
               "fontSize": "14px",
               "outline": "none",
               "padding": 0,
@@ -148,6 +147,7 @@ exports[`test Lookup can provide custom render for selected text and items 1`] =
           }
         }>
         <Connect(UI)
+          active={true}
           hoverBackgroundColor="#262626"
           hoverColor="#fff"
           onSelectItem={[Function]} />
@@ -240,7 +240,6 @@ exports[`test Lookup can render the selected item as a Chip and then be updated 
         <div>
           <HintText
             hidden={true}
-            onClick={[Function]}
             text="" />
         </div>
       </div>
@@ -307,6 +306,7 @@ exports[`test Lookup can render the selected item as a Chip and then be updated 
           }
         }>
         <Connect(UI)
+          active={true}
           hoverBackgroundColor="#262626"
           hoverColor="#fff"
           onSelectItem={[Function]} />
@@ -399,7 +399,6 @@ exports[`test Lookup can render the selected item as a Chip and then be updated 
         <div>
           <HintText
             hidden={true}
-            onClick={[Function]}
             text="" />
         </div>
       </div>
@@ -466,6 +465,7 @@ exports[`test Lookup can render the selected item as a Chip and then be updated 
           }
         }>
         <Connect(UI)
+          active={true}
           hoverBackgroundColor="#262626"
           hoverColor="#fff"
           onSelectItem={[Function]} />
@@ -534,7 +534,6 @@ exports[`test Lookup defaults to being closed 1`] = `
         <div>
           <HintText
             hidden={false}
-            onClick={[Function]}
             text="" />
         </div>
       </div>
@@ -563,7 +562,7 @@ exports[`test Lookup defaults to being closed 1`] = `
               "boxSizing": "border-box",
               "color": "#31363e",
               "cursor": "initial",
-              "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+              "fontFamily": "'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
               "fontSize": "14px",
               "outline": "none",
               "padding": 0,
@@ -601,6 +600,7 @@ exports[`test Lookup defaults to being closed 1`] = `
           }
         }>
         <Connect(UI)
+          active={false}
           hoverBackgroundColor="#262626"
           hoverColor="#fff"
           onSelectItem={[Function]} />
@@ -669,7 +669,6 @@ exports[`test Lookup renders as a TextField when not open 1`] = `
         <div>
           <HintText
             hidden={false}
-            onClick={[Function]}
             text="hint text" />
         </div>
       </div>
@@ -698,7 +697,7 @@ exports[`test Lookup renders as a TextField when not open 1`] = `
               "boxSizing": "border-box",
               "color": "#31363e",
               "cursor": "initial",
-              "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+              "fontFamily": "'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
               "fontSize": "14px",
               "outline": "none",
               "padding": 0,
@@ -736,6 +735,7 @@ exports[`test Lookup renders as a TextField when not open 1`] = `
           }
         }>
         <Connect(UI)
+          active={false}
           hoverBackgroundColor="#262626"
           hoverColor="#fff"
           onSelectItem={[Function]} />
@@ -828,7 +828,6 @@ exports[`test Lookup renders the explicitly set selected item as a Chip 1`] = `
         <div>
           <HintText
             hidden={true}
-            onClick={[Function]}
             text="" />
         </div>
       </div>
@@ -857,7 +856,7 @@ exports[`test Lookup renders the explicitly set selected item as a Chip 1`] = `
               "boxSizing": "border-box",
               "color": "#31363e",
               "cursor": "initial",
-              "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+              "fontFamily": "'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
               "fontSize": "14px",
               "outline": "none",
               "padding": 0,
@@ -895,6 +894,7 @@ exports[`test Lookup renders the explicitly set selected item as a Chip 1`] = `
           }
         }>
         <Connect(UI)
+          active={true}
           hoverBackgroundColor="#262626"
           hoverColor="#fff"
           onSelectItem={[Function]} />
@@ -987,7 +987,6 @@ exports[`test Lookup renders the explicitly set selected item as a Chip 2`] = `
         <div>
           <HintText
             hidden={true}
-            onClick={[Function]}
             text="" />
         </div>
       </div>
@@ -1016,7 +1015,7 @@ exports[`test Lookup renders the explicitly set selected item as a Chip 2`] = `
               "boxSizing": "border-box",
               "color": "#31363e",
               "cursor": "initial",
-              "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+              "fontFamily": "'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
               "fontSize": "14px",
               "outline": "none",
               "padding": 0,
@@ -1054,6 +1053,7 @@ exports[`test Lookup renders the explicitly set selected item as a Chip 2`] = `
           }
         }>
         <Connect(UI)
+          active={true}
           hoverBackgroundColor="#262626"
           hoverColor="#fff"
           onSelectItem={[Function]} />

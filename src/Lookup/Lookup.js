@@ -93,6 +93,8 @@ class Lookup extends Component {
          * Minimum number of characters required to be typed before applying the filter to the result set
          */
         minimumNumberOfCharactersToFilter: PropTypes.number,
+        onActivate: PropTypes.func,
+        onDeactivate: PropTypes.func,
         /**
          * Event handler which fires upon the selection of an item from the results list
          */
@@ -148,6 +150,10 @@ class Lookup extends Component {
         listHoverBackgroundColor: '#262626',
         listHoverColor: '#fff',
         minimumNumberOfCharactersToFilter: 3,
+        onActivate: () => {
+        },
+        onDeactivate: () => {
+        },
         onSelect: () => {
         },
         open: false,
@@ -165,7 +171,6 @@ class Lookup extends Component {
         super(props, ...rest);
 
         this.handleChangeTextField = this.handleChangeTextField.bind(this);
-        this.handleClickHintText = this.handleClickHintText.bind(this);
         this.handleLookupRootClick = this.handleLookupRootClick.bind(this);
         this.handleItemSelection = this.handleItemSelection.bind(this);
         this.handleClosePopover = this.handleClosePopover.bind(this);
@@ -241,15 +246,18 @@ class Lookup extends Component {
         );
     }
 
-    setSelectedItem(oid) {
+    setSelectedItem(evt, oid) {
         this.setState({
             open: false,
             searchText: '',
             selectedItems: [
                 oid,
             ],
+        }, () => {
+            this.inputField.blur();
         });
         this.props.onSelect(oid);
+        this.props.onDeactivate(evt);
     }
 
     handleChangeTextField(evt) {
@@ -258,27 +266,26 @@ class Lookup extends Component {
         });
     }
 
-    handleClickHintText() {
-        this.inputField.focus();
-    }
-
     handleItemSelection(evt, index) {
         const selectedItem = this.items.find((item, itemIndex) => itemIndex === index);
         const selectedOid = selectedItem.oid;
-        this.setSelectedItem(selectedOid);
-        this.inputField.blur();
+        this.setSelectedItem(evt, selectedOid);
     }
 
     handleLookupRootClick() {
         this.setState({
             open: !this.state.open,
+        }, () => {
+            this.inputField.focus();
         });
+        this.props.onActivate();
     }
 
-    handleClosePopover() {
+    handleClosePopover(reason) {
         this.setState({
             open: false,
         });
+        this.props.onDeactivate(reason);
     }
 
     handleChipRemove(evt, oid) {
@@ -593,7 +600,6 @@ class Lookup extends Component {
                                 <HintText
                                     hidden={isHintTextHidden}
                                     text={hintText}
-                                    onClick={this.handleClickHintText}
                                 />
                             </div>
                         </div>

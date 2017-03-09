@@ -630,6 +630,7 @@ class Lookup extends Component {
                             style={styles.resultsPaper}
                         >
                             <List
+                                active={open}
                                 hoverBackgroundColor={listHoverBackgroundColor}
                                 hoverColor={listHoverColor}
                                 onSelectItem={this.handleItemSelection}

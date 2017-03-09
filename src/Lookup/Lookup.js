@@ -266,6 +266,7 @@ class Lookup extends Component {
         const selectedItem = this.items.find((item, itemIndex) => itemIndex === index);
         const selectedOid = selectedItem.oid;
         this.setSelectedItem(selectedOid);
+        this.inputField.blur();
     }
 
     handleLookupRootClick() {

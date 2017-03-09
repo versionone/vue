@@ -182,6 +182,8 @@ class Lookup extends Component {
         this.handleItemSelection = this.handleItemSelection.bind(this);
         this.handleClosePopover = this.handleClosePopover.bind(this);
         this.handleChipRemove = this.handleChipRemove.bind(this);
+        this.handleTextFieldBlur = this.handleTextFieldBlur.bind(this);
+        this.handleTextFieldFocus = this.handleTextFieldFocus.bind(this);
 
         this.setSelectedItem = this.setSelectedItem.bind(this);
         this.getHeight = this.getHeight.bind(this);
@@ -263,8 +265,7 @@ class Lookup extends Component {
         }, () => {
             this.inputField.blur();
         });
-        this.props.onSelect(oid);
-        this.props.onDeactivate(evt);
+        this.props.onSelect(evt, oid);
     }
 
     handleChangeTextField(evt) {
@@ -279,15 +280,8 @@ class Lookup extends Component {
         this.setSelectedItem(evt, selectedOid);
     }
 
-    handleLookupRootClick(evt) {
-        if (!this.state.open) {
-            this.props.onActivate(evt);
-        }
-        this.setState({
-            open: true,
-        }, () => {
-            this.inputField.focus();
-        });
+    handleLookupRootClick() {
+        this.inputField.focus();
     }
 
     handleClosePopover(evt, reason) {
@@ -306,6 +300,22 @@ class Lookup extends Component {
             open: false,
             selectedItems: this.state.selectedItems
                 .filter(matchesOid(oid)),
+        });
+    }
+
+    handleTextFieldBlur(evt) {
+        this.setState({
+            open: false,
+        });
+        this.props.onDeactivate(evt);
+    }
+
+    handleTextFieldFocus(evt) {
+        if (!this.state.open) {
+            this.props.onActivate(evt);
+        }
+        this.setState({
+            open: true,
         });
     }
 
@@ -631,7 +641,9 @@ class Lookup extends Component {
                                 style={styles.input}
                                 type="text"
                                 value={searchText}
+                                onBlur={this.handleTextFieldBlur}
                                 onChange={this.handleChangeTextField}
+                                onFocus={this.handleTextFieldFocus}
                             />
                         </div>
                     </div>

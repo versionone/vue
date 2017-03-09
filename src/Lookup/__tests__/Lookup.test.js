@@ -185,11 +185,11 @@ test('Lookup can select an item and render it as a Chip', () => {
     });
     simulateSelectionOfFirstListItem();
     expect(onSelect).toHaveBeenCalledTimes(1);
-    expect(onSelect).toHaveBeenCalledWith(0);
+    expect(onSelect.mock.calls[0][1]).toEqual(0);
     expect(firstListItemIsSelected(component, 'Testing 1')).toBeTruthy();
 });
 
-test('selecting an item causes the Lookup to deactivate', () => {
+test('blurring the text field causes Lookup to deactivate', () => {
     const onDeactivate = jest.fn();
     component = mountLookup({
         dataSource: getBasicDataSource(),
@@ -197,7 +197,7 @@ test('selecting an item causes the Lookup to deactivate', () => {
         open: true,
         resultGroups: 'header',
     });
-    simulateSelectionOfFirstListItem();
+    simulateBlur(component);
     expect(onDeactivate).toHaveBeenCalledTimes(1);
 });
 
@@ -248,7 +248,7 @@ test('Clicking the Lookup will activate it only if it is not already active', ()
         searchFilter: (searchText, item) => item.indexOf(searchText) >= 0,
         searchText: 'ing ',
     });
-    simulateClickHintTextLookup(component);
+    simulateTextFocus(component);
     expect(onActivate).toHaveBeenCalledTimes(1);
 
     onActivate = jest.fn();
@@ -260,7 +260,7 @@ test('Clicking the Lookup will activate it only if it is not already active', ()
         searchFilter: (searchText, item) => item.indexOf(searchText) >= 0,
         searchText: 'ing ',
     });
-    simulateClickHintTextLookup(component);
+    simulateTextFocus(component);
     expect(onActivate).not.toHaveBeenCalled();
 });
 
@@ -414,4 +414,10 @@ function simulateClickAway(mappedEventHandlers) {
 }
 function lookupIsClosed(wrapper) {
     return wrapper.state().open === false;
+}
+function simulateTextFocus(wrapper) {
+    wrapper.find('input').simulate('focus');
+}
+function simulateBlur(wrapper) {
+    wrapper.find('input').simulate('blur');
 }

@@ -94,7 +94,13 @@ class Lookup extends Component {
          * Minimum number of characters required to be typed before applying the filter to the result set
          */
         minimumNumberOfCharactersToFilter: PropTypes.number,
+        /**
+         * Event handler which fires upon engaging the Lookup; clicking on it to open
+         */
         onActivate: PropTypes.func,
+        /**
+         * Event handler which fires when Lookup is dis-engaged or closed.
+         */
         onDeactivate: PropTypes.func,
         /**
          * Event handler which fires upon the selection of an item from the results list

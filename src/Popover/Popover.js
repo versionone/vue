@@ -5,7 +5,7 @@ import {throttle} from 'underscore';
 import Radium from './../utilities/Radium';
 import RenderToLayer from './../internal/RenderToLayer';
 import ThemeProvider from './../ThemeProvider';
-import {adjustPositionRelativeWithin, getPosition, getViewportPosition} from './../utilities/position';
+import {adjustPosition, getPosition, getViewportPosition} from './../utilities/position';
 import * as CustomPropTypes from './../utilities/CustomPropTypes';
 import * as Positions from './Positions';
 
@@ -145,16 +145,15 @@ class Popover extends Component {
 
         const anchorPosition = getPosition(anchorEl);
         const targetPosition = getTargetPosition(targetElement);
-        const adjustRelativeWithinViewport = adjustPositionRelativeWithin(viewportPosition, anchorPosition, anchorOrigin);
-        const adjustedToFitWithinWindow = adjustRelativeWithinViewport(targetPosition, targetOrigin);
+        const adjustedPosition = adjustPosition(anchorPosition, anchorOrigin, targetPosition, targetOrigin);
 
         if (scrolling && autoCloseWhenOffScreen) {
             this.autoCloseWhenOffScreen(evt, anchorPosition);
         }
-        targetElement.style.left = `${Math.max(offScreenThresholdValue, adjustedToFitWithinWindow.left)}px`;
+        targetElement.style.left = `${Math.max(offScreenThresholdValue, adjustedPosition.left)}px`;
         targetElement.style.maxHeight = `${window.innerHeight}px`;
-        targetElement.style.top = `${Math.max(offScreenThresholdValue, adjustedToFitWithinWindow.top)}px`;
-        targetElement.style.width = `${adjustedToFitWithinWindow.width}px`;
+        targetElement.style.top = `${Math.max(offScreenThresholdValue, adjustedPosition.top)}px`;
+        targetElement.style.width = `${adjustedPosition.width}px`;
     }
 
     renderLayer() {

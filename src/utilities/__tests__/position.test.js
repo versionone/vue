@@ -1,5 +1,5 @@
 import {
-    adjustPositionRelativeWithin,
+    adjustPosition,
     getPosition,
     getViewportPosition,
     isColliding,
@@ -147,59 +147,52 @@ test('isOverlapping can determine if an element position overlaps with another e
     expect(isOverlapping(topLeftAnchorPoint)(getPositionCompletelyAroundAnchor())).toBeTruthy();
 });
 
-test('adjustPositionRelativeWithin can determine a position relative to an anchor when the target position is off screen to the left of the anchor', () => {
-    expect(adjustPositionRelativeWithin(getBoundingPosition(), topLeftAnchorPoint, toLeft)(getTargetPosition(), toRight)).toEqual({
+test('adjustPosition can determine a position relative to an anchor', () => {
+    expect(adjustPosition(topLeftAnchorPoint, toLeft, getTargetPosition(), toRight)).toEqual({
         bottom: 100,
         center: 50,
         height: 100,
-        left: 100,
+        left: -100,
         middle: 50,
-        right: 200,
+        right: 0,
         top: 0,
         width: 100,
     });
-});
-test('adjustPositionRelativeWithin can determine a position relative to an anchor when target position is off screen above the anchor', () => {
-    expect(adjustPositionRelativeWithin(getBoundingPosition(), topLeftAnchorPoint, toTop)(getTargetPosition(), toBottom)).toEqual({
-        bottom: 200,
+
+    expect(adjustPosition(topLeftAnchorPoint, toTop, getTargetPosition(), toBottom)).toEqual({
+        bottom: 0,
         center: 50,
         height: 100,
         left: 0,
         middle: 50,
         right: 100,
-        top: 100,
+        top: -100,
         width: 100,
     });
-});
 
-test('adjustPositionRelativeWithin can determine a position relative to an anchor when target position is off screen to the right the anchor', () => {
-    expect(adjustPositionRelativeWithin(getBoundingPosition(), topRightAnchorPoint, toRight)(getTargetPosition(), toLeft)).toEqual({
+    expect(adjustPosition(topRightAnchorPoint, toRight, getTargetPosition(), toLeft)).toEqual({
         bottom: 100,
         center: 50,
         height: 100,
-        left: 100,
+        left: 300,
         middle: 50,
-        right: 200,
+        right: 400,
         top: 0,
         width: 100,
     });
-});
 
-test('adjustPositionRelativeWithin can determine a position relative to an anchor when target position is off screen below the anchor', () => {
-    expect(adjustPositionRelativeWithin(getBoundingPosition(), bottomLeftAnchorPoint, toBottom)(getTargetPosition(), toTop)).toEqual({
-        bottom: 200,
+    expect(adjustPosition(bottomLeftAnchorPoint, toBottom, getTargetPosition(), toTop)).toEqual({
+        bottom: 400,
         center: 50,
         height: 100,
         left: 0,
         middle: 50,
         right: 100,
-        top: 100,
+        top: 300,
         width: 100,
     });
-});
 
-test('adjustPositionRelativeWithin can determine a position relative to an anchor when target position is within the screen', () => {
-    expect(adjustPositionRelativeWithin(getBoundingPosition(), bottomLeftAnchorPoint, toTop)(getTargetPosition(), toBottom)).toEqual({
+    expect(adjustPosition(bottomLeftAnchorPoint, toTop, getTargetPosition(), toBottom)).toEqual({
         bottom: 200,
         center: 50,
         height: 100,
@@ -337,18 +330,6 @@ function getPositionNotOverlapping() {
         left: 150,
         right: 300,
         top: 150,
-    };
-}
-function getBoundingPosition() {
-    return {
-        bottom: 300,
-        center: 150,
-        height: 300,
-        left: 0,
-        middle: 150,
-        right: 300,
-        top: 0,
-        width: 300,
     };
 }
 function getTargetPosition() {

@@ -42,6 +42,7 @@ const standardEventHandlers = {
     onActivate: action('activated'),
     onDeactivate: action('deactivated'),
     onSelect: action('selected'),
+    onDeselect: action('deselected'),
 };
 
 storiesOf('Lookup')

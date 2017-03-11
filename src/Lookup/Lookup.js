@@ -104,6 +104,10 @@ class Lookup extends Component {
          */
         onDeactivate: PropTypes.func,
         /**
+         * Event handler which fires upon the removal of an item from the results list
+         */
+        onDeselect: PropTypes.func,
+        /**
          * Event handler which fires upon the selection of an item from the results list
          */
         onSelect: PropTypes.func,
@@ -161,6 +165,8 @@ class Lookup extends Component {
         onActivate: () => {
         },
         onDeactivate: () => {
+        },
+        onDeselect: () => {
         },
         onSelect: () => {
         },
@@ -302,6 +308,7 @@ class Lookup extends Component {
             selectedItems: this.state.selectedItems
                 .filter(matchesOid(oid)),
         });
+        this.props.onDeselect(evt, oid);
     }
 
     handleTextFieldKeyDown(evt) {

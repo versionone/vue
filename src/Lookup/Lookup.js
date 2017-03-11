@@ -14,6 +14,7 @@ import transparent from './../utilities/Transparent';
 import {create} from './../utilities/Transitions';
 import {isDescendant} from './../utilities/dom';
 import * as Filters from './Filters';
+import * as KeyCodes from './../utilities/KeyCodes';
 
 const matchOn = (prop) => (valueToMatch) => (item) => item[prop] === valueToMatch;
 const matchOid = matchOn('oid');
@@ -182,7 +183,7 @@ class Lookup extends Component {
         this.handleItemSelection = this.handleItemSelection.bind(this);
         this.handleClosePopover = this.handleClosePopover.bind(this);
         this.handleChipRemove = this.handleChipRemove.bind(this);
-        this.handleTextFieldBlur = this.handleTextFieldBlur.bind(this);
+        this.handleTextFieldKeyDown = this.handleTextFieldKeyDown.bind(this);
         this.handleTextFieldFocus = this.handleTextFieldFocus.bind(this);
 
         this.setSelectedItem = this.setSelectedItem.bind(this);
@@ -303,9 +304,14 @@ class Lookup extends Component {
         });
     }
 
-    handleTextFieldBlur(evt) {
+    handleTextFieldKeyDown(evt) {
+        if (evt.keyCode !== KeyCodes.Tab) {
+            return;
+        }
         this.setState({
             open: false,
+        }, () => {
+            this.inputField.blur();
         });
         this.props.onDeactivate(evt);
     }
@@ -641,9 +647,9 @@ class Lookup extends Component {
                                 style={styles.input}
                                 type="text"
                                 value={searchText}
-                                onBlur={this.handleTextFieldBlur}
                                 onChange={this.handleChangeTextField}
                                 onFocus={this.handleTextFieldFocus}
+                                onKeyDown={this.handleTextFieldKeyDown}
                             />
                         </div>
                     </div>

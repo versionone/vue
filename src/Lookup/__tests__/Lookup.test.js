@@ -189,7 +189,7 @@ test('Lookup can select an item and render it as a Chip', () => {
     expect(firstListItemIsSelected(component, 'Testing 1')).toBeTruthy();
 });
 
-test('blurring the text field causes Lookup to deactivate', () => {
+test('tabbing the text field causes Lookup to deactivate', () => {
     const onDeactivate = jest.fn();
     component = mountLookup({
         dataSource: getBasicDataSource(),
@@ -197,7 +197,7 @@ test('blurring the text field causes Lookup to deactivate', () => {
         open: true,
         resultGroups: 'header',
     });
-    simulateBlur(component);
+    simulateTab(component);
     expect(onDeactivate).toHaveBeenCalledTimes(1);
 });
 
@@ -418,6 +418,8 @@ function lookupIsClosed(wrapper) {
 function simulateTextFocus(wrapper) {
     wrapper.find('input').simulate('focus');
 }
-function simulateBlur(wrapper) {
-    wrapper.find('input').simulate('blur');
+function simulateTab(wrapper) {
+    wrapper.find('input').simulate('keydown', {
+        keyCode: 9,
+    });
 }

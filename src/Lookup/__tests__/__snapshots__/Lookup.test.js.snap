@@ -101,9 +101,9 @@ exports[`test Lookup can provide custom render for selected text and items 1`] =
         }>
         <input
           data-radium={true}
-          onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
+          onKeyDown={[Function]}
           style={
             Object {
               "background": "rgba(0,0,0,0)",
@@ -262,9 +262,9 @@ exports[`test Lookup can render the selected item as a Chip and then be updated 
         }>
         <input
           data-radium={true}
-          onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
+          onKeyDown={[Function]}
           style={
             Object {
               "background": "rgba(0,0,0,0)",
@@ -272,7 +272,7 @@ exports[`test Lookup can render the selected item as a Chip and then be updated 
               "boxSizing": "border-box",
               "color": "#31363e",
               "cursor": "initial",
-              "fontFamily": "'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
+              "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
               "fontSize": "14px",
               "outline": "none",
               "padding": 0,
@@ -423,9 +423,9 @@ exports[`test Lookup can render the selected item as a Chip and then be updated 
         }>
         <input
           data-radium={true}
-          onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
+          onKeyDown={[Function]}
           style={
             Object {
               "background": "rgba(0,0,0,0)",
@@ -433,7 +433,7 @@ exports[`test Lookup can render the selected item as a Chip and then be updated 
               "boxSizing": "border-box",
               "color": "#31363e",
               "cursor": "initial",
-              "fontFamily": "'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
+              "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
               "fontSize": "14px",
               "outline": "none",
               "padding": 0,
@@ -560,9 +560,9 @@ exports[`test Lookup defaults to being closed 1`] = `
         }>
         <input
           data-radium={true}
-          onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
+          onKeyDown={[Function]}
           style={
             Object {
               "background": "rgba(0,0,0,0)",
@@ -697,9 +697,9 @@ exports[`test Lookup renders as a TextField when not open 1`] = `
         }>
         <input
           data-radium={true}
-          onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
+          onKeyDown={[Function]}
           style={
             Object {
               "background": "rgba(0,0,0,0)",
@@ -707,7 +707,7 @@ exports[`test Lookup renders as a TextField when not open 1`] = `
               "boxSizing": "border-box",
               "color": "#31363e",
               "cursor": "initial",
-              "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+              "fontFamily": "'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
               "fontSize": "14px",
               "outline": "none",
               "padding": 0,
@@ -858,9 +858,9 @@ exports[`test Lookup renders the explicitly set selected item as a Chip 1`] = `
         }>
         <input
           data-radium={true}
-          onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
+          onKeyDown={[Function]}
           style={
             Object {
               "background": "rgba(0,0,0,0)",
@@ -1019,9 +1019,9 @@ exports[`test Lookup renders the explicitly set selected item as a Chip 2`] = `
         }>
         <input
           data-radium={true}
-          onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
+          onKeyDown={[Function]}
           style={
             Object {
               "background": "rgba(0,0,0,0)",

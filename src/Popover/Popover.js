@@ -5,7 +5,7 @@ import {throttle} from 'underscore';
 import Radium from './../utilities/Radium';
 import RenderToLayer from './../internal/RenderToLayer';
 import ThemeProvider from './../ThemeProvider';
-import {adjustPosition, getPosition, getViewportPosition} from './../utilities/position';
+import {adjustPosition, getPosition} from './../utilities/position';
 import * as CustomPropTypes from './../utilities/CustomPropTypes';
 import * as Positions from './Positions';
 
@@ -23,7 +23,6 @@ const getTargetPosition = (targetElement) => ({
     top: 0,
     width: targetElement.offsetWidth,
 });
-const viewportPosition = getViewportPosition();
 
 class Popover extends Component {
     static propTypes = {

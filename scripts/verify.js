@@ -34,11 +34,11 @@ function versionIsGreaterOrEqual(desiredVersion, actualVersion) {
     return true;
 }
 
-function checkVersion(nodeVersion, npmVersion) {
+function checkVersion(nodeVersion, yarnVersion, npmVersion) {
     const desiredVersions = {
-        node: '4.4.0',
+        node: '6.10.0',
         npm: '3.0.0',
-        yarn: '0.18.1',
+        yarn: '0.20.3',
     };
 
     const errors = {
@@ -64,8 +64,8 @@ function checkVersion(nodeVersion, npmVersion) {
     errors.oldNode.message = errors.oldNode.getMessage(desiredVersions.node, nodeVersion);
 
     try {
-        // errors.oldYarn.isProblem = !versionIsGreaterOrEqual(desiredVersions.yarn, yarnVersion);
-        // errors.oldYarn.message = errors.oldYarn.getMessage(desiredVersions.yarn, yarnVersion);
+        errors.oldYarn.isProblem = !versionIsGreaterOrEqual(desiredVersions.yarn, yarnVersion);
+        errors.oldYarn.message = errors.oldYarn.getMessage(desiredVersions.yarn, yarnVersion);
     }
     catch (e) {
         errors.noYarn.isProblem = true;
@@ -82,22 +82,26 @@ function checkVersion(nodeVersion, npmVersion) {
 
         console.error(`There ${one ? 'is an issue' : 'are some issues'} with your system. It is quite likely that if you do not resolve these, you will have a hard time running this repository.
 ${errorMessage}`);
-        console.info('If you don\'t care about these warnings, go ahead and install dependencies with `npm install`');
+        console.info('If you don\'t care about these warnings, go ahead and install dependencies with `npm run setup`');
         console.info('Otherwise, please refer to the Prerequisites section of the README');
         process.exitCode = 1;
         return;
     }
-    // Thumbs up emoji is inside the space
-    console.info('👍  You are good to go!');
+    console.info('👍 You are good to go!');
     process.exitCode = 0;
 }
 
 // Run script
 const node = process.version;
-// const yarn = execSync('yarn --version')
-//     .toString()
-//     .trim();
+let yarn = null;
+try {
+    yarn = execSync('yarn --version')
+        .toString()
+        .trim();
+}
+catch (error) {
+}
 const npm = execSync('npm --version')
     .toString()
     .trim();
-checkVersion(node, npm);
+checkVersion(node, yarn, npm);

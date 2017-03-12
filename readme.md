@@ -1,30 +1,30 @@
-# Vue
+# V1-Vue
 VersionOne Vue is an open-source and community supported collection of common UI components built with React. As an open-sourced and community supported project, VersionOne Vue is not formally supported by VersionOne.
 
 ## Getting Started
+If you simply want to learn the API of a component, check out the [docs site](http://versionone.github.io/vue/release) for each major/minor release.
+
 ### Step 1: Prerequisites
-Required software:
+Run `npm run verify` in your console to see if you have the correct software versions required for Vue. If there are errors, then please ensure you have the following software installed:
 
-- **node@^4.4.0**
+- **node@^6.10.0**
     - *tests will not work with node@7.3 or node@7.4*
-- **npm@^3.0.0**
-
-You can run `npm run verify` to determine if you meet the above requirements. If you do not **and** have already attempted to run Vue, then you need to run the following commands: `rm -rf node_modules docs/node_modules` and `npm install npm@^3.0.0 -g`.
+- **yarn@^0.21.3**
 
 ### Step 2: Installing Dependencies
-Run `npm install`. If there is an error, see the [Prerequisites](#Step-1-Prerequisites) section.
+Run `yarn run setup`. If there is an error, see the [Prerequisites](#Step-1-Prerequisites) section.
 
-This is only required to be run either the **first** time running Vue on your machine **or** if new dependencies have been added (will produce an error when running the commands below).
+**NOTE**: This is only required to be run either the **first** time running Vue on your machine **or** if new dependencies have been added (will produce an error when running the commands below).
 
 ### Step 3: Running the Documentation Site Locally
-Run `npm start` and open your browser to **[http://localhost:3000](http://localhost:3000)**.
+Run `yarn start` and open your browser to **[http://localhost:3000](http://localhost:3000)**.
 
-If there is an error, try running `npm install` again.
+If there is an error, try running `yarn run setup` again.
 
 ### Step 4: Running Storybook Locally
-Run `npm run start:dev` and open your browser to **[http://localhost:9001](http://localhost:9001)**.
+Run `yarn run start:dev` and open your browser to **[http://localhost:9001](http://localhost:9001)**.
 
-If there is an error, try running `npm install` again.
+If there is an error, try running `yarn run setup` again.
 
 ## Developing and Testing with LifeCycle
 

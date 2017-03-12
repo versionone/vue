@@ -11,7 +11,7 @@
 !/docs
 !/specHelpers
 !/license.md
-!/npm-shrinkwrap.json
+!/yarn.lock
 
 ### Published github pages
 .out

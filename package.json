@@ -65,9 +65,9 @@
     }
   },
   "devDependencies": {
-    "@kadira/react-storybook-addon-info": "^3.0.3",
-    "@kadira/storybook": "^1.33.0",
-    "@kadira/storybook-deployer": "^1.0.0",
+    "@kadira/react-storybook-addon-info": "^3.3.0",
+    "@kadira/storybook": "^2.35.3",
+    "@kadira/storybook-deployer": "^1.2.0",
     "autoprefixer": "^6.3.6",
     "babel": "^6.5.2",
     "babel-cli": "^6.9.0",
@@ -93,6 +93,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-react": "^6.7.1",
     "eslint-watch": "^2.1.14",
+    "file-loader": "^0.10.1",
     "jest": "^18.1.0",
     "jsdom": "^9.2.1",
     "json-loader": "^0.5.4",

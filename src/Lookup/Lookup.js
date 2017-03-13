@@ -438,18 +438,18 @@ class Lookup extends Component {
                 boxSizing: 'border-box',
                 display: 'flex',
                 height: `${hintTextWrapperHeight}px`,
-                transition: create('250ms'),
                 padding: `${xxSmallGutter}px`,
-            },
-            root: {
-                display: 'flex',
-                width: computedWidth,
+                transition: create('250ms'),
             },
             resultsPaper: {
                 background: normalBackground,
                 border: `1px solid ${toRgbaString(darken(fieldBorderColor, darkenCoefficient))}`,
                 boxSizing: 'border-box',
                 width: `${width}px`,
+            },
+            root: {
+                display: 'flex',
+                width: computedWidth,
             },
             selectedItems: {
                 background: transparent,

@@ -1,17 +1,5 @@
 ### Repo-specific
-/*
-!/src
-!/packages
-!/.*
 /.idea
-!/package.json
-!/readme.md
-!/scripts
-!/*.js
-!/docs
-!/specHelpers
-!/license.md
-!/npm-shrinkwrap.json
 
 ### Published github pages
 .out

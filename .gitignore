@@ -8,6 +8,7 @@
 !/readme.md
 !/scripts
 !/*.js
+/index.js
 !/docs
 !/specHelpers
 !/license.md

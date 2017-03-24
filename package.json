@@ -115,8 +115,7 @@
     "classnames": "^2.2.5",
     "radium": "^0.18.1",
     "react": "^15.1.0",
-    "react-dom": "^15.1.0",
-    "underscore": "^1.8.3"
+    "react-dom": "^15.1.0"
   },
   "optionalDependencies": {
     "fsevents": "*"
@@ -125,6 +124,7 @@
     "@andrew-codes/color-functions": "^1.4.2",
     "classnames": "^2.2.5",
     "invariant": "^2.2.1",
+    "lodash.isempty": "^4.4.0",
     "radium": "^0.18.1",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
@@ -133,7 +133,6 @@
     "redux": "^3.6.0",
     "redux-ui": "^0.0.15",
     "scroll-into-view": "^1.7.4",
-    "underscore": "^1.8.3",
     "warning": "^3.0.0"
   },
   "jest": {

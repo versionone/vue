@@ -125,6 +125,7 @@
     "classnames": "^2.2.5",
     "invariant": "^2.2.1",
     "lodash.isempty": "^4.4.0",
+    "lodash.throttle": "^4.1.1",
     "radium": "^0.18.1",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",

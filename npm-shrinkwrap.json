@@ -4143,6 +4143,11 @@
       "resolved": "https://registry.npmjs.org/lodash.templatesettings/-/lodash.templatesettings-3.1.1.tgz",
       "dev": true
     },
+    "lodash.throttle": {
+      "version": "4.1.1",
+      "from": "lodash.throttle@latest",
+      "resolved": "https://registry.npmjs.org/lodash.throttle/-/lodash.throttle-4.1.1.tgz"
+    },
     "lodash.uniq": {
       "version": "4.5.0",
       "from": "lodash.uniq@>=4.3.0 <5.0.0",

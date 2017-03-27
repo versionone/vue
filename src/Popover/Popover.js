@@ -1,7 +1,7 @@
 import EventListener from 'react-event-listener';
 import React, {Component, PropTypes} from 'react';
 import {findDOMNode} from 'react-dom';
-import {throttle} from 'underscore';
+import throttle from 'lodash.throttle';
 import Radium from './../utilities/Radium';
 import RenderToLayer from './../internal/RenderToLayer';
 import ThemeProvider from './../ThemeProvider';

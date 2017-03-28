@@ -43,5 +43,8 @@ cd ../Core/VersionOne.Web
 ../npm unlink v1-vue
 ```
 
+## Publishing
+See the [publishing guide](https://github.com/versionone/vue/wiki/Publishing-Vue) for publishing instructions.
+
 ## Other Resources
 [LICENSE.md](./license.md) - License for source code and redistribution

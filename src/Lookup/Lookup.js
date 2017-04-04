@@ -1,7 +1,7 @@
 // TODO: Fix the instances in this file that break the rule below and remove the disabling of this rule for this file.
 /* eslint-disable no-underscore-dangle */
 import React, {Component, PropTypes} from 'react';
-import _ from 'underscore';
+import isEmpty from 'lodash.isempty';
 import {darken, toRgbaString} from '@andrew-codes/color-functions';
 import Chip from './../Chip';
 import HintText from './../internal/HintText';
@@ -483,7 +483,7 @@ class Lookup extends Component {
             smallFontSize,
         } = this.context.theme;
 
-        if (_.isEmpty(selectedItems)) {
+        if (isEmpty(selectedItems)) {
             return undefined;
         }
 
@@ -600,7 +600,7 @@ class Lookup extends Component {
         const {
             normalBackground,
         } = this.context.theme;
-        const isHintTextHidden = Boolean(searchText) || !_.isEmpty(selectedItems);
+        const isHintTextHidden = Boolean(searchText) || !isEmpty(selectedItems);
         const styles = this.getStyles();
 
         return (

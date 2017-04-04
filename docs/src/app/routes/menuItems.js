@@ -1,11 +1,10 @@
 import pages from './../../../pagesMeta';
 import componentMeta from './../../../componentPagesMeta';
 import camelCase from 'camelcase';
-import _ from 'underscore';
 
 const isInMenuCategory = (category) => (page) => page.menuCategory === category;
 
-export default _.unique(pages.map((page) => page.menuCategory))
+export default [...new Set(pages.map((page) => page.menuCategory))]
     .map((menuCategory) => ({
         path: 'page',
         meta: {

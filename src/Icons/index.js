@@ -10,6 +10,8 @@ import CheckboxUncheckedIconComponent from './CheckboxUncheckedIcon';
 export const CheckboxUncheckedIcon = CheckboxUncheckedIconComponent;
 import ChevronDownIconComponent from './ChevronDownIcon';
 export const ChevronDownIcon = ChevronDownIconComponent;
+import ChevronRightIconComponent from './ChevronRightIcon';
+export const ChevronRightIcon = ChevronRightIconComponent;
 import CloseIconComponent from './CloseIcon';
 export const CloseIcon = CloseIconComponent;
 import FilterIconComponent from './FilterIcon';

@@ -76,10 +76,13 @@ class RenderToLayer extends Component {
         if (!this.layer) {
             return;
         }
-        removeEventListener('click', this.handleClickAway);
-        unmountComponentAtNode(this.layer);
-        document.body.removeChild(this.layer);
-        this.layer = null;
+
+        setTimeout(() => {
+            removeEventListener('click', this.handleClickAway);
+            unmountComponentAtNode(this.layer);
+            document.body.removeChild(this.layer);
+            this.layer = null;
+        }, 0);
     }
 
     handleClickAway(evt) {

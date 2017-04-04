@@ -103,13 +103,18 @@ var RenderToLayer = function (_Component) {
     }, {
         key: 'unrenderLayer',
         value: function unrenderLayer() {
+            var _this3 = this;
+
             if (!this.layer) {
                 return;
             }
-            removeEventListener('click', this.handleClickAway);
-            (0, _reactDom.unmountComponentAtNode)(this.layer);
-            document.body.removeChild(this.layer);
-            this.layer = null;
+
+            setTimeout(function () {
+                removeEventListener('click', _this3.handleClickAway);
+                (0, _reactDom.unmountComponentAtNode)(_this3.layer);
+                document.body.removeChild(_this3.layer);
+                _this3.layer = null;
+            }, 0);
         }
     }, {
         key: 'handleClickAway',

@@ -12,9 +12,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _underscore = require('underscore');
+var _lodash = require('lodash.isempty');
 
-var _underscore2 = _interopRequireDefault(_underscore);
+var _lodash2 = _interopRequireDefault(_lodash);
 
 var _colorFunctions = require('@andrew-codes/color-functions');
 
@@ -424,7 +424,7 @@ var Lookup = function (_Component) {
             var smallFontSize = this.context.theme.smallFontSize;
 
 
-            if (_underscore2.default.isEmpty(selectedItems)) {
+            if ((0, _lodash2.default)(selectedItems)) {
                 return undefined;
             }
 
@@ -546,7 +546,7 @@ var Lookup = function (_Component) {
                 open = _state2.open;
             var normalBackground = this.context.theme.normalBackground;
 
-            var isHintTextHidden = Boolean(searchText) || !_underscore2.default.isEmpty(selectedItems);
+            var isHintTextHidden = Boolean(searchText) || !(0, _lodash2.default)(selectedItems);
             var styles = this.getStyles();
 
             return _react2.default.createElement(

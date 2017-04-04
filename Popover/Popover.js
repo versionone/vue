@@ -16,7 +16,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactDom = require('react-dom');
 
-var _underscore = require('underscore');
+var _lodash = require('lodash.throttle');
+
+var _lodash2 = _interopRequireDefault(_lodash);
 
 var _Radium = require('./../utilities/Radium');
 
@@ -86,8 +88,8 @@ var Popover = function (_Component) {
             open: _this.props.open
         };
         _this.setPlacement = _this.setPlacement.bind(_this);
-        _this.handleResize = (0, _underscore.throttle)(_this.setPlacement.bind(_this, false), resizeThrottleValue);
-        _this.handleScroll = (0, _underscore.throttle)(_this.setPlacement.bind(_this, true), scrollThrottleValue);
+        _this.handleResize = (0, _lodash2.default)(_this.setPlacement.bind(_this, false), resizeThrottleValue);
+        _this.handleScroll = (0, _lodash2.default)(_this.setPlacement.bind(_this, true), scrollThrottleValue);
         _this.renderLayer = _this.renderLayer.bind(_this);
         _this.handleComponentClickAway = _this.handleComponentClickAway.bind(_this);
         _this.autoCloseWhenOffScreen = _this.autoCloseWhenOffScreen.bind(_this);

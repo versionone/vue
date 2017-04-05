@@ -36,7 +36,7 @@ exports.default = {
     mediumFontSize: 16,
     normalBackground: colors.white,
     normalLineHeight: 1.285,
-    normalRadius: 3,
+    normalRadius: 6,
     requiredPrimaryColor: colors.sunset,
     pendingPrimaryColor: colors.yellowAccent,
     smallFontSize: 14,

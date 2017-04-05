@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.FilterIcon = exports.CloseIcon = exports.ChevronDownIcon = exports.CheckboxUncheckedIcon = exports.CheckboxCheckedIcon = exports.CheckIcon = exports.ArrowRightIcon = exports.AddIcon = undefined;
+exports.FilterIcon = exports.CloseIcon = exports.ChevronRightIcon = exports.ChevronDownIcon = exports.CheckboxUncheckedIcon = exports.CheckboxCheckedIcon = exports.CheckIcon = exports.ArrowRightIcon = exports.AddIcon = undefined;
 
 var _AddIcon = require('./AddIcon');
 
@@ -29,6 +29,10 @@ var _ChevronDownIcon = require('./ChevronDownIcon');
 
 var _ChevronDownIcon2 = _interopRequireDefault(_ChevronDownIcon);
 
+var _ChevronRightIcon = require('./ChevronRightIcon');
+
+var _ChevronRightIcon2 = _interopRequireDefault(_ChevronRightIcon);
+
 var _CloseIcon = require('./CloseIcon');
 
 var _CloseIcon2 = _interopRequireDefault(_CloseIcon);
@@ -45,5 +49,6 @@ var CheckIcon = exports.CheckIcon = _CheckIcon2.default;
 var CheckboxCheckedIcon = exports.CheckboxCheckedIcon = _CheckboxCheckedIcon2.default;
 var CheckboxUncheckedIcon = exports.CheckboxUncheckedIcon = _CheckboxUncheckedIcon2.default;
 var ChevronDownIcon = exports.ChevronDownIcon = _ChevronDownIcon2.default;
+var ChevronRightIcon = exports.ChevronRightIcon = _ChevronRightIcon2.default;
 var CloseIcon = exports.CloseIcon = _CloseIcon2.default;
 var FilterIcon = exports.FilterIcon = _FilterIcon2.default;

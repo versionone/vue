@@ -87,7 +87,8 @@ var RenderToLayer = function (_Component) {
 
             var _props = this.props,
                 open = _props.open,
-                render = _props.render;
+                render = _props.render,
+                onRendered = _props.onRendered;
 
             if (!open) {
                 this.unrenderLayer();
@@ -98,7 +99,8 @@ var RenderToLayer = function (_Component) {
             setTimeout(function () {
                 addEventListener('click', _this2.handleClickAway);
             }, immediateTimeOutValue);
-            this.layerElement = (0, _reactDom.unstable_renderSubtreeIntoContainer)(this, render(), layer);
+
+            this.layerElement = (0, _reactDom.unstable_renderSubtreeIntoContainer)(this, render(), layer, onRendered);
         }
     }, {
         key: 'unrenderLayer',
@@ -149,6 +151,7 @@ RenderToLayer.contextTypes = {
 };
 process.env.NODE_ENV !== "production" ? RenderToLayer.propTypes = {
     onComponentClickAway: _react.PropTypes.func,
+    onRendered: _react.PropTypes.func,
     open: _react.PropTypes.bool.isRequired,
     render: _react.PropTypes.func.isRequired
 } : void 0;

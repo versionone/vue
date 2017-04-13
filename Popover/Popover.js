@@ -59,13 +59,13 @@ var centerAlignmentDivisor = 2;
 var getTargetPosition = function getTargetPosition(targetElement) {
     return {
         bottom: targetElement.offsetHeight,
-        center: targetElement.offsetWidth / centerAlignmentDivisor,
+        center: targetElement.scrollWidth / centerAlignmentDivisor,
         height: targetElement.offsetHeight,
         left: 0,
         middle: targetElement.offsetHeight / centerAlignmentDivisor,
-        right: targetElement.offsetWidth,
+        right: targetElement.scrollWidth,
         top: 0,
-        width: targetElement.offsetWidth
+        width: targetElement.scrollWidth
     };
 };
 
@@ -88,6 +88,7 @@ var Popover = function (_Component) {
             open: _this.props.open
         };
         _this.setPlacement = _this.setPlacement.bind(_this);
+        _this.handleRendered = _this.handleRendered.bind(_this);
         _this.handleResize = (0, _lodash2.default)(_this.setPlacement.bind(_this, false), resizeThrottleValue);
         _this.handleScroll = (0, _lodash2.default)(_this.setPlacement.bind(_this, true), scrollThrottleValue);
         _this.renderLayer = _this.renderLayer.bind(_this);
@@ -120,11 +121,6 @@ var Popover = function (_Component) {
             });
         }
     }, {
-        key: 'componentDidUpdate',
-        value: function componentDidUpdate() {
-            this.setPlacement();
-        }
-    }, {
         key: 'componentWillUnmount',
         value: function componentWillUnmount() {
             this.handleResize = null;
@@ -141,7 +137,7 @@ var Popover = function (_Component) {
                 targetOrigin = _props.targetOrigin;
 
 
-            if (!open) {
+            if (!open || !this.layer) {
                 return;
             }
 
@@ -168,6 +164,11 @@ var Popover = function (_Component) {
             targetElement.style.maxHeight = window.innerHeight + 'px';
             targetElement.style.top = Math.max(offScreenThresholdValue, adjustedPosition.top) + 'px';
             targetElement.style.width = adjustedPosition.width + 'px';
+        }
+    }, {
+        key: 'handleRendered',
+        value: function handleRendered() {
+            this.setPlacement();
         }
     }, {
         key: 'renderLayer',
@@ -229,7 +230,8 @@ var Popover = function (_Component) {
                         _this2.layer = el;
                     },
                     render: this.renderLayer,
-                    onComponentClickAway: this.handleComponentClickAway
+                    onComponentClickAway: this.handleComponentClickAway,
+                    onRendered: this.handleRendered
                 })
             );
         }

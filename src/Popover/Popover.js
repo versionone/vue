@@ -15,13 +15,13 @@ const offScreenThresholdValue = 0;
 const centerAlignmentDivisor = 2;
 const getTargetPosition = (targetElement) => ({
     bottom: targetElement.offsetHeight,
-    center: targetElement.offsetWidth / centerAlignmentDivisor,
+    center: targetElement.scrollWidth / centerAlignmentDivisor,
     height: targetElement.offsetHeight,
     left: 0,
     middle: targetElement.offsetHeight / centerAlignmentDivisor,
-    right: targetElement.offsetWidth,
+    right: targetElement.scrollWidth,
     top: 0,
-    width: targetElement.offsetWidth,
+    width: targetElement.scrollWidth,
 });
 
 class Popover extends Component {

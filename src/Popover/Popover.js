@@ -80,6 +80,7 @@ class Popover extends Component {
             open: this.props.open,
         };
         this.setPlacement = this.setPlacement.bind(this);
+        this.handleRendered = this.handleRendered.bind(this);
         this.handleResize = throttle(this.setPlacement.bind(this, false), resizeThrottleValue);
         this.handleScroll = throttle(this.setPlacement.bind(this, true), scrollThrottleValue);
         this.renderLayer = this.renderLayer.bind(this);
@@ -108,10 +109,6 @@ class Popover extends Component {
         });
     }
 
-    componentDidUpdate() {
-        this.setPlacement();
-    }
-
     componentWillUnmount() {
         this.handleResize = null;
         this.handleScroll = null;
@@ -126,7 +123,7 @@ class Popover extends Component {
             targetOrigin,
         } = this.props;
 
-        if (!open) {
+        if (!open || !this.layer) {
             return;
         }
 
@@ -153,6 +150,10 @@ class Popover extends Component {
         targetElement.style.maxHeight = `${window.innerHeight}px`;
         targetElement.style.top = `${Math.max(offScreenThresholdValue, adjustedPosition.top)}px`;
         targetElement.style.width = `${adjustedPosition.width}px`;
+    }
+
+    handleRendered() {
+        this.setPlacement();
     }
 
     renderLayer() {
@@ -215,6 +216,7 @@ class Popover extends Component {
                     }}
                     render={this.renderLayer}
                     onComponentClickAway={this.handleComponentClickAway}
+                    onRendered={this.handleRendered}
                 />
             </div>
         );

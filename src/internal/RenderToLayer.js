@@ -9,6 +9,7 @@ const immediateTimeOutValue = 0;
 class RenderToLayer extends Component {
     static propTypes = {
         onComponentClickAway: PropTypes.func,
+        onRendered: PropTypes.func,
         open: PropTypes.bool.isRequired,
         render: PropTypes.func.isRequired,
     };
@@ -59,6 +60,7 @@ class RenderToLayer extends Component {
         const {
             open,
             render,
+            onRendered,
         } = this.props;
         if (!open) {
             this.unrenderLayer();
@@ -69,7 +71,8 @@ class RenderToLayer extends Component {
         setTimeout(() => {
             addEventListener('click', this.handleClickAway);
         }, immediateTimeOutValue);
-        this.layerElement = unstable_renderSubtreeIntoContainer(this, render(), layer);
+
+        this.layerElement = unstable_renderSubtreeIntoContainer(this, render(), layer, onRendered);
     }
 
     unrenderLayer() {

@@ -4,7 +4,7 @@ exports[`test it can render as full width 1`] = `
   style={
     Object {
       "backgroundColor": "#ccc",
-      "borderRadius": "3px",
+      "borderRadius": "6px",
       "boxSizing": "border-box",
       "color": "#000",
       "display": "flex",
@@ -60,7 +60,7 @@ exports[`test it can render text in the Chip 1`] = `
   style={
     Object {
       "backgroundColor": "#ccc",
-      "borderRadius": "3px",
+      "borderRadius": "6px",
       "boxSizing": "border-box",
       "color": "#000",
       "display": "flex",

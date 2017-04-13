@@ -58,6 +58,77 @@ class PopoverDemo extends Component {
     }
 }
 
+class PopoverDemoWithLongTextWidth extends Component {
+    constructor() {
+        super(...arguments);
+        this.state = {
+            newItem: false,
+        };
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+        this.setState({
+            newItem: true,
+        });
+    }
+
+    render() {
+        return (
+            <div>
+                <span
+                    ref={(el) => {
+                        this.anchor = el;
+                    }}
+                    onClick={this.handleClick}
+                >Anchor</span>
+                <Popover
+                    anchorElement={this.anchor}
+                    anchorOrigin={{
+                        horizontal: 'left',
+                        vertical: 'bottom'
+                    }}
+                    open
+                    targetOrigin={{
+                        horizontal: 'left',
+                        vertical: 'top'
+                    }}
+                >
+                    <div style={{
+                        background: 'white',
+                        minWidth: '100px',
+                    }}>
+                        <div style={{
+                            alignItems: 'center',
+                            alignSelf: 'stretch',
+                            display: 'flex',
+                        }}>
+                            <span style={{
+                                flex: 'auto',
+                            }}>
+                            rindfleischetikettierungsüberwachungsaufgabenübertragungsgesetz
+                            </span>
+                        </div>
+                        {this.state.newItem && (
+                            <div style={{
+                                alignItems: 'center',
+                                alignSelf: 'stretch',
+                                display: 'flex',
+                            }}>
+                                <span style={{
+                                    flex: 'auto',
+                                }}>
+                                    rindfleischetikettierungsüberwachungsaufgabenübertragungsgesetzGetOffMyLawnYouYoungWhipperSnappers
+                                </span>
+                            </div>
+                        )}
+                    </div>
+                </Popover>
+            </div>
+        );
+    }
+}
+
 storiesOf('Popover')
     .addWithInfo('simple popover over content',
         ``,
@@ -178,5 +249,11 @@ storiesOf('Popover')
                     vertical: 'top'
                 }}
             />
+        )
+    )
+    .addWithInfo('long text with min-width',
+        ``,
+        () => (
+            <PopoverDemoWithLongTextWidth />
         )
     );

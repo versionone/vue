@@ -1,4 +1,9 @@
+/* eslint-disable import/first */
+jest.mock('react-dom');
+
 import React from 'react';
+/* eslint-disable camelcase */
+import {unstable_renderSubtreeIntoContainer} from 'react-dom';
 import RenderToLayer from '../RenderToLayer';
 import {getMount, reset} from './../../../specHelpers/rendering';
 
@@ -19,12 +24,15 @@ test('rendering to layer does not render contents of render function when open i
 
 test('render to layer does render contents of render function when open is true', () => {
     const render = jest.fn();
-    render.mockReturnValue(<div>Rendered</div>);
+    const content = <div>Rendered</div>;
+
+    render.mockReturnValue(content);
     mountRenderToLayer({
         open: true,
         render,
     });
-    expect(layerIsRendered('Rendered')).toBeTruthy();
+
+    expect(unstable_renderSubtreeIntoContainer.mock.calls[0][1]).toEqual(content);
 });
 
 test('unmounting RenderToLayer removes the rendered layer', () => {
@@ -107,7 +115,31 @@ test('clicking within the rendered layer will not fire the onComponentClickAway 
     };
     jest.runAllTimers();
     simulateClickAway(mappedEventHandlers, evt);
-    expect(handleClickAway).not.toHaveBeenCalledTimes(1);
+    expect(handleClickAway).not.toHaveBeenCalled();
+});
+
+
+test('onRendered is invoked after rendering has completed', () => {
+    const render = jest.fn();
+    const handleRendered = jest.fn();
+    const renderedLayer = (
+        <ul>
+            <li>Item</li>
+        </ul>
+    );
+    render.mockReturnValue(renderedLayer);
+
+    unstable_renderSubtreeIntoContainer.mockImplementation(function subtreeRenderCallback(_1, _2, _3, callback) {
+        callback();
+    });
+
+    component = mountRenderToLayer({
+        onRendered: handleRendered,
+        open: true,
+        render,
+    });
+
+    expect(handleRendered).toHaveBeenCalledTimes(1);
 });
 
 // ---

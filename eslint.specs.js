@@ -40,6 +40,7 @@ module.exports = {
                 minProperties: 1,
             },
         ],
+        'prefer-arrow-callback': 1,
         'react/no-did-mount-set-state': 0,
     },
     settings: {

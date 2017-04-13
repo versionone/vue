@@ -14,7 +14,7 @@ exports[`test TextField can be disabled 1`] = `
       Object {
         "background": "#ffffff",
         "border": "1px solid rgba(0,0,0,0.26)",
-        "borderRadius": 3,
+        "borderRadius": 6,
         "boxShadow": "none",
         "boxSizing": "border-box",
         "height": "25px",
@@ -92,7 +92,7 @@ exports[`test TextField renders with a height when there is no hint text, defaul
       Object {
         "background": "#ffffff",
         "border": "1px solid #878c94",
-        "borderRadius": 3,
+        "borderRadius": 6,
         "boxShadow": "none",
         "boxSizing": "border-box",
         "height": "25px",
@@ -170,7 +170,7 @@ exports[`test TextFields auto-expands its height to accommodate hint text that i
       Object {
         "background": "#ffffff",
         "border": "1px solid #878c94",
-        "borderRadius": 3,
+        "borderRadius": 6,
         "boxShadow": "none",
         "boxSizing": "border-box",
         "height": "59px",
@@ -248,7 +248,7 @@ exports[`test TextFields auto-expands its height to accommodate hint text that i
       Object {
         "background": "rgba(255,208,199,1)",
         "border": "1px solid #d52101",
-        "borderRadius": 3,
+        "borderRadius": 6,
         "boxShadow": "0 0 2px 2px rgba(255,208,199,1)",
         "boxSizing": "border-box",
         "height": "59px",
@@ -363,7 +363,7 @@ exports[`test TextFields auto-expands its height to accommodate hint text that i
         Object {
           "background": "#ffffff",
           "border": "1px solid #878c94",
-          "borderRadius": 3,
+          "borderRadius": 6,
           "boxShadow": "none",
           "boxSizing": "border-box",
           "height": "25px",
@@ -468,7 +468,7 @@ exports[`test TextFields can be marked as required 1`] = `
       Object {
         "background": "#ffffff",
         "border": "1px solid #878c94",
-        "borderRadius": 3,
+        "borderRadius": 6,
         "boxShadow": "none",
         "boxSizing": "border-box",
         "height": "25px",
@@ -557,7 +557,7 @@ exports[`test TextFields can be styled as pending 1`] = `
       Object {
         "background": "#FFF4A3",
         "border": "1px solid #878c94",
-        "borderRadius": 3,
+        "borderRadius": 6,
         "boxShadow": "none",
         "boxSizing": "border-box",
         "height": "25px",
@@ -635,7 +635,7 @@ exports[`test TextFields can have a specified width 1`] = `
       Object {
         "background": "#ffffff",
         "border": "1px solid #878c94",
-        "borderRadius": 3,
+        "borderRadius": 6,
         "boxShadow": "none",
         "boxSizing": "border-box",
         "height": "25px",
@@ -713,7 +713,7 @@ exports[`test TextFields can have an error message and styled as having an error
       Object {
         "background": "rgba(255,208,199,1)",
         "border": "1px solid #d52101",
-        "borderRadius": 3,
+        "borderRadius": 6,
         "boxShadow": "0 0 2px 2px rgba(255,208,199,1)",
         "boxSizing": "border-box",
         "height": "25px",
@@ -806,7 +806,7 @@ exports[`test TextFields can render as full width; ignoring any width prop value
       Object {
         "background": "#ffffff",
         "border": "1px solid #878c94",
-        "borderRadius": 3,
+        "borderRadius": 6,
         "boxShadow": "none",
         "boxSizing": "border-box",
         "height": "25px",
@@ -884,7 +884,7 @@ exports[`test TextFields can render with a default value 1`] = `
       Object {
         "background": "#ffffff",
         "border": "1px solid #878c94",
-        "borderRadius": 3,
+        "borderRadius": 6,
         "boxShadow": "none",
         "boxSizing": "border-box",
         "height": "25px",
@@ -962,7 +962,7 @@ exports[`test TextFields can render with an explicit value 1`] = `
       Object {
         "background": "#ffffff",
         "border": "1px solid #878c94",
-        "borderRadius": 3,
+        "borderRadius": 6,
         "boxShadow": "none",
         "boxSizing": "border-box",
         "height": "25px",
@@ -1041,7 +1041,7 @@ exports[`test TextFields only display hint text when there is no value or defaul
       Object {
         "background": "#ffffff",
         "border": "1px solid #878c94",
-        "borderRadius": 3,
+        "borderRadius": 6,
         "boxShadow": "none",
         "boxSizing": "border-box",
         "height": "25px",
@@ -1119,7 +1119,7 @@ exports[`test TextFields only display hint text when there is no value or defaul
       Object {
         "background": "#ffffff",
         "border": "1px solid #878c94",
-        "borderRadius": 3,
+        "borderRadius": 6,
         "boxShadow": "none",
         "boxSizing": "border-box",
         "height": "25px",
@@ -1198,7 +1198,7 @@ exports[`test TextFields only display hint text when there is no value or defaul
       Object {
         "background": "#ffffff",
         "border": "1px solid #878c94",
-        "borderRadius": 3,
+        "borderRadius": 6,
         "boxShadow": "none",
         "boxSizing": "border-box",
         "height": "25px",
@@ -1276,7 +1276,7 @@ exports[`test TextFields only display hint text when there is no value or defaul
       Object {
         "background": "#ffffff",
         "border": "1px solid #878c94",
-        "borderRadius": 3,
+        "borderRadius": 6,
         "boxShadow": "none",
         "boxSizing": "border-box",
         "height": "25px",
@@ -1355,7 +1355,7 @@ exports[`test TextFields respond to blur events and lose their focused styling w
       Object {
         "background": "#ffffff",
         "border": "1px solid #878c94",
-        "borderRadius": 3,
+        "borderRadius": 6,
         "boxShadow": "none",
         "boxSizing": "border-box",
         "height": "25px",
@@ -1433,7 +1433,7 @@ exports[`test TextFields respond to focus events and styled as focused 1`] = `
       Object {
         "background": "#ffffff",
         "border": "1px solid #878c94",
-        "borderRadius": 3,
+        "borderRadius": 6,
         "boxShadow": "0 0 2px 2px rgba(0,169,224,0.5)",
         "boxSizing": "border-box",
         "height": "25px",
@@ -1511,7 +1511,7 @@ exports[`test TextFields will renders with a default width when no width is spec
       Object {
         "background": "#ffffff",
         "border": "1px solid #878c94",
-        "borderRadius": 3,
+        "borderRadius": 6,
         "boxShadow": "none",
         "boxSizing": "border-box",
         "height": "25px",
@@ -1589,7 +1589,7 @@ exports[`test TextFields will show the required indicator inside of the textbox 
       Object {
         "background": "#ffffff",
         "border": "1px solid #878c94",
-        "borderRadius": 3,
+        "borderRadius": 6,
         "boxShadow": "none",
         "boxSizing": "border-box",
         "height": "25px",

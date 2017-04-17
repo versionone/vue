@@ -13,7 +13,7 @@
     "clean": "node ./scripts/clean.js",
     "build:icons": "node ./packages/v1-icon-builder/src/build.js --svgDir=./packages/v1-icons/src --outputDir=./src/Icons",
     "prebuild": "npm run clean && npm run build:icons",
-    "build": "cross-env NODE_ENV=release node_modules/.bin/babel src --ignore Stories.js,*.test.js,_meta.js,examples/*.* --out-dir ./",
+    "build": "cross-env NODE_ENV=release babel src --ignore Stories.js,*.test.js,_meta.js,examples/*.* --out-dir ./",
     "test:packages:v1-icon-builder": "cd packages/v1-icon-builder && npm test && cd ../../",
     "test": "jest",
     "test:all": "npm test && npm run test:packages:v1-icon-builder",

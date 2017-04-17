@@ -65,6 +65,7 @@ exports[`test Enter key selects the current highlighted item when list is active
           }
         }>
         <EventListener
+          capture={false}
           onKeyDown={[Function]}
           onKeyUp={[Function]}
           target="window" />
@@ -205,6 +206,7 @@ exports[`test Holding the down arrow key moves highlighted item down to next hig
           }
         }>
         <EventListener
+          capture={false}
           onKeyDown={[Function]}
           onKeyUp={[Function]}
           target="window" />
@@ -409,6 +411,7 @@ exports[`test Holding the up arrow key moves highlighted item up to next highlig
           }
         }>
         <EventListener
+          capture={false}
           onKeyDown={[Function]}
           onKeyUp={[Function]}
           target="window" />
@@ -667,6 +670,7 @@ exports[`test List can render ListItems with scroll bar 1`] = `
           }
         }>
         <EventListener
+          capture={false}
           onKeyDown={[Function]}
           onKeyUp={[Function]}
           target="window" />

@@ -65,7 +65,7 @@
     }
   },
   "devDependencies": {
-    "@kadira/react-storybook-addon-info": "^3.0.3",
+    "@kadira/react-storybook-addon-info": "3.2.1",
     "@kadira/storybook": "^1.33.0",
     "@kadira/storybook-deployer": "^1.0.0",
     "autoprefixer": "^6.3.6",
@@ -101,7 +101,9 @@
     "postcss-loader": "^0.9.1",
     "precss": "^1.4.0",
     "raw-loader": "^0.5.1",
-    "react-addons-test-utils": "^15.1.0",
+    "react-addons-create-fragment": "15.1.0",
+    "react-addons-shallow-compare": "15.1.0",
+    "react-addons-test-utils": "15.0.0-rc.2",
     "react-hot-loader": "^1.3.0",
     "react-storybook-addon-add-stories-group": "^0.1.0",
     "rimraf": "^2.5.2",
@@ -110,12 +112,6 @@
     "style-loader": "^0.13.1",
     "wallaby-webpack": "0.0.22",
     "webpack": "^1.13.1"
-  },
-  "peerDependencies": {
-    "classnames": "^2.2.5",
-    "radium": "^0.18.1",
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0"
   },
   "optionalDependencies": {
     "fsevents": "*"
@@ -127,12 +123,12 @@
     "lodash.isempty": "^4.4.0",
     "lodash.throttle": "^4.1.1",
     "radium": "^0.18.1",
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0",
-    "react-event-listener": "^0.4.0",
-    "react-redux": "^5.0.2",
-    "redux": "^3.6.0",
-    "redux-ui": "^0.0.15",
+    "react": "15.1.0",
+    "react-dom": "15.1.0",
+    "react-event-listener": "0.2.1",
+    "react-redux": "4.4.5",
+    "redux": "3.5.2",
+    "redux-ui": "0.0.15",
     "scroll-into-view": "^1.7.4",
     "warning": "^3.0.0"
   },

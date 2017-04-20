@@ -1,8 +1,8 @@
 import * as dimensions from './../dimensions';
 
 test('throws error when no value is specified', () => {
-    expect(()=> dimenions.getValue()).toThrow();
-    expect(()=> dimenions.getUnit()).toThrow();
+    expect(() => dimensions.getValue()).toThrow('Value is null or undefined');
+    expect(() => dimensions.getUnit()).toThrow('Value is null or undefined');
 });
 
 test('valid dimension values can be retrieved', () => {

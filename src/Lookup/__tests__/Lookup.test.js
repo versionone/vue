@@ -4,6 +4,13 @@ import Lookup from './../Lookup';
 import {getMount, getShallow, reset, snapshot} from './../../../specHelpers/rendering';
 
 jest.useFakeTimers();
+beforeEach(() => {
+    window.getComputedStyle = jest.fn()
+        .mockReturnValue({
+            borderLeftWidth: '0px',
+            borderRightWidth: '0px',
+        });
+});
 const mountLookup = getMount(Lookup);
 const shallowRenderLookup = getShallow(Lookup);
 
@@ -64,8 +71,9 @@ test('Lookup can have a set widths', () => {
 });
 
 test('Lookup can be set to be full width', () => {
-    window.getComputedStyle = jest.fn();
     window.getComputedStyle.mockReturnValue({
+        borderLeftWidth: '0px',
+        borderRightWidth: '0px',
         width: '600px',
     });
     component = mountLookup({
@@ -78,8 +86,9 @@ test('Lookup can be set to be full width', () => {
 });
 
 test('Lookup can be set to a width, then updated to be full width', () => {
-    window.getComputedStyle = jest.fn();
     window.getComputedStyle.mockReturnValue({
+        borderLeftWidth: '0px',
+        borderRightWidth: '0px',
         width: '500px',
     });
     component = mountLookup({

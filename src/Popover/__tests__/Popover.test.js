@@ -1,6 +1,12 @@
 import Popover from './../Popover';
 import {getMount, reset} from './../../../specHelpers/rendering';
 
+window.getComputedStyle = jest.fn()
+    .mockReturnValue({
+        borderLeftWidth: '0px',
+        borderRightWidth: '0px',
+    });
+
 afterEach(reset());
 const mountPopover = getMount(Popover);
 

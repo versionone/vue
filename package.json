@@ -119,6 +119,7 @@
   "dependencies": {
     "@andrew-codes/color-functions": "^1.4.2",
     "classnames": "^2.2.5",
+    "css-strip-units": "^1.0.0",
     "invariant": "^2.2.1",
     "lodash.isempty": "^4.4.0",
     "lodash.throttle": "^4.1.1",

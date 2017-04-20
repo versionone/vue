@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import {storiesOf} from '@kadira/storybook';
 import Popover from './';
 
@@ -165,7 +165,9 @@ class PopoverDemoWithManyMenuItems extends Component {
                     open={true}
                     targetOrigin={targetOrigin}
                 >
-                    <div style={{backgroundColor: 'white'}}>
+                    <div style={{
+                        backgroundColor: 'white',
+                    }}>
                         {(new Array(100).fill(1)).map((item, index) => (
                             <div key={index}>Item {index}</div>
                         ))}

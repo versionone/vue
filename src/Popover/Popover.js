@@ -1,12 +1,13 @@
 import EventListener from 'react-event-listener';
 import React, {Component, PropTypes} from 'react';
-import {findDOMNode} from 'react-dom';
 import throttle from 'lodash.throttle';
+import {findDOMNode} from 'react-dom';
 import Radium from './../utilities/Radium';
 import RenderToLayer from './../internal/RenderToLayer';
 import ThemeProvider from './../ThemeProvider';
-import {adjustPosition, getPosition} from './../utilities/position';
+import {adjustPosition, getPosition, getViewportPosition} from './../utilities/position';
 import * as CustomPropTypes from './../utilities/CustomPropTypes';
+import * as dimensions from './../utilities/dimensions';
 import * as Positions from './Positions';
 
 const resizeThrottleValue = 50;
@@ -141,15 +142,31 @@ class Popover extends Component {
 
         const anchorPosition = getPosition(anchorEl);
         const targetPosition = getTargetPosition(targetElement);
-        const adjustedPosition = adjustPosition(anchorPosition, anchorOrigin, targetPosition, targetOrigin);
+        const popoverPosition = adjustPosition(anchorPosition, anchorOrigin, targetPosition, targetOrigin);
+        const viewportPosition = getViewportPosition();
+
+        if (!this.width) {
+            const computedStyles = window.getComputedStyle(targetElement);
+            const scrollWidth = popoverPosition.width - targetElement.clientWidth - dimensions.getValue(computedStyles.borderLeftWidth) - dimensions.getValue(computedStyles.borderRightWidth);
+            this.width = Math.ceil(popoverPosition.width + scrollWidth);
+        }
+
+        const maxHeight = viewportPosition.bottom - popoverPosition.top;
+        let width = popoverPosition.width;
+        if (popoverPosition.bottom >= viewportPosition.bottom) {
+            targetElement.style.overflowY = 'auto';
+            targetElement.style.overflowX = 'hidden';
+        }
 
         if (scrolling && autoCloseWhenOffScreen) {
             this.autoCloseWhenOffScreen(evt, anchorPosition);
         }
-        targetElement.style.left = `${Math.max(offScreenThresholdValue, adjustedPosition.left)}px`;
-        targetElement.style.maxHeight = `${window.innerHeight}px`;
-        targetElement.style.top = `${Math.max(offScreenThresholdValue, adjustedPosition.top)}px`;
-        targetElement.style.width = `${adjustedPosition.width}px`;
+        targetElement.style.left = `${Math.max(offScreenThresholdValue, popoverPosition.left)}px`;
+        targetElement.style.maxHeight = `${maxHeight}px`;
+        targetElement.style.top = `${Math.max(offScreenThresholdValue, popoverPosition.top)}px`;
+        targetElement.style.minWidth = `${this.width}px`;
+
+
     }
 
     handleRendered() {
@@ -212,7 +229,9 @@ class Popover extends Component {
                 <RenderToLayer
                     open={open}
                     ref={(el) => {
-                        this.layer = el;
+                        if (el) {
+                            this.layer = el;
+                        }
                     }}
                     render={this.renderLayer}
                     onComponentClickAway={this.handleComponentClickAway}

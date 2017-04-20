@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import {storiesOf} from '@kadira/storybook';
 import Popover from './';
 
@@ -122,6 +122,55 @@ class PopoverDemoWithLongTextWidth extends Component {
                                 </span>
                             </div>
                         )}
+                    </div>
+                </Popover>
+            </div>
+        );
+    }
+}
+
+class PopoverDemoWithManyMenuItems extends Component {
+    constructor(...rest) {
+        super(...rest);
+        this.state = {
+            open: true,
+        };
+        this.handleClick = this.handleClick.bind(this);
+        this.closePopover = this.closePopover.bind(this);
+    }
+
+    handleClick() {
+        this.setState({open: !this.state.open});
+    }
+
+    closePopover() {
+        this.setState({open: false});
+    }
+
+    render() {
+        const {
+            anchorOrigin,
+            targetOrigin,
+        } = this.props;
+        return (
+            <div>
+                <span
+                    ref={(el) => {
+                        this.anchor = el;
+                    }}
+                >Anchor</span>
+                <Popover
+                    anchorElement={this.anchor}
+                    anchorOrigin={anchorOrigin}
+                    open={true}
+                    targetOrigin={targetOrigin}
+                >
+                    <div style={{
+                        backgroundColor: 'white',
+                    }}>
+                        {(new Array(100).fill(1)).map((item, index) => (
+                            <div key={index}>Item {index}</div>
+                        ))}
                     </div>
                 </Popover>
             </div>
@@ -255,5 +304,20 @@ storiesOf('Popover')
         ``,
         () => (
             <PopoverDemoWithLongTextWidth />
+        )
+    )
+    .addWithInfo('menu scroll',
+        ``,
+        () => (
+            <PopoverDemoWithManyMenuItems
+                anchorOrigin={{
+                    horizontal: 'left',
+                    vertical: 'bottom'
+                }}
+                targetOrigin={{
+                    horizontal: 'left',
+                    vertical: 'top'
+                }}
+            />
         )
     );

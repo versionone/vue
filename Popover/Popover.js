@@ -14,11 +14,11 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = require('react-dom');
-
 var _lodash = require('lodash.throttle');
 
 var _lodash2 = _interopRequireDefault(_lodash);
+
+var _reactDom = require('react-dom');
 
 var _Radium = require('./../utilities/Radium');
 
@@ -37,6 +37,10 @@ var _position = require('./../utilities/position');
 var _CustomPropTypes = require('./../utilities/CustomPropTypes');
 
 var CustomPropTypes = _interopRequireWildcard(_CustomPropTypes);
+
+var _dimensions = require('./../utilities/dimensions');
+
+var dimensions = _interopRequireWildcard(_dimensions);
 
 var _Positions = require('./Positions');
 
@@ -155,15 +159,28 @@ var Popover = function (_Component) {
 
             var anchorPosition = (0, _position.getPosition)(anchorEl);
             var targetPosition = getTargetPosition(targetElement);
-            var adjustedPosition = (0, _position.adjustPosition)(anchorPosition, anchorOrigin, targetPosition, targetOrigin);
+            var popoverPosition = (0, _position.adjustPosition)(anchorPosition, anchorOrigin, targetPosition, targetOrigin);
+            var viewportPosition = (0, _position.getViewportPosition)();
+
+            if (!this.width) {
+                var computedStyles = window.getComputedStyle(targetElement);
+                var scrollWidth = popoverPosition.width - targetElement.clientWidth - dimensions.getValue(computedStyles.borderLeftWidth) - dimensions.getValue(computedStyles.borderRightWidth);
+                this.width = Math.ceil(popoverPosition.width + scrollWidth);
+            }
+
+            var maxHeight = viewportPosition.bottom - popoverPosition.top;
+            if (popoverPosition.bottom >= viewportPosition.bottom) {
+                targetElement.style.overflowY = 'auto';
+                targetElement.style.overflowX = 'hidden';
+            }
 
             if (scrolling && autoCloseWhenOffScreen) {
                 this.autoCloseWhenOffScreen(evt, anchorPosition);
             }
-            targetElement.style.left = Math.max(offScreenThresholdValue, adjustedPosition.left) + 'px';
-            targetElement.style.maxHeight = window.innerHeight + 'px';
-            targetElement.style.top = Math.max(offScreenThresholdValue, adjustedPosition.top) + 'px';
-            targetElement.style.width = adjustedPosition.width + 'px';
+            targetElement.style.left = Math.max(offScreenThresholdValue, popoverPosition.left) + 'px';
+            targetElement.style.maxHeight = maxHeight + 'px';
+            targetElement.style.top = Math.max(offScreenThresholdValue, popoverPosition.top) + 'px';
+            targetElement.style.minWidth = this.width + 'px';
         }
     }, {
         key: 'handleRendered',
@@ -227,7 +244,9 @@ var Popover = function (_Component) {
                 _react2.default.createElement(_RenderToLayer2.default, {
                     open: open,
                     ref: function ref(el) {
-                        _this2.layer = el;
+                        if (el) {
+                            _this2.layer = el;
+                        }
                     },
                     render: this.renderLayer,
                     onComponentClickAway: this.handleComponentClickAway,

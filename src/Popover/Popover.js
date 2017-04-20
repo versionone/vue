@@ -152,7 +152,6 @@ class Popover extends Component {
         }
 
         const maxHeight = viewportPosition.bottom - popoverPosition.top;
-        let width = popoverPosition.width;
         if (popoverPosition.bottom >= viewportPosition.bottom) {
             targetElement.style.overflowY = 'auto';
             targetElement.style.overflowX = 'hidden';
@@ -165,8 +164,6 @@ class Popover extends Component {
         targetElement.style.maxHeight = `${maxHeight}px`;
         targetElement.style.top = `${Math.max(offScreenThresholdValue, popoverPosition.top)}px`;
         targetElement.style.minWidth = `${this.width}px`;
-
-
     }
 
     handleRendered() {

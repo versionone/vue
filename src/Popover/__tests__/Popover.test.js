@@ -29,7 +29,7 @@ test('will not render when anchor element is detached from document', () => {
     mountPopover({
         anchorElement,
         open: true,
-    })
+    });
 });
 
 test('Popovers can be opened', () => {

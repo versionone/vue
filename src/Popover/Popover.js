@@ -10,6 +10,7 @@ import {adjustPosition, getPosition, getViewportPosition} from './../utilities/p
 import * as CustomPropTypes from './../utilities/CustomPropTypes';
 import * as dimensions from './../utilities/dimensions';
 import * as Positions from './Positions';
+import {isDescendant} from './../utilities/dom';
 
 const resizeThrottleValue = 50;
 const scrollThrottleValue = 50;
@@ -142,9 +143,7 @@ class Popover extends Component {
         if (!targetElement) {
             return;
         }
-
         const anchorEl = anchorElement || this.anchorElement || findDOMNode(this);
-
         const anchorPosition = getPosition(anchorEl);
         const targetPosition = getTargetPosition(targetElement);
         const popoverPosition = adjustPosition(anchorPosition, anchorOrigin, targetPosition, targetOrigin);
@@ -179,13 +178,21 @@ class Popover extends Component {
         const {
             children,
             className,
+            anchorElement,
         } = this.props;
         const {
             open,
         } = this.state;
+
         if (!open) {
             return null;
         }
+
+        const anchorEl = anchorElement || this.anchorElement || findDOMNode(this);
+        if (!isDescendant(document, anchorEl)) {
+            return null;
+        }
+
         const style = {
             position: 'fixed',
         };

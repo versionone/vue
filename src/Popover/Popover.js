@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import EventListener from 'react-event-listener';
 import React, {Component, PropTypes} from 'react';
 import throttle from 'lodash.throttle';
@@ -43,6 +44,10 @@ class Popover extends Component {
          * The children to render within the popover
          */
         children: PropTypes.node,
+        /**
+         * CSS class name for root element of the popover
+         */
+        className: PropTypes.string,
         /**
          * Function called when the popover is requested to close
          */
@@ -173,6 +178,7 @@ class Popover extends Component {
     renderLayer() {
         const {
             children,
+            className,
         } = this.props;
         const {
             open,
@@ -185,6 +191,7 @@ class Popover extends Component {
         };
         return (
             <div
+                className={classNames(className)}
                 style={style}
             >
                 {children}

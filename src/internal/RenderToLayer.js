@@ -68,11 +68,17 @@ class RenderToLayer extends Component {
         }
 
         const layer = this.createLayer();
+        const renderedLayerContent = render();
+        if (!renderedLayerContent) {
+            this.unrenderLayer();
+            return;
+        }
+
         setTimeout(() => {
             addEventListener('click', this.handleClickAway);
         }, immediateTimeOutValue);
 
-        this.layerElement = unstable_renderSubtreeIntoContainer(this, render(), layer, onRendered);
+        this.layerElement = unstable_renderSubtreeIntoContainer(this, renderedLayerContent, layer, onRendered);
     }
 
     unrenderLayer() {

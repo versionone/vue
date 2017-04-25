@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import EventListener from 'react-event-listener';
 import React, {Component, PropTypes} from 'react';
 import throttle from 'lodash.throttle';
@@ -9,6 +10,7 @@ import {adjustPosition, getPosition, getViewportPosition} from './../utilities/p
 import * as CustomPropTypes from './../utilities/CustomPropTypes';
 import * as dimensions from './../utilities/dimensions';
 import * as Positions from './Positions';
+import {isDescendant} from './../utilities/dom';
 
 const resizeThrottleValue = 50;
 const scrollThrottleValue = 50;
@@ -43,6 +45,10 @@ class Popover extends Component {
          * The children to render within the popover
          */
         children: PropTypes.node,
+        /**
+         * CSS class name for root element of the popover
+         */
+        className: PropTypes.string,
         /**
          * Function called when the popover is requested to close
          */
@@ -137,9 +143,7 @@ class Popover extends Component {
         if (!targetElement) {
             return;
         }
-
         const anchorEl = anchorElement || this.anchorElement || findDOMNode(this);
-
         const anchorPosition = getPosition(anchorEl);
         const targetPosition = getTargetPosition(targetElement);
         const popoverPosition = adjustPosition(anchorPosition, anchorOrigin, targetPosition, targetOrigin);
@@ -173,18 +177,28 @@ class Popover extends Component {
     renderLayer() {
         const {
             children,
+            className,
+            anchorElement,
         } = this.props;
         const {
             open,
         } = this.state;
+
         if (!open) {
             return null;
         }
+
+        const anchorEl = anchorElement || this.anchorElement || findDOMNode(this);
+        if (!isDescendant(document, anchorEl)) {
+            return null;
+        }
+
         const style = {
             position: 'fixed',
         };
         return (
             <div
+                className={classNames(className)}
                 style={style}
             >
                 {children}

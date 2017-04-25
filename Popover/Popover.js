@@ -6,6 +6,10 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _classnames = require('classnames');
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
 var _reactEventListener = require('react-event-listener');
 
 var _reactEventListener2 = _interopRequireDefault(_reactEventListener);
@@ -45,6 +49,8 @@ var dimensions = _interopRequireWildcard(_dimensions);
 var _Positions = require('./Positions');
 
 var Positions = _interopRequireWildcard(_Positions);
+
+var _dom = require('./../utilities/dom');
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -154,9 +160,7 @@ var Popover = function (_Component) {
             if (!targetElement) {
                 return;
             }
-
             var anchorEl = anchorElement || this.anchorElement || (0, _reactDom.findDOMNode)(this);
-
             var anchorPosition = (0, _position.getPosition)(anchorEl);
             var targetPosition = getTargetPosition(targetElement);
             var popoverPosition = (0, _position.adjustPosition)(anchorPosition, anchorOrigin, targetPosition, targetOrigin);
@@ -190,18 +194,29 @@ var Popover = function (_Component) {
     }, {
         key: 'renderLayer',
         value: function renderLayer() {
-            var children = this.props.children;
+            var _props2 = this.props,
+                children = _props2.children,
+                className = _props2.className,
+                anchorElement = _props2.anchorElement;
             var open = this.state.open;
+
 
             if (!open) {
                 return null;
             }
+
+            var anchorEl = anchorElement || this.anchorElement || (0, _reactDom.findDOMNode)(this);
+            if (!(0, _dom.isDescendant)(document, anchorEl)) {
+                return null;
+            }
+
             var style = {
                 position: 'fixed'
             };
             return _react2.default.createElement(
                 'div',
                 {
+                    className: (0, _classnames2.default)(className),
                     style: style
                 },
                 children
@@ -292,6 +307,10 @@ process.env.NODE_ENV !== "production" ? Popover.propTypes = {
      * The children to render within the popover
      */
     children: _react.PropTypes.node,
+    /**
+     * CSS class name for root element of the popover
+     */
+    className: _react.PropTypes.string,
     /**
      * Function called when the popover is requested to close
      */

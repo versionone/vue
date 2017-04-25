@@ -96,11 +96,17 @@ var RenderToLayer = function (_Component) {
             }
 
             var layer = this.createLayer();
+            var renderedLayerContent = render();
+            if (!renderedLayerContent) {
+                this.unrenderLayer();
+                return;
+            }
+
             setTimeout(function () {
                 addEventListener('click', _this2.handleClickAway);
             }, immediateTimeOutValue);
 
-            this.layerElement = (0, _reactDom.unstable_renderSubtreeIntoContainer)(this, render(), layer, onRendered);
+            this.layerElement = (0, _reactDom.unstable_renderSubtreeIntoContainer)(this, renderedLayerContent, layer, onRendered);
         }
     }, {
         key: 'unrenderLayer',

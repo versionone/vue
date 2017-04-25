@@ -178,6 +178,66 @@ class PopoverDemoWithManyMenuItems extends Component {
     }
 }
 
+class PopoverDemoWithNoAnchor extends Component {
+    static defaultProps = {
+        showContent: false,
+    };
+
+    constructor(...rest) {
+        super(...rest);
+        this.state = {
+            open: false
+        };
+        this.handleClick = this.handleClick.bind(this);
+        this.closePopover = this.closePopover.bind(this);
+    }
+
+    handleClick() {
+        this.setState({ open: !this.state.open });
+    }
+
+    closePopover() {
+        this.setState({ open: false });
+    }
+
+    render() {
+        const {
+            anchorOrigin,
+            showContent,
+            targetOrigin,
+        } = this.props;
+        const {
+            open,
+        } = this.state;
+
+        var div = document.createElement("div");
+        div.setAttribute("class","a-class");
+        return (
+            <div>
+                <span
+                    onClick={this.handleClick}
+                >Anchor</span>
+                <span>Another Span</span>
+                <div>Another Span</div>
+                <span>Another Span</span>
+                <span>Another Span</span>
+                {showContent && <div>This is content that the popover can render over.</div>}
+                <Popover
+                    anchorElement={document.createElement("div")}
+                    anchorOrigin={anchorOrigin}
+                    open={open}
+                    targetOrigin={targetOrigin}
+                    onRequestClose={this.closePopover}
+                >
+                    <div style={{ backgroundColor: 'white' }}>
+                        This is the contents of the popover.
+                    </div>
+                </Popover>
+            </div>
+        );
+    }
+}
+
 storiesOf('Popover')
     .addWithInfo('simple popover over content',
         ``,
@@ -310,6 +370,21 @@ storiesOf('Popover')
         ``,
         () => (
             <PopoverDemoWithManyMenuItems
+                anchorOrigin={{
+                    horizontal: 'left',
+                    vertical: 'bottom'
+                }}
+                targetOrigin={{
+                    horizontal: 'left',
+                    vertical: 'top'
+                }}
+            />
+        )
+    )
+    .addWithInfo('no anchor',
+        ``,
+        () => (
+            <PopoverDemoWithNoAnchor
                 anchorOrigin={{
                     horizontal: 'left',
                     vertical: 'bottom'

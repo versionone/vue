@@ -114,8 +114,7 @@
     "sinon": "^2.0.0-pre",
     "style-loader": "^0.13.1",
     "wallaby-webpack": "0.0.22",
-    "webpack": "^1.13.1",
-    "yargs": "^7.1.0"
+    "webpack": "^1.13.1"
   },
   "dependencies": {
     "@andrew-codes/color-functions": "^1.4.2",

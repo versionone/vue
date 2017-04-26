@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 const execSync = require('child_process').execSync;
-const args = require('yargs').argv;
+const path = require('path');
 
-const version = args._[0];
+const version = process.argv[2];
 
 if (!version) {
     console.log('Version not specified (patch | minor | major | prepatch | preminor | premajor | prerelease | 1.2.3)');
@@ -12,10 +12,11 @@ if (!version) {
     return;
 }
 
-execSync(`./node_modules/.bin/np ${version}`);
+// execSync(`./node_modules/.bin/np ${version}`);
 
 if (shouldPublishDocs(version)) {
-    execSync('npm run publish:docs');
+    process.chdir(path.join(__dirname, '..', 'docs'));
+    execSync('npm run gh-pages:build');
 }
 
 function shouldPublishDocs(publishedVersion) {

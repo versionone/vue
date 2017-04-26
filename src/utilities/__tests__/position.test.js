@@ -36,6 +36,10 @@ const bottomLeftAnchorPoint = {
     top: 200,
     width: 100,
 };
+const toTopLeft = {
+    horizontal: 'left',
+    vertical: 'top',
+};
 const toLeft = {
     horizontal: 'left',
     vertical: 'middle',
@@ -135,13 +139,13 @@ test('getUnion returns the minimum bounding box that encloses the two boxes', ()
         left: -50,
         top: -50,
         width: 100,
-    }
+    };
     const lowerRightOutside = {
         height: 100,
         left: 100,
         top: 100,
         width: 100,
-    }
+    };
     expect(getUnion(positionA, positionA)).toEqual(positionA);
     expect(getUnion(positionA, rightIntersecting)).toEqual({
         height: 150,
@@ -165,60 +169,37 @@ test('getUnion returns the minimum bounding box that encloses the two boxes', ()
 
 
 test('adjustPositionWithinBoundaries can determine a position relative to an anchor and within a bounding position if possible', () => {
-    // expect(adjustPositionWithinBoundaries(topLeftAnchorPoint, toLeft, getTargetPosition(), toRight)).toEqual({
-    //     bottom: 100,
-    //     center: 50,
-    //     height: 100,
-    //     left: -100,
-    //     middle: 50,
-    //     right: 0,
-    //     top: 0,
-    //     width: 100,
-    // });
+    const viewPort = {
+        height: 200,
+        left: 0,
+        top: 0,
+        width: 200,
+    };
+    const bottomLeftAnchorPoint = {
+        center: 150,
+        height: 100,
+        left: 0,
+        middle: 50,
+        top: 100,
+        width: 100,
+    };
+    const targetPosition = {
+        center: 50,
+        height: 200,
+        left: 0,
+        middle: 100,
+        top: 0,
+        width: 100,
+    };
 
-    // expect(adjustPositionWithinBoundaries(topLeftAnchorPoint, toTop, getTargetPosition(), toBottom)).toEqual({
-    //     bottom: 0,
-    //     center: 50,
-    //     height: 100,
-    //     left: 0,
-    //     middle: 50,
-    //     right: 100,
-    //     top: -100,
-    //     width: 100,
-    // });
-
-    // expect(adjustPositionWithinBoundaries(topRightAnchorPoint, toTopRight, getTargetPosition(), toLeft)).toEqual({
-    //     bottom: 100,
-    //     center: 50,
-    //     height: 100,
-    //     left: 300,
-    //     middle: 50,
-    //     right: 400,
-    //     top: 0,
-    //     width: 100,
-    // });
-
-    // expect(adjustPositionWithinBoundaries(bottomLeftAnchorPoint, toBottom, getTargetPosition(), toTop)).toEqual({
-    //     bottom: 400,
-    //     center: 50,
-    //     height: 100,
-    //     left: 0,
-    //     middle: 50,
-    //     right: 100,
-    //     top: 300,
-    //     width: 100,
-    // });
-
-    // expect(adjustPositionWithinBoundaries(bottomLeftAnchorPoint, toTop, getTargetPosition(), toBottom)).toEqual({
-    //     bottom: 200,
-    //     center: 50,
-    //     height: 100,
-    //     left: 0,
-    //     middle: 50,
-    //     right: 100,
-    //     top: 100,
-    //     width: 100,
-    // });
+    expect(adjustPositionWithinBoundaries(bottomLeftAnchorPoint, toTopRight, targetPosition, toTopLeft, viewPort)).toEqual({
+        center: 150,
+        height: 200,
+        left: 100,
+        middle: 100,
+        top: 0,
+        width: 100,
+    });
 });
 
 function getPositionWithinLeftBoundary() {

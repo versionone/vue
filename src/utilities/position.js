@@ -1,3 +1,5 @@
+import * as Positions from './../Popover/Positions';
+
 const centerAlignmentDivisor = 2;
 
 export const getViewportPosition = () => ({
@@ -62,10 +64,30 @@ export const getUnion = (positionA, positionB) => {
 }
 
 export const adjustPositionWithinBoundaries = (anchorPosition, anchorOrigin, targetPosition, targetOrigin, boundaryPosition) => {
-    const relativeLeftPositionToAnchor = (anchorPosition[anchorOrigin.horizontal] - targetPosition[targetOrigin.horizontal]);
-    const relativeTopPositionToAnchor = (anchorPosition[anchorOrigin.vertical] - targetPosition[targetOrigin.vertical]);
+    let relativeLeftPositionToAnchor = targetPosition.left;
+    if (anchorOrigin.horizontal === Positions.right && targetOrigin.horizontal === Positions.left) {
+        relativeLeftPositionToAnchor = anchorPosition.left + anchorPosition.width;
+    }
+
+    let relativeTopPositionToAnchor = targetPosition.top;
+    if (anchorOrigin.vertical === Positions.top && targetOrigin.vertical === Positions.top) {
+        relativeTopPositionToAnchor = anchorPosition.top;
+    }
+
+    let union = getUnion(boundaryPosition, {
+        ...targetPosition,
+        left: relativeLeftPositionToAnchor,
+        top: relativeTopPositionToAnchor,
+    });
+
+    const belowBoundaryDiff = (boundaryPosition.top + boundaryPosition.height) - (union.top + union.height);
+    if (belowBoundaryDiff < 0) {
+        relativeTopPositionToAnchor += belowBoundaryDiff;
+    }
+
     return {
         ...targetPosition,
+        center: relativeLeftPositionToAnchor + targetPosition.width / 2,
         left: relativeLeftPositionToAnchor,
         top: relativeTopPositionToAnchor,
     };

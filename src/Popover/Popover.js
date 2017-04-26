@@ -6,7 +6,7 @@ import {findDOMNode} from 'react-dom';
 import Radium from './../utilities/Radium';
 import RenderToLayer from './../internal/RenderToLayer';
 import ThemeProvider from './../ThemeProvider';
-import {adjustPosition, getPosition, getViewportPosition} from './../utilities/position';
+import {adjustPositionWithinBoundaries, getPosition, getViewportPosition} from './../utilities/position';
 import * as CustomPropTypes from './../utilities/CustomPropTypes';
 import * as dimensions from './../utilities/dimensions';
 import * as Positions from './Positions';
@@ -17,12 +17,10 @@ const scrollThrottleValue = 50;
 const offScreenThresholdValue = 0;
 const centerAlignmentDivisor = 2;
 const getTargetPosition = (targetElement) => ({
-    bottom: targetElement.offsetHeight,
     center: targetElement.scrollWidth / centerAlignmentDivisor,
     height: targetElement.offsetHeight,
     left: 0,
     middle: targetElement.offsetHeight / centerAlignmentDivisor,
-    right: targetElement.scrollWidth,
     top: 0,
     width: targetElement.scrollWidth,
 });
@@ -146,8 +144,8 @@ class Popover extends Component {
         const anchorEl = anchorElement || this.anchorElement || findDOMNode(this);
         const anchorPosition = getPosition(anchorEl);
         const targetPosition = getTargetPosition(targetElement);
-        const popoverPosition = adjustPosition(anchorPosition, anchorOrigin, targetPosition, targetOrigin);
         const viewportPosition = getViewportPosition();
+        const popoverPosition = adjustPositionWithinBoundaries(anchorPosition, anchorOrigin, targetPosition, targetOrigin, viewportPosition);
 
         if (!this.width) {
             const computedStyles = window.getComputedStyle(targetElement);

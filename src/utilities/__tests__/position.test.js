@@ -1,9 +1,8 @@
 import {
-    adjustPosition,
+    adjustPositionWithinBoundaries,
     getPosition,
+    getUnion,
     getViewportPosition,
-    isColliding,
-    isOverlapping,
     isWithinBottomBoundary,
     isWithinBoundary,
     isWithinLeftBoundary,
@@ -14,32 +13,26 @@ import {
 } from './../position';
 
 const topLeftAnchorPoint = {
-    bottom: 100,
     center: 50,
     height: 100,
     left: 0,
     middle: 50,
-    right: 100,
     top: 0,
     width: 100,
 };
 const topRightAnchorPoint = {
-    bottom: 100,
     center: 250,
     height: 100,
     left: 200,
     middle: 50,
-    right: 300,
     top: 0,
     width: 100,
 };
 const bottomLeftAnchorPoint = {
-    bottom: 300,
     center: 50,
     height: 100,
     left: 0,
     middle: 250,
-    right: 100,
     top: 200,
     width: 100,
 };
@@ -59,16 +52,18 @@ const toBottom = {
     horizontal: 'center',
     vertical: 'bottom',
 };
+const toTopRight = {
+    horizontal: 'right',
+    vertical: 'top',
+};
 
 test.skip('getViewportPosition can get the position of the viewport', () => {
     window.innerHeight = 800;
     window.document.documentElement.clientHeight = 786;
     window.document.documentElement.clientWidth = 600;
     expect(getViewportPosition()).toEqual({
-        bottom: 800,
         height: 786,
         left: 0,
-        right: 600,
         top: 0,
         width: 600,
     });
@@ -77,9 +72,7 @@ test.skip('getViewportPosition can get the position of the viewport', () => {
 test('getPosition can obtain the position of a provided element', () => {
     const el = {
         getBoundingClientRect: jest.fn().mockReturnValue({
-            bottom: 100,
             left: 0,
-            right: 100,
             top: 0,
         }),
         offsetHeight: 100,
@@ -124,84 +117,108 @@ test('isWithinBoundary can determine if an element position completely fits with
     expect(isWithinBoundary(topLeftAnchorPoint)(getPositionNotWithinBoundary())).toBeFalsy();
 });
 
-test('isColliding can determine if an element position is colliding with another element position', () => {
-    expect(isColliding(topLeftAnchorPoint)(getPositionNotOverlapping())).toBeFalsy();
-    expect(isColliding(topLeftAnchorPoint)(getAdjacentPosition())).toBeTruthy();
-    expect(isColliding(topLeftAnchorPoint)(getLeftCollidingPosition())).toBeTruthy();
-    expect(isColliding(topLeftAnchorPoint)(getRightCollidingPosition())).toBeTruthy();
-    expect(isColliding(topLeftAnchorPoint)(getTopCollidingPosition())).toBeTruthy();
-    expect(isColliding(topLeftAnchorPoint)(getLeftRightAroundPosition())).toBeTruthy();
-    expect(isColliding(topLeftAnchorPoint)(getTopBottomAroundPosition())).toBeTruthy();
-    expect(isColliding(topLeftAnchorPoint)(getBottomCollidingPosition())).toBeTruthy();
-    expect(isOverlapping(topLeftAnchorPoint)(getPositionCompletelyAroundAnchor())).toBeTruthy();
-});
-
-test('isOverlapping can determine if an element position overlaps with another element position', () => {
-    expect(isOverlapping(topLeftAnchorPoint)(getPositionInside())).toBeTruthy();
-    expect(isOverlapping(topLeftAnchorPoint)(getLeftCollidingPosition())).toBeTruthy();
-    expect(isOverlapping(topLeftAnchorPoint)(getRightCollidingPosition())).toBeTruthy();
-    expect(isOverlapping(topLeftAnchorPoint)(getTopCollidingPosition())).toBeTruthy();
-    expect(isOverlapping(topLeftAnchorPoint)(getBottomCollidingPosition())).toBeTruthy();
-    expect(isOverlapping(topLeftAnchorPoint)(getPositionNotOverlapping())).toBeFalsy();
-    expect(isOverlapping(topLeftAnchorPoint)(getAdjacentPosition())).toBeTruthy();
-    expect(isOverlapping(topLeftAnchorPoint)(getPositionCompletelyAroundAnchor())).toBeTruthy();
-});
-
-test('adjustPosition can determine a position relative to an anchor', () => {
-    expect(adjustPosition(topLeftAnchorPoint, toLeft, getTargetPosition(), toRight)).toEqual({
-        bottom: 100,
-        center: 50,
+test('getUnion returns the minimum bounding box that encloses the two boxes', () => {
+    const positionA = {
         height: 100,
-        left: -100,
-        middle: 50,
-        right: 0,
+        left: 0,
         top: 0,
         width: 100,
-    });
-
-    expect(adjustPosition(topLeftAnchorPoint, toTop, getTargetPosition(), toBottom)).toEqual({
-        bottom: 0,
-        center: 50,
+    };
+    const rightIntersecting = {
         height: 100,
-        left: 0,
-        middle: 50,
-        right: 100,
-        top: -100,
+        left: 50,
+        top: 50,
         width: 100,
-    });
-
-    expect(adjustPosition(topRightAnchorPoint, toRight, getTargetPosition(), toLeft)).toEqual({
-        bottom: 100,
-        center: 50,
+    };
+    const leftIntersecting = {
         height: 100,
-        left: 300,
-        middle: 50,
-        right: 400,
-        top: 0,
+        left: -50,
+        top: -50,
         width: 100,
-    });
-
-    expect(adjustPosition(bottomLeftAnchorPoint, toBottom, getTargetPosition(), toTop)).toEqual({
-        bottom: 400,
-        center: 50,
+    }
+    const lowerRightOutside = {
         height: 100,
-        left: 0,
-        middle: 50,
-        right: 100,
-        top: 300,
-        width: 100,
-    });
-
-    expect(adjustPosition(bottomLeftAnchorPoint, toTop, getTargetPosition(), toBottom)).toEqual({
-        bottom: 200,
-        center: 50,
-        height: 100,
-        left: 0,
-        middle: 50,
-        right: 100,
+        left: 100,
         top: 100,
         width: 100,
+    }
+    expect(getUnion(positionA, positionA)).toEqual(positionA);
+    expect(getUnion(positionA, rightIntersecting)).toEqual({
+        height: 150,
+        left: 0,
+        top: 0,
+        width: 150,
     });
+    expect(getUnion(positionA, leftIntersecting)).toEqual({
+        height: 150,
+        left: -50,
+        top: -50,
+        width: 150,
+    });
+    expect(getUnion(positionA, lowerRightOutside)).toEqual({
+        height: 200,
+        left: 0,
+        top: 0,
+        width: 200,
+    });
+});
+
+
+test('adjustPositionWithinBoundaries can determine a position relative to an anchor and within a bounding position if possible', () => {
+    // expect(adjustPositionWithinBoundaries(topLeftAnchorPoint, toLeft, getTargetPosition(), toRight)).toEqual({
+    //     bottom: 100,
+    //     center: 50,
+    //     height: 100,
+    //     left: -100,
+    //     middle: 50,
+    //     right: 0,
+    //     top: 0,
+    //     width: 100,
+    // });
+
+    // expect(adjustPositionWithinBoundaries(topLeftAnchorPoint, toTop, getTargetPosition(), toBottom)).toEqual({
+    //     bottom: 0,
+    //     center: 50,
+    //     height: 100,
+    //     left: 0,
+    //     middle: 50,
+    //     right: 100,
+    //     top: -100,
+    //     width: 100,
+    // });
+
+    // expect(adjustPositionWithinBoundaries(topRightAnchorPoint, toTopRight, getTargetPosition(), toLeft)).toEqual({
+    //     bottom: 100,
+    //     center: 50,
+    //     height: 100,
+    //     left: 300,
+    //     middle: 50,
+    //     right: 400,
+    //     top: 0,
+    //     width: 100,
+    // });
+
+    // expect(adjustPositionWithinBoundaries(bottomLeftAnchorPoint, toBottom, getTargetPosition(), toTop)).toEqual({
+    //     bottom: 400,
+    //     center: 50,
+    //     height: 100,
+    //     left: 0,
+    //     middle: 50,
+    //     right: 100,
+    //     top: 300,
+    //     width: 100,
+    // });
+
+    // expect(adjustPositionWithinBoundaries(bottomLeftAnchorPoint, toTop, getTargetPosition(), toBottom)).toEqual({
+    //     bottom: 200,
+    //     center: 50,
+    //     height: 100,
+    //     left: 0,
+    //     middle: 50,
+    //     right: 100,
+    //     top: 100,
+    //     width: 100,
+    // });
 });
 
 function getPositionWithinLeftBoundary() {
@@ -216,12 +233,14 @@ function getPositionNotWithinLeftBoundary() {
 }
 function getPositionWithinRightBoundary() {
     return {
-        right: 80,
+        left: 50,
+        width: 25,
     };
 }
 function getPositionNotWithinRightBoundary() {
     return {
-        right: 150,
+        left: 75,
+        width: 50,
     };
 }
 function getPositionWithinTopBoundary() {
@@ -236,160 +255,63 @@ function getPositionNotWithinTopBoundary() {
 }
 function getPositionWithinBottomBoundary() {
     return {
-        bottom: 80,
+        top: 0,
+        height: 75,
     };
 }
 function getPositionNotWithinBottomBoundary() {
     return {
-        bottom: 150,
+        top: 75,
+        height: 35,
     };
 }
 function getPositionWithinXBoundary() {
     return {
         left: 20,
-        right: 80,
+        width: 60,
     };
 }
 function getPositionNotWithinXBoundary() {
     return {
         left: 20,
-        right: 150,
+        width: 130,
     };
 }
 function getPositionWithinYBoundary() {
     return {
-        bottom: 80,
         top: 20,
+        height: 60,
     };
 }
 function getPositionNotWithinYBoundary() {
     return {
-        bottom: 150,
         top: -10,
+        height: 160,
     };
 }
 function getPositionWithinBoundary() {
     return {
-        bottom: 80,
         left: 20,
-        right: 80,
+        width: 60,
         top: 80,
+        height: 0,
     };
 }
 function getPositionNotWithinBoundary() {
     return {
-        bottom: 150,
         left: 20,
-        right: 150,
+        width: 130,
         top: 20,
-    };
-}
-function getLeftCollidingPosition() {
-    return {
-        bottom: 100,
-        left: -20,
-        right: 80,
-        top: 0,
-    };
-}
-function getRightCollidingPosition() {
-    return {
-        bottom: 100,
-        left: 20,
-        right: 180,
-        top: 0,
-    };
-}
-function getTopCollidingPosition() {
-    return {
-        bottom: 100,
-        left: 0,
-        right: 80,
-        top: -100,
-    };
-}
-function getBottomCollidingPosition() {
-    return {
-        bottom: 400,
-        left: 0,
-        right: 100,
-        top: 20,
-    };
-}
-function getPositionInside() {
-    return {
-        bottom: 80,
-        left: 20,
-        right: 80,
-        top: 20,
-    };
-}
-function getPositionNotOverlapping() {
-    return {
-        bottom: 300,
-        left: 150,
-        right: 300,
-        top: 150,
+        height: 130,
     };
 }
 function getTargetPosition() {
     return {
-        bottom: 100,
         center: 50,
         height: 100,
         left: 0,
         middle: 50,
-        right: 100,
         top: 0,
-        width: 100,
-    };
-}
-function getAdjacentPosition() {
-    return {
-        bottom: 200,
-        center: 50,
-        height: 100,
-        left: 0,
-        middle: 50,
-        right: 100,
-        top: 100,
-        width: 100,
-    };
-}
-function getPositionCompletelyAroundAnchor() {
-    return {
-        bottom: 400,
-        center: 50,
-        height: 500,
-        left: -100,
-        middle: 50,
-        right: 400,
-        top: -100,
-        width: 500,
-    };
-}
-function getLeftRightAroundPosition() {
-    return {
-        bottom: 100,
-        center: 50,
-        height: 100,
-        left: -100,
-        middle: 250,
-        right: 400,
-        top: 0,
-        width: 500,
-    };
-}
-
-function getTopBottomAroundPosition() {
-    return {
-        bottom: 400,
-        center: 250,
-        height: 500,
-        left: 0,
-        middle: 50,
-        right: 100,
-        top: -100,
         width: 100,
     };
 }

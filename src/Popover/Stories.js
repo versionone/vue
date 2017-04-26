@@ -50,7 +50,9 @@ class PopoverDemo extends Component {
                     onRequestClose={this.closePopover}
                 >
                     <div style={{backgroundColor: 'white'}}>
-                        This is the contents of the popover.
+                        {(new Array(7).fill(1)).map((item, index) => (
+                            <div key={index}>Item {index}</div>
+                        ))}
                     </div>
                 </Popover>
             </div>
@@ -216,11 +218,7 @@ class PopoverDemoWithNoAnchor extends Component {
             <div>
                 <span
                     onClick={this.handleClick}
-                >Anchor</span>
-                <span>Another Span</span>
-                <div>Another Span</div>
-                <span>Another Span</span>
-                <span>Another Span</span>
+                >Not the Anchor</span>
                 {showContent && <div>This is content that the popover can render over.</div>}
                 <Popover
                     anchorElement={document.createElement("div")}
@@ -342,6 +340,30 @@ storiesOf('Popover')
                     vertical: 'top'
                 }}
             />
+        )
+    )
+    .addWithInfo('no space available below, to the right of anchor',
+        ``,
+        () => (
+            <div style={{
+                height: 'calc(100vh - 40px)',
+                display: 'flex',
+            }}>
+                <div style={{
+                    alignSelf: 'flex-end',
+                }}>
+                    <PopoverDemo
+                        anchorOrigin={{
+                            horizontal: 'right',
+                            vertical: 'top'
+                        }}
+                        targetOrigin={{
+                            horizontal: 'left',
+                            vertical: 'top'
+                        }}
+                    />
+                </div>
+            </div>
         )
     )
     .addWithInfo('too far below, on top of anchor',

@@ -1,8 +1,8 @@
 import React from 'react';
 import Title from 'react-title-component';
 import iconsReadme from './icons.md';
-import MarkdownElement from 'vue-docs/MarkdownElement';
-import * as Icons from 'vue/Icons';
+import MarkdownElement from '@versionone/ui-docs/MarkdownElement';
+import * as Icons from '@versionone/ui/Icons';
 
 const alphabeticalOrder = polarity => (iconName1, iconName2) => {
     if (polarity) {

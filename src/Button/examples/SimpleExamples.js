@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from 'vue/Button';
+import Button from '@versionone/ui/Button';
 
 export default () => (
     <div>

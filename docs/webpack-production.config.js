@@ -16,8 +16,8 @@ const config = {
         extensions: ['', '.js', '.md', '.txt'],
         alias: {
             // material-ui requires will be searched in src folder, not in node_modules
-            'vue': path.resolve(__dirname, '../src'),
-            'vue-docs': path.resolve(__dirname, 'src', 'app', 'components')
+            '@versionone/ui': path.resolve(__dirname, '../src'),
+            '@versionone/ui-docs': path.resolve(__dirname, 'src', 'app', 'components')
         }
     },
     devtool: 'source-map',

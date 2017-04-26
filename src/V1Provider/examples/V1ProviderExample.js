@@ -1,6 +1,6 @@
 import React from 'react';
-import V1Provider from 'vue/V1Provider';
-import AssetLookup from 'vue/AssetLookup';
+import V1Provider from '@versionone/ui/V1Provider';
+import AssetLookup from '@versionone/ui/AssetLookup';
 
 export default () => {
     const runQuery = (query) => Promise.resolve([

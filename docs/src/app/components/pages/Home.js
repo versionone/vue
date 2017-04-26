@@ -5,7 +5,7 @@ import withWidth, {LARGE} from 'material-ui/utils/withWidth';
 import spacing from 'material-ui/styles/spacing';
 import typography from 'material-ui/styles/typography';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import {gunSmoke, grey200, darkWhite} from 'vue/styles/themes/v1Theme/foundations/colors';
+import {gunSmoke, grey200, darkWhite} from '@versionone/ui/styles/themes/v1Theme/foundations/colors';
 
 class HomePage extends Component {
     static propTypes = {
@@ -89,7 +89,7 @@ class HomePage extends Component {
                         height: '300px',
                         lineHeight: '300px',
                         margin: '0 auto'
-                    }}>Vue</h1>
+                    }}>UI</h1>
                     <h2 style={styles.h2}>
                         A Set of React Components <span style={styles.nowrap}>
             used by <a href="http://VersionOne.com">VersionOne</a>.</span>
@@ -125,9 +125,9 @@ class HomePage extends Component {
                 contentStyle={styles.content}
                 contentType="p"
                 className="home-purpose">
-                Vue is an open-source and community supported collection of common UI components found withing the
-                VersionOne application; built with React. As an open-sourced and community supported project, Vue is not
-                formally supported by VersionOne. Vue empowers the teams to build with a consistent UI and codebase.
+                VersionOne UI is an open-source and community supported collection of common UI components found withing the
+                VersionOne application; built with React. As an open-sourced and community supported project, VersionOne UI is not
+                formally supported by VersionOne. VersionOne UI empowers the teams to build with a consistent UI and codebase.
             </FullWidthSection>
         );
     }

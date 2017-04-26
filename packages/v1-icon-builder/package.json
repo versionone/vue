@@ -1,7 +1,7 @@
 {
   "name": "@versionone/icon-builder",
   "version": "0.0.1",
-  "description": "Builds a collection of SVG files into SvgIcon Vue components.",
+  "description": "Builds a collection of SVG files into SvgIcon VersionOne UI components.",
   "bin": {
     "v1-icon-builder": "build.js"
   },

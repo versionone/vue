@@ -1,7 +1,7 @@
 {
-  "name": "@versioneone/vue-docs",
-  "version": "1.0.0-alpha",
-  "description": "Documentation site for VersionOne Vue",
+  "name": "@versioneone/ui-docs",
+  "version": "0.0.1-alpha",
+  "description": "Documentation site for VersionOne UI",
   "repository": {
     "type": "git",
     "url": "https://github.com/versionone/vue.git"

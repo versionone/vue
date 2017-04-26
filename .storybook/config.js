@@ -3,7 +3,7 @@ import infoAddon from '@kadira/react-storybook-addon-info';
 import addStoriesGroup from 'react-storybook-addon-add-stories-group';
 import {combineReducers, createStore} from 'redux';
 import {reducer as uiReducer} from 'redux-ui';
-import VueProvider from './../src/VueProvider';
+import VersionOneUIProvider from './../src/VersionOneUIProvider';
 import v1Theme from './../src/styles/themes/v1Theme';
 import React from 'react';
 import './index.css';
@@ -19,13 +19,13 @@ setAddon(addStoriesGroup);
 
 addDecorator((story) => (
     <div style={{marginTop: '30px'}}>
-        <VueProvider
+        <VersionOneUIProvider
             runQuery={runQuery}
             store={store}
             theme={v1Theme}
         >
             {story()}
-        </VueProvider>
+        </VersionOneUIProvider>
     </div>
 ));
 

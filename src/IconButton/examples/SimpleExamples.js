@@ -1,10 +1,10 @@
 import React from 'react';
-import IconButton from 'vue/IconButton';
-import VueProvider from 'vue/VueProvider';
-import {CloseIcon} from 'vue/Icons';
+import IconButton from '@versionone/ui/IconButton';
+import VersionOneUIProvider from '@versionone/ui/VersionOneUIProvider';
+import {CloseIcon} from '@versionone/ui/Icons';
 
 export default () => (
-    <VueProvider>
+    <VersionOneUIProvider>
         <div>
         <span style={{margin: '1em'}}>
             <IconButton icon={CloseIcon} />
@@ -14,5 +14,5 @@ export default () => (
             <IconButton icon={CloseIcon} disable onClick={console.log} />
         </span>
         </div>
-    </VueProvider>
+    </VersionOneUIProvider>
 );

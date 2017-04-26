@@ -1,10 +1,10 @@
 import React from 'react';
-import VueProvider from 'vue/VueProvider';
-import Button from 'vue/Button';
-import * as ButtonTypes from 'vue/Button/Types';
+import VersionOneUIProvider from '@versionone/ui/VersionOneUIProvider';
+import Button from '@versionone/ui/Button';
+import * as ButtonTypes from '@versionone/ui/Button/Types';
 
 export default () => (
-    <VueProvider>
+    <VersionOneUIProvider>
         <div>
         <span style={{margin: '1em'}}>
             <Button text="Standard Button" onClick={console.log} />
@@ -30,5 +30,5 @@ export default () => (
             <Button text="Special Button" type={ButtonTypes.special} onClick={console.log} />
         </span>
         </div>
-    </VueProvider>
+    </VersionOneUIProvider>
 );

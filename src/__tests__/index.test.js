@@ -8,7 +8,7 @@ import PopoverComponent from './../Popover';
 import SubHeaderComponent from './../SubHeader';
 import TextFieldComponent from './../TextField';
 import ThemeProviderComponent from './../ThemeProvider';
-import VueProviderComponent from './../VueProvider';
+import VersionOneUIProvider from './../VersionOneUIProvider';
 import V1ProviderComponent from './../V1Provider';
 import {
     AssetLookup,
@@ -24,17 +24,17 @@ import {
     SubHeader,
     TextField,
     ThemeProvider,
-    VueProvider,
+    VersionOneUIProvider,
     V1Provider
 } from '../index';
 import * as ButtonSizesImport from '../Button/Sizes';
 import * as ButtonTypesImport from '../Button/Types';
 
-test('vue exports an AssetLookup component', () => {
+test('VersionOne UI exports an AssetLookup component', () => {
     expect(AssetLookup).toEqual(AssetLookupComponent);
 });
 
-test('vue exports the Button component and other related parts', () => {
+test('VersionOne UI exports the Button component and other related parts', () => {
     expect(new Button({})).toBeInstanceOf(ButtonComponent);
     expect(new IconButton({
         store: {
@@ -45,15 +45,15 @@ test('vue exports the Button component and other related parts', () => {
     expect(ButtonSizes).toEqual(ButtonSizesImport);
 });
 
-test('vue exports a Chip component', () => {
+test('VersionOne UI exports a Chip component', () => {
     expect(new Chip({})).toBeInstanceOf(ChipComponent);
 });
 
-test('vue exports a Popover component', () => {
+test('VersionOne UI exports a Popover component', () => {
     expect(new Popover({})).toBeInstanceOf(PopoverComponent);
 });
 
-test('vue exports a List component and other related parts', () => {
+test('VersionOne UI exports a List component and other related parts', () => {
     expect(new List({
         store: {
             getState: jest.fn(),
@@ -61,30 +61,30 @@ test('vue exports a List component and other related parts', () => {
     })).toBeInstanceOf(ListComponent);
 });
 
-test('vue exports an ListItem component', () => {
+test('VersionOne UI exports an ListItem component', () => {
     expect(new ListItem({})).toBeInstanceOf(ListItem);
 });
 
-test('vue exports an Lookup component', () => {
+test('VersionOne UI exports an Lookup component', () => {
     expect(new Lookup({})).toBeInstanceOf(LookupComponent);
 });
 
-test('vue exports a SubHeader component', () => {
+test('VersionOne UI exports a SubHeader component', () => {
     expect(new SubHeader({})).toBeInstanceOf(SubHeaderComponent);
 });
 
-test('vue exports the TextField component', () => {
+test('VersionOne UI exports the TextField component', () => {
     expect(new TextField({})).toBeInstanceOf(TextFieldComponent);
 });
 
-test('vue exports the ThemeProvider component', () => {
+test('VersionOne UI exports the ThemeProvider component', () => {
     expect(new ThemeProvider()).toBeInstanceOf(ThemeProviderComponent);
 });
 
-test('vue exports the VueProvider component', () => {
-    expect(VueProvider).toBeDefined();
+test('VersionOne UI exports the VersionOneUIProvider component', () => {
+    expect(VersionOneUIProvider).toBeDefined();
 });
 
-test('vue exports the V1Provider component', () => {
+test('VersionOne UI exports the V1Provider component', () => {
     expect(new V1Provider()).toBeInstanceOf(V1ProviderComponent);
 });

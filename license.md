@@ -1,4 +1,4 @@
-# VersionOne Vue License
+# VersionOne UI License
 Copyright (c) 2008-2015 VersionOne, Inc.
 All rights reserved.
 

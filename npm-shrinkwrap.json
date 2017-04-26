@@ -1,5 +1,5 @@
 {
-  "name": "v1-vue",
+  "name": "@versionone/ui",
   "version": "0.0.20",
   "dependencies": {
     "@andrew-codes/color-functions": {

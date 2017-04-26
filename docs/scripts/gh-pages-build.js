@@ -4,9 +4,9 @@
  */
 
 var fs = require('fs');
-var pkg = require('./../package.json');
 var execSync = require('child_process').execSync;
 const path = require('path');
+var pkg = require('./../../package.json');
 
 var usage = '\nbuild <vn.n.n[-pre[.n]]> | <HEAD> [-p]\n';
 var versionsFile = './www/versions.json';
@@ -92,8 +92,10 @@ function addMenuVersion(version) {
  * Build the docs site on a detached branch, commit it on gh-pages branch.
  */
 function buildDocs() {
+    const docsDirectory = path.join(__dirname, '..');
+
   // Ensure we're starting in the docs dir
-  process.chdir(__dirname);
+  process.chdir(docsDirectory);
 
   // Checkout the `gh-pages` branch and update from upstream
   execho('git checkout gh-pages && git pull origin gh-pages');
@@ -116,7 +118,7 @@ function buildDocs() {
   // Move to the gh-pages branch
   execho('git checkout gh-pages');
 
-  process.chdir(path.join(__dirname, '..'));
+  process.chdir(path.join(docsDirectory, '..'));
 
   // Symbolic link `release` to latest version
   if (!preRelease(version)) {

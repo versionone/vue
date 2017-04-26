@@ -15,7 +15,7 @@
     "browser:development": "webpack-dev-server --config webpack-dev-server.config.js --progress --colors --inline",
     "browser:build": "cross-env NODE_ENV=docs-production webpack --config webpack-production.config.js --progress --colors --profile",
     "browser:prd": "cross-env NODE_ENV=docs-production webpack-dev-server --config webpack-production.config.js --progress --colors",
-    "gh-pages:build": "node ./gh-pages-build.js"
+    "gh-pages:build": "node scripts/gh-pages-build.js"
   },
   "dependencies": {
     "babel-core": "^6.18.2",

@@ -18,7 +18,7 @@
     "build:icons": "cross-env NODE_ENV=production node packages/v1-icon-builder/src/build.js --svgDir=./packages/v1-icons/src --outputDir=./src/Icons",
     "prebuild": "npm run clean && npm run build:icons",
     "build": "cross-env NODE_ENV=production node_modules/.bin/babel src --ignore Stories.js,*.test.js,_meta.js,examples/*.* --out-dir ./",
-    "test": "concurrently 'npm run test:ui' 'npm run test:packages:v1-icon-builder'",
+    "test": "concurrently 'npm run test:ui' 'npm run test:packages:v1-icon-builder' 'npm run lint'",
     "test:ui": "jest",
     "test:packages:v1-icon-builder": "cd packages/v1-icon-builder && npm test && cd ../../",
     "lint": "concurrently 'npm run lint:src' 'npm run lint:tests'",

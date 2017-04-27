@@ -40,6 +40,14 @@ class Popover extends Component {
          */
         autoCloseWhenOffScreen: PropTypes.bool,
         /**
+         * If true, the popover will be nudged along the x axis (left or right) to be within the viewport
+         */
+        nudgeXAxis: PropTypes.bool,
+        /**
+         * If true, the popover will be nudged along the y axis (up or down) to be within the viewport
+         */
+        nudgeYAxis: PropTypes.bool,
+        /**
          * The children to render within the popover
          */
         children: PropTypes.node,
@@ -73,6 +81,8 @@ class Popover extends Component {
             horizontal: Positions.left,
             vertical: Positions.top,
         },
+        nudgeXAxis: false,
+        nudgeYAxis: false,
     };
     static contextTypes = {
         theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
@@ -126,6 +136,8 @@ class Popover extends Component {
             autoCloseWhenOffScreen,
             open,
             targetOrigin,
+            nudgeXAxis,
+            nudgeYAxis,
         } = this.props;
 
         if (!open || !this.layer) {
@@ -145,7 +157,7 @@ class Popover extends Component {
         const anchorPosition = getPosition(anchorEl);
         const targetPosition = getTargetPosition(targetElement);
         const viewportPosition = getViewportPosition();
-        const popoverPosition = adjustPositionWithinBoundaries(anchorPosition, anchorOrigin, targetPosition, targetOrigin, viewportPosition);
+        const popoverPosition = adjustPositionWithinBoundaries(anchorPosition, anchorOrigin, targetPosition, targetOrigin, viewportPosition,{nudgeXAxis, nudgeYAxis});
 
         if (!this.width) {
             const computedStyles = window.getComputedStyle(targetElement);
@@ -153,8 +165,8 @@ class Popover extends Component {
             this.width = Math.ceil(popoverPosition.width + scrollWidth);
         }
 
-        const maxHeight = viewportPosition.bottom - popoverPosition.top;
-        if (popoverPosition.bottom >= viewportPosition.bottom) {
+        const maxHeight = viewportPosition.height - popoverPosition.top;
+        if ((popoverPosition.top + popoverPosition.height) >= (viewportPosition.top + viewportPosition.height)) {
             targetElement.style.overflowY = 'auto';
             targetElement.style.overflowX = 'hidden';
         }
@@ -162,9 +174,9 @@ class Popover extends Component {
         if (scrolling && autoCloseWhenOffScreen) {
             this.autoCloseWhenOffScreen(evt, anchorPosition);
         }
-        targetElement.style.left = `${Math.max(offScreenThresholdValue, popoverPosition.left)}px`;
+        targetElement.style.left = `${popoverPosition.left}px`;
         targetElement.style.maxHeight = `${maxHeight}px`;
-        targetElement.style.top = `${Math.max(offScreenThresholdValue, popoverPosition.top)}px`;
+        targetElement.style.top = `${popoverPosition.top}px`;
         targetElement.style.minWidth = `${this.width}px`;
     }
 

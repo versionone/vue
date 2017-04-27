@@ -63,16 +63,31 @@ export const getUnion = (positionA, positionB) => {
     };
 }
 
-export const adjustPositionWithinBoundaries = (anchorPosition, anchorOrigin, targetPosition, targetOrigin, boundaryPosition) => {
-    let relativeLeftPositionToAnchor = targetPosition.left;
-    if (anchorOrigin.horizontal === Positions.right && targetOrigin.horizontal === Positions.left) {
-        relativeLeftPositionToAnchor = anchorPosition.left + anchorPosition.width;
-    }
+export const adjustPositionWithinBoundaries = (anchorPosition, anchorOrigin, targetPosition, targetOrigin, boundaryPosition, nudgeProps) => {
+    // TODO check that horizontal for anchor and target are valid choices
+    const horizontalAnchorOperands = {
+        [Positions.right]: anchorPosition.left + anchorPosition.width,
+        [Positions.center]: anchorPosition.center,
+        [Positions.left]: anchorPosition.left,
+    };
+    const horizontalTargetOperands = {
+        [Positions.right]: targetPosition.width,
+        [Positions.center]: targetPosition.center,
+        [Positions.left]: 0,
+    };
+    let relativeLeftPositionToAnchor = horizontalAnchorOperands[anchorOrigin.horizontal] - horizontalTargetOperands[targetOrigin.horizontal];
 
-    let relativeTopPositionToAnchor = targetPosition.top;
-    if (anchorOrigin.vertical === Positions.top && targetOrigin.vertical === Positions.top) {
-        relativeTopPositionToAnchor = anchorPosition.top;
+    const verticalAnchorOperands = {
+        [Positions.bottom]: anchorPosition.top + anchorPosition.height,
+        [Positions.middle]: anchorPosition.middle,
+        [Positions.top]: anchorPosition.top,
     }
+    const verticalTargetOperands = {
+        [Positions.bottom]: targetPosition.height,
+        [Positions.middle]: targetPosition.middle,
+        [Positions.top]: 0,
+    }
+    let relativeTopPositionToAnchor = verticalAnchorOperands[anchorOrigin.vertical] - verticalTargetOperands[targetOrigin.vertical];
 
     let union = getUnion(boundaryPosition, {
         ...targetPosition,
@@ -80,9 +95,28 @@ export const adjustPositionWithinBoundaries = (anchorPosition, anchorOrigin, tar
         top: relativeTopPositionToAnchor,
     });
 
-    const belowBoundaryDiff = (boundaryPosition.top + boundaryPosition.height) - (union.top + union.height);
-    if (belowBoundaryDiff < 0) {
-        relativeTopPositionToAnchor += belowBoundaryDiff;
+    if (nudgeProps && nudgeProps.nudgeYAxis) {
+        const belowBoundaryDiff = (union.top + union.height) - (boundaryPosition.top + boundaryPosition.height);
+        if (belowBoundaryDiff > 0) {
+            relativeTopPositionToAnchor -= belowBoundaryDiff;
+        }
+
+        const aboveBoundaryDiff = (boundaryPosition.top) - (union.top);
+        if (aboveBoundaryDiff > 0) {
+            relativeTopPositionToAnchor += aboveBoundaryDiff;
+        }
+    }
+
+    if (nudgeProps && nudgeProps.nudgeXAxis) {
+        const leftOfBoundaryDiff = (boundaryPosition.left) - (union.left);
+        if (leftOfBoundaryDiff > 0) {
+            relativeLeftPositionToAnchor += leftOfBoundaryDiff;
+        }
+
+        const rightOfBoundaryDiff = (union.left + union.width) - (boundaryPosition.left + boundaryPosition.width);
+        if (rightOfBoundaryDiff > 0) {
+            relativeLeftPositionToAnchor -= rightOfBoundaryDiff;
+        }
     }
 
     return {

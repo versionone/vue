@@ -60,6 +60,10 @@ const toTopRight = {
     horizontal: 'right',
     vertical: 'top',
 };
+const toBottomLeft = {
+    horizontal: 'left',
+    vertical: 'bottom',
+}
 
 test.skip('getViewportPosition can get the position of the viewport', () => {
     window.innerHeight = 800;
@@ -176,13 +180,30 @@ test('adjustPositionWithinBoundaries can determine a position relative to an anc
         width: 200,
     };
     const bottomLeftAnchorPoint = {
-        center: 150,
+        center: 50,
         height: 100,
         left: 0,
+        middle: 150,
+        top: 100,
+        width: 100,
+    };
+    const topLeftAnchorPoint = {
+        center: 50,
+        height: 100,
+        left: 0,
+        middle: 50,
+        top: 0,
+        width: 100,
+    };
+    const topRightAnchorPoint = {
+        center: 150,
+        height: 100,
+        left: 100,
         middle: 50,
         top: 100,
         width: 100,
     };
+
     const targetPosition = {
         center: 50,
         height: 200,
@@ -192,7 +213,8 @@ test('adjustPositionWithinBoundaries can determine a position relative to an anc
         width: 100,
     };
 
-    expect(adjustPositionWithinBoundaries(bottomLeftAnchorPoint, toTopRight, targetPosition, toTopLeft, viewPort)).toEqual({
+    // adjust position up
+    expect(adjustPositionWithinBoundaries(bottomLeftAnchorPoint, toTopRight, targetPosition, toTopLeft, viewPort, {nudgeYAxis: true})).toEqual({
         center: 150,
         height: 200,
         left: 100,
@@ -200,6 +222,20 @@ test('adjustPositionWithinBoundaries can determine a position relative to an anc
         top: 0,
         width: 100,
     });
+
+    // adjust position down
+    expect(adjustPositionWithinBoundaries(topLeftAnchorPoint, toTopRight, targetPosition, toBottomLeft, viewPort, { nudgeYAxis: true })).toEqual({
+        center: 150,
+        height: 200,
+        left: 100,
+        middle: 100,
+        top: 0,
+        width: 100,
+    });
+
+    // adjust position left
+
+    // adjust position right
 });
 
 function getPositionWithinLeftBoundary() {

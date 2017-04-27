@@ -12,7 +12,15 @@ if (!version) {
     return;
 }
 
-execSync(`./node_modules/.bin/np ${version}`);
+if (version === 'next') {
+    const currentVersion = require('./../package.json').version;
+    console.log(`Publishing as an update to ${currentVersion}-next.`);
+    console.log('This will not publish the docs site.');
+    execSync(`./node_modules/.bin/np ${currentVersion} --tag next`);
+} else {
+    console.log(`Publishing as a new ${version} version.`);
+    execSync(`./node_modules/.bin/np ${version}`);
+}
 
 if (shouldPublishDocs(version)) {
     process.chdir(path.join(__dirname, '..', 'docs'));

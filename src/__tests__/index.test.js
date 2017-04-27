@@ -8,7 +8,6 @@ import PopoverComponent from './../Popover';
 import SubHeaderComponent from './../SubHeader';
 import TextFieldComponent from './../TextField';
 import ThemeProviderComponent from './../ThemeProvider';
-import VersionOneUIProvider from './../VersionOneUIProvider';
 import V1ProviderComponent from './../V1Provider';
 import {
     AssetLookup,

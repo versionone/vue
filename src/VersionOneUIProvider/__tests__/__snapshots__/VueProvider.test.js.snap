@@ -1,5 +1,5 @@
-exports[`test VueProvider provides the theme prop and V1 SDK prop to children via React's context 1`] = `
-<VueProvider
+exports[`test VersionOneUIProvider provides the theme prop and V1 SDK prop to children via React's context 1`] = `
+<VersionOneUIProvider
   runQuery={[Function]}
   theme={
     Object {
@@ -36,5 +36,5 @@ exports[`test VueProvider provides the theme prop and V1 SDK prop to children vi
       </Provider>
     </ThemeProvider>
   </V1Provider>
-</VueProvider>
+</VersionOneUIProvider>
 `;

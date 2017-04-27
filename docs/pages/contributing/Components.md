@@ -26,14 +26,16 @@ Every major component is grouped into its own directory under `./src`. It, at th
 
 ```bash
 .
+├── __tests__
+|   └── ComponentName.test.js
+├── examples
+|   ├── SomeExample.js
+|   └── index.js
 ├── _meta.js
+├── ComponentName.js
 ├── index.js
 ├── README.md
-├── ComponentName.js
-├── ComponentName.spec.js
-├── Stories.js
-├── examples
-|   └── index.js
+└── Stories.js
 ```
 
 ### `_meta.js`
@@ -81,8 +83,8 @@ export {default as ToolbarTitle} from './ToolbarTitle';
 ### README.md
 This file should include the content for the component's documentation. This is used to generate the documentation page for each component.
 
-### Component file(s) and their Specs
-All components should have their own source and spec files. Every component should contain appropriate tests for its functionality. These tests should live side-by-side with the source component file. Tests should consist of the component file's name appended with `.spec`.
+### Component file(s) and their Tests
+All components should have their own source and test files. Every component should contain appropriate tests for its functionality. These tests live within the `__tests__` directory. Tests should consist of the component file's name appended with `.test`.
 
 Tests may be run via WallabyJS or with the command: `npm test`.
 
@@ -111,13 +113,15 @@ Each component's `_meta.js` must be registered with the docs site. This is done 
 
 ```js
 // other exports
-export {default as compnentName} from './ComponentName/_meta';
+export {default as componentName} from './ComponentName/_meta';
 ```
 
 ## Requirement for Components <a name="component-requirements"></a>
 In addition to the above items, evey component should be [theme-enabled](/pages/Theming-Components) and contain all appropriate `propTypes` and `defaultProps` values. Each `propTypes` should contain a comment description above it and deprecated `propTypes` should be marked via a comment as well. Here are a few examples (including deprecated `propTypes`):
 
 ```js
+import * as CustomPropTypes from './utilities/CustomPropTypes';
+// ---
 static propTypes = {
     /**
      * This is the point on the popover which will attach to
@@ -143,7 +147,7 @@ static propTypes = {
     /**
      * The function to call when the user presses the Enter key.
      */
-    onEnterKeyDown: deprecated(PropTypes.func,
+    onEnterKeyDown: CustomPropTypes.deprecated(PropTypes.func,
       'Use onKeyDown and check for keycode instead. It will be removed with v0.16.0.'),
     /** @ignore */
     onFocus: PropTypes.func,
@@ -151,4 +155,4 @@ static propTypes = {
 ```
 
 ## Submitting a New Component <a name="component-submission"></a>
-Please ensure the above requirements are met. Once done, submit a PR from your component's branch to the current version under development's branch.
+Please ensure the above requirements are met. Once done, submit a PR from your component's branch to `master`.

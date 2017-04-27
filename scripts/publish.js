@@ -16,7 +16,7 @@ execSync(`./node_modules/.bin/np ${version}`);
 
 if (shouldPublishDocs(version)) {
     process.chdir(path.join(__dirname, '..', 'docs'));
-    execSync('npm run gh-pages:build');
+    execSync('npm run gh-pages:build -p');
 }
 
 function shouldPublishDocs(publishedVersion) {

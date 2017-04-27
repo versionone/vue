@@ -33,7 +33,9 @@ If there is an error, try running `npm install` again.
 - `npm run lint`: will run linting on all src and test files
 
 ## Publishing
-See the [publishing guide](https://github.com/versionone/vue/wiki/Publishing) for publishing instructions.
+- Ensure you are logged in as versionone in the NPM CLI.
+- Run `npm run pub {version}` where {version} is one of (patch | minor | major | prepatch | preminor | premajor | prerelease | 1.2.3/specific version number)
+    - the docs site will automatically be deployed on major and minor releases
 
 ## Other Resources
 [LICENSE.md](./license.md) - License for source code and redistribution

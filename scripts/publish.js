@@ -12,7 +12,7 @@ if (!version) {
     return;
 }
 
-// execSync(`./node_modules/.bin/np ${version}`);
+execSync(`./node_modules/.bin/np ${version}`);
 
 if (shouldPublishDocs(version)) {
     process.chdir(path.join(__dirname, '..', 'docs'));

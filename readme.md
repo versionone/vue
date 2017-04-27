@@ -19,12 +19,18 @@ This is only required to be run either the **first** time running VersionOne UI 
 ### Step 3: Running the Documentation Site Locally
 Run `npm start` and open your browser to **[http://localhost:3000](http://localhost:3000)**.
 
-If there is an error, try running `npm run setup` again.
+If there is an error, try running `npm install` again.
 
 ### Step 4: Running Storybook Locally
 Run `npm run start:dev` and open your browser to **[http://localhost:9001](http://localhost:9001)**.
 
-If there is an error, try running `npm run setup` again.
+If there is an error, try running `npm install` again.
+
+#### Running Tests and Linting
+- Optionally use WallabyJS
+- `npm test` will run all tests and lint all src/test files
+- `npm run test:ui` will run all VersionOne UI tests (excluding tests from `packages/*`)
+- `npm run lint`: will run linting on all src and test files
 
 ## Publishing
 See the [publishing guide](https://github.com/versionone/vue/wiki/Publishing) for publishing instructions.

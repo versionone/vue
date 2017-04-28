@@ -3,12 +3,14 @@ import * as Positions from './../Popover/Positions';
 const centerAlignmentDivisor = 2;
 const outsideBoundaryThreshold = 0;
 
-export const getViewportPosition = () => ({
-    height: window.document.documentElement.clientHeight,
-    left: 0,
-    top: 0,
-    width: window.document.documentElement.clientWidth,
-});
+export const getViewportPosition = () => {
+    return {
+        height: window.document.documentElement.clientHeight,
+        left: 0,
+        top: 0,
+        width: window.document.documentElement.clientWidth,
+    };
+};
 
 export const getPosition = (element) => {
     const el = element;
@@ -64,7 +66,17 @@ export const getUnion = (positionA, positionB) => {
     };
 };
 
-export const adjustPositionWithinBoundaries = (anchorPosition, anchorOrigin, targetPosition, targetOrigin, boundaryPosition, nudgeProps) => {
+function hasHorizontalOverlap(anchorOrigin, targetOrigin) {
+    return !((anchorOrigin.horizontal === Positions.left && targetOrigin.horizontal === Positions.right)
+        || (anchorOrigin.horizontal === Positions.right && targetOrigin.horizontal === Positions.left));
+}
+
+function hasVerticalOverlap(anchorOrigin, targetOrigin) {
+    return !((anchorOrigin.vertical === Positions.top && targetOrigin.horizontal === Positions.bottom)
+        || (anchorOrigin.vertical === Positions.bottom && targetOrigin.horizontal === Positions.top));
+}
+
+export const adjustPositionWithinBoundaries = (anchorPosition, anchorOrigin, targetPosition, targetOrigin, boundaryPosition) => {
     // TODO check that horizontal for anchor and target are valid choices
     const horizontalAnchorOperands = {
         [Positions.right]: anchorPosition.left + anchorPosition.width,
@@ -96,19 +108,45 @@ export const adjustPositionWithinBoundaries = (anchorPosition, anchorOrigin, tar
         top: relativeTopPositionToAnchor,
     });
 
-    if (nudgeProps && nudgeProps.nudgeYAxis) {
+    let nudgedVertically = false;
+    if (hasHorizontalOverlap(anchorOrigin, targetOrigin)) {
+        // flip alignment from below to above or above to below if target box exceeds boundary box
         const belowBoundaryDiff = (union.top + union.height) - (boundaryPosition.top + boundaryPosition.height);
         if (belowBoundaryDiff > outsideBoundaryThreshold) {
+            // TODO possibly flip target to above anchor
+        }
+
+        const aboveBoundaryDiff = (boundaryPosition.top) - (union.top);
+        if (aboveBoundaryDiff > 0) {
+            // TODO possibly flip target to below anchor
+        }
+    } else {
+        // nudge vertically, only if anchored to the left or the right (no horizontal overlap)
+        const belowBoundaryDiff = (union.top + union.height) - (boundaryPosition.top + boundaryPosition.height);
+        if (belowBoundaryDiff > outsideBoundaryThreshold) {
+            nudgedVertically = true;
             relativeTopPositionToAnchor -= belowBoundaryDiff;
         }
 
         const aboveBoundaryDiff = (boundaryPosition.top) - (union.top);
         if (aboveBoundaryDiff > outsideBoundaryThreshold) {
+            nudgedVertically = true;
             relativeTopPositionToAnchor += aboveBoundaryDiff;
         }
     }
 
-    if (nudgeProps && nudgeProps.nudgeXAxis) {
+    if (hasVerticalOverlap(anchorOrigin, targetOrigin)) {
+        const leftOfBoundaryDiff = (boundaryPosition.left) - (union.left);
+        if (leftOfBoundaryDiff > 0) {
+            // TODO possibly flip target to the right of anchor
+        }
+
+        const rightOfBoundaryDiff = (union.left + union.width) - (boundaryPosition.left + boundaryPosition.width);
+        if (rightOfBoundaryDiff > 0) {
+            // TODO possibly flip target to the left of anchor
+        }
+    } else if (!nudgedVertically) {
+        // nudge horizontally, only if anchored to the top or the bottom and not already nudged vertically
         const leftOfBoundaryDiff = (boundaryPosition.left) - (union.left);
         if (leftOfBoundaryDiff > outsideBoundaryThreshold) {
             relativeLeftPositionToAnchor += leftOfBoundaryDiff;
@@ -124,6 +162,7 @@ export const adjustPositionWithinBoundaries = (anchorPosition, anchorOrigin, tar
         ...targetPosition,
         center: relativeLeftPositionToAnchor + (targetPosition.width / centerAlignmentDivisor),
         left: relativeLeftPositionToAnchor,
+        middle: relativeTopPositionToAnchor + targetPosition.height / 2,
         top: relativeTopPositionToAnchor,
     };
 };

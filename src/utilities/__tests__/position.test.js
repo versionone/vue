@@ -9,9 +9,17 @@ import {
     isWithinRightBoundary,
     isWithinTopBoundary,
     isWithinXBoundary,
-    isWithinYBoundary
+    isWithinYBoundary,
 } from './../position';
 
+const bottomLeftAnchorPoint = {
+    center: 50,
+    height: 100,
+    left: 0,
+    middle: 150,
+    top: 100,
+    width: 100,
+};
 const topLeftAnchorPoint = {
     center: 50,
     height: 100,
@@ -21,21 +29,14 @@ const topLeftAnchorPoint = {
     width: 100,
 };
 const topRightAnchorPoint = {
-    center: 250,
+    center: 150,
     height: 100,
-    left: 200,
+    left: 100,
     middle: 50,
-    top: 0,
+    top: 100,
     width: 100,
 };
-const bottomLeftAnchorPoint = {
-    center: 50,
-    height: 100,
-    left: 0,
-    middle: 250,
-    top: 200,
-    width: 100,
-};
+
 const toTopLeft = {
     horizontal: 'left',
     vertical: 'top',
@@ -63,7 +64,7 @@ const toTopRight = {
 const toBottomLeft = {
     horizontal: 'left',
     vertical: 'bottom',
-}
+};
 
 test.skip('getViewportPosition can get the position of the viewport', () => {
     window.innerHeight = 800;
@@ -179,31 +180,6 @@ test('adjustPositionWithinBoundaries can determine a position relative to an anc
         top: 0,
         width: 200,
     };
-    const bottomLeftAnchorPoint = {
-        center: 50,
-        height: 100,
-        left: 0,
-        middle: 150,
-        top: 100,
-        width: 100,
-    };
-    const topLeftAnchorPoint = {
-        center: 50,
-        height: 100,
-        left: 0,
-        middle: 50,
-        top: 0,
-        width: 100,
-    };
-    const topRightAnchorPoint = {
-        center: 150,
-        height: 100,
-        left: 100,
-        middle: 50,
-        top: 100,
-        width: 100,
-    };
-
     const targetPosition = {
         center: 50,
         height: 200,
@@ -214,7 +190,7 @@ test('adjustPositionWithinBoundaries can determine a position relative to an anc
     };
 
     // adjust position up
-    expect(adjustPositionWithinBoundaries(bottomLeftAnchorPoint, toTopRight, targetPosition, toTopLeft, viewPort, {nudgeYAxis: true})).toEqual({
+    expect(adjustPositionWithinBoundaries(bottomLeftAnchorPoint, toTopRight, targetPosition, toTopLeft, viewPort)).toEqual({
         center: 150,
         height: 200,
         left: 100,
@@ -224,7 +200,7 @@ test('adjustPositionWithinBoundaries can determine a position relative to an anc
     });
 
     // adjust position down
-    expect(adjustPositionWithinBoundaries(topLeftAnchorPoint, toTopRight, targetPosition, toBottomLeft, viewPort, { nudgeYAxis: true })).toEqual({
+    expect(adjustPositionWithinBoundaries(topLeftAnchorPoint, toTopRight, targetPosition, toBottomLeft, viewPort)).toEqual({
         center: 150,
         height: 200,
         left: 100,

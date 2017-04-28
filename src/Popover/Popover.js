@@ -13,7 +13,6 @@ import * as Positions from './Positions';
 import {isDescendant} from './../utilities/dom';
 
 const resizeThrottleValue = 50;
-const scrollThrottleValue = 50;
 const offScreenThresholdValue = 0;
 const centerAlignmentDivisor = 2;
 const getTargetPosition = (targetElement) => ({
@@ -40,17 +39,13 @@ class Popover extends Component {
          */
         autoCloseWhenOffScreen: PropTypes.bool,
         /**
+         * The children to render within the popover
+         */
+        children: PropTypes.node,
+        /**
          * CSS class name for root element of the popover
          */
         className: PropTypes.string,
-        /**
-         * If true, the popover will be nudged along the x axis (left or right) to be within the viewport
-         */
-        nudgeXAxis: PropTypes.bool,
-        /**
-         * If true, the popover will be nudged along the y axis (up or down) to be within the viewport
-         */
-        nudgeYAxis: PropTypes.bool,
         /**
          * Function called when the popover is requested to close
          */
@@ -76,9 +71,7 @@ class Popover extends Component {
         targetOrigin: {
             horizontal: Positions.left,
             vertical: Positions.top,
-        },
-        nudgeXAxis: false,
-        nudgeYAxis: false,
+        }
     };
     static contextTypes = {
         theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
@@ -93,10 +86,9 @@ class Popover extends Component {
         this.setPlacement = this.setPlacement.bind(this);
         this.handleRendered = this.handleRendered.bind(this);
         this.handleResize = throttle(this.setPlacement.bind(this, false), resizeThrottleValue);
-        this.handleScroll = throttle(this.setPlacement.bind(this, true), scrollThrottleValue);
+        this.handleScroll = this.placeOnNextAnimationFrame.bind(this);
         this.renderLayer = this.renderLayer.bind(this);
         this.handleComponentClickAway = this.handleComponentClickAway.bind(this);
-        this.autoCloseWhenOffScreen = this.autoCloseWhenOffScreen.bind(this);
     }
 
     componentDidMount() {
@@ -125,6 +117,16 @@ class Popover extends Component {
         this.handleScroll = null;
     }
 
+    lastPlaceOnScrollFrameRequest = null;
+
+    placeOnNextAnimationFrame(evt) {
+        if (this.lastPlaceOnScrollFrameRequest) cancelAnimationFrame(this.lastPlaceOnScrollFrameRequest);
+        this.lastPlaceOnScrollFrameRequest = requestAnimationFrame(() => {
+            this.setPlacement(true, evt)
+            this.lastPlaceOnScrollFrameRequest = null;
+        });
+    }
+
     setPlacement(scrolling, evt) {
         const {
             anchorElement,
@@ -132,8 +134,6 @@ class Popover extends Component {
             autoCloseWhenOffScreen,
             open,
             targetOrigin,
-            nudgeXAxis,
-            nudgeYAxis,
         } = this.props;
 
         if (!open || !this.layer) {
@@ -153,28 +153,31 @@ class Popover extends Component {
         const anchorPosition = getPosition(anchorEl);
         const targetPosition = getTargetPosition(targetElement);
         const viewportPosition = getViewportPosition();
-        const popoverPosition = adjustPositionWithinBoundaries(anchorPosition, anchorOrigin, targetPosition, targetOrigin, viewportPosition, {
-            nudgeXAxis,
-            nudgeYAxis,
-        });
+        const popoverPosition = adjustPositionWithinBoundaries(
+            anchorPosition,
+            anchorOrigin,
+            targetPosition,
+            targetOrigin,
+            viewportPosition);
 
         if (!this.width) {
             const computedStyles = window.getComputedStyle(targetElement);
             const scrollWidth = popoverPosition.width - targetElement.clientWidth - dimensions.getValue(computedStyles.borderLeftWidth) - dimensions.getValue(computedStyles.borderRightWidth);
             this.width = Math.ceil(popoverPosition.width + scrollWidth);
         }
-
         const maxHeight = viewportPosition.height - popoverPosition.top;
         if ((popoverPosition.top + popoverPosition.height) >= (viewportPosition.top + viewportPosition.height)) {
             targetElement.style.overflowY = 'auto';
             targetElement.style.overflowX = 'hidden';
         }
 
-        if (scrolling && autoCloseWhenOffScreen) {
-            this.autoCloseWhenOffScreen(evt, anchorPosition);
+        if (scrolling && autoCloseWhenOffScreen && this.isOffscreen(anchorPosition, viewportPosition)) {
+            this.requestClose(evt, 'offScreen');
         }
         targetElement.style.left = `${popoverPosition.left}px`;
-        targetElement.style.maxHeight = `${maxHeight}px`;
+        if (!scrolling) {
+            targetElement.style.maxHeight = `${maxHeight}px`;
+        }
         targetElement.style.top = `${popoverPosition.top}px`;
         targetElement.style.minWidth = `${this.width}px`;
     }
@@ -226,13 +229,11 @@ class Popover extends Component {
         onRequestClose(evt, reason);
     }
 
-    autoCloseWhenOffScreen(evt, anchorPosition) {
-        if (anchorPosition.top < offScreenThresholdValue
-            || anchorPosition.top > window.innerHeight
+    isOffscreen(anchorPosition, viewportPosition) {
+        return (anchorPosition.top < offScreenThresholdValue
+            || anchorPosition.top > viewportPosition.height
             || anchorPosition.left < offScreenThresholdValue
-            || anchorPosition.left > window.innerWidth) {
-            this.requestClose(evt, 'offScreen');
-        }
+            || anchorPosition.left > viewportPosition.width);
     }
 
     render() {

@@ -154,21 +154,32 @@ class PopoverDemoWithManyMenuItems extends Component {
             anchorOrigin,
             targetOrigin,
         } = this.props;
+        const {
+            open
+        } = this.state;
         return (
             <div>
+                {(new Array(10).fill(1)).map((item, index) => (
+                    <div key={"beforefiller" + index}>Filler {index}</div>
+                ))}
                 <span
                     ref={(el) => {
                         this.anchor = el;
                     }}
                 >Anchor</span>
+                {(new Array(100).fill(1)).map((item, index) => (
+                    <div key={"afterfiller" + index}>Filler {index}</div>
+                ))}
                 <Popover
                     anchorElement={this.anchor}
                     anchorOrigin={anchorOrigin}
-                    open={true}
+                    open={open}
                     targetOrigin={targetOrigin}
+                    onRequestClose={this.closePopover}
                 >
                     <div style={{
                         backgroundColor: 'white',
+                        border: 'solid 1px black',
                     }}>
                         {(new Array(100).fill(1)).map((item, index) => (
                             <div key={index}>Item {index}</div>
@@ -325,7 +336,7 @@ class PopoverInCorners extends Component {
                                                 ...this.state.popoversOpen,
                                                 [myIndex]: this.state.popoversOpen[myIndex] ? !this.state.popoversOpen[myIndex] : { open: true, }
                                             }
-                                        }, () => console.log(this.state));
+                                        });
                                     }}
                                 >
                                     <span
@@ -349,7 +360,6 @@ class PopoverInCorners extends Component {
                                         anchorOrigin={positions.anchor}
                                         open={this.state.popoversOpen[myIndex] && this.state.popoversOpen[myIndex].open}
                                         targetOrigin={positions.target}
-                                        nudgeYAxis={true}
                                     >
                                         <div style={{ backgroundColor: 'white' }}>
                                             {new Array(3).fill(1).map((item, index) => (

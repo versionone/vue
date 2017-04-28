@@ -1,6 +1,7 @@
 import * as Positions from './../Popover/Positions';
 
 const centerAlignmentDivisor = 2;
+const outsideBoundaryThreshold = 0;
 
 export const getViewportPosition = () => ({
     height: window.document.documentElement.clientHeight,
@@ -19,8 +20,8 @@ export const getPosition = (element) => {
         width: el.offsetWidth,
     };
 
-    position.center = position.left + position.width / centerAlignmentDivisor;
-    position.middle = position.top + position.height / centerAlignmentDivisor;
+    position.center = position.left + (position.width / centerAlignmentDivisor);
+    position.middle = position.top + (position.height / centerAlignmentDivisor);
 
     return position;
 };
@@ -61,7 +62,7 @@ export const getUnion = (positionA, positionB) => {
         top,
         width,
     };
-}
+};
 
 export const adjustPositionWithinBoundaries = (anchorPosition, anchorOrigin, targetPosition, targetOrigin, boundaryPosition, nudgeProps) => {
     // TODO check that horizontal for anchor and target are valid choices
@@ -81,15 +82,15 @@ export const adjustPositionWithinBoundaries = (anchorPosition, anchorOrigin, tar
         [Positions.bottom]: anchorPosition.top + anchorPosition.height,
         [Positions.middle]: anchorPosition.middle,
         [Positions.top]: anchorPosition.top,
-    }
+    };
     const verticalTargetOperands = {
         [Positions.bottom]: targetPosition.height,
         [Positions.middle]: targetPosition.middle,
         [Positions.top]: 0,
-    }
+    };
     let relativeTopPositionToAnchor = verticalAnchorOperands[anchorOrigin.vertical] - verticalTargetOperands[targetOrigin.vertical];
 
-    let union = getUnion(boundaryPosition, {
+    const union = getUnion(boundaryPosition, {
         ...targetPosition,
         left: relativeLeftPositionToAnchor,
         top: relativeTopPositionToAnchor,
@@ -97,31 +98,31 @@ export const adjustPositionWithinBoundaries = (anchorPosition, anchorOrigin, tar
 
     if (nudgeProps && nudgeProps.nudgeYAxis) {
         const belowBoundaryDiff = (union.top + union.height) - (boundaryPosition.top + boundaryPosition.height);
-        if (belowBoundaryDiff > 0) {
+        if (belowBoundaryDiff > outsideBoundaryThreshold) {
             relativeTopPositionToAnchor -= belowBoundaryDiff;
         }
 
         const aboveBoundaryDiff = (boundaryPosition.top) - (union.top);
-        if (aboveBoundaryDiff > 0) {
+        if (aboveBoundaryDiff > outsideBoundaryThreshold) {
             relativeTopPositionToAnchor += aboveBoundaryDiff;
         }
     }
 
     if (nudgeProps && nudgeProps.nudgeXAxis) {
         const leftOfBoundaryDiff = (boundaryPosition.left) - (union.left);
-        if (leftOfBoundaryDiff > 0) {
+        if (leftOfBoundaryDiff > outsideBoundaryThreshold) {
             relativeLeftPositionToAnchor += leftOfBoundaryDiff;
         }
 
         const rightOfBoundaryDiff = (union.left + union.width) - (boundaryPosition.left + boundaryPosition.width);
-        if (rightOfBoundaryDiff > 0) {
+        if (rightOfBoundaryDiff > outsideBoundaryThreshold) {
             relativeLeftPositionToAnchor -= rightOfBoundaryDiff;
         }
     }
 
     return {
         ...targetPosition,
-        center: relativeLeftPositionToAnchor + targetPosition.width / 2,
+        center: relativeLeftPositionToAnchor + (targetPosition.width / centerAlignmentDivisor),
         left: relativeLeftPositionToAnchor,
         top: relativeTopPositionToAnchor,
     };

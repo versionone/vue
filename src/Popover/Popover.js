@@ -40,6 +40,10 @@ class Popover extends Component {
          */
         autoCloseWhenOffScreen: PropTypes.bool,
         /**
+         * CSS class name for root element of the popover
+         */
+        className: PropTypes.string,
+        /**
          * If true, the popover will be nudged along the x axis (left or right) to be within the viewport
          */
         nudgeXAxis: PropTypes.bool,
@@ -47,14 +51,6 @@ class Popover extends Component {
          * If true, the popover will be nudged along the y axis (up or down) to be within the viewport
          */
         nudgeYAxis: PropTypes.bool,
-        /**
-         * The children to render within the popover
-         */
-        children: PropTypes.node,
-        /**
-         * CSS class name for root element of the popover
-         */
-        className: PropTypes.string,
         /**
          * Function called when the popover is requested to close
          */
@@ -157,7 +153,10 @@ class Popover extends Component {
         const anchorPosition = getPosition(anchorEl);
         const targetPosition = getTargetPosition(targetElement);
         const viewportPosition = getViewportPosition();
-        const popoverPosition = adjustPositionWithinBoundaries(anchorPosition, anchorOrigin, targetPosition, targetOrigin, viewportPosition,{nudgeXAxis, nudgeYAxis});
+        const popoverPosition = adjustPositionWithinBoundaries(anchorPosition, anchorOrigin, targetPosition, targetOrigin, viewportPosition, {
+            nudgeXAxis,
+            nudgeYAxis,
+        });
 
         if (!this.width) {
             const computedStyles = window.getComputedStyle(targetElement);

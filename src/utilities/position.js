@@ -3,14 +3,12 @@ import * as Positions from './../Popover/Positions';
 const centerAlignmentDivisor = 2;
 const outsideBoundaryThreshold = 0;
 
-export const getViewportPosition = () => {
-    return {
-        height: window.document.documentElement.clientHeight,
-        left: 0,
-        top: 0,
-        width: window.document.documentElement.clientWidth,
-    };
-};
+export const getViewportPosition = () => ({
+    height: window.document.documentElement.clientHeight,
+    left: 0,
+    top: 0,
+    width: window.document.documentElement.clientWidth,
+});
 
 export const getPosition = (element) => {
     const el = element;
@@ -117,10 +115,11 @@ export const adjustPositionWithinBoundaries = (anchorPosition, anchorOrigin, tar
         }
 
         const aboveBoundaryDiff = (boundaryPosition.top) - (union.top);
-        if (aboveBoundaryDiff > 0) {
+        if (aboveBoundaryDiff > outsideBoundaryThreshold) {
             // TODO possibly flip target to below anchor
         }
-    } else {
+    }
+    else {
         // nudge vertically, only if anchored to the left or the right (no horizontal overlap)
         const belowBoundaryDiff = (union.top + union.height) - (boundaryPosition.top + boundaryPosition.height);
         if (belowBoundaryDiff > outsideBoundaryThreshold) {
@@ -137,15 +136,16 @@ export const adjustPositionWithinBoundaries = (anchorPosition, anchorOrigin, tar
 
     if (hasVerticalOverlap(anchorOrigin, targetOrigin)) {
         const leftOfBoundaryDiff = (boundaryPosition.left) - (union.left);
-        if (leftOfBoundaryDiff > 0) {
+        if (leftOfBoundaryDiff > outsideBoundaryThreshold) {
             // TODO possibly flip target to the right of anchor
         }
 
         const rightOfBoundaryDiff = (union.left + union.width) - (boundaryPosition.left + boundaryPosition.width);
-        if (rightOfBoundaryDiff > 0) {
+        if (rightOfBoundaryDiff > outsideBoundaryThreshold) {
             // TODO possibly flip target to the left of anchor
         }
-    } else if (!nudgedVertically) {
+    }
+    else if (!nudgedVertically) {
         // nudge horizontally, only if anchored to the top or the bottom and not already nudged vertically
         const leftOfBoundaryDiff = (boundaryPosition.left) - (union.left);
         if (leftOfBoundaryDiff > outsideBoundaryThreshold) {
@@ -162,7 +162,7 @@ export const adjustPositionWithinBoundaries = (anchorPosition, anchorOrigin, tar
         ...targetPosition,
         center: relativeLeftPositionToAnchor + (targetPosition.width / centerAlignmentDivisor),
         left: relativeLeftPositionToAnchor,
-        middle: relativeTopPositionToAnchor + targetPosition.height / 2,
+        middle: relativeTopPositionToAnchor + (targetPosition.height / centerAlignmentDivisor),
         top: relativeTopPositionToAnchor,
     };
 };

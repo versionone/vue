@@ -71,7 +71,7 @@ class Popover extends Component {
         targetOrigin: {
             horizontal: Positions.left,
             vertical: Positions.top,
-        }
+        },
     };
     static contextTypes = {
         theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
@@ -120,9 +120,11 @@ class Popover extends Component {
     lastPlaceOnScrollFrameRequest = null;
 
     placeOnNextAnimationFrame(evt) {
-        if (this.lastPlaceOnScrollFrameRequest) cancelAnimationFrame(this.lastPlaceOnScrollFrameRequest);
+        if (this.lastPlaceOnScrollFrameRequest) {
+            cancelAnimationFrame(this.lastPlaceOnScrollFrameRequest);
+        }
         this.lastPlaceOnScrollFrameRequest = requestAnimationFrame(() => {
-            this.setPlacement(true, evt)
+            this.setPlacement(true, evt);
             this.lastPlaceOnScrollFrameRequest = null;
         });
     }
@@ -231,9 +233,9 @@ class Popover extends Component {
     }
 
     isOffscreen(anchorPosition, viewportPosition) {
-        return (anchorPosition.top < offScreenThresholdValue
+        return (anchorPosition.top < this.offScreenThresholdValue
             || anchorPosition.top > viewportPosition.height
-            || anchorPosition.left < offScreenThresholdValue
+            || anchorPosition.left < this.offScreenThresholdValue
             || anchorPosition.left > viewportPosition.width);
     }
 

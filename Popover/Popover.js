@@ -76,6 +76,10 @@ var getTargetPosition = function getTargetPosition(targetElement) {
     };
 };
 
+var isOffscreen = function isOffscreen(anchorPosition, viewportPosition) {
+    return anchorPosition.top < offScreenThresholdValue || anchorPosition.top > viewportPosition.height || anchorPosition.left < offScreenThresholdValue || anchorPosition.left > viewportPosition.width;
+};
+
 var Popover = function (_Component) {
     _inherits(Popover, _Component);
 
@@ -189,7 +193,7 @@ var Popover = function (_Component) {
                 targetElement.style.overflowX = 'hidden';
             }
 
-            if (scrolling && autoCloseWhenOffScreen && this.isOffscreen(anchorPosition, viewportPosition)) {
+            if (scrolling && autoCloseWhenOffScreen && isOffscreen(anchorPosition, viewportPosition)) {
                 this.requestClose(evt, 'offScreen');
             }
             targetElement.style.left = popoverPosition.left + 'px';
@@ -246,11 +250,6 @@ var Popover = function (_Component) {
             var onRequestClose = this.props.onRequestClose;
 
             onRequestClose(evt, reason);
-        }
-    }, {
-        key: 'isOffscreen',
-        value: function isOffscreen(anchorPosition, viewportPosition) {
-            return anchorPosition.top < this.offScreenThresholdValue || anchorPosition.top > viewportPosition.height || anchorPosition.left < this.offScreenThresholdValue || anchorPosition.left > viewportPosition.width;
         }
     }, {
         key: 'render',

@@ -1,6 +1,6 @@
 {
   "name": "v1-vue",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "dependencies": {
     "@andrew-codes/color-functions": {
       "version": "1.4.2",

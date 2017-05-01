@@ -50,7 +50,9 @@ class PopoverDemo extends Component {
                     onRequestClose={this.closePopover}
                 >
                     <div style={{backgroundColor: 'white'}}>
-                        This is the contents of the popover.
+                        {(new Array(7).fill(1)).map((item, index) => (
+                            <div key={index}>Item {index}</div>
+                        ))}
                     </div>
                 </Popover>
             </div>
@@ -152,27 +154,226 @@ class PopoverDemoWithManyMenuItems extends Component {
             anchorOrigin,
             targetOrigin,
         } = this.props;
+        const {
+            open
+        } = this.state;
         return (
             <div>
+                {(new Array(10).fill(1)).map((item, index) => (
+                    <div key={"beforefiller" + index}>Filler {index}</div>
+                ))}
                 <span
                     ref={(el) => {
                         this.anchor = el;
                     }}
                 >Anchor</span>
+                {(new Array(100).fill(1)).map((item, index) => (
+                    <div key={"afterfiller" + index}>Filler {index}</div>
+                ))}
                 <Popover
                     anchorElement={this.anchor}
                     anchorOrigin={anchorOrigin}
-                    open={true}
+                    open={open}
                     targetOrigin={targetOrigin}
+                    onRequestClose={this.closePopover}
                 >
                     <div style={{
                         backgroundColor: 'white',
+                        border: 'solid 1px black',
                     }}>
                         {(new Array(100).fill(1)).map((item, index) => (
                             <div key={index}>Item {index}</div>
                         ))}
                     </div>
                 </Popover>
+            </div>
+        );
+    }
+}
+
+class PopoverInCorners extends Component {
+    constructor() {
+        super();
+        this.positionSets = [
+            [
+                {
+                    anchor: {
+                        horizontal: 'left',
+                        vertical: 'top',
+                    },
+                    target: {
+                        horizontal: 'left',
+                        vertical: 'bottom',
+                    }
+                },
+                {
+                    anchor: {
+                        horizontal: 'right',
+                        vertical: 'top',
+                    },
+                    target: {
+                        horizontal: 'left',
+                        vertical: 'bottom',
+                    }
+                },
+                {
+                    anchor: {
+                        horizontal: 'center',
+                        vertical: 'top',
+                    },
+                    target: {
+                        horizontal: 'center',
+                        vertical: 'bottom',
+                    }
+                },
+                {
+                    anchor: {
+                        horizontal: 'left',
+                        vertical: 'top',
+                    },
+                    target: {
+                        horizontal: 'right',
+                        vertical: 'bottom',
+                    }
+                },
+                {
+                    anchor: {
+                        horizontal: 'right',
+                        vertical: 'top',
+                    },
+                    target: {
+                        horizontal: 'center',
+                        vertical: 'bottom',
+                    }
+                },
+            ],
+
+
+
+            [
+                {
+                    anchor: {
+                        horizontal: 'left',
+                        vertical: 'top',
+                    },
+                    target: {
+                        horizontal: 'left',
+                        vertical: 'bottom',
+                    }
+                },
+                {
+                    anchor: {
+                        horizontal: 'right',
+                        vertical: 'top',
+                    },
+                    target: {
+                        horizontal: 'left',
+                        vertical: 'bottom',
+                    }
+                },
+                {
+                    anchor: {
+                        horizontal: 'center',
+                        vertical: 'top',
+                    },
+                    target: {
+                        horizontal: 'center',
+                        vertical: 'bottom',
+                    }
+                },
+                {
+                    anchor: {
+                        horizontal: 'left',
+                        vertical: 'top',
+                    },
+                    target: {
+                        horizontal: 'right',
+                        vertical: 'bottom',
+                    }
+                },
+                {
+                    anchor: {
+                        horizontal: 'right',
+                        vertical: 'top',
+                    },
+                    target: {
+                        horizontal: 'center',
+                        vertical: 'bottom',
+                    }
+                },
+            ],
+        ];
+        this.anchors = [];
+        this.state = {
+            popoversOpen: {},
+        };
+    }
+
+    render() {
+        let popoverIndex = 0;
+        return (
+            <div>
+                {this.positionSets.map((positionSet, rowIndex) => (
+                    <div
+                        key={rowIndex}
+                        style={{
+                            height: 'calc((100vh - 40px) / 3)',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            flexWrap: 'wrap',
+                        }}>
+                        {positionSet.map((positions, index) => {
+                            let myIndex = popoverIndex;
+                            const popover = (
+                                <div
+                                    style={{
+                                        flex: '0 1',
+                                        border: '1px solid blue',
+                                    }}
+                                    onClick={(evt) => {
+                                        this.setState({
+                                            popoversOpen: {
+                                                ...this.state.popoversOpen,
+                                                [myIndex]: this.state.popoversOpen[myIndex] ? !this.state.popoversOpen[myIndex] : { open: true, }
+                                            }
+                                        });
+                                    }}
+                                >
+                                    <span
+                                        ref={(el) => this.anchors[myIndex] = el}
+                                        style={{
+                                            backgroundColor: 'lightblue',
+                                            display: 'inline-block',
+                                            width: '150px',
+                                        }}
+                                    >
+                                        Anchor
+                                    </span>
+                                    <div>
+                                        anchor: {positions.anchor.vertical} -  {positions.anchor.horizontal}
+                                    </div>
+                                    <div>
+                                        target: {positions.target.vertical} -  {positions.target.horizontal}
+                                    </div>
+                                    <Popover
+                                        anchorElement={this.anchors[myIndex]}
+                                        anchorOrigin={positions.anchor}
+                                        open={this.state.popoversOpen[myIndex] && this.state.popoversOpen[myIndex].open}
+                                        targetOrigin={positions.target}
+                                    >
+                                        <div style={{ backgroundColor: 'white' }}>
+                                            {new Array(3).fill(1).map((item, index) => (
+                                                <div key={index}>Item {index}</div>
+                                            ))}
+                                        </div>
+                                    </Popover>
+                                </div>
+                            );
+                            popoverIndex += 1;
+                            return popover;
+                        })}
+                    </div>
+                ))}
             </div>
         );
     }
@@ -216,11 +417,7 @@ class PopoverDemoWithNoAnchor extends Component {
             <div>
                 <span
                     onClick={this.handleClick}
-                >Anchor</span>
-                <span>Another Span</span>
-                <div>Another Span</div>
-                <span>Another Span</span>
-                <span>Another Span</span>
+                >Not the Anchor</span>
                 {showContent && <div>This is content that the popover can render over.</div>}
                 <Popover
                     anchorElement={document.createElement("div")}
@@ -342,6 +539,12 @@ storiesOf('Popover')
                     vertical: 'top'
                 }}
             />
+        )
+    )
+    .addWithInfo('popover moves to be within viewport',
+        ``,
+        () => (
+            <PopoverInCorners />
         )
     )
     .addWithInfo('too far below, on top of anchor',

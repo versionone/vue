@@ -6,23 +6,20 @@ import {findDOMNode} from 'react-dom';
 import Radium from './../utilities/Radium';
 import RenderToLayer from './../internal/RenderToLayer';
 import ThemeProvider from './../ThemeProvider';
-import {adjustPosition, getPosition, getViewportPosition} from './../utilities/position';
+import {adjustPositionWithinBoundaries, getPosition, getViewportPosition} from './../utilities/position';
 import * as CustomPropTypes from './../utilities/CustomPropTypes';
 import * as dimensions from './../utilities/dimensions';
 import * as Positions from './Positions';
 import {isDescendant} from './../utilities/dom';
 
 const resizeThrottleValue = 50;
-const scrollThrottleValue = 50;
 const offScreenThresholdValue = 0;
 const centerAlignmentDivisor = 2;
 const getTargetPosition = (targetElement) => ({
-    bottom: targetElement.offsetHeight,
     center: targetElement.scrollWidth / centerAlignmentDivisor,
     height: targetElement.offsetHeight,
     left: 0,
     middle: targetElement.offsetHeight / centerAlignmentDivisor,
-    right: targetElement.scrollWidth,
     top: 0,
     width: targetElement.scrollWidth,
 });
@@ -89,10 +86,9 @@ class Popover extends Component {
         this.setPlacement = this.setPlacement.bind(this);
         this.handleRendered = this.handleRendered.bind(this);
         this.handleResize = throttle(this.setPlacement.bind(this, false), resizeThrottleValue);
-        this.handleScroll = throttle(this.setPlacement.bind(this, true), scrollThrottleValue);
+        this.handleScroll = this.placeOnNextAnimationFrame.bind(this);
         this.renderLayer = this.renderLayer.bind(this);
         this.handleComponentClickAway = this.handleComponentClickAway.bind(this);
-        this.autoCloseWhenOffScreen = this.autoCloseWhenOffScreen.bind(this);
     }
 
     componentDidMount() {
@@ -121,6 +117,18 @@ class Popover extends Component {
         this.handleScroll = null;
     }
 
+    lastPlaceOnScrollFrameRequest = null;
+
+    placeOnNextAnimationFrame(evt) {
+        if (this.lastPlaceOnScrollFrameRequest) {
+            cancelAnimationFrame(this.lastPlaceOnScrollFrameRequest);
+        }
+        this.lastPlaceOnScrollFrameRequest = requestAnimationFrame(() => {
+            this.setPlacement(true, evt);
+            this.lastPlaceOnScrollFrameRequest = null;
+        });
+    }
+
     setPlacement(scrolling, evt) {
         const {
             anchorElement,
@@ -146,27 +154,34 @@ class Popover extends Component {
         const anchorEl = anchorElement || this.anchorElement || findDOMNode(this);
         const anchorPosition = getPosition(anchorEl);
         const targetPosition = getTargetPosition(targetElement);
-        const popoverPosition = adjustPosition(anchorPosition, anchorOrigin, targetPosition, targetOrigin);
         const viewportPosition = getViewportPosition();
+        const popoverPosition = adjustPositionWithinBoundaries(
+            anchorPosition,
+            anchorOrigin,
+            targetPosition,
+            targetOrigin,
+            viewportPosition);
 
         if (!this.width) {
             const computedStyles = window.getComputedStyle(targetElement);
             const scrollWidth = popoverPosition.width - targetElement.clientWidth - dimensions.getValue(computedStyles.borderLeftWidth) - dimensions.getValue(computedStyles.borderRightWidth);
             this.width = Math.ceil(popoverPosition.width + scrollWidth);
         }
-
-        const maxHeight = viewportPosition.bottom - popoverPosition.top;
-        if (popoverPosition.bottom >= viewportPosition.bottom) {
+        popoverPosition.top = Math.max(offScreenThresholdValue, popoverPosition.top);
+        const maxHeight = viewportPosition.height - popoverPosition.top;
+        if ((popoverPosition.top + popoverPosition.height) >= (viewportPosition.top + viewportPosition.height)) {
             targetElement.style.overflowY = 'auto';
             targetElement.style.overflowX = 'hidden';
         }
 
-        if (scrolling && autoCloseWhenOffScreen) {
-            this.autoCloseWhenOffScreen(evt, anchorPosition);
+        if (scrolling && autoCloseWhenOffScreen && this.isOffscreen(anchorPosition, viewportPosition)) {
+            this.requestClose(evt, 'offScreen');
         }
-        targetElement.style.left = `${Math.max(offScreenThresholdValue, popoverPosition.left)}px`;
-        targetElement.style.maxHeight = `${maxHeight}px`;
-        targetElement.style.top = `${Math.max(offScreenThresholdValue, popoverPosition.top)}px`;
+        targetElement.style.left = `${popoverPosition.left}px`;
+        if (!scrolling) {
+            targetElement.style.maxHeight = `${maxHeight}px`;
+        }
+        targetElement.style.top = `${popoverPosition.top}px`;
         targetElement.style.minWidth = `${this.width}px`;
     }
 
@@ -217,13 +232,11 @@ class Popover extends Component {
         onRequestClose(evt, reason);
     }
 
-    autoCloseWhenOffScreen(evt, anchorPosition) {
-        if (anchorPosition.top < offScreenThresholdValue
-            || anchorPosition.top > window.innerHeight
-            || anchorPosition.left < offScreenThresholdValue
-            || anchorPosition.left > window.innerWidth) {
-            this.requestClose(evt, 'offScreen');
-        }
+    isOffscreen(anchorPosition, viewportPosition) {
+        return (anchorPosition.top < this.offScreenThresholdValue
+            || anchorPosition.top > viewportPosition.height
+            || anchorPosition.left < this.offScreenThresholdValue
+            || anchorPosition.left > viewportPosition.width);
     }
 
     render() {

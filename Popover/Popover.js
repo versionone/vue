@@ -63,17 +63,14 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var resizeThrottleValue = 50;
-var scrollThrottleValue = 50;
 var offScreenThresholdValue = 0;
 var centerAlignmentDivisor = 2;
 var getTargetPosition = function getTargetPosition(targetElement) {
     return {
-        bottom: targetElement.offsetHeight,
         center: targetElement.scrollWidth / centerAlignmentDivisor,
         height: targetElement.offsetHeight,
         left: 0,
         middle: targetElement.offsetHeight / centerAlignmentDivisor,
-        right: targetElement.scrollWidth,
         top: 0,
         width: targetElement.scrollWidth
     };
@@ -93,6 +90,8 @@ var Popover = function (_Component) {
 
         var _this = _possibleConstructorReturn(this, (_ref = Popover.__proto__ || Object.getPrototypeOf(Popover)).call.apply(_ref, [this].concat(rest)));
 
+        _this.lastPlaceOnScrollFrameRequest = null;
+
         _this.state = {
             closing: false,
             open: _this.props.open
@@ -100,10 +99,9 @@ var Popover = function (_Component) {
         _this.setPlacement = _this.setPlacement.bind(_this);
         _this.handleRendered = _this.handleRendered.bind(_this);
         _this.handleResize = (0, _lodash2.default)(_this.setPlacement.bind(_this, false), resizeThrottleValue);
-        _this.handleScroll = (0, _lodash2.default)(_this.setPlacement.bind(_this, true), scrollThrottleValue);
+        _this.handleScroll = _this.placeOnNextAnimationFrame.bind(_this);
         _this.renderLayer = _this.renderLayer.bind(_this);
         _this.handleComponentClickAway = _this.handleComponentClickAway.bind(_this);
-        _this.autoCloseWhenOffScreen = _this.autoCloseWhenOffScreen.bind(_this);
         return _this;
     }
 
@@ -137,6 +135,19 @@ var Popover = function (_Component) {
             this.handleScroll = null;
         }
     }, {
+        key: 'placeOnNextAnimationFrame',
+        value: function placeOnNextAnimationFrame(evt) {
+            var _this2 = this;
+
+            if (this.lastPlaceOnScrollFrameRequest) {
+                cancelAnimationFrame(this.lastPlaceOnScrollFrameRequest);
+            }
+            this.lastPlaceOnScrollFrameRequest = requestAnimationFrame(function () {
+                _this2.setPlacement(true, evt);
+                _this2.lastPlaceOnScrollFrameRequest = null;
+            });
+        }
+    }, {
         key: 'setPlacement',
         value: function setPlacement(scrolling, evt) {
             var _props = this.props,
@@ -163,27 +174,29 @@ var Popover = function (_Component) {
             var anchorEl = anchorElement || this.anchorElement || (0, _reactDom.findDOMNode)(this);
             var anchorPosition = (0, _position.getPosition)(anchorEl);
             var targetPosition = getTargetPosition(targetElement);
-            var popoverPosition = (0, _position.adjustPosition)(anchorPosition, anchorOrigin, targetPosition, targetOrigin);
             var viewportPosition = (0, _position.getViewportPosition)();
+            var popoverPosition = (0, _position.adjustPositionWithinBoundaries)(anchorPosition, anchorOrigin, targetPosition, targetOrigin, viewportPosition);
 
             if (!this.width) {
                 var computedStyles = window.getComputedStyle(targetElement);
                 var scrollWidth = popoverPosition.width - targetElement.clientWidth - dimensions.getValue(computedStyles.borderLeftWidth) - dimensions.getValue(computedStyles.borderRightWidth);
                 this.width = Math.ceil(popoverPosition.width + scrollWidth);
             }
-
-            var maxHeight = viewportPosition.bottom - popoverPosition.top;
-            if (popoverPosition.bottom >= viewportPosition.bottom) {
+            popoverPosition.top = Math.max(offScreenThresholdValue, popoverPosition.top);
+            var maxHeight = viewportPosition.height - popoverPosition.top;
+            if (popoverPosition.top + popoverPosition.height >= viewportPosition.top + viewportPosition.height) {
                 targetElement.style.overflowY = 'auto';
                 targetElement.style.overflowX = 'hidden';
             }
 
-            if (scrolling && autoCloseWhenOffScreen) {
-                this.autoCloseWhenOffScreen(evt, anchorPosition);
+            if (scrolling && autoCloseWhenOffScreen && this.isOffscreen(anchorPosition, viewportPosition)) {
+                this.requestClose(evt, 'offScreen');
             }
-            targetElement.style.left = Math.max(offScreenThresholdValue, popoverPosition.left) + 'px';
-            targetElement.style.maxHeight = maxHeight + 'px';
-            targetElement.style.top = Math.max(offScreenThresholdValue, popoverPosition.top) + 'px';
+            targetElement.style.left = popoverPosition.left + 'px';
+            if (!scrolling) {
+                targetElement.style.maxHeight = maxHeight + 'px';
+            }
+            targetElement.style.top = popoverPosition.top + 'px';
             targetElement.style.minWidth = this.width + 'px';
         }
     }, {
@@ -235,16 +248,14 @@ var Popover = function (_Component) {
             onRequestClose(evt, reason);
         }
     }, {
-        key: 'autoCloseWhenOffScreen',
-        value: function autoCloseWhenOffScreen(evt, anchorPosition) {
-            if (anchorPosition.top < offScreenThresholdValue || anchorPosition.top > window.innerHeight || anchorPosition.left < offScreenThresholdValue || anchorPosition.left > window.innerWidth) {
-                this.requestClose(evt, 'offScreen');
-            }
+        key: 'isOffscreen',
+        value: function isOffscreen(anchorPosition, viewportPosition) {
+            return anchorPosition.top < this.offScreenThresholdValue || anchorPosition.top > viewportPosition.height || anchorPosition.left < this.offScreenThresholdValue || anchorPosition.left > viewportPosition.width;
         }
     }, {
         key: 'render',
         value: function render() {
-            var _this2 = this;
+            var _this3 = this;
 
             var open = this.state.open;
 
@@ -260,7 +271,7 @@ var Popover = function (_Component) {
                     open: open,
                     ref: function ref(el) {
                         if (el) {
-                            _this2.layer = el;
+                            _this3.layer = el;
                         }
                     },
                     render: this.renderLayer,

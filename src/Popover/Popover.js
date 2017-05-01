@@ -24,6 +24,11 @@ const getTargetPosition = (targetElement) => ({
     width: targetElement.scrollWidth,
 });
 
+const isOffscreen = (anchorPosition, viewportPosition) =>
+    (anchorPosition.top < offScreenThresholdValue
+        || anchorPosition.top > viewportPosition.height
+        || anchorPosition.left < offScreenThresholdValue
+        || anchorPosition.left > viewportPosition.width);
 class Popover extends Component {
     static propTypes = {
         /**
@@ -174,7 +179,7 @@ class Popover extends Component {
             targetElement.style.overflowX = 'hidden';
         }
 
-        if (scrolling && autoCloseWhenOffScreen && this.isOffscreen(anchorPosition, viewportPosition)) {
+        if (scrolling && autoCloseWhenOffScreen && isOffscreen(anchorPosition, viewportPosition)) {
             this.requestClose(evt, 'offScreen');
         }
         targetElement.style.left = `${popoverPosition.left}px`;
@@ -230,13 +235,6 @@ class Popover extends Component {
             onRequestClose,
         } = this.props;
         onRequestClose(evt, reason);
-    }
-
-    isOffscreen(anchorPosition, viewportPosition) {
-        return (anchorPosition.top < this.offScreenThresholdValue
-            || anchorPosition.top > viewportPosition.height
-            || anchorPosition.left < this.offScreenThresholdValue
-            || anchorPosition.left > viewportPosition.width);
     }
 
     render() {

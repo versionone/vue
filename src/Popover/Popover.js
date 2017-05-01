@@ -165,6 +165,7 @@ class Popover extends Component {
             const scrollWidth = popoverPosition.width - targetElement.clientWidth - dimensions.getValue(computedStyles.borderLeftWidth) - dimensions.getValue(computedStyles.borderRightWidth);
             this.width = Math.ceil(popoverPosition.width + scrollWidth);
         }
+        popoverPosition.top = Math.max(offScreenThresholdValue, popoverPosition.top);
         const maxHeight = viewportPosition.height - popoverPosition.top;
         if ((popoverPosition.top + popoverPosition.height) >= (viewportPosition.top + viewportPosition.height)) {
             targetElement.style.overflowY = 'auto';

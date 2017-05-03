@@ -168,9 +168,18 @@ class Popover extends Component {
             viewportPosition);
 
         if (!this.width) {
-            const computedStyles = window.getComputedStyle(targetElement);
-            const scrollWidth = popoverPosition.width - targetElement.clientWidth - dimensions.getValue(computedStyles.borderLeftWidth) - dimensions.getValue(computedStyles.borderRightWidth);
-            this.width = Math.ceil(popoverPosition.width + scrollWidth);
+            const prevOverflowY = targetElement.style.overflowY;
+            const widthWithoutVScrollbar = parseFloat(window.getComputedStyle(targetElement).width);
+            targetElement.style.overflowY = 'scroll';
+            const widthWithVScrollbar = parseFloat(window.getComputedStyle(targetElement).width);
+            // some browsers calculate width to include vertical scrollbar, some don't
+            if (widthWithVScrollbar > widthWithoutVScrollbar) {
+                const sizeOfScrollbar = targetElement.offsetWidth - targetElement.clientWidth;
+                this.width = widthWithoutVScrollbar + sizeOfScrollbar;
+            } else {
+                this.width = widthWithoutVScrollbar
+            }
+            targetElement.style.overflowY = prevOverflowY;
         }
         popoverPosition.top = Math.max(offScreenThresholdValue, popoverPosition.top);
         const maxHeight = viewportPosition.height - popoverPosition.top;

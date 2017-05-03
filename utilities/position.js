@@ -108,7 +108,7 @@ function hasHorizontalOverlap(anchorOrigin, targetOrigin) {
 }
 
 function hasVerticalOverlap(anchorOrigin, targetOrigin) {
-    return !(anchorOrigin.vertical === Positions.top && targetOrigin.horizontal === Positions.bottom || anchorOrigin.vertical === Positions.bottom && targetOrigin.horizontal === Positions.top);
+    return !(anchorOrigin.vertical === Positions.top && targetOrigin.vertical === Positions.bottom || anchorOrigin.vertical === Positions.bottom && targetOrigin.vertical === Positions.top);
 }
 
 var adjustPositionWithinBoundaries = exports.adjustPositionWithinBoundaries = function adjustPositionWithinBoundaries(anchorPosition, anchorOrigin, targetPosition, targetOrigin, boundaryPosition) {

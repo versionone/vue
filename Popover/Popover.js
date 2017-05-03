@@ -42,10 +42,6 @@ var _CustomPropTypes = require('./../utilities/CustomPropTypes');
 
 var CustomPropTypes = _interopRequireWildcard(_CustomPropTypes);
 
-var _dimensions = require('./../utilities/dimensions');
-
-var dimensions = _interopRequireWildcard(_dimensions);
-
 var _Positions = require('./Positions');
 
 var Positions = _interopRequireWildcard(_Positions);
@@ -181,27 +177,31 @@ var Popover = function (_Component) {
             var viewportPosition = (0, _position.getViewportPosition)();
             var popoverPosition = (0, _position.adjustPositionWithinBoundaries)(anchorPosition, anchorOrigin, targetPosition, targetOrigin, viewportPosition);
 
-            if (!this.width) {
-                var computedStyles = window.getComputedStyle(targetElement);
-                var scrollWidth = popoverPosition.width - targetElement.clientWidth - dimensions.getValue(computedStyles.borderLeftWidth) - dimensions.getValue(computedStyles.borderRightWidth);
-                this.width = Math.ceil(popoverPosition.width + scrollWidth);
-            }
             popoverPosition.top = Math.max(offScreenThresholdValue, popoverPosition.top);
-            var maxHeight = viewportPosition.height - popoverPosition.top;
-            if (popoverPosition.top + popoverPosition.height >= viewportPosition.top + viewportPosition.height) {
-                targetElement.style.overflowY = 'auto';
-                targetElement.style.overflowX = 'hidden';
-            }
 
             if (scrolling && autoCloseWhenOffScreen && isOffscreen(anchorPosition, viewportPosition)) {
                 this.requestClose(evt, 'offScreen');
             }
             targetElement.style.left = popoverPosition.left + 'px';
+
             if (!scrolling) {
+                // If there should be a scrollbar
+                if (popoverPosition.top + popoverPosition.height >= viewportPosition.top + viewportPosition.height) {
+                    // Size minimum width based on browser width calculation
+                    targetElement.style.overflowY = 'scroll';
+                    var widthWithVScrollbar = parseFloat(window.getComputedStyle(targetElement).width);
+                    targetElement.style.overflowY = 'hidden';
+                    var widthWithoutVScrollbar = parseFloat(window.getComputedStyle(targetElement).width);
+                    targetElement.style.minWidth = Math.max(widthWithoutVScrollbar, widthWithVScrollbar) + 'px';
+                    targetElement.style.overflowY = 'auto';
+                    targetElement.style.overflowX = 'hidden';
+                }
+
+                var maxHeight = viewportPosition.height - popoverPosition.top;
                 targetElement.style.maxHeight = maxHeight + 'px';
             }
+
             targetElement.style.top = popoverPosition.top + 'px';
-            targetElement.style.minWidth = this.width + 'px';
         }
     }, {
         key: 'handleRendered',

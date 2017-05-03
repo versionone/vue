@@ -8,7 +8,6 @@ import RenderToLayer from './../internal/RenderToLayer';
 import ThemeProvider from './../ThemeProvider';
 import {adjustPositionWithinBoundaries, getPosition, getViewportPosition} from './../utilities/position';
 import * as CustomPropTypes from './../utilities/CustomPropTypes';
-import * as dimensions from './../utilities/dimensions';
 import * as Positions from './Positions';
 import {isDescendant} from './../utilities/dom';
 

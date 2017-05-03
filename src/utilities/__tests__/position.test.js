@@ -285,7 +285,7 @@ function getTopLeftTarget() {
     };
 }
 function getBottomLeftAnchor() {
-    return  {
+    return {
         center: 50,
         height: 100,
         left: 0,
@@ -295,7 +295,7 @@ function getBottomLeftAnchor() {
     };
 }
 function getTopLeftAnchor() {
-    return  {
+    return {
         center: 50,
         height: 100,
         left: 0,

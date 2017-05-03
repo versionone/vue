@@ -555,7 +555,7 @@ storiesOf('Popover')
             />
         )
     )
-    .addWithInfo('popover moves to be within viewport',
+    .addWithInfo('nudge down',
         ``,
         () => (
             <PopoverInCorners />

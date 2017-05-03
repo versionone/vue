@@ -70,8 +70,8 @@ function hasHorizontalOverlap(anchorOrigin, targetOrigin) {
 }
 
 function hasVerticalOverlap(anchorOrigin, targetOrigin) {
-    return !((anchorOrigin.vertical === Positions.top && targetOrigin.horizontal === Positions.bottom)
-        || (anchorOrigin.vertical === Positions.bottom && targetOrigin.horizontal === Positions.top));
+    return !((anchorOrigin.vertical === Positions.top && targetOrigin.vertical === Positions.bottom)
+        || (anchorOrigin.vertical === Positions.bottom && targetOrigin.vertical === Positions.top));
 }
 
 export const adjustPositionWithinBoundaries = (anchorPosition, anchorOrigin, targetPosition, targetOrigin, boundaryPosition) => {

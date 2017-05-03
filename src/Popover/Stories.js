@@ -135,7 +135,7 @@ class PopoverDemoWithManyMenuItems extends Component {
     constructor(...rest) {
         super(...rest);
         this.state = {
-            open: true,
+            open: false,
         };
         this.handleClick = this.handleClick.bind(this);
         this.closePopover = this.closePopover.bind(this);
@@ -166,6 +166,7 @@ class PopoverDemoWithManyMenuItems extends Component {
                     ref={(el) => {
                         this.anchor = el;
                     }}
+                    onClick={this.handleClick}
                 >Anchor</span>
                 {(new Array(100).fill(1)).map((item, index) => (
                     <div key={"afterfiller" + index}>Filler {index}</div>
@@ -177,14 +178,27 @@ class PopoverDemoWithManyMenuItems extends Component {
                     targetOrigin={targetOrigin}
                     onRequestClose={this.closePopover}
                 >
-                    <div style={{
-                        backgroundColor: 'white',
-                        border: 'solid 1px black',
-                    }}>
-                        {(new Array(100).fill(1)).map((item, index) => (
-                            <div key={index}>Item {index}</div>
-                        ))}
-                    </div>
+                    {(new Array(100).fill(1)).map((item, index) => (
+                        <div
+                            key={index}
+                            style={{
+                            alignItems: 'center',
+                            alignSelf: 'stretch',
+                            backgroundColor: 'white',
+                            display: 'flex',
+                        }}>
+                            <div
+                                style={{
+                                    flex: '1 1 auto'
+                                }}>Item{index}
+                            </div>
+                            <div style={{
+                               display: 'inline-flex',
+                            }}>
+                                >
+                            </div>
+                        </div>
+                    ))}
                 </Popover>
             </div>
         );

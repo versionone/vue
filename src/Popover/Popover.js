@@ -167,36 +167,31 @@ class Popover extends Component {
             targetOrigin,
             viewportPosition);
 
-        if (!this.width) {
-            const prevOverflowY = targetElement.style.overflowY;
-            const widthWithoutVScrollbar = parseFloat(window.getComputedStyle(targetElement).width);
-            targetElement.style.overflowY = 'scroll';
-            const widthWithVScrollbar = parseFloat(window.getComputedStyle(targetElement).width);
-            // some browsers calculate width to include vertical scrollbar, some don't
-            if (widthWithVScrollbar > widthWithoutVScrollbar) {
-                const sizeOfScrollbar = targetElement.offsetWidth - targetElement.clientWidth;
-                this.width = widthWithoutVScrollbar + sizeOfScrollbar;
-            } else {
-                this.width = widthWithoutVScrollbar
-            }
-            targetElement.style.overflowY = prevOverflowY;
-        }
         popoverPosition.top = Math.max(offScreenThresholdValue, popoverPosition.top);
-        const maxHeight = viewportPosition.height - popoverPosition.top;
-        if ((popoverPosition.top + popoverPosition.height) >= (viewportPosition.top + viewportPosition.height)) {
-            targetElement.style.overflowY = 'auto';
-            targetElement.style.overflowX = 'hidden';
-        }
 
         if (scrolling && autoCloseWhenOffScreen && isOffscreen(anchorPosition, viewportPosition)) {
             this.requestClose(evt, 'offScreen');
         }
         targetElement.style.left = `${popoverPosition.left}px`;
+
         if (!scrolling) {
+            // If there should be a scrollbar
+            if ((popoverPosition.top + popoverPosition.height) >= (viewportPosition.top + viewportPosition.height)) {
+                // Size minimum width based on browser width calculation
+                targetElement.style.overflowY = 'scroll';
+                const widthWithVScrollbar = parseFloat(window.getComputedStyle(targetElement).width);
+                targetElement.style.overflowY = 'hidden';
+                const widthWithoutVScrollbar = parseFloat(window.getComputedStyle(targetElement).width);
+                targetElement.style.minWidth = `${Math.max(widthWithoutVScrollbar, widthWithVScrollbar)}px`;
+                targetElement.style.overflowY = 'auto';
+                targetElement.style.overflowX = 'hidden';
+            }
+
+            const maxHeight = viewportPosition.height - popoverPosition.top;
             targetElement.style.maxHeight = `${maxHeight}px`;
         }
+
         targetElement.style.top = `${popoverPosition.top}px`;
-        targetElement.style.minWidth = `${this.width}px`;
     }
 
     handleRendered() {

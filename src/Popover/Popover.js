@@ -28,6 +28,7 @@ const isOffscreen = (anchorPosition, viewportPosition) =>
         || anchorPosition.top > viewportPosition.height
         || anchorPosition.left < offScreenThresholdValue
         || anchorPosition.left > viewportPosition.width);
+
 class Popover extends Component {
     static propTypes = {
         /**

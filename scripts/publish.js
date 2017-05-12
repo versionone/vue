@@ -9,12 +9,9 @@ const getVersionToPublish = () => {
     const params = yargs
         .option('type', {
             alias: 't',
+            demandOption: true,
             describe: 'version type; one of [patch, minor, major, next]',
         })
-        .demandOption([
-            'type',
-        ])
-        .help()
         .fail((msg, error, y) => {
             if (error) {
                 throw new gutil.PluginError({
@@ -94,6 +91,12 @@ gulp.task('publish/src', [
     const versionToPublish = getVersionToPublish();
 
     return version(versionToPublish)
-        .then(publish())
-        .then(publishDocs(versionToPublish));
+        // .then(publish())
+        .then(publishDocs(versionToPublish))
+        .catch((error) => {
+            throw new gutil.PluginError({
+                message: error,
+                plugin: 'publish/src',
+            });
+        });
 });

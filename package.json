@@ -31,8 +31,6 @@
     "start": "cd docs && npm start && cd ../",
     "prestart:dev": "npm run build:icons",
     "start:dev": "start-storybook -p 9001",
-    "preversion": "concurrently 'npm run lint' 'npm test'",
-    "version": "npm run build",
     "pub": "node scripts/publish",
     "publish:docs": "cd docs && npm run gh-pages:build -p && cd ../"
   },

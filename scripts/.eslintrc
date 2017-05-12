@@ -2,12 +2,17 @@
     "extends": [
         "eslint-config-andrew-codes/base"
     ],
+    "global": [
+      "process"
+    ],
     "rules": {
+        "import/no-commonjs": 0,
         "import/no-nodejs-modules": 0,
         "linebreak-style": [
             1,
             "windows"
         ],
+        "no-console": 0,
         "no-magic-numbers": 0
     }
 }

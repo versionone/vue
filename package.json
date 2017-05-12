@@ -98,6 +98,7 @@
     "eslint-watch": "^2.1.14",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
+    "gulp-eslint": "^3.0.1",
     "gulp-jest": "^1.0.0",
     "jest": "^18.1.0",
     "jest-cli": "^18.1.0",

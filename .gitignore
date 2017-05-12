@@ -13,6 +13,8 @@
 !/specHelpers
 !/license.md
 !/npm-shrinkwrap.json
+!/gulp
+!/gulp.cmd
 
 ### Published github pages
 .out

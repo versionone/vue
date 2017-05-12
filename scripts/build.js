@@ -4,7 +4,6 @@ const exec = require('./scriptHelpers/exec');
 
 gulp.task('build', [
     'build/icons',
-    'clean',
 ], () => {
     process.env.NODE_ENV = 'production';
     gulp.src([

@@ -71,7 +71,9 @@ const publishDocs = versionToPublish => new Promise((resolve) => {
     return exec('npm run gh-pages:build'); // -p
 });
 
-gulp.task('publish', () => {
+gulp.task('publish', [
+    'clean',
+], (cb) => {
     const versionToPublish = getVersionToPublish();
     if (isInvalidVersion(versionToPublish)) {
         throw new gutil.PluginError({
@@ -79,7 +81,9 @@ gulp.task('publish', () => {
             plugin: 'publish/src',
         });
     }
-    return sequence('publish/src', 'clean');
+    sequence('publish/src', (error) => {
+        sequence('clean', () => cb(error));
+    });
 });
 
 gulp.task('publish/src', [

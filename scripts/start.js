@@ -10,6 +10,7 @@ gulp.task('start', [
 });
 
 gulp.task('start/docs', [
+    'install/docs',
     'build/icons',
 ], () => {
     console.log('Visit http://localhost:3000 in your browser');

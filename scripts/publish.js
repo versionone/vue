@@ -58,7 +58,7 @@ const shouldNotPublishDocs = versionToPublish => [
     'major',
 ].indexOf(versionToPublish) === -1;
 
-const publishDocs = versionToPublish => new Promise((resolve) => {
+const publishDocs = versionToPublish => sequence('install/docs', () => new Promise((resolve) => {
     if (shouldNotPublishDocs(versionToPublish)) {
         console.log(`Not publishing docs for ${versionToPublish}. Only major and minor version docs are published.`);
         resolve();
@@ -67,11 +67,12 @@ const publishDocs = versionToPublish => new Promise((resolve) => {
     console.log(`Publishing docs for ${versionToPublish}`);
     process.chdir(path.join(process.cwd(), 'docs'));
     return exec('npm run gh-pages:build'); // -p
-});
+}));
 
 gulp.task('publish', [
     'clean',
 ], (done) => {
+    process.env.NODE_ENV = 'production';
     const versionToPublish = getVersionToPublish();
     if (isInvalidVersion(versionToPublish)) {
         throw new gutil.PluginError({
@@ -92,7 +93,7 @@ gulp.task('publish/src', [
     const versionToPublish = getVersionToPublish();
 
     return version(versionToPublish)
-        // .then(publish())
+    // .then(publish())
         .then(publishDocs(versionToPublish))
         .catch((error) => {
             throw new gutil.PluginError({

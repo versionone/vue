@@ -20,4 +20,7 @@ gulp.task('build', [
         .pipe(gulp.dest(process.cwd));
 });
 
-gulp.task('build/icons', () => exec('NODE_ENV=production node packages/v1-icon-builder/src/build.js --svgDir=./packages/v1-icons/src --outputDir=./src/Icons'));
+gulp.task('build/icons', [
+    'install/icons',
+], () => exec('NODE_ENV=production node packages/v1-icon-builder/src/build.js' +
+    ' --svgDir=./packages/v1-icons/src --outputDir=./src/Icons'));

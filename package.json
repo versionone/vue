@@ -9,9 +9,6 @@
   "scripts": {
     "test": "gulp test",
     "lint": "gulp lint",
-    "postinstall": "concurrently 'npm run install:docs' 'npm run install:icon-builder'",
-    "install:icon-builder": "cd packages/v1-icon-builder && npm install && cd ../../",
-    "install:docs": "cd docs && npm install && cd ../",
     "lint:watch": "npm run lint:src:watch & npm run lint:specs:watch",
     "lint:src:watch": "esw --watch --color src/**/*.js --ignore-pattern src/__tests__/*.test.js --ignore-pattern src/**/__tests__/**/*.js --config eslint.src.js",
     "lint:specs:watch": "esw --watch --color src/__tests__/*.test.js src/**/__tests__/*.test.js --config eslint.specs.js",
@@ -63,8 +60,6 @@
     "babel-preset-stage-2": "^6.5.0",
     "babel-preset-stage-3": "^6.5.0",
     "babel-runtime": "^6.11.6",
-    "concurrently": "^3.4.0",
-    "cross-env": "^1.0.8",
     "css-loader": "^0.23.1",
     "del": "^2.2.2",
     "enzyme": "^2.7.1",

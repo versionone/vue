@@ -1,17 +1,7 @@
 export default [
     // Foundation pages
-    {
-        title: 'Theme',
-        status: 'experimental',
-        menuCategory: 'Foundations',
-        component: require('./foundations/Themes')
-    },
-    {
-        title: 'Icons',
-        status: 'experimental',
-        menuCategory: 'Foundations',
-        component: require('./foundations/Icons')
-    },
+    require('./foundations/Theme'),
+    require('./foundations/Icons'),
 
     // Patterns pages
     // require('./patterns/PatternVsComponent.md'),
@@ -21,5 +11,5 @@ export default [
     // Contributing pages
     require('./contributing/Documentation.md'),
     require('./contributing/Components.md'),
-    require('./contributing/Theming-Components.md')
+    require('./contributing/Theme-Enabled-Components.md'),
 ];

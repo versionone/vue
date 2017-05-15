@@ -1,5 +1,4 @@
 import React from 'react';
-import Title from 'react-title-component';
 import iconsReadme from './icons.md';
 import MarkdownElement from '@versionone/ui-docs/MarkdownElement';
 import * as Icons from '@versionone/ui/Icons';
@@ -20,9 +19,6 @@ const icons = Object.keys(Icons)
 
 const IconsPage = () => (
     <div>
-        <Title
-            render={previousTitle => `Icons - ${previousTitle}`}
-        />
         <MarkdownElement text={iconsReadme} />
         <ul
             style={{listStyle: 'none'}}
@@ -50,5 +46,8 @@ const IconsPage = () => (
         </ul>
     </div>
 );
-IconsPage.displayName = 'IconsPage';
-export default IconsPage;
+
+export const title = 'Icons';
+export const status = 'experimental';
+export const menuCategory = 'Foundations';
+export const component = IconsPage;

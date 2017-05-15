@@ -7,20 +7,21 @@ keywords:
   - new
   - structure
   - guide
+  - contribute
 ---
 
-This guide details the the structure of components an the process to submit a new component. To learn more about component implementation and theming, then checkout the [component theming guide](/pages/Theming-Components).
+This guide details the the structure of components an the process to submit a new component. To learn more about theme enabling within your component implementation, then checkout the [theme enabled component guide](/#/page/ThemeEnabledComponents).
 
 ## TL;DR
 
 1. [Component Structure](#component-structure)
-2. [Register with Docs](#register-with-docs)
-3. [Theming Components](/pages/Theming-Components)
-4. [Other Component Requirements](#component-requirements)
-4. [Submission](#component-submission)
+2. [Register with Docs](#registering-with-the-docs-site)
+3. [Theming Components](/#/page/Theming-Components)
+4. [Other Component Requirements](#requirements-for-components)
+4. [Submission](#submitting-a-new-component)
 
 
-## Component Structure <a name="component-structure"></a>
+## Component Structure
 
 Every major component is grouped into its own directory under `./src`. It, at the minimum, must contain the following files; each of which will be explained in further detail below:
 
@@ -72,10 +73,12 @@ export default component;
 ```
 
 #### Variations in `index.js`
-In some cases, a component directory may represent multiple components that are used collectively. These other "related" components tend to not make sense to be used outside the context of the main component directory's component. An example is `<Toolbar />`. It also  contains `<ToolbarGroup />' and `<ToolbarTitle />`. All related components should reside within the main component's directory and the `index.js` should export each one individually. It should **not** export a default.
+In some cases, a component directory may represent multiple components that are used collectively. These other "related" components tend to not make sense to be used outside the context of the main component directory's component. An example is `<Toolbar />`. It also  contains `<ToolbarGroup />' and `<ToolbarTitle />`. All related components should reside within the main component's directory and the `index.js` should export each one individually with the main component as the default.
 
 ```js
-export {default as Toolbar} from './Toolbar';
+import ToolbarComponent from './Toolbar';
+export default ToolbarComponent;
+
 export {default as ToolbarGroup} from './ToolbarGroup';
 export {default as ToolbarTitle} from './ToolbarTitle';
 ```
@@ -86,13 +89,15 @@ This file should include the content for the component's documentation. This is 
 ### Component file(s) and their Tests
 All components should have their own source and test files. Every component should contain appropriate tests for its functionality. These tests live within the `__tests__` directory. Tests should consist of the component file's name appended with `.test`.
 
-Tests may be run via WallabyJS or with the command: `npm test`.
+Tests can be run via WallabyJS or with the command: `./gulp test`.
 
 ### Stories.js
 The `Stories.js` file holds all stories to be loaded into [Storybook](https://github.com/kadirahq/react-storybook). Storybook is purely to ease the development of components by providing real-time rendering updates for components.
 
+Storybook can be run with the command: `./gulp start`.
+
 ### Examples
-An examples directory should contain an `index.js` exporting an array of examples files and their meta data. Each example file **must export a default** component class to be used as the example. Here is an example of the `index.js`.
+An examples directory should contain an `index.js` exporting an array of examples files and their meta data. Each example file **must export a default** component to be used as the example. Here is an example of the `index.js`.
 
 ```js
 export default [
@@ -108,21 +113,41 @@ export default [
 ];
 ```
 
-## Registering with Docs Site <a name="register-with-docs"></a>
+## Registering with Docs Site
 Each component's `_meta.js` must be registered with the docs site. This is done by exporting the `_meta.js` within the `./src/_meta.js` file. See below:
 
 ```js
-// other exports
 export {default as componentName} from './ComponentName/_meta';
 ```
 
-## Requirement for Components <a name="component-requirements"></a>
-In addition to the above items, evey component should be [theme-enabled](/pages/Theming-Components) and contain all appropriate `propTypes` and `defaultProps` values. Each `propTypes` should contain a comment description above it and deprecated `propTypes` should be marked via a comment as well. Here are a few examples (including deprecated `propTypes`):
+## Requirements for Components
+
+## Favor stateless functional components over classes
+If a component has no state or need of a DOM reference element, use a stateless functional component instead of one extending React.Component.
 
 ```js
-import * as CustomPropTypes from './utilities/CustomPropTypes';
+const favorThis = (props, context) => (
+    <h1>Favor Me!</h1>
+);
+
+class ClassComponent extends Component {
+    render() {
+        return (
+            <h1>A class component</h1>
+        );
+    }
+}
+```
+
+### Theme-Enabled
+In addition to the above items, evey component should be [theme-enabled](/pages/Theming-Components) and contain all appropriate `propTypes` and `defaultProps` values. For consistency between stateless functional and class components, please include the `propTypes` and `defaultProps` without using the `static` keyword.
+
+Each `propTypes` should contain a comment description above it and deprecated `propTypes` should be marked via a comment as well. Here are a few examples (including deprecated `propTypes`):
+
+```js
+import {deprecated, origin} from './../utilities/CustomPropTypes';
 // ---
-static propTypes = {
+ComponentName.propTypes = {
     /**
      * This is the point on the popover which will attach to
      * the anchor's origin.
@@ -130,7 +155,7 @@ static propTypes = {
      * vertical: [top, middle, bottom];
      * horizontal: [left, center, right].
      */
-    targetOrigin: CustomPropTypes.origin,
+    targetOrigin: origin,
     /**
      * If true, the popover (potentially) ignores `targetOrigin`
      * and `anchorOrigin` to make itself fit on screen,
@@ -147,12 +172,12 @@ static propTypes = {
     /**
      * The function to call when the user presses the Enter key.
      */
-    onEnterKeyDown: CustomPropTypes.deprecated(PropTypes.func,
+    onEnterKeyDown: deprecated(PropTypes.func,
       'Use onKeyDown and check for keycode instead. It will be removed with v0.16.0.'),
     /** @ignore */
     onFocus: PropTypes.func,
 };
 ```
 
-## Submitting a New Component <a name="component-submission"></a>
+## Submitting a New Component
 Please ensure the above requirements are met. Once done, submit a PR from your component's branch to `master`.

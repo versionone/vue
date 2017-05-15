@@ -7,12 +7,12 @@ keywords:
   - new
   - page
   - guide
+  - contribute
 ---
 
 This guide will aid in creating new documentation. This consists of creating new pages, updating existing pages and adding pages within new menu categories.
 
 ## Creating a new Sample Documentation Page
-
 For this example, we will create a new page underneath the "Contributing" menu item titled "Sample Page".
 
 All documentation pages are located in the `./docs/pages` directory. In order to create our new page, we will create a new markdown file, `./docs/pages/contributing/Sample Page.md`. Note that the file may exist in a sub-directory under `./docs/pages`.
@@ -50,37 +50,29 @@ require('./patterns/some different page.md')
 ```
 
 ## Creating a new Menu Category
+In order to create a new main menu category, there needs to be at least one page that has the `menuCategory` meta data with the new menu category. The order of the menu items is dependent on the order of pages associated with the menu category in `./docs/pages/index.js`.
 
-In order to create a new main menu category, there needs to be at least one page that has the `menuCategory` meta data with the new menu category. The order of the menu items is dependent on the order of pages associated with the menu category in `./docs/pages/index.js`. To place the menu category at the top of the menu would require adding a page with the menu category above any other pages with a different menu category.
+For **example**, you want to place a new menu category, "Test Category", between categories "One" and "Two". In order to do this, create a new page with your new menu category. Then require your new page in the `./docs/pages/index.js`; ensuring it is below all pages that have the category, "One", and above all pages with the category, "Two".
 
 ```js
 export default [
 
-    // Contributing menu category pages
-    require('./contributing/Sample Page.md'), // first category among all pages
-
-    // Other menu category pages
-    require('./patterns/another page.md')
+    require('./One/Sample Page with Category One.md'), // The last page with "One" as the menu category
+    require('./Test Category/Your New Page.md'), // your page
+    require('./Two/another page.md') // First page with "Two" as the menu category
 ];
 ```
 
 ## Advanced Page Creation Using Components
+In some cases, a markdown file of content is not sufficient for a page. One such example is the "Foundations/Colors" page. In these instances, the page may be JavaScript.
 
-In some cases, a markdown file of content is not sufficient for a page. One such example is the "Foundations/Colors" page. In these instances, a page may be registered as a React Component.
-
-After creating the component to represent the page, register the component page in the `./docs/pages/index.js` and include any meta data you want with its registration. Using the "Colors" page as an example:
+JavaScript pages are page files that export a title, status, menuCategory, and component. Register the page as usual.
 
 ```js
-export default [
-    // Foundation pages
-    {
-        title: 'Colors',
-        status: 'draft',
-        menuCategory: 'Foundations',
-        component: require('./foundations/Colors')
-    },
-
-    // Other pages
-    require('./patterns/another page.md'),
-];
+export const title =  'Colors';
+export const status = 'draft';
+export const menuCategory = 'Foundations';
+export const component = () => (
+    <h1>My Page of Colors</h1>
+);
 ```

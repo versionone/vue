@@ -4,7 +4,7 @@ const eslint = require('gulp-eslint');
 gulp.task('lint', [
     'lint/src',
     'lint/test',
-    'lint/packages',
+    // 'lint/packages',
 ], () => {
 });
 
@@ -24,7 +24,7 @@ gulp.task('lint/test', () => gulp.src([
     .pipe(eslint.failAfterError()));
 
 gulp.task('lint/packages', () => gulp.src([
-    'packages/**/*.js',
+    'packages/**/src/*.js',
     '!node_modules/**',
 ])
     .pipe(eslint(require('./../eslint.src')))

@@ -6,11 +6,11 @@ import * as builder from '../build';
 const fsUtils = track();
 const svgDir = path.join(__dirname, '..', 'testFixtures');
 
-test('the CLI tool exports a main function', () => {
+test.skip('the CLI tool exports a main function', () => {
     expect(builder.run).to.be.a('function');
 });
 
-test('the run function can output a corresponding SVG component file in the output directory for each SVG file in an input directory', done => {
+test.skip('the run function can output a corresponding SVG component file in the output directory for each SVG file in an input directory', done => {
     const tempPath = createOutputDir();
     const getExpectedText = getExpected(svgDir);
     const getActualText = getActual(tempPath);
@@ -24,7 +24,7 @@ test('the run function can output a corresponding SVG component file in the outp
     });
 });
 
-test('an index file is generated that exports every icon', (done) => {
+test.skip('an index file is generated that exports every icon', (done) => {
     const tempPath = createOutputDir();
     builder.run({
         svgDir,

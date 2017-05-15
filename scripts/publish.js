@@ -60,10 +60,11 @@ const shouldNotPublishDocs = versionToPublish => [
 
 const publishDocs = versionToPublish => new Promise((resolve) => {
     if (shouldNotPublishDocs(versionToPublish)) {
+        console.log(`Not publishing docs for ${versionToPublish}. Only major and minor version docs are published.`);
         resolve();
         return null;
     }
-
+    console.log(`Publishing docs for ${versionToPublish}`);
     process.chdir(path.join(process.cwd, 'docs'));
     return exec('npm run gh-pages:build'); // -p
 });

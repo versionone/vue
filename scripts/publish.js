@@ -65,7 +65,7 @@ const publishDocs = versionToPublish => new Promise((resolve) => {
         return null;
     }
     console.log(`Publishing docs for ${versionToPublish}`);
-    process.chdir(path.join(process.cwd, 'docs'));
+    process.chdir(path.join(process.cwd(), 'docs'));
     return exec('npm run gh-pages:build'); // -p
 });
 

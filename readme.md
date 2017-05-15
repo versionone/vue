@@ -9,7 +9,7 @@ Required software:
     - *tests will not work with node@7.3 or node@7.4*
 - **npm@^3.0.0**
 
-You can run `npm run verify` to determine if you meet the above requirements. If you do not **and** have already attempted to run VersionOne UI, then you need to run the following commands: `rm -rf node_modules docs/node_modules` and `npm install npm@^3.0.0 -g`.
+You can run `./gulp verify` to determine if you meet the above requirements. If you do not **and** have already attempted to run VersionOne UI, then you need to run the following commands: `rm -rf node_modules docs/node_modules` and `npm install npm@^3.0.0 -g`.
 
 ### Step 2: Installing Dependencies
 Run `npm install`. If there is an error, see the [Prerequisites](#Step-1-Prerequisites) section.
@@ -28,13 +28,16 @@ If there is an error, try running `npm install` again.
 
 #### Running Tests and Linting
 - Optionally use WallabyJS
-- `npm test` will run all tests and lint all src/test files
-- `npm run test:ui` will run all VersionOne UI tests (excluding tests from `packages/*`)
-- `npm run lint`: will run linting on all src and test files
+- `./gulp test` will run all tests and lint all src/test files
+- `./gulp test/src` will run all VersionOne UI tests (excluding tests from `packages/*`)
+- `./gulp test/packages`: will run linting on all src and test files
 
 ## Publishing
+Do **NOT** simply use `npm publish`.
+
 - Ensure you are logged in as versionone in the NPM CLI.
-- Run `npm run pub {version}` where {version} is one of (patch | minor | major | prepatch | preminor | premajor | prerelease | 1.2.3/specific version number)
+- Run `./gulp publish {version}` where {version} is one of (patch | minor | major | next)
+    - see the [Semantic Versioning docs](http://semver.org/) for more info between the version types
     - the docs site will automatically be deployed on major and minor releases
 
 ## Other Resources

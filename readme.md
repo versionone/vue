@@ -28,9 +28,14 @@ If there is an error, try running `npm install` again.
 
 #### Running Tests and Linting
 - Optionally use WallabyJS
-- `./gulp test` will run all tests and lint all src/test files
-- `./gulp test/src` will run all VersionOne UI tests (excluding tests from `packages/*`)
-- `./gulp test/packages`: will run linting on all src and test files
+- `./gulp test` will run all tests
+- `./gulp lint` will lint all src and test files
+
+
+- `./gulp test/src` will run all VersionOne UI src tests (excluding tests from `packages/*`)
+- `./gulp test/icons` will run all tests for icon builder package
+- `./gulp lint/src` will lint src files in VersionOne UI src
+- `./gulp lint/test` will lint all test files in VersionOne UI src
 
 ## Publishing
 Do **NOT** simply use `npm publish`.

@@ -17,12 +17,12 @@ Run `npm install`. If there is an error, see the [Prerequisites](#Step-1-Prerequ
 This is only required to be run either the **first** time running VersionOne UI on your machine **or** if new dependencies have been added (will produce an error when running the commands below).
 
 ### Step 3: Running the Documentation Site Locally
-Run `npm start` and open your browser to **[http://localhost:3000](http://localhost:3000)**.
+Run `./gulp start/docs` and open your browser to **[http://localhost:3000](http://localhost:3000)**.
 
 If there is an error, try running `npm install` again.
 
 ### Step 4: Running Storybook Locally
-Run `npm run start:dev` and open your browser to **[http://localhost:9001](http://localhost:9001)**.
+Run `./gulp start` and open your browser to **[http://localhost:9001](http://localhost:9001)**.
 
 If there is an error, try running `npm install` again.
 

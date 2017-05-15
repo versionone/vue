@@ -16,10 +16,6 @@
     "lint:watch": "npm run lint:src:watch & npm run lint:specs:watch",
     "lint:src:watch": "esw --watch --color src/**/*.js --ignore-pattern src/__tests__/*.test.js --ignore-pattern src/**/__tests__/**/*.js --config eslint.src.js",
     "lint:specs:watch": "esw --watch --color src/__tests__/*.test.js src/**/__tests__/*.test.js --config eslint.specs.js",
-    "prestart": "npm run build:icons",
-    "start": "cd docs && npm start && cd ../",
-    "prestart:dev": "npm run build:icons",
-    "start:dev": "start-storybook -p 9001",
     "prepublishOnly": "echo 'use `gulp publish ${version type}` instead.' exit 1"
   },
   "keywords": [

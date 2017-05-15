@@ -71,7 +71,7 @@ const publishDocs = versionToPublish => new Promise((resolve) => {
 
 gulp.task('publish', [
     'clean',
-], (cb) => {
+], (done) => {
     const versionToPublish = getVersionToPublish();
     if (isInvalidVersion(versionToPublish)) {
         throw new gutil.PluginError({
@@ -80,7 +80,7 @@ gulp.task('publish', [
         });
     }
     sequence('publish/src', (error) => {
-        sequence('clean', () => cb(error));
+        sequence('clean', () => done(error));
     });
 });
 

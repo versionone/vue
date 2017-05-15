@@ -3,7 +3,7 @@ const jest = require('gulp-jest').default;
 
 gulp.task('test', [
     'test/src',
-    'test/packages',
+    'test/icons',
 ], () => {
 });
 
@@ -16,7 +16,9 @@ gulp.task('test/src', () => {
         .pipe(jest());
 });
 
-gulp.task('test/packages', () => {
+gulp.task('test/icons', [
+    'install/icons',
+], () => {
     process.env.NODE_ENV = 'test';
     return gulp.src('packages')
         .pipe(jest());

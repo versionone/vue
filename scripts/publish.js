@@ -66,7 +66,7 @@ const publishDocs = versionToPublish => sequence('install/docs', () => new Promi
     }
     console.log(`Publishing docs for ${versionToPublish}`);
     process.chdir(path.join(process.cwd(), 'docs'));
-    return exec('npm run gh-pages:build'); // -p
+    return exec('npm run gh-pages:build -p');
 }));
 
 gulp.task('publish', [

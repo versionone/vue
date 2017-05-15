@@ -51,7 +51,6 @@
     "@kadira/storybook": "^1.33.0",
     "@kadira/storybook-deployer": "^1.0.0",
     "autoprefixer": "^6.3.6",
-    "babel": "^6.5.2",
     "babel-cli": "^6.9.0",
     "babel-core": "^6.9.1",
     "babel-eslint": "7.1.0",

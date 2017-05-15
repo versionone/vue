@@ -13,6 +13,7 @@
 !/specHelpers
 !/license.md
 !/npm-shrinkwrap.json
+/!gulpfile.js
 !/gulp
 !/gulp.cmd
 

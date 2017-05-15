@@ -92,9 +92,9 @@ class AppNavDrawer extends Component {
 
     handleVersionChange = (event, index, value) => {
         if (value === this.firstNonPreReleaseVersion()) {
-            window.location = 'http://www.material-ui.com/';
+            window.location = 'http://versionone.github.io/vue/release';
         } else {
-            window.location = `http://www.material-ui.com/${value}`;
+            window.location = `http://versionone.github.io/vue/${value}`;
         }
     };
 

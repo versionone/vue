@@ -93,7 +93,7 @@ gulp.task('publish/src', [
     const versionToPublish = getVersionToPublish();
 
     return version(versionToPublish)
-    // .then(publish())
+        .then(publish())
         .then(publishDocs(versionToPublish))
         .catch((error) => {
             throw new gutil.PluginError({

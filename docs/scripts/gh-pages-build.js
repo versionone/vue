@@ -8,6 +8,8 @@ var execSync = require('child_process').execSync;
 const path = require('path');
 var pkg = require('./../../package.json');
 
+process.env.NODE_ENV = 'production';
+
 var usage = '\nbuild <vn.n.n[-pre[.n]]> | <HEAD> [-p]\n';
 var versionsFile = './www/versions.json';
 
@@ -113,7 +115,8 @@ function buildDocs() {
   }
 
   // Build the docs site
-  execho('npm install && npm run browser:build');
+  execho('npm install');
+  execho('npm run browser:build');
 
   // Move to the gh-pages branch
   execho('git checkout gh-pages');

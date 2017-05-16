@@ -13,8 +13,8 @@
   "scripts": {
     "start": "npm run browser:development",
     "browser:development": "webpack-dev-server --config webpack-dev-server.config.js --progress --colors --inline",
-    "browser:build": "cross-env NODE_ENV=production webpack --config webpack-production.config.js --progress --colors --profile",
-    "browser:prd": "cross-env NODE_ENV=production webpack-dev-server --config webpack-production.config.js --progress --colors",
+    "browser:build": "webpack --config webpack-production.config.js --progress --colors --profile",
+    "browser:prd": "webpack-dev-server --config webpack-production.config.js --progress --colors",
     "gh-pages:build": "node scripts/gh-pages-build.js"
   },
   "dependencies": {
@@ -42,7 +42,6 @@
     "babel-plugin-transform-react-inline-elements": "^6.8.0",
     "babel-plugin-transform-replace-object-assign": "^0.2.1",
     "copy-webpack-plugin": "^3.0.1",
-    "cross-env": "^3.0.0",
     "css-loader": "^0.23.0",
     "doctrine": "^1.1.0",
     "eslint": "^3.0.0",

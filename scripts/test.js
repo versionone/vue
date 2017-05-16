@@ -7,7 +7,9 @@ gulp.task('test', [
 ], () => {
 });
 
-gulp.task('test/src', () => {
+gulp.task('test/src', [
+    'build/icons',
+], () => {
     process.env.NODE_ENV = 'test';
     return gulp.src([
         'src',

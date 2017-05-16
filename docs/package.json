@@ -13,8 +13,8 @@
   "scripts": {
     "start": "npm run browser:development",
     "browser:development": "webpack-dev-server --config webpack-dev-server.config.js --progress --colors --inline",
-    "browser:build": "cross-env NODE_ENV=docs-production webpack --config webpack-production.config.js --progress --colors --profile",
-    "browser:prd": "cross-env NODE_ENV=docs-production webpack-dev-server --config webpack-production.config.js --progress --colors",
+    "browser:build": "cross-env NODE_ENV=production webpack --config webpack-production.config.js --progress --colors --profile",
+    "browser:prd": "cross-env NODE_ENV=production webpack-dev-server --config webpack-production.config.js --progress --colors",
     "gh-pages:build": "node scripts/gh-pages-build.js"
   },
   "dependencies": {
@@ -27,9 +27,9 @@
     "lunr": "^0.7.1",
     "material-ui": "^0.15.4",
     "rc-collapse": "^1.6.6",
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0",
-    "react-tap-event-plugin": "^2.0.0",
+    "react": "^15.4.0",
+    "react-dom": "^15.4.0",
+    "react-tap-event-plugin": "^1.0.0",
     "react-title-component": "^1.0.1",
     "simple-assign": "^0.1.0",
     "underscore": "^1.8.3",
@@ -42,7 +42,7 @@
     "babel-plugin-transform-react-inline-elements": "^6.8.0",
     "babel-plugin-transform-replace-object-assign": "^0.2.1",
     "copy-webpack-plugin": "^3.0.1",
-    "cross-env": "^3.1.3",
+    "cross-env": "^3.0.0",
     "css-loader": "^0.23.0",
     "doctrine": "^1.1.0",
     "eslint": "^3.0.0",
@@ -80,7 +80,7 @@
       ]
     ],
     "env": {
-      "docs-production": {
+      "production": {
         "plugins": [
           "transform-react-remove-prop-types",
           "transform-react-constant-elements",

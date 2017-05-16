@@ -52,6 +52,7 @@ const parseArgs = () => require('yargs')
     .argv;
 
 if (require.main === module) {
+    process.env.NODE_ENV = 'production';
     const argv = parseArgs();
     run(argv);
 }

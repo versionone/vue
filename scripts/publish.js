@@ -51,7 +51,7 @@ const version = versionToPublish => new Promise((resolve, reject) => {
     return exec(`npm version ${versionToPublish}`);
 });
 
-const publish = () => exec('npm publish');
+const publish = () => exec('npm publish --access=public');
 
 const shouldNotPublishDocs = versionToPublish => [
     'minor',

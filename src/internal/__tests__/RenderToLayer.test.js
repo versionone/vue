@@ -129,7 +129,7 @@ test('onRendered is invoked after rendering has completed', () => {
     );
     render.mockReturnValue(renderedLayer);
 
-    unstable_renderSubtreeIntoContainer.mockImplementation(function subtreeRenderCallback(_1, _2, _3, callback) {
+    unstable_renderSubtreeIntoContainer.mockImplementation((_1, _2, _3, callback) => {
         callback();
     });
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Popover, {Positions} from 'vue/Popover';
+import Popover, {Positions} from '@versionone/ui/Popover';
 
 export default () => (
     <div>

@@ -1,6 +1,13 @@
-#!/usr/bin/env node
-
 const execSync = require('child_process').execSync;
+const gulp = require('gulp');
+
+gulp.task('verify', () => {
+    const node = process.version;
+    const npm = execSync('npm --version')
+        .toString()
+        .trim();
+    checkVersion(node, npm);
+});
 
 // returns actualVersion >= desiredVersion
 function versionIsGreaterOrEqual(desiredVersion, actualVersion) {
@@ -91,13 +98,3 @@ ${errorMessage}`);
     console.info('👍  You are good to go!');
     process.exitCode = 0;
 }
-
-// Run script
-const node = process.version;
-// const yarn = execSync('yarn --version')
-//     .toString()
-//     .trim();
-const npm = execSync('npm --version')
-    .toString()
-    .trim();
-checkVersion(node, npm);

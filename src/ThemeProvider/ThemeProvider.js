@@ -4,7 +4,7 @@ import v1Theme from './../styles/themes/v1Theme';
 export default class ThemeProvider extends Component {
     static propTypes = {
         /**
-         * Theme to be used with Vue
+         * Theme to be used with VersionOne UI
          */
         theme: PropTypes.shape(ThemeProvider.themeDefinition).isRequired,
     };

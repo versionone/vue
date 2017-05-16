@@ -3,7 +3,7 @@ import examples from './examples';
 export default {
     name: 'V1 Provider',
     keywords: ['sdk', 'meta', 'query', 'filter', 'token'],
-    'see also': ['VueProvider'],
+    'see also': ['VersionOneUIProvider'],
     readme: require('./README.md'),
     status: 'stable',
     componentsSources: [

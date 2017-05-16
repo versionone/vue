@@ -6,7 +6,7 @@ import Subheader from 'material-ui/Subheader';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import {spacing, typography, zIndex} from 'material-ui/styles';
-import {gunSmoke} from 'vue/styles/themes/v1Theme/foundations/colors';
+import {gunSmoke} from '@versionone/ui/styles/themes/v1Theme/foundations/colors';
 import SearchField from './SearchField';
 
 const SelectableList = MakeSelectable(List);
@@ -92,9 +92,9 @@ class AppNavDrawer extends Component {
 
     handleVersionChange = (event, index, value) => {
         if (value === this.firstNonPreReleaseVersion()) {
-            window.location = 'http://www.material-ui.com/';
+            window.location = 'http://versionone.github.io/vue/release';
         } else {
-            window.location = `http://www.material-ui.com/${value}`;
+            window.location = `http://versionone.github.io/vue/${value}`;
         }
     };
 
@@ -135,7 +135,7 @@ class AppNavDrawer extends Component {
                 onRequestChange={onRequestChangeNavDrawer}
                 containerStyle={{zIndex: zIndex.drawer - 100}}>
                 <div style={styles.logo} onTouchTap={this.handleTouchTapHeader}>
-                    Vue
+                    VersionOne UI
                 </div>
                 <span style={styles.version}>Version:</span>
                 <DropDownMenu

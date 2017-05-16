@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import Drawer from 'material-ui/Drawer';
 import {spacing, typography, zIndex} from 'material-ui/styles';
-import {cerulean, gunSmoke} from 'vue/styles/themes/v1Theme/foundations/colors';
+import {cerulean, gunSmoke} from '@versionone/ui/styles/themes/v1Theme/foundations/colors';
 import Editor from './Editor';
 import Preview from './Preview';
 

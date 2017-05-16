@@ -15,5 +15,5 @@ export {default as SubHeader} from './SubHeader';
 export {default as SvgIcon} from './SvgIcon';
 export {default as TextField} from './TextField';
 export {default as ThemeProvider} from './ThemeProvider';
-export {default as VueProvider} from './VueProvider';
+export {default as VersionOneUIProvider} from './VersionOneUIProvider';
 export {default as V1Provider} from './V1Provider';

@@ -8,9 +8,9 @@ import {darkWhite, lightWhite, grey900} from 'material-ui/styles/colors';
 import AppNavDrawer from './AppNavDrawer';
 import FullWidthSection from './FullWidthSection';
 import withWidth from 'material-ui/utils/withWidth';
-import v1Theme from 'vue/styles/themes/v1Theme';
-import {ThemeProvider} from 'vue';
-import {gunSmoke} from 'vue/styles/themes/v1Theme/foundations/colors';
+import v1Theme from '@versionone/ui/styles/themes/v1Theme';
+import {ThemeProvider} from '@versionone/ui';
+import {gunSmoke} from '@versionone/ui/styles/themes/v1Theme/foundations/colors';
 import componentRoutes from '../routes/menuItems';
 
 class Master extends Component {
@@ -147,7 +147,7 @@ class Master extends Component {
         return (
             <ThemeProvider theme={v1Theme}>
                 <div>
-                    <Title render="Vue - VersionOne" />
+                    <Title render="VersionOne UI - VersionOne" />
                     <AppBar
                         onLeftIconButtonTouchTap={this.handleTouchTapLeftIconButton}
                         title={title}

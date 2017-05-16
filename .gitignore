@@ -13,6 +13,9 @@
 !/specHelpers
 !/license.md
 !/npm-shrinkwrap.json
+/!gulpfile.js
+!/gulp
+!/gulp.cmd
 
 ### Published github pages
 .out

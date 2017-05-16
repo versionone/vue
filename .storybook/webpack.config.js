@@ -8,7 +8,12 @@ module.exports = {
         loaders: [
             {
                 test: /\.css?$/,
-                loaders: ['style', 'css', 'postcss', 'less'],
+                loaders: [
+                    'style',
+                    'css',
+                    'postcss',
+                    'less',
+                ],
                 include: path.resolve(__dirname, '../')
             },
             {
@@ -19,10 +24,13 @@ module.exports = {
     },
     resolve: {
         alias: {
-            'vue': path.resolve(__dirname, '../src'),
+            '@versionone/ui': path.resolve(__dirname, '../src'),
         }
     },
-    postcss: function () {
-        return [precss, autoprefixer];
+    postcss: function() {
+        return [
+            precss,
+            autoprefixer,
+        ];
     }
 };

@@ -1,11 +1,18 @@
+const fs = require('fs');
 const gulp = require('gulp');
 const gutil = require('gulp-util');
 const path = require('path');
 const sequence = require('run-sequence');
 const yargs = require('yargs');
-const exec = require('./scriptHelpers/exec');
+const cliUtils = require('./scriptHelpers/cliUtils');
+const gitUtils = require('./scriptHelpers/gitUtils');
 
-const getVersionToPublish = () => {
+const exec = cliUtils.exec;
+const execSync = cliUtils.execSync;
+const exit = cliUtils.exit;
+const docsDirectory = path.join(__dirname, '..', 'docs');
+
+const getVersionTypeToPublish = () => {
     const params = yargs
         .option('type', {
             alias: 't',
@@ -36,51 +43,45 @@ const isInvalidVersion = version => [
     'next',
 ].indexOf(version) === -1;
 
-const version = versionToPublish => new Promise((resolve, reject) => {
-    if (isInvalidVersion(versionToPublish)) {
-        reject(`Invalid version provided: ${versionToPublish}`);
-        return null;
-    }
-    if (versionToPublish === 'next') {
-        const currentVersion = require('./../package.json').version;
-        console.log(`Publishing as an update to ${currentVersion}-next.`);
-        console.log('This will not publish the docs site.');
-        return exec(`npm version ${currentVersion} --tag next`);
-    }
-    console.log(`Publishing as a new ${versionToPublish} version.`);
-    return exec(`npm version ${versionToPublish}`);
-});
-
-const publish = () => exec('npm publish --access=public');
-
 const shouldNotPublishDocs = versionToPublish => [
     'minor',
     'major',
 ].indexOf(versionToPublish) === -1;
 
-const publishDocs = versionToPublish => sequence('install/docs', () => new Promise((resolve) => {
-    if (shouldNotPublishDocs(versionToPublish)) {
-        console.log(`Not publishing docs for ${versionToPublish}. Only major and minor version docs are published.`);
-        resolve();
-        return null;
-    }
-    console.log(`Publishing docs for ${versionToPublish}`);
-    process.chdir(path.join(process.cwd(), 'docs'));
-    return exec('npm run gh-pages:build -p');
-}));
+const addToMenu = (version) => {
+    process.chdir(docsDirectory);
+    const versionsFile = './www/versions.json';
+    const versions = JSON.parse(fs.readFileSync(versionsFile, 'utf8'));
+    versions.splice(0, 0, version);
+    fs.writeFileSync(versionsFile, JSON.stringify(versions, null, 2));
+    execSync(`git add ${versionsFile} && git commit -m '[Docs] Add ${version} to versions.json'`);
+};
 
-gulp.task('publish', [
-    'clean',
-], (done) => {
-    process.env.NODE_ENV = 'production';
-    const versionToPublish = getVersionToPublish();
-    if (isInvalidVersion(versionToPublish)) {
-        throw new gutil.PluginError({
-            message: `Invalid version type ${versionToPublish}. Must be one of [patch, minor, major, next]`,
-            plugin: 'publish/src',
-        });
+gulp.task('version', [], () => {
+    const versionTypeToPublish = getVersionTypeToPublish();
+
+    if (isInvalidVersion(versionTypeToPublish)) {
+        exit(`Invalid version provided: ${versionTypeToPublish}`, 'version');
     }
-    sequence('publish/src', (error) => {
+    if (versionTypeToPublish === 'next') {
+        const currentVersion = require('./../package.json').version;
+        console.log(`Publishing as an update to ${currentVersion}-next.`);
+        console.log('This will not publish the docs site.');
+        return exec(`npm version ${currentVersion} --tag next`);
+    }
+    console.log(`Publishing as a new ${versionTypeToPublish} version.`);
+    return exec(`npm version ${versionTypeToPublish}`);
+});
+
+gulp.task('publish', (done) => {
+    const versionTypeToPublish = getVersionTypeToPublish();
+    if (isInvalidVersion(versionTypeToPublish)) {
+        exit(`Invalid version type ${versionTypeToPublish}. Must be one of [patch, minor, major, next]`, 'publish');
+    }
+    sequence('version', [
+        'publish/src',
+        'publish/docs',
+    ], (error) => {
         sequence('clean', () => done(error));
     });
 });
@@ -89,16 +90,47 @@ gulp.task('publish/src', [
     'lint',
     'test',
     'build',
-], () => {
-    const versionToPublish = getVersionToPublish();
+], () => exec('npm publish --access=public'));
 
-    return version(versionToPublish)
-        .then(publish())
-        .then(publishDocs(versionToPublish))
-        .catch((error) => {
-            throw new gutil.PluginError({
-                message: error,
-                plugin: 'publish/src',
-            });
-        });
+gulp.task('publish/docs', (done) => {
+    process.env.NODE_ENV = 'development';
+    const versionTypeToPublish = getVersionTypeToPublish();
+
+    if (shouldNotPublishDocs(versionTypeToPublish)) {
+        console.log(`Not publishing docs for ${versionTypeToPublish}. Only major and minor version docs are published.`);
+        done();
+        return null;
+    }
+
+    console.log(`Publishing docs for ${versionTypeToPublish}`);
+    const pkg = require('./../package.json');
+    const version = `v${pkg.version}`;
+
+    // Ensure we are working in the docs directory
+    process.chdir(docsDirectory);
+
+    execSync('git checkout gh-pages && git pull origin gh-pages');
+    if (gitUtils.lastCommitIsHead()) {
+        execSync('git reset --hard HEAD~1');
+    }
+    execSync(`git checkout tags/${version}`);
+    execSync('npm install');
+    addToMenu(version);
+    execSync('npm run browser:build');
+    execSync('git checkout gh-pages');
+
+    process.chdir(path.join(docsDirectory, '..'));
+    // Symbolic link `release` to latest version
+    execSync(`ln -sf ./${version} ./release`);
+    // Symbolic link `versions.json` to latest version
+    execSync(`ln -sf ./${version}/versions.json ./versions.json`);
+
+    // Commit the new version
+    if (version === 'HEAD') {
+        execSync('git commit --amend --no-edit');
+    }
+    else {
+        execSync(`git add . && git commit -m '${version}'`);
+    }
+    return execSync('git push -f');
 });

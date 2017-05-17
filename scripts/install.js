@@ -1,6 +1,6 @@
 const gulp = require('gulp');
 const path = require('path');
-const exec = require('./scriptHelpers/exec');
+const exec = require('./scriptHelpers/cliUtils').exec;
 
 const install = (workingDir = '') => {
     const cwd = process.cwd();

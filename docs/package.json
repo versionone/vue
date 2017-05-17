@@ -14,8 +14,7 @@
     "start": "npm run browser:development",
     "browser:development": "webpack-dev-server --config webpack-dev-server.config.js --progress --colors --inline",
     "browser:build": "webpack --config webpack-production.config.js --progress --colors --profile",
-    "browser:prd": "webpack-dev-server --config webpack-production.config.js --progress --colors",
-    "gh-pages:build": "node scripts/gh-pages-build.js"
+    "browser:prd": "webpack-dev-server --config webpack-production.config.js --progress --colors"
   },
   "dependencies": {
     "babel-core": "^6.18.2",

@@ -78,10 +78,7 @@ gulp.task('publish', (done) => {
     if (isInvalidVersion(versionTypeToPublish)) {
         exit(`Invalid version type ${versionTypeToPublish}. Must be one of [patch, minor, major, next]`, 'publish');
     }
-    sequence('version', [
-        'publish/src',
-        'publish/docs',
-    ], (error) => {
+    sequence('version', 'publish/src', 'publish/docs', (error) => {
         sequence('clean', () => done(error));
     });
 });

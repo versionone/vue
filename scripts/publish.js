@@ -43,7 +43,7 @@ const isInvalidVersion = version => [
     'next',
 ].indexOf(version) === -1;
 
-const shouldNotPublishDocs = versionToPublish => [
+const shouldPublishDocs = versionToPublish => [
     'minor',
     'major',
 ].indexOf(versionToPublish) === -1;
@@ -54,7 +54,7 @@ const addToMenu = (version) => {
     const versions = JSON.parse(fs.readFileSync(versionsFile, 'utf8'));
     versions.splice(0, 0, version);
     fs.writeFileSync(versionsFile, JSON.stringify(versions, null, 2));
-    execSync(`git add ${versionsFile} && git commit -m '[Docs] Add ${version} to versions.json'`);
+    execSync(`git add ${versionsFile} && git commit -m "[Docs] Add ${version} to versions.json"`);
 };
 
 gulp.task('version', [], () => {
@@ -78,7 +78,16 @@ gulp.task('publish', (done) => {
     if (isInvalidVersion(versionTypeToPublish)) {
         exit(`Invalid version type ${versionTypeToPublish}. Must be one of [patch, minor, major, next]`, 'publish');
     }
-    sequence('version', 'publish/src', 'publish/docs', (error) => {
+    const tasks = [
+        'version',
+        'publish/src',
+    ];
+
+    if (shouldPublishDocs(versionTypeToPublish)) {
+        console.log('Will publish docs site because the new version is a minor or major version.');
+        tasks.push('publish/docs');
+    }
+    sequence(...tasks, (error) => {
         sequence('clean', () => done(error));
     });
 });
@@ -89,19 +98,12 @@ gulp.task('publish/src', [
     'build',
 ], () => exec('npm publish --access=public'));
 
-gulp.task('publish/docs', (done) => {
+gulp.task('publish/docs', () => {
     process.env.NODE_ENV = 'development';
-    const versionTypeToPublish = getVersionTypeToPublish();
 
-    if (shouldNotPublishDocs(versionTypeToPublish)) {
-        console.log(`Not publishing docs for ${versionTypeToPublish}. Only major and minor version docs are published.`);
-        done();
-        return null;
-    }
-
-    console.log(`Publishing docs for ${versionTypeToPublish}`);
     const pkg = require('./../package.json');
     const version = `v${pkg.version}`;
+    console.log(`Publishing docs for ${version}`);
 
     // Ensure we are working in the docs directory
     process.chdir(docsDirectory);
@@ -127,7 +129,7 @@ gulp.task('publish/docs', (done) => {
         execSync('git commit --amend --no-edit');
     }
     else {
-        execSync(`git add . && git commit -m '${version}'`);
+        execSync(`git add . && git commit -m "${version}"`);
     }
     return execSync('git push -f');
 });

@@ -62,7 +62,7 @@ class AppNavDrawer extends Component {
 
     componentDidMount() {
         const self = this;
-        const url = '/versions.json';
+        const url = '/vue/versions.json';
         const request = new XMLHttpRequest();
 
         request.onreadystatechange = function() {

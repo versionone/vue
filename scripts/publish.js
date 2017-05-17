@@ -46,7 +46,7 @@ const isInvalidVersion = version => [
 const shouldPublishDocs = versionToPublish => [
     'minor',
     'major',
-].indexOf(versionToPublish) === -1;
+].indexOf(versionToPublish) > -1;
 
 const addToMenu = (version) => {
     process.chdir(docsDirectory);

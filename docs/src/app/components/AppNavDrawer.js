@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import Drawer from 'material-ui/Drawer';
-import {List, ListItem, MakeSelectable} from 'material-ui/List';
+import {List, ListItem, makeSelectable} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import Subheader from 'material-ui/Subheader';
 import DropDownMenu from 'material-ui/DropDownMenu';
@@ -9,7 +9,7 @@ import {spacing, typography, zIndex} from 'material-ui/styles';
 import {gunSmoke} from '@versionone/ui/styles/themes/v1Theme/foundations/colors';
 import SearchField from './SearchField';
 
-const SelectableList = MakeSelectable(List);
+const SelectableList = makeSelectable(List);
 
 const styles = {
     logo: {

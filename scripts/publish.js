@@ -65,11 +65,8 @@ gulp.task('version', [], () => {
     }
     if (versionTypeToPublish === 'next') {
         const currentVersion = require('./../package.json').version;
-        console.log(`Publishing as an update to ${currentVersion}-next.`);
-        console.log('This will not publish the docs site.');
         return exec(`npm version ${currentVersion} --tag next`);
     }
-    console.log(`Publishing as a new ${versionTypeToPublish} version.`);
     return exec(`npm version ${versionTypeToPublish}`);
 });
 

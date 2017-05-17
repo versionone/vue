@@ -109,7 +109,7 @@ gulp.task('publish/docs', () => {
     if (gitUtils.lastCommitIsHead()) {
         execSync('git reset --hard HEAD~1');
     }
-    execSync(`git checkout tags/${version}`);
+    execSync(`git checkout ${version}`);
     execSync('npm install');
     addToMenu(version);
     execSync('npm run browser:build');

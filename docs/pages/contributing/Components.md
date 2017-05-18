@@ -19,6 +19,7 @@ This guide details the the structure of components an the process to submit a ne
 1. [Theming Components](#/page/ThemeEnabledComponents)
 1. [Other Component Requirements](#requirements-for-components)
 1. [Submission](#submitting-a-new-component)
+1. [Publishing](#/page/Publishing)
 
 
 ## Component Structure

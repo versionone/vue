@@ -12,4 +12,5 @@ export default [
     require('./contributing/Documentation.md'),
     require('./contributing/Components.md'),
     require('./contributing/Theme-Enabled-Components.md'),
+    require('./contributing/Publishing.md'),
 ];

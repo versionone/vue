@@ -8,6 +8,7 @@ keywords:
   - page
   - guide
   - contribute
+  - docs
 ---
 
 This guide will aid in creating new documentation. This consists of creating new pages, updating existing pages and adding pages within new menu categories.

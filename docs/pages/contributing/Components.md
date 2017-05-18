@@ -10,15 +10,15 @@ keywords:
   - contribute
 ---
 
-This guide details the the structure of components an the process to submit a new component. To learn more about theme enabling within your component implementation, then checkout the [theme enabled component guide](/#/page/ThemeEnabledComponents).
+This guide details the the structure of components an the process to submit a new component. To learn more about theme enabling within your component implementation, then checkout the [theme enabled component guide](#/page/ThemeEnabledComponents).
 
 ## TL;DR
 
 1. [Component Structure](#component-structure)
-2. [Register with Docs](#registering-with-the-docs-site)
-3. [Theming Components](/#/page/Theming-Components)
-4. [Other Component Requirements](#requirements-for-components)
-4. [Submission](#submitting-a-new-component)
+1. [Register with Docs](#registering-with-the-docs-site)
+1. [Theming Components](#/page/ThemeEnabledComponents)
+1. [Other Component Requirements](#requirements-for-components)
+1. [Submission](#submitting-a-new-component)
 
 
 ## Component Structure
@@ -104,7 +104,7 @@ export default [
     {
         title: 'Simple Example',
 
-        description: 'A simple example showing a Popover containing a [Menu](/#/components/menu). It can be also closed by clicking away from the Popover.',
+        description: 'A simple example showing a Popover containing a [Menu](#/components/menu). It can be also closed by clicking away from the Popover.',
 
         code: require('!raw!./SimpleExample'),
 

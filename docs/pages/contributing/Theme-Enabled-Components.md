@@ -13,7 +13,7 @@ keywords:
   - stylesheet
 ---
 
-This guide will provide all the details necessary to theme a component. This includes how to create a theme-enabled component. If you want to know more about why themes were chosen over stylesheets, see the [Theme](/#/page/Theme) page.
+This guide will provide all the details necessary to theme a component. This includes how to create a theme-enabled component. If you want to know more about why themes were chosen over stylesheets, see the [Theme](#/page/Theme) page.
 
 ## What is a Theme
 A theme is a flat set of semantic configuration options to be shared and applied across multiple components to provide consistency throughout all components with the same theme. As such, theme properties should provide semantic value with what the theme property means or represents. As an example, the theme properties `yellow` and `yellowAccent` have no meaning. Instead, a better set of properties would be `warningPrimaryColor` and `warningSecondaryColor`.

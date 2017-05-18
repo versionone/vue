@@ -5,7 +5,7 @@ export default {
     keywords: ['sdk', 'meta', 'query', 'filter', 'token'],
     'see also': ['VersionOneUIProvider'],
     readme: require('./README.md'),
-    status: 'stable',
+    status: 'experimental',
     componentsSources: [
         {
             name: 'V1Provider',

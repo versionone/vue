@@ -2,7 +2,7 @@ const gulp = require('gulp');
 const path = require('path');
 const exec = require('./scriptHelpers/cliUtils').exec;
 
-const install = (workingDir = '') => {
+const install = (workingDir) => {
     const cwd = process.cwd();
     return exec(`cd ${path.join(cwd, workingDir)} && npm install`)
         .catch((error) => {

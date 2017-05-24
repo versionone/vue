@@ -27,7 +27,7 @@ module.exports.exec = command => new Promise((resolve, reject) => {
     });
 });
 
-module.exports.exit = (message = '', plugin = '') => {
+module.exports.exit = (message, plugin) => {
     process.exit(1);
     throw new gutil.PluginError({
         message,

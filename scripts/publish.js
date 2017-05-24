@@ -84,7 +84,7 @@ gulp.task('publish', (done) => {
         console.log('Will publish docs site because the new version is a minor or major version.');
         tasks.push('publish/docs');
     }
-    sequence(...tasks, (error) => {
+    sequence.apply(null, tasks, (error) => {
         sequence('clean', () => done(error));
     });
 });

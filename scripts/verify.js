@@ -3,10 +3,16 @@ const gulp = require('gulp');
 
 gulp.task('verify', () => {
     const node = process.version;
-    const npm = execSync('npm --version')
-        .toString()
-        .trim();
-    checkVersion(node, npm);
+    let yarnVersion;
+    try {
+        yarnVersion = execSync('yarn --version')
+            .toString()
+            .trim();
+    }
+    catch (error) {
+        console.log(error);
+    }
+    checkVersion(node, yarnVersion);
 });
 
 // returns actualVersion >= desiredVersion
@@ -41,11 +47,10 @@ function versionIsGreaterOrEqual(desiredVersion, actualVersion) {
     return true;
 }
 
-function checkVersion(nodeVersion, npmVersion) {
+function checkVersion(nodeVersion, yarnVersion) {
     const desiredVersions = {
         node: '4.4.0',
-        npm: '3.0.0',
-        yarn: '0.18.1',
+        yarn: '0.23.2',
     };
 
     const errors = {
@@ -55,10 +60,6 @@ function checkVersion(nodeVersion, npmVersion) {
         },
         oldNode: {
             getMessage: (desired, actual) => `Your version of node (${actual}) is older than the recommended version of ${desired}. Please install a more recent version. You can use http://git.io/nvm or https://github.com/coreybutler/nvm-windows to make upgrading your version of node easier.`,
-            isProblem: false,
-        },
-        oldNpm: {
-            getMessage: (desired, actual) => `Your version of npm (${actual}) is older than the recommended version of ${desired}. You should install yarn anyway, but if you would rather use npm, please at least have a more recent version. You can install the latest version by running \`npm install --global npm@latest\`.`,
             isProblem: false,
         },
         oldYarn: {
@@ -71,13 +72,11 @@ function checkVersion(nodeVersion, npmVersion) {
     errors.oldNode.message = errors.oldNode.getMessage(desiredVersions.node, nodeVersion);
 
     try {
-        // errors.oldYarn.isProblem = !versionIsGreaterOrEqual(desiredVersions.yarn, yarnVersion);
-        // errors.oldYarn.message = errors.oldYarn.getMessage(desiredVersions.yarn, yarnVersion);
+        errors.oldYarn.isProblem = !versionIsGreaterOrEqual(desiredVersions.yarn, yarnVersion);
+        errors.oldYarn.message = errors.oldYarn.getMessage(desiredVersions.yarn, yarnVersion);
     }
     catch (e) {
         errors.noYarn.isProblem = true;
-        errors.oldNpm.isProblem = !versionIsGreaterOrEqual(desiredVersions.npm, npmVersion);
-        errors.oldNpm.message = errors.oldNpm.getMessage(desiredVersions.npm, npmVersion);
     }
     const systemErrors = Object.keys(errors)
         .filter(key => errors[key].isProblem);
@@ -89,12 +88,11 @@ function checkVersion(nodeVersion, npmVersion) {
 
         console.error(`There ${one ? 'is an issue' : 'are some issues'} with your system. It is quite likely that if you do not resolve these, you will have a hard time running this repository.
 ${errorMessage}`);
-        console.info('If you don\'t care about these warnings, go ahead and install dependencies with `npm install`');
+        console.info('If you don\'t care about these warnings, go ahead and install dependencies with `yarn`');
         console.info('Otherwise, please refer to the Prerequisites section of the README');
         process.exitCode = 1;
         return;
     }
-    // Thumbs up emoji is inside the space
     console.info('👍  You are good to go!');
     process.exitCode = 0;
 }

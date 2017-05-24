@@ -13,7 +13,7 @@
   "scripts": {
     "test": "gulp test",
     "lint": "gulp lint",
-    "lint:watch": "npm run lint:src:watch & npm run lint:specs:watch",
+    "lint:watch": "yarn run lint:src:watch & npm run lint:specs:watch",
     "lint:src:watch": "esw --watch --color src/**/*.js --ignore-pattern src/__tests__/*.test.js --ignore-pattern src/**/__tests__/**/*.js --config eslint.src.js",
     "lint:specs:watch": "esw --watch --color src/__tests__/*.test.js src/**/__tests__/*.test.js --config eslint.specs.js",
     "prepublishOnly": "echo 'use `gulp publish ${version type}` instead.' exit 1"

@@ -93,7 +93,7 @@ gulp.task('publish/src', [
     'lint',
     'test',
     'build',
-], () => exec('npm publish --access=public'));
+], () => exec('yarn publish --access public'));
 
 gulp.task('publish/docs', () => {
     process.env.NODE_ENV = 'development';
@@ -110,9 +110,9 @@ gulp.task('publish/docs', () => {
         execSync('git reset --hard HEAD~1');
     }
     execSync(`git checkout ${version}`);
-    execSync('npm install');
+    execSync('yarn');
     addToMenu(version);
-    execSync('npm run browser:build');
+    execSync('yarn run browser:build');
     execSync('git checkout gh-pages');
 
     process.chdir(path.join(docsDirectory, '..'));

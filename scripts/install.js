@@ -4,7 +4,7 @@ const exec = require('./scriptHelpers/cliUtils').exec;
 
 const install = (workingDir) => {
     const cwd = process.cwd();
-    return exec(`cd ${path.join(cwd, workingDir)} && npm install`)
+    return exec(`cd ${path.join(cwd, workingDir)} && yarn`)
         .catch((error) => {
             console.log(error);
         });

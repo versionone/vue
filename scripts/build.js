@@ -25,5 +25,5 @@ gulp.task('build/icons', [
     'install/icons',
 ], () => {
     process.env.NODE_ENV = 'production';
-    return exec('node packages/v1-icon-builder/src/build.js --svgDir=./packages/v1-icons/src --outputDir=./src/Icons')
+    return exec('node packages/v1-icon-builder/src/build.js --svgDir=./packages/v1-icons/src --outputDir=./src/Icons');
 });

@@ -15,5 +15,5 @@ gulp.task('start/docs', [
 ], () => {
     console.log('Visit http://localhost:3000 in your browser');
     process.chdir(path.join(process.cwd(), 'docs'));
-    return exec('npm start');
+    return exec('yarn start');
 });

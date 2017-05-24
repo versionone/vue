@@ -12,10 +12,10 @@
 !/docs
 !/specHelpers
 !/license.md
-!/npm-shrinkwrap.json
 /!gulpfile.js
 !/gulp
 !/gulp.cmd
+!/yarn.lock
 
 ### Published github pages
 .out

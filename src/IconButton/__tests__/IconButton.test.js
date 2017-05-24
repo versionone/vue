@@ -1,6 +1,6 @@
 import IconButton from './../IconButton';
 import CloseIcon from './../../Icons/CloseIcon';
-import {getMount, getShallow, reset, snapshot} from './../../../specHelpers/rendering';
+import {getMount, getShallow, reset, snapshot} from './../../../testHelpers/rendering';
 
 const shallowRenderIconButton = getShallow(IconButton);
 const mountIconButton = getMount(IconButton);

@@ -1,5 +1,5 @@
 import HintText from '../HintText';
-import {getShallow, snapshot} from './../../../specHelpers/rendering';
+import {getShallow, snapshot} from './../../../testHelpers/rendering';
 
 const shallowRenderHintText = getShallow(HintText);
 const evt = {

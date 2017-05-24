@@ -1,21 +1,5 @@
 ### Repo-specific
-/*
-!/src
-!/packages
-!/.*
-/.idea
-!/package.json
-!/readme.md
-!/scripts
-!/*.js
-/index.js
-!/docs
-!/specHelpers
-!/license.md
-/!gulpfile.js
-!/gulp
-!/gulp.cmd
-!/yarn.lock
+dist
 
 ### Published github pages
 .out
@@ -23,6 +7,7 @@
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+.idea
 
 ## File-based project format:
 *.iws

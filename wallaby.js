@@ -1,32 +1,29 @@
-module.exports = function(wallaby) {
-    return {
-        files: [
-            'src/**/*.js',
-            'package.json',
-            'specHelpers/*.js',
-            '!src/**/*.test.js',
-            '!src/**/examples/**/*.*',
-            '!src/**/Stories.js',
-            '!src/**/_meta.js',
-            '!src/**/*.spec.js',
-        ],
-        tests: [
-            'src/**/__tests__/*.test.js',
-        ],
-        env: {
-            type: 'node',
-            runner: 'node',
-        },
-        filesWithNoCoverageCalculated: [
-            'specHelpers/**/*.js',
-            'src/Icons/*.js'
-        ],
-        compilers: {
-            '**/*.js': wallaby.compilers.babel(),
-        },
-        testFramework: 'jest',
-        setup: function(wallaby) {
-            wallaby.testFramework.configure(require('./package.json').jest);
-        },
-    };
-};
+module.exports = (wallaby) => ({
+    compilers: {
+        '**/*.js': wallaby.compilers.babel(),
+    },
+    env: {
+        type: 'node',
+        runner: 'node',
+    },
+    files: [
+        'packages/**/*.js',
+        '!packages/node_modules',
+        'package.json',
+        'specHelpers/*.js',
+        '!packages/**/*.test.js',
+        '!packages/**/docs',
+        '!packages/**/stories/**/*.*',
+    ],
+    filesWithNoCoverageCalculated: [
+        'specHelpers/**/*.js',
+        'packages/Icons/*.js',
+    ],
+    setup: (w) => {
+        w.testFramework.configure(require('./package.json').jest);
+    },
+    testFramework: 'jest',
+    tests: [
+        'packages/**/tests/**/*.test.js',
+    ],
+});

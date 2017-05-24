@@ -11,12 +11,15 @@
     "url": "https://github.com/versionone/vue.git"
   },
   "scripts": {
-    "test": "gulp test",
-    "lint": "gulp lint",
-    "lint:watch": "yarn run lint:src:watch & npm run lint:specs:watch",
-    "lint:src:watch": "esw --watch --color src/**/*.js --ignore-pattern src/__tests__/*.test.js --ignore-pattern src/**/__tests__/**/*.js --config eslint.src.js",
-    "lint:specs:watch": "esw --watch --color src/__tests__/*.test.js src/**/__tests__/*.test.js --config eslint.specs.js",
-    "prepublishOnly": "echo 'use `gulp publish ${version type}` instead.' exit 1"
+    "bootstrap": "build/bin/bootstrap.sh",
+    "bootstrap/single": "build/bin/bootstrap.single.sh",
+    "bootstrap/single/with-deps": "build/bin/bootstrap-with-deps.single.sh",
+    "lint": "build/bin/lint.sh",
+    "prepublishOnly": "echo 'use `gulp publish ${version type}` instead.' exit 1",
+    "prepublish/single": "cross-env NODE_ENV=production ./build/bin/prepublish.single.sh",
+    "start/docs": "build/bin/start-docs.sh",
+    "test": "cross-env NODE_ENV=test jest --config .jestrc.json",
+    "verify": "build/bin/verify.sh"
   },
   "keywords": [
     "react",
@@ -26,27 +29,6 @@
   ],
   "author": "Andrew Smith <andrew@andrew.codes>",
   "license": "MIT",
-  "babel": {
-    "presets": [
-      "es2015",
-      "react",
-      "stage-3",
-      "stage-2",
-      "stage-1"
-    ],
-    "env": {
-      "production": {
-        "plugins": [
-          [
-            "transform-react-remove-prop-types",
-            {
-              "mode": "wrap"
-            }
-          ]
-        ]
-      }
-    }
-  },
   "devDependencies": {
     "@kadira/react-storybook-addon-info": "3.2.1",
     "@kadira/storybook": "^1.33.0",
@@ -64,26 +46,23 @@
     "babel-preset-stage-2": "^6.5.0",
     "babel-preset-stage-3": "^6.5.0",
     "babel-runtime": "^6.11.6",
+    "chalk-cli": "^3.0.0",
+    "cross-env": "^5.0.0",
     "css-loader": "^0.23.1",
-    "del": "^2.2.2",
     "enzyme": "^2.7.1",
     "enzyme-to-json": "^1.4.5",
     "eslint": "^3.10.2",
     "eslint-config-andrew-codes": "^3.1.1",
     "eslint-config-andrew-codes-react": "^1.1.2",
+    "eslint-friendly-formatter": "^3.0.0",
     "eslint-plugin-babel": "^3.3.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-react": "^6.7.1",
-    "eslint-watch": "^2.1.14",
-    "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",
-    "gulp-eslint": "^3.0.1",
-    "gulp-jest": "^1.0.0",
-    "gulp-util": "^3.0.8",
     "jest": "^18.1.0",
     "jest-cli": "^18.1.0",
     "jsdom": "^9.2.1",
     "json-loader": "^0.5.4",
+    "lerna": "^2.0.0-rc.5",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
     "postcss-loader": "^0.9.1",
@@ -94,13 +73,11 @@
     "react-addons-test-utils": "15.0.0-rc.2",
     "react-hot-loader": "^1.3.0",
     "react-storybook-addon-add-stories-group": "^0.1.0",
-    "rimraf": "^2.5.2",
-    "run-sequence": "^1.2.2",
     "simulant": "^0.2.2",
-    "sinon": "^2.0.0-pre",
     "style-loader": "^0.13.1",
+    "temp": "^0.8.3",
     "wallaby-webpack": "0.0.22",
-    "webpack": "^1.13.1"
+    "webpack": "1.13.2"
   },
   "dependencies": {
     "@andrew-codes/color-functions": "^1.4.2",
@@ -114,12 +91,7 @@
     "react-dom": "15.1.0",
     "react-event-listener": "0.2.1",
     "react-redux": "4.4.5",
-    "redux": "3.5.2",
-    "redux-ui": "0.0.15",
     "scroll-into-view": "^1.7.4",
     "warning": "^3.0.0"
-  },
-  "jest": {
-    "testRegex": "/__tests__/.*\\.test\\.js$"
   }
 }

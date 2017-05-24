@@ -1,5 +1,5 @@
 import RequiredIndicator from '../RequiredIndicator';
-import {getShallow, snapshot} from './../../../specHelpers/rendering';
+import {getShallow, snapshot} from './../../../testHelpers/rendering';
 
 const shallowRenderIndicator = getShallow(RequiredIndicator);
 

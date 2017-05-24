@@ -1,16 +1,16 @@
 {
-  "name": "@versionone/icons",
-  "version": "0.0.1",
+  "name": "@versionone/ui-svg-icons",
+  "version": "0.0.0",
   "description": "SVG icons used by VersionOne.",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [
     "VersionOne",
     "icons",
     "svg"
   ],
-  "author": "Andrew Smith <andrew@andrew.codes>",
+  "author": "VersionOne",
+  "maintainers": [
+    "Andrew Smith <andrew@andrew.codes>"
+  ],
   "license": "MIT"
 }

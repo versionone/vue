@@ -1,6 +1,6 @@
 import React from 'react';
 import VersionOneUIProvider from './../VersionOneUIProvider';
-import {getMount, snapshot} from './../../../specHelpers/rendering';
+import {getMount, snapshot} from './../../../testHelpers/rendering';
 
 const shallowRender = getMount(VersionOneUIProvider);
 

@@ -1,34 +1,27 @@
 {
-  "name": "@versionone/icon-builder",
-  "version": "0.0.1",
+  "name": "@versionone/svg-icon-builder",
+  "version": "0.0.0",
   "description": "Builds a collection of SVG files into SvgIcon VersionOne UI components.",
   "bin": {
-    "v1-icon-builder": "build.js"
-  },
-  "scripts": {
-    "test": "jest"
+    "svg-icon-builder": "src/build.js"
   },
   "keywords": [
     "VersionOne",
     "svg",
-    "icons"
+    "icons",
+    "react",
+    "VersionOne/UI"
   ],
-  "author": "Andrew Smith <andrew@andrew.codes>",
+  "author": "VersionOne",
+  "maintainers": [
+    "Andrew Smith <andrew@andrew.codes>"
+  ],
   "license": "MIT",
-  "devDependencies": {
-    "babel-core": "^6.18.2",
-    "babel-jest": "^18.0.0",
-    "jest": "^18.1.0",
-    "temp": "^0.8.3"
-  },
   "dependencies": {
     "glob": "^7.1.1",
     "mustache": "^2.3.0",
     "rimraf": "^2.5.4",
     "uppercamelcase": "^1.1.0",
     "yargs": "^6.4.0"
-  },
-  "jest": {
-    "testRegex": "/__tests__/.*$"
   }
 }

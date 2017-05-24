@@ -1,5 +1,5 @@
 import SubHeader from '../SubHeader';
-import {getShallow, snapshot} from './../../../specHelpers/rendering';
+import {getShallow, snapshot} from './../../../testHelpers/rendering';
 
 const shallowRenderSubHeader = getShallow(SubHeader);
 

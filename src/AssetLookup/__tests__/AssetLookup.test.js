@@ -1,5 +1,5 @@
 import AssetLookup from './../AssetLookup';
-import {getMount} from './../../../specHelpers/rendering';
+import {getMount} from './../../../testHelpers/rendering';
 
 const mount = getMount(AssetLookup);
 

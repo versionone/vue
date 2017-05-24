@@ -1,5 +1,5 @@
 import TextField from '../TextField';
-import {getMount, getShallow, reset, snapshot} from './../../../specHelpers/rendering';
+import {getMount, getShallow, reset, snapshot} from './../../../testHelpers/rendering';
 
 const mountTextField = getMount(TextField);
 const shallowRenderTextField = getShallow(TextField);

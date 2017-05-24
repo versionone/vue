@@ -1,5 +1,5 @@
 import ErrorMessage from './../ErrorMessage';
-import {getShallow, snapshot} from './../../../specHelpers/rendering';
+import {getShallow, snapshot} from './../../../testHelpers/rendering';
 
 const shallowRenderErrorMessage = getShallow(ErrorMessage);
 const evt = {

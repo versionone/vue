@@ -1,7 +1,7 @@
 import React from 'react';
 import simulant from 'simulant';
 import Lookup from './../Lookup';
-import {getMount, getShallow, reset, snapshot} from './../../../specHelpers/rendering';
+import {getMount, getShallow, reset, snapshot} from './../../../testHelpers/rendering';
 
 jest.useFakeTimers();
 const mountLookup = getMount(Lookup);

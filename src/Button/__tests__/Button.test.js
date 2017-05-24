@@ -1,5 +1,5 @@
 import Button from '../Button';
-import {getShallow, snapshot} from './../../../specHelpers/rendering';
+import {getShallow, snapshot} from './../../../testHelpers/rendering';
 import * as ButtonTypes from '../Types';
 
 const shallowRenderButton = getShallow(Button);

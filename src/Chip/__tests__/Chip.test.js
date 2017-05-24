@@ -1,5 +1,5 @@
 import Chip from './../Chip';
-import {getMount, getShallow, snapshot} from './../../../specHelpers/rendering';
+import {getMount, getShallow, snapshot} from './../../../testHelpers/rendering';
 
 const mountChip = getMount(Chip);
 const shallowRenderChip = getShallow(Chip);

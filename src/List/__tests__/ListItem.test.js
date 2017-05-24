@@ -1,5 +1,5 @@
 import ListItem from '../ListItem';
-import {getShallow, snapshot} from './../../../specHelpers/rendering';
+import {getShallow, snapshot} from './../../../testHelpers/rendering';
 
 const shallowRenderListItem = getShallow(ListItem);
 const evt = {

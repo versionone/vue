@@ -1,0 +1,41 @@
+{
+  "name": "@versionone/ui-themes",
+  "version": "0.0.0",
+  "ui/name": "Themes",
+  "ui/status": "experimental",
+  "description": "",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "ui/webpack/entry": "src/index.js",
+  "ui/webpack/output": "dist/index.js",
+  "scripts": {
+    "prepublish": "{ cd ../../; yarn run prepublish/single @versionone/ui-themes; };"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/versionone/vue.git"
+  },
+  "config": {
+    "access": "public"
+  },
+  "keywords": [
+    "theme",
+    "styles",
+    "css",
+    "stylesheet",
+    "less",
+    "sass",
+    "scss",
+    "inline"
+  ],
+  "author": "VersionOne",
+  "maintainers": [
+    "Andrew Smith <andrew@andrew.codes>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@andrew-codes/color-functions": "^1.4.2"
+  }
+}

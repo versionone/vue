@@ -1,8 +1,10 @@
-src/**/examples/*.js
-**/Stories.js
-**/_meta.js
-src/styles/themes/**/*.js
+node_modules
+**/node_modules
+packages/**/docs/*.js
+packages/**/stories/*.js
+packages/themes/**/*.js
 packages/v1-icons
-packages/**/node_modules
 packages/**/testFixtures
+docs
+**/_meta.js
 src/Icons

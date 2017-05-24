@@ -3,7 +3,7 @@ import simulant from 'simulant';
 import List from './../List';
 import ListItem from './../ListItem';
 import SubHeader from './../../SubHeader';
-import {getMount, getShallow, snapshot, reset} from './../../../specHelpers/rendering';
+import {getMount, getShallow, snapshot, reset} from './../../../testHelpers/rendering';
 
 const renderList = getShallow(List);
 const mountList = getMount(List);

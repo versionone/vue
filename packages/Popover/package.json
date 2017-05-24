@@ -1,0 +1,47 @@
+{
+  "name": "@versionone/ui-popover",
+  "version": "0.0.0",
+  "ui/name": "Popover",
+  "ui/status": "experimental",
+  "description": "An un-styled panel that is capable of rendering anywhere on the page; relative to an anchor element.",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "ui/webpack/entry": "src/index.js",
+  "ui/webpack/output": "dist/index.js",
+  "scripts": {
+    "prepublish": "{ cd ../../; yarn run prepublish/single @versionone/ui-popover; };"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/versionone/vue.git"
+  },
+  "config": {
+    "access": "public"
+  },
+  "keywords": [
+    "tooltip",
+    "hover",
+    "fly out",
+    "toaster",
+    "flyout"
+  ],
+  "author": "VersionOne",
+  "maintainers": [
+    "Andrew Smith <andrew@andrew.codes>"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "15.1.0",
+    "react-dom": "15.1.0"
+  },
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "lodash.throttle": "^4.1.1",
+    "react-event-listener": "0.2.1",
+    "@versionone/ui-portal": "0.0.0",
+    "@versionone/ui-theme-provider": "0.0.0",
+    "@versionone/ui-utilities": "0.0.0"
+  }
+}

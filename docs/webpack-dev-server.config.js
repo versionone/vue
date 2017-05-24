@@ -9,7 +9,7 @@ const config = {
         'webpack/hot/dev-server',
         'webpack/hot/only-dev-server',
         './node_modules/babel-polyfill/lib/index.js',
-        path.resolve(__dirname, 'src/app/app.js')
+        path.resolve(__dirname, 'src/app/app.js'),
     ],
     // Webpack config options on how to obtain modules
     resolve: {
@@ -19,7 +19,7 @@ const config = {
             // material-ui requires will be searched in src folder, not in node_modules
             '@versionone/ui': path.resolve(__dirname, '../src'),
             '@versionone/ui-docs': path.resolve(__dirname, 'src', 'app', 'components')
-        }
+        },
     },
     // Configuration for dev server
     devServer: {

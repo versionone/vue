@@ -6,7 +6,7 @@ gulp.task('start', [
     'build/icons',
 ], () => {
     console.log('Visit http://localhost:9001 in your browser.');
-    return exec('./node_modules/.bin/start-storybook -p 9001');
+    return exec(`${path.resolve('./node_modules/.bin/start-storybook')} -p 9001`);
 });
 
 gulp.task('start/docs', [

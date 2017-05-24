@@ -2,6 +2,10 @@
   "name": "@versionone/ui",
   "version": "3.0.3",
   "description": "Open-source and community supported collection of common UI components built with React. As an open-sourced and community supported project, VersionOne UI is not formally supported by VersionOne.",
+  "engines": {
+    "node": "^4.5.0",
+    "npm": "^3.10.7",
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/versionone/vue.git"

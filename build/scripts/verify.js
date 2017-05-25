@@ -33,9 +33,9 @@ const versionIsGreaterOrEqual = (desiredVersion, actualVersion) => {
 };
 
 const createVersionCheck = (desiredVersions) => ({
-                                                   node,
-                                                   yarn,
-                                               }) => {
+                                                     node,
+                                                     yarn,
+                                                 }) => {
     const errors = {
         noYarn: {
             isProblem: false,

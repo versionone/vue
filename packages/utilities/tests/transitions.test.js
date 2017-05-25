@@ -1,4 +1,4 @@
-import {create, easeInOutFunction, easeOut, easeOutFunction} from './../Transitions';
+import {create, easeInOutFunction, easeOut, easeOutFunction} from './../src/transitions';
 
 test('it exports easing functions', () => {
     expect(easeInOutFunction).toBeDefined();

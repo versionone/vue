@@ -1,6 +1,5 @@
 import React, {PropTypes} from 'react';
-import {create as createTransition} from '../utilities/Transitions';
-import Radium from './../utilities/Radium';
+import {Radium, transitions} from '@versionone/ui-utilities';
 
 const getStyles = (props, theme) => {
     const {
@@ -101,7 +100,7 @@ SvgIcon.defaultProps = {
     onMouseEnter: () => {},
     onMouseLeave: () => {},
     padding: 0,
-    transition: createTransition('0.25s', 'fill', '0ms', 'linear'),
+    transition: transitions.create('0.25s', 'fill', '0ms', 'linear'),
 };
 
 export default Radium(SvgIcon);

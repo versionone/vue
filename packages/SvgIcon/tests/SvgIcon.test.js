@@ -1,5 +1,5 @@
 import React from 'react';
-import SvgIcon from './../SvgIcon';
+import SvgIcon from './../src/SvgIcon';
 import {getShallow, reset, snapshot} from './../../../testHelpers/rendering';
 
 const shallowRenderSvgIcon = getShallow(SvgIcon);

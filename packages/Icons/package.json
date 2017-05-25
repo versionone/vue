@@ -1,0 +1,39 @@
+{
+  "name": "@versionone/ui-icons",
+  "version": "0.0.0",
+  "ui/name": "Icons",
+  "ui/status": "experimental",
+  "description": "",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "ui/webpack/entry": "src/index.js",
+  "ui/webpack/output": "dist/index.js",
+  "scripts": {
+    "prepublish": "{ cd ../../; yarn run prepublish/icons; yarn run prepublish/single @versionone/ui-icons; };"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/versionone/vue.git"
+  },
+  "config": {
+    "access": "public"
+  },
+  "keywords": [
+    "icon"
+  ],
+  "author": "VersionOne",
+  "maintainers": [
+    "Andrew Smith <andrew@andrew.codes>"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "15.1.0",
+    "react-dom": "15.1.0"
+  },
+  "dependencies": {
+    "@versionone/ui-theme-provider": "0.0.0",
+    "@versionone/ui-utilities": "0.0.0"
+  }
+}

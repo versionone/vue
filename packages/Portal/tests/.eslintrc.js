@@ -7,11 +7,11 @@ module.exports = {
         'plugin:react/recommended',
         'eslint-config-andrew-codes/specs',
     ],
-    globals: [
-        'expect',
-        'jest',
-        'test',
-    ],
+    globals: {
+        'expect': true,
+        'jest': true,
+        'test': true,
+    },
     parser: 'babel-eslint',
     parserOptions: {
         ecmaFeatures: {

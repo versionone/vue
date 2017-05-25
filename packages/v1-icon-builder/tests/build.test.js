@@ -15,8 +15,8 @@ test.skip('the run function can output a corresponding SVG component file in the
     const getExpectedText = getExpected(svgDir);
     const getActualText = getActual(tempPath);
     builder.run({
+        outputDir: tempPath,
         svgDir,
-        outputDir: tempPath
     }, () => {
         expect(getExpectedText('add.svg')).to.equal(getActualText('AddIcon.js'));
         expect(getExpectedText('another.svg')).to.equal(getActualText('AnotherIcon.js'));
@@ -27,8 +27,8 @@ test.skip('the run function can output a corresponding SVG component file in the
 test.skip('an index file is generated that exports every icon', (done) => {
     const tempPath = createOutputDir();
     builder.run({
+        outputDir: tempPath,
         svgDir,
-        outputDir: tempPath
     }, () => {
         expect(getIndexContents(tempPath)).to.equal(stripNonEssentialCharacters(`import AddIconComponent from './AddIcon';
 export const AddIcon = AddIconComponent;
@@ -47,16 +47,22 @@ function cleanup(done) {
     done();
 }
 
-function getExpected(svgDir) {
-    return (fileName) => stripNonEssentialCharacters(fs.readFileSync(path.join(svgDir, `${fileName}.txt`), {encoding: 'utf-8'}));
+function getExpected(svgDirPath) {
+    return (fileName) => stripNonEssentialCharacters(fs.readFileSync(path.join(svgDirPath, `${fileName}.txt`), {
+        encoding: 'utf-8',
+    }));
 }
 
 function getActual(outputDir) {
-    return (fileName) => stripNonEssentialCharacters(fs.readFileSync(path.join(outputDir, fileName), {encoding: 'utf-8'}));
+    return (fileName) => stripNonEssentialCharacters(fs.readFileSync(path.join(outputDir, fileName), {
+        encoding: 'utf-8',
+    }));
 }
 
 function getIndexContents(outputDir) {
-    return stripNonEssentialCharacters(fs.readFileSync(path.join(outputDir, 'index.js'), {encoding: 'utf-8'}));
+    return stripNonEssentialCharacters(fs.readFileSync(path.join(outputDir, 'index.js'), {
+        encoding: 'utf-8',
+    }));
 }
 
 function stripNonEssentialCharacters(value) {

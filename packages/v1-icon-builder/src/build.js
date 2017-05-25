@@ -7,27 +7,39 @@ const upperCamelCase = require('uppercamelcase');
 
 const stripSvgTagExpression = /.*<svg.*[\r\n\t]*.*preserve">/g;
 const stripSvgEndTag = /<\/svg>/;
-const template = fs.readFileSync(path.join(__dirname, 'tmpl', 'SvgIcon.js.mustache'), {encoding: 'utf-8'});
-const iconIndexTemplate = fs.readFileSync(path.join(__dirname, 'tmpl', 'SvgIndex.js.mustache'), {encoding: 'utf-8'});
-const fileNameToIconName = svgPath => `${upperCamelCase(path.basename(svgPath, 'svg'))}Icon`;
+const template = fs.readFileSync(path.join(__dirname, 'tmpl', 'SvgIcon.js.mustache'), {
+    encoding: 'utf-8',
+});
+const iconIndexTemplate = fs.readFileSync(path.join(__dirname, 'tmpl', 'SvgIndex.js.mustache'), {
+    encoding: 'utf-8',
+});
+const fileNameToIconName = (svgPath) => `${upperCamelCase(path.basename(svgPath, 'svg'))}Icon`;
 const svgToJsx = (svgPath) => {
-    const rawSvg = fs.readFileSync(svgPath, {encoding: 'utf-8'});
-    const svgData = rawSvg.replace(stripSvgTagExpression, '').replace(stripSvgEndTag, '').trim();
+    const rawSvg = fs.readFileSync(svgPath, {
+        encoding: 'utf-8',
+    });
+    const svgData = rawSvg
+        .replace(stripSvgTagExpression, '')
+        .replace(stripSvgEndTag, '')
+        .trim();
     return mustache.render(template, {
+        svgData,
         svgIconName: fileNameToIconName(svgPath),
-        svgData
     });
 };
 
-const copySvgToComponent = outputDir => (svgPath) => {
+const copySvgToComponent = (outputDir) => (svgPath) => {
     const componentString = svgToJsx(svgPath);
     const destPath = path.join(outputDir, `${fileNameToIconName(svgPath)}.js`);
     fs.writeFileSync(destPath, componentString);
 };
 
-const createIconIndexFile = outputDir => (files) => {
+const createIconIndexFile = (outputDir) => (files) => {
     const destPath = path.join(outputDir, 'index.js');
-    const icons = files.map(filePath => ({name: fileNameToIconName(filePath)}));
+    const icons = files.map((filePath) => (
+        {
+            name: fileNameToIconName(filePath),
+        }));
     const indexContentsString = mustache.render(iconIndexTemplate, {icons});
     fs.writeFileSync(destPath, indexContentsString);
 };

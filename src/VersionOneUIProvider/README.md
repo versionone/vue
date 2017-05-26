@@ -1,1 +1,0 @@
-Enable application of a common theme across all VersionOne UI components and provide V1 functionality to all VersionOne UI components. As such, it should be used **near the root** of the UI's component tree. This is essentially a combination of using [ThemeProvider](#/component/ThemeProvider) and [V1Provider](#/component/V1Provider).

@@ -1,1 +1,0 @@
-Inject functionality for interacting with a VersionOne instance to components requiring them, such as the AssetLookup. Favor calling [VersionOneUIProvider](#/component/VersionOneUIProvider) instead. This should only be used if the V1 interaction needs to be overridden with something custom for a specific component tree instance.

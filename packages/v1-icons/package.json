@@ -4,7 +4,6 @@
   "description": "SVG icons used by VersionOne.",
   "main": "index.js",
   "keywords": [
-    "VersionOne",
     "icons",
     "svg"
   ],

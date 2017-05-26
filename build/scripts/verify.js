@@ -1,8 +1,9 @@
 const execSync = require('child_process').execSync;
+const pkg = require('./../../package.json');
 
 // returns actualVersion >= desiredVersion
 const versionIsGreaterOrEqual = (desiredVersion, actualVersion) => {
-    const versionExpression = /v?(\d+)\.(\d+)\.(\d+)/;
+    const versionExpression = /v?\^?(\d+)\.(\d+)\.(\d+)/;
     const desiredVersionParts = versionExpression.exec(desiredVersion);
     const desiredMajor = Number(desiredVersionParts[1]);
     const desiredMinor = Number(desiredVersionParts[2]);
@@ -79,16 +80,11 @@ ${errorMessage}`);
     return 0;
 };
 
-const desiredVersions = {
-    node: '6.10.0',
-    yarn: '0.23.2',
-};
-
 const nodeVersion = process.version;
 const yarnVersion = (execSync('yarn --version') || '')
     .toString()
     .trim();
-const checkVersion = createVersionCheck(desiredVersions);
+const checkVersion = createVersionCheck(pkg.engines);
 const exitCode = checkVersion({
     node: nodeVersion,
     yarn: yarnVersion,

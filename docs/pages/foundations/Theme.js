@@ -1,6 +1,6 @@
 import React from 'react';
 import ThemeDescription from './../../src/app/components/ThemeConfigurationDescription';
-import v1DefaultTheme from './../../../src/styles/themes/v1Theme';
+import v1DefaultTheme from './../../../src/styles/themes/V1Theme';
 
 const themeProviderCode = require('!raw!./../../../src/ThemeProvider/ThemeProvider');
 

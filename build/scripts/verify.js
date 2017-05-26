@@ -63,7 +63,7 @@ const createVersionCheck = (desiredVersions) => ({
         errors.noYarn.isProblem = true;
     }
     const systemErrors = Object.keys(errors)
-        .filter(key => errors[key].isProblem);
+        .filter((key) => errors[key].isProblem);
     const errorCount = systemErrors.length;
     if (errorCount !== 0) {
         const errorMessage = systemErrors

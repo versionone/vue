@@ -33,10 +33,6 @@ test('all children must match the component type', () => {
     ), 'children')).toBeTruthy();
 });
 
-function TestComponent(props) {
-    return props.children;
-}
+const TestComponent = (props) => props.children;
 
-function TestComponent2(props) {
-    return props.children;
-}
+const TestComponent2 = (props) => props.children;

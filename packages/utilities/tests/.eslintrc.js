@@ -42,6 +42,8 @@ module.exports = {
         ],
         'prefer-arrow-callback': 1,
         'react/no-did-mount-set-state': 0,
+        'react/prefer-stateless-function': 0,
+        'react/require-optimization': 0,
     },
     settings: {
         react: {

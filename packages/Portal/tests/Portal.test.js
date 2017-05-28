@@ -3,18 +3,18 @@ jest.mock('react-dom');
 import React from 'react';
 /* eslint-disable camelcase */
 import {unstable_renderSubtreeIntoContainer} from 'react-dom';
-import RenderToLayer from './../src/Portal';
+import Portal from './../src/Portal';
 import {getMount, reset} from './../../../testHelpers/rendering';
 
 jest.useFakeTimers();
-const mountRenderToLayer = getMount(RenderToLayer);
+const mountPortal = getMount(Portal);
 let component;
 afterEach(reset(component));
 
 test('rendering to layer does not render contents of render function when open is false', () => {
     const render = jest.fn();
     render.mockReturnValue(<div>Not Rendered</div>);
-    mountRenderToLayer({
+    mountPortal({
         open: false,
         render,
     });
@@ -26,7 +26,7 @@ test('render to layer does render contents of render function when open is true'
     const content = <div>Rendered</div>;
 
     render.mockReturnValue(content);
-    mountRenderToLayer({
+    mountPortal({
         open: true,
         render,
     });
@@ -34,10 +34,10 @@ test('render to layer does render contents of render function when open is true'
     expect(unstable_renderSubtreeIntoContainer.mock.calls[0][1]).toEqual(content);
 });
 
-test('unmounting RenderToLayer removes the rendered layer', () => {
+test('unmounting Portal removes the rendered layer', () => {
     const render = jest.fn();
     render.mockReturnValue(<div>Unmount</div>);
-    const renderedLayer = mountRenderToLayer({
+    const renderedLayer = mountPortal({
         open: true,
         render,
     });
@@ -57,7 +57,7 @@ test('clicking anywhere in the document will fire the onComponentClickAway event
         defaultPrevented: false,
         target: window,
     };
-    component = mountRenderToLayer({
+    component = mountPortal({
         onComponentClickAway: handleClickAway,
         open: true,
         render,
@@ -80,7 +80,7 @@ test('clicking anywhere in the document will not fire the onComponentClickAway e
         defaultPrevented: true,
         target: window,
     };
-    component = mountRenderToLayer({
+    component = mountPortal({
         onComponentClickAway: handleClickAway,
         open: true,
         render,
@@ -103,7 +103,7 @@ test('clicking within the rendered layer will not fire the onComponentClickAway 
     window.addEventListener = jest.fn().mockImplementation((event, cb) => {
         mappedEventHandlers[event] = cb;
     });
-    component = mountRenderToLayer({
+    component = mountPortal({
         onComponentClickAway: handleClickAway,
         open: true,
         render,
@@ -132,7 +132,7 @@ test('onRendered is invoked after rendering has completed', () => {
         callback();
     });
 
-    component = mountRenderToLayer({
+    component = mountPortal({
         onRendered: handleRendered,
         open: true,
         render,

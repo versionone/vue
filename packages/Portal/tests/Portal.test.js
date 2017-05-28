@@ -48,7 +48,7 @@ test('unmounting Portal removes the rendered layer', () => {
 test('clicking anywhere in the document will fire the onComponentClickAway event handler when default is not prevented', () => {
     const handleClickAway = jest.fn();
     const render = jest.fn();
-    render.mockReturnValue(<div></div>);
+    render.mockReturnValue(<div />);
     const mappedEventHandlers = {};
     global.window.addEventListener = jest.fn().mockImplementation((event, cb) => {
         mappedEventHandlers[event] = cb;
@@ -71,7 +71,7 @@ test('clicking anywhere in the document will fire the onComponentClickAway event
 test('clicking anywhere in the document will not fire the onComponentClickAway event handler when default is prevented', () => {
     const handleClickAway = jest.fn();
     const render = jest.fn();
-    render.mockReturnValue(<div></div>);
+    render.mockReturnValue(<div />);
     const mappedEventHandlers = {};
     window.addEventListener = jest.fn().mockImplementation((event, cb) => {
         mappedEventHandlers[event] = cb;

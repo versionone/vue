@@ -10,7 +10,7 @@ test.skip('the CLI tool exports a main function', () => {
     expect(builder.run).to.be.a('function');
 });
 
-test.skip('the run function can output a corresponding SVG component file in the output directory for each SVG file in an input directory', done => {
+test.skip('the run function can output a corresponding SVG component file in the output directory for each SVG file in an input directory', (done) => {
     const tempPath = createOutputDir();
     const getExpectedText = getExpected(svgDir);
     const getActualText = getActual(tempPath);

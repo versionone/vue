@@ -50,10 +50,6 @@ module.exports = {
         ],
         'max-len': 0,
         'max-lines': 0,
-        'import/no-commonjs': 0,
-        'import/no-dynamic-require': 0,
-        'import/no-extraneous-dependencies': 0,
-        'import/no-nodejs-modules': 0,
         'object-curly-newline': [
             2,
             {

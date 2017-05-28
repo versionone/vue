@@ -40,7 +40,9 @@ const createIconIndexFile = (outputDir) => (files) => {
         {
             name: fileNameToIconName(filePath),
         }));
-    const indexContentsString = mustache.render(iconIndexTemplate, {icons});
+    const indexContentsString = mustache.render(iconIndexTemplate, {
+        icons,
+    });
     fs.writeFileSync(destPath, indexContentsString);
 };
 

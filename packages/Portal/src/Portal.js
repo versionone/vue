@@ -5,7 +5,7 @@ import ThemeProvider from '@versionone/ui-theme-provider';
 import {dom} from '@versionone/ui-utilities';
 
 const {
-    isDescendant
+    isDescendant,
 } = dom;
 const immediateTimeOutValue = 0;
 

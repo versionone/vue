@@ -34,6 +34,10 @@ module.exports = {
         'linebreak-style': [
             0, 'windows',
         ],
+        'import/no-commonjs': 0,
+        'import/no-dynamic-require': 0,
+        'import/no-extraneous-dependencies': 0,
+        'import/no-nodejs-modules': 0,
         'object-curly-newline': [
             2,
             {

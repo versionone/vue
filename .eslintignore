@@ -1,10 +1,12 @@
 node_modules
 **/node_modules
+packages/**/dist
 packages/**/docs/*.js
 packages/**/stories/*.js
 packages/themes/**/*.js
+packages/Icons
 packages/v1-icons
 packages/**/testFixtures
+testHelpers
+build
 docs
-**/_meta.js
-src/Icons

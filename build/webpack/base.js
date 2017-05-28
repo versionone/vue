@@ -1,14 +1,8 @@
-const camelCase = require('camelcase');
 const glob = require('glob');
 const path = require('path');
 const webpack = require('webpack');
 
 const pkg = require(path.join(process.cwd(), 'package.json'));
-const defaultPackageMains = () => {
-    const options = new webpack.WebpackOptionsDefaulter();
-    options.process({});
-    return options.defaults.resolve.packageMains;
-};
 
 const webpackConfig = {
     entry: {
@@ -17,22 +11,18 @@ const webpackConfig = {
         ],
     },
     output: {
-        path: './',
+        path: path.join(process.cwd()),
         filename: '[name]',
         libraryTarget: 'commonjs2',
     },
     resolve: {
         extensions: [
-            '',
             '.js',
         ],
-        packageMains: [
-            'ui/webpack/entry',
-            ...defaultPackageMains(),
-        ],
+        plugins: [],
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.json$/,
                 loader: 'json-loader',
@@ -48,7 +38,6 @@ const webpackConfig = {
             },
         ],
     },
-    plugins: [],
 };
 
 module.exports = webpackConfig;

@@ -1,10 +1,9 @@
 import React from 'react';
-import {storiesOf} from '@kadira/storybook';
+import {storiesOf} from '@storybook/react';
 import SvgIcon from './../src';
 
 storiesOf('SvgIcon')
-    .addWithInfo('add SVG icon',
-        ``,
+    .add('add SVG icon',
         () => (
             <SvgIcon>
                 <path

@@ -80,7 +80,6 @@
     "simulant": "^0.2.2",
     "style-loader": "^0.13.1",
     "temp": "^0.8.3",
-    "wallaby-webpack": "0.0.22",
     "webpack": "1.13.2"
   }
 }

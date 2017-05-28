@@ -1,22 +1,30 @@
+const glob = require('glob');
+const path = require('path');
+
+const nodeModules = glob.sync('packages/*')
+    .map((pkgDir) => path.join(__dirname, pkgDir, 'node_modules'));
+process.env.NODE_PATH += `${path.delimiter}${nodeModules.join(path.delimiter)}`;
+
 module.exports = (wallaby) => ({
     compilers: {
         '**/*.js': wallaby.compilers.babel(),
     },
     env: {
-        type: 'node',
         runner: 'node',
+        type: 'node',
     },
     files: [
-        'packages/**/*.js',
-        '!packages/node_modules',
+        'testHelpers/**/*.js',
         'package.json',
-        'specHelpers/*.js',
-        '!packages/**/*.test.js',
-        '!packages/**/docs',
-        '!packages/**/stories/**/*.*',
+        'packages/*/src/**/*.*',
+        'packages/*/tests/**/*.*',
+        '!packages/**/node_modules/**/*.*',
+        '!packages/*/tests/**/*.test.js',
+        '!packages/*/docs',
+        '!packages/*/stories/**/*.*',
     ],
     filesWithNoCoverageCalculated: [
-        'specHelpers/**/*.js',
+        'testHelpers/**/*.js',
         'packages/Icons/*.js',
     ],
     setup: (w) => {
@@ -24,6 +32,6 @@ module.exports = (wallaby) => ({
     },
     testFramework: 'jest',
     tests: [
-        'packages/**/tests/**/*.test.js',
+        'packages/*/tests/**/*.test.js',
     ],
 });

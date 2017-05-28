@@ -25,7 +25,10 @@ module.exports = (wallaby) => ({
     ],
     filesWithNoCoverageCalculated: [
         'testHelpers/**/*.js',
-        'packages/Icons/*.js',
+        'packages/Icons/**/*.js',
+        'packages/themes/**/*.js',
+        'packages/**/.eslintrc.js',
+        'testHelpers/.eslintrc.js',
     ],
     setup: (w) => {
         w.testFramework.configure(require('./package.json').jest);

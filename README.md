@@ -3,7 +3,7 @@ VersionOne UI is an open-source and community supported collection of common UI 
 
 ## Getting Started
 ### Step 1: Prerequisites
-Run `yarn run verify` to determine if you meet the above requirements. If there is an error, see below; otherwise 
+Run `npm run verify` to determine if you meet the above requirements. If there is an error, see below; otherwise 
 proceed to Step 2.
 
 **Required Software**

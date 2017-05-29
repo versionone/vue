@@ -3,33 +3,54 @@ import {action} from '@storybook/addon-actions';
 import {storiesOf} from '@storybook/react';
 import Popover from './../src';
 
+const horizontalPositions = [
+    'left',
+    'center',
+    'right',
+];
+const verticalPositions = [
+    'top',
+    'middle',
+    'bottom',
+];
+
 storiesOf('Popover')
     .add('positioning', () => (
             <div style={{
                 textAlign: 'center',
             }}
             >
-                <p>Click anchors to toggle popovers</p>
-                <PopoverDemo
-                    anchorOrigin={{
-                        horizontal: 'center',
-                        vertical: 'bottom'
-                    }}
-                    showContent
-                    targetOrigin={{
-                        horizontal: 'center',
-                        vertical: 'top'
-                    }}
-                />
+                <h2>Click anchors to toggle popovers</h2>
+                <div style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    textAlign: 'center',
+                }}
+                >
+                    {horizontalPositions.map((aHPosition, hIndex) =>
+                        verticalPositions.map((aVPosition, vIndex) => (
+                            horizontalPositions.map((tHPosition, hIndex) =>
+                                verticalPositions.map((tVPosition, vIndex) => (
+                                    <PopoverDemo
+                                        anchorOrigin={{
+                                            horizontal: aHPosition,
+                                            vertical: aVPosition
+                                        }}
+                                        targetOrigin={{
+                                            horizontal: tHPosition,
+                                            vertical: tVPosition,
+                                        }}
+                                    />
+                                ))
+                            ))
+                        ))
+                    }
+                </div>
             </div>
         )
     );
 
 class PopoverDemo extends Component {
-    static defaultProps = {
-        showContent: false,
-    };
-
     constructor(...rest) {
         super(...rest);
         this.state = {
@@ -40,40 +61,51 @@ class PopoverDemo extends Component {
     }
 
     handleClick() {
-        this.setState({open: !this.state.open});
+        this.setState({
+            open: !this.state.open,
+        });
     }
 
-    closePopover() {
-        this.setState({open: false});
+    closePopover(e, ...rest) {
+        action('onRequestClose')(e, ...rest);
+        this.setState({
+            open: false,
+        });
     }
 
     render() {
         const {
             anchorOrigin,
-            showContent,
             targetOrigin,
         } = this.props;
         const {
             open,
         } = this.state;
         return (
-            <div>
-                {showContent && (
-                    <div>
-                        This is content. It is very nice.
-                    </div>
-                )}
-                <span
+            <div
+                style={{
+                    border: '1px solid lightblue',
+                    flex: '1 1 auto',
+                    padding: '6px',
+                    margin: '6px',
+                }}
+            >
+                <p>
+                    <strong>Popover Positioning</strong><br />
+                    anchor origin: {anchorOrigin.vertical} {anchorOrigin.horizontal}<br />
+                    target origin: {targetOrigin.vertical} {targetOrigin.horizontal}
+                </p>
+                <strong
                     ref={(el) => {
                         this.anchor = el;
                     }}
                     onClick={this.handleClick}
-                >Anchor</span>
-                {showContent && (
-                    <div>
-                        This is content. It is very nice.
-                    </div>
-                )}
+                >
+                    Anchor Text
+                </strong>
+                <div>
+                    This is content below the anchor. It is very nice.
+                </div>
                 <Popover
                     anchorElement={this.anchor}
                     anchorOrigin={anchorOrigin}
@@ -81,7 +113,10 @@ class PopoverDemo extends Component {
                     targetOrigin={targetOrigin}
                     onRequestClose={this.closePopover}
                 >
-                    <div style={{backgroundColor: 'white'}}>
+                    <div style={{
+                        background: 'white',
+                        border: '1px solid gray',
+                    }}>
                         {(new Array(7).fill(1)).map((item, index) => (
                             <div key={index}>Item {index}</div>
                         ))}

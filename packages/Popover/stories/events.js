@@ -9,7 +9,6 @@ storiesOf('Popover')
                 textAlign: 'center',
             }}
             >
-                <p>Click anchors to toggle popovers</p>
                 <PopoverDemo />
             </div>
         )
@@ -34,14 +33,18 @@ class PopoverDemo extends Component {
             open,
         } = this.state;
         return (
-            <div>
-                <span
+            <div style={{
+                border: '1px solid lightblue',
+                padding: '6px',
+            }}
+            >
+                <strong
                     ref={(el) => {
                         this.anchor = el;
                     }}
                 >
-                    Anchor
-                </span>
+                    Anchor (with open popover)
+                </strong>
                 <Popover
                     anchorElement={this.anchor}
                     anchorOrigin={{
@@ -56,7 +59,8 @@ class PopoverDemo extends Component {
                     onRequestClose={action('onRequestClose')}
                 >
                     <div style={{
-                        backgroundColor: 'white',
+                        background: 'white',
+                        border: '1px solid gray',
                     }}>
                         {(new Array(7).fill(1)).map((item, index) => (
                             <div key={index}>Item {index}</div>

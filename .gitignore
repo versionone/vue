@@ -1,5 +1,7 @@
 ### Repo-specific
 dist
+/v*
+/release
 
 ### Published github pages
 .out

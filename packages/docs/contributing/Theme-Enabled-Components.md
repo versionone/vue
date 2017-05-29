@@ -1,6 +1,5 @@
 ---
 title: Theme Enabled Components
-menuCategory: Contributing
 status: stable
 keywords:
   - style

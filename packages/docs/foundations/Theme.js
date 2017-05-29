@@ -13,6 +13,15 @@ const ThemePage = () => (
 
 export const title = 'Theme';
 export const status = 'draft';
-export const menuCategory = 'Foundations';
+export const keywords = [
+    'style',
+    'css',
+    'less',
+    'scss',
+    'sass',
+    'visual',
+    'guide',
+    'stylesheet',
+];
 export const component = ThemePage;
 

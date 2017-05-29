@@ -1,6 +1,5 @@
 ---
 title: Documentation
-menuCategory: Contributing
 status: stable
 keywords:
   - create

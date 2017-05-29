@@ -49,5 +49,7 @@ const IconsPage = () => (
 
 export const title = 'Icons';
 export const status = 'experimental';
-export const menuCategory = 'Foundations';
+export const keywords = [
+    'svg',
+];
 export const component = IconsPage;

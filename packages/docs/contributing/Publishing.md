@@ -1,6 +1,5 @@
 ---
 title: Publishing
-menuCategory: Contributing
 status: stable
 keywords:
   - create

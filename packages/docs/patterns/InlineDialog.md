@@ -1,6 +1,5 @@
 ---
 title: Inline Dialog
-menuCategory: Patterns
 status: experimental
 keywords:
 ---

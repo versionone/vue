@@ -1,6 +1,5 @@
 ---
 title: Pattern vs Components
-menuCategory: Patterns
 status: experimental
 keywords:
 ---

@@ -1,6 +1,5 @@
 ---
 title: Components
-menuCategory: Contributing
 status: stable
 keywords:
   - create

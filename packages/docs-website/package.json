@@ -1,6 +1,6 @@
 {
-  "name": "@versioneone/ui-docs",
-  "version": "0.0.1-alpha",
+  "name": "@versioneone/ui-docs-website",
+  "version": "0.0.0",
   "description": "Documentation site for VersionOne UI",
   "repository": {
     "type": "git",

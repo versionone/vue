@@ -1,6 +1,5 @@
 ---
 title: Search
-menuCategory: Patterns
 status: draft
 keywords:
   - Search

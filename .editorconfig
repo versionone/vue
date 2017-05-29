@@ -11,5 +11,9 @@ end_of_line = crlf
 indent_style = space
 indent_size = 2
 
+[lerna.json]
+indent_style = space
+indent_size = 2
+
 [*.sh]
 end_of_line = lf

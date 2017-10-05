@@ -6,7 +6,12 @@ import {findDOMNode} from 'react-dom';
 import Radium from './../utilities/Radium';
 import RenderToLayer from './../internal/RenderToLayer';
 import ThemeProvider from './../ThemeProvider';
-import {adjustPositionWithinBoundaries, getPosition, getViewportPosition} from './../utilities/position';
+import {
+    adjustPositionWithinBoundaries,
+    getDocumentPosition,
+    getPosition,
+    getViewportPosition
+} from '../utilities/position';
 import * as CustomPropTypes from './../utilities/CustomPropTypes';
 import * as Positions from './Positions';
 import {isDescendant} from './../utilities/dom';
@@ -160,16 +165,24 @@ class Popover extends Component {
         const anchorPosition = getPosition(anchorEl);
         const targetPosition = getTargetPosition(targetElement);
         const viewportPosition = getViewportPosition();
+        const isAnchorOffScreen = isOffScreen(anchorPosition, viewportPosition);
+        const documentPosition = getDocumentPosition();
+        const referencePoint = !autoCloseWhenOffScreen && isAnchorOffScreen
+            ? documentPosition
+            : viewportPosition;
+
         const popoverPosition = adjustPositionWithinBoundaries(
             anchorPosition,
             anchorOrigin,
             targetPosition,
             targetOrigin,
-            viewportPosition);
+            referencePoint);
 
-        popoverPosition.top = Math.max(offScreenThresholdValue, popoverPosition.top);
+        popoverPosition.top = autoCloseWhenOffScreen
+            ? Math.max(offScreenThresholdValue, popoverPosition.top)
+            : popoverPosition.top;
 
-        if (scrolling && autoCloseWhenOffScreen && isOffscreen(anchorPosition, viewportPosition)) {
+        if (scrolling && autoCloseWhenOffScreen && isAnchorOffScreen) {
             this.requestClose(evt, 'offScreen');
         }
         targetElement.style.left = `${popoverPosition.left}px`;
@@ -267,4 +280,5 @@ class Popover extends Component {
         );
     }
 }
+
 export default Radium(Popover);

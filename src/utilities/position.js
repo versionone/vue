@@ -9,6 +9,12 @@ export const getViewportPosition = () => ({
     top: 0,
     width: window.document.documentElement.clientWidth,
 });
+export const getDocumentPosition = () => ({
+    height: document.documentElement.scrollHeight,
+    left: 0,
+    top: 0,
+    width: document.documentElement.scrollWidth,
+});
 
 export const getPosition = (element) => {
     const el = element;

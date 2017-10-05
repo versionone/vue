@@ -23,11 +23,11 @@ const getTargetPosition = (targetElement) => ({
     width: targetElement.scrollWidth,
 });
 
-const isOffscreen = (anchorPosition, viewportPosition) =>
-    (anchorPosition.top < offScreenThresholdValue
-        || anchorPosition.top > viewportPosition.height
-        || anchorPosition.left < offScreenThresholdValue
-        || anchorPosition.left > viewportPosition.width);
+const isOffScreen = (elementPosition, viewportPosition) =>
+    (elementPosition.top < offScreenThresholdValue
+        || elementPosition.top > viewportPosition.height
+        || elementPosition.left < offScreenThresholdValue
+        || elementPosition.left > viewportPosition.width);
 
 class Popover extends Component {
     static propTypes = {

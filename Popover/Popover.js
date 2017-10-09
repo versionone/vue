@@ -36,7 +36,7 @@ var _ThemeProvider = require('./../ThemeProvider');
 
 var _ThemeProvider2 = _interopRequireDefault(_ThemeProvider);
 
-var _position = require('./../utilities/position');
+var _position = require('../utilities/position');
 
 var _CustomPropTypes = require('./../utilities/CustomPropTypes');
 
@@ -72,8 +72,8 @@ var getTargetPosition = function getTargetPosition(targetElement) {
     };
 };
 
-var isOffscreen = function isOffscreen(anchorPosition, viewportPosition) {
-    return anchorPosition.top < offScreenThresholdValue || anchorPosition.top > viewportPosition.height || anchorPosition.left < offScreenThresholdValue || anchorPosition.left > viewportPosition.width;
+var isOffScreen = function isOffScreen(elementPosition, viewportPosition) {
+    return elementPosition.top < offScreenThresholdValue || elementPosition.top > viewportPosition.height || elementPosition.left < offScreenThresholdValue || elementPosition.left > viewportPosition.width;
 };
 
 var Popover = function (_Component) {
@@ -175,11 +175,15 @@ var Popover = function (_Component) {
             var anchorPosition = (0, _position.getPosition)(anchorEl);
             var targetPosition = getTargetPosition(targetElement);
             var viewportPosition = (0, _position.getViewportPosition)();
-            var popoverPosition = (0, _position.adjustPositionWithinBoundaries)(anchorPosition, anchorOrigin, targetPosition, targetOrigin, viewportPosition);
+            var isAnchorOffScreen = isOffScreen(anchorPosition, viewportPosition);
+            var documentPosition = (0, _position.getDocumentPosition)();
+            var referencePoint = !autoCloseWhenOffScreen && isAnchorOffScreen ? documentPosition : viewportPosition;
 
-            popoverPosition.top = Math.max(offScreenThresholdValue, popoverPosition.top);
+            var popoverPosition = (0, _position.adjustPositionWithinBoundaries)(anchorPosition, anchorOrigin, targetPosition, targetOrigin, referencePoint);
 
-            if (scrolling && autoCloseWhenOffScreen && isOffscreen(anchorPosition, viewportPosition)) {
+            popoverPosition.top = autoCloseWhenOffScreen ? Math.max(offScreenThresholdValue, popoverPosition.top) : popoverPosition.top;
+
+            if (scrolling && autoCloseWhenOffScreen && isAnchorOffScreen) {
                 this.requestClose(evt, 'offScreen');
             }
             targetElement.style.left = popoverPosition.left + 'px';

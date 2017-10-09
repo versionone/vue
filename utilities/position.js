@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.adjustPositionWithinBoundaries = exports.getUnion = exports.isWithinBoundary = exports.isWithinYBoundary = exports.isWithinBottomBoundary = exports.isWithinTopBoundary = exports.isWithinXBoundary = exports.isWithinRightBoundary = exports.isWithinLeftBoundary = exports.getPosition = exports.getViewportPosition = undefined;
+exports.adjustPositionWithinBoundaries = exports.getUnion = exports.isWithinBoundary = exports.isWithinYBoundary = exports.isWithinBottomBoundary = exports.isWithinTopBoundary = exports.isWithinXBoundary = exports.isWithinRightBoundary = exports.isWithinLeftBoundary = exports.getPosition = exports.getDocumentPosition = exports.getViewportPosition = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -24,6 +24,14 @@ var getViewportPosition = exports.getViewportPosition = function getViewportPosi
         left: 0,
         top: 0,
         width: window.document.documentElement.clientWidth
+    };
+};
+var getDocumentPosition = exports.getDocumentPosition = function getDocumentPosition() {
+    return {
+        height: document.documentElement.scrollHeight,
+        left: 0,
+        top: 0,
+        width: document.documentElement.scrollWidth
     };
 };
 

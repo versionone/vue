@@ -1,5 +1,5 @@
 import React from 'react';
-import SvgIcon from 'vue/SvgIcon';
+import SvgIcon from '@versionone/ui/SvgIcon';
 
 class CustomIcon extends React.Component {
     render() {

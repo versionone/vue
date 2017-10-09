@@ -11,7 +11,7 @@ export default {
     ],
     'see also': [],
     readme: require('./README.md'),
-    status: 'stable',
+    status: 'experimental',
     componentsSources: [
         {
             name: 'Popover',

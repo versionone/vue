@@ -5,20 +5,27 @@ import StatusBadge from './StatusBadge';
 
 export default class ComponentPage extends Component {
     static propTypes = {
-        title: PropTypes.string,
+        component: PropTypes.node,
+        readme: PropTypes.string,
         status: PropTypes.string,
-        readme: PropTypes.string
+        title: PropTypes.string,
     };
 
     render() {
-        const {title, status, readme} = this.props;
+        const {
+            component,
+            readme,
+            status,
+            title,
+        } = this.props;
 
         return (
             <div>
                 <Title render={(previousTitle) => `${title} - ${previousTitle}`} />
                 <StatusBadge status={status} />
                 <h1>{title}</h1>
-                <MarkdownElement text={readme} />
+                {component && component()}
+                {!component && <MarkdownElement text={readme} />}
             </div>
         );
     }

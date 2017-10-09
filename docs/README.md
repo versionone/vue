@@ -1,16 +1,15 @@
-# [Vue Docs](http://versionone.github.io/vue/)
+# [VersionOne UI Docs](http://versionone.github.io/vue/release)
 
-This is the documentation website and application of Vue.
+This is the documentation website and application of VersionOne UI.
 
 ## Requirements
 
 - [Node](https://nodejs.org) 4.0 or newer
 
 ## Installation
-After cloning the Vue repository, install dependencies:
+After cloning the VersionOne UI repository, install dependencies:
 ```sh
-cd vue
-npm install
+npm run install
 ```
 
 ## Running
@@ -20,7 +19,6 @@ Once dependencies are installed, start the application with:
 ### Browser
 
 ```sh
-cd vue
 npm start
 ```
 

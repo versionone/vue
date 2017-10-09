@@ -1,13 +1,13 @@
 import React from 'react';
-import TextField from 'vue/TextField';
-import VueProvider from 'vue/VueProvider';
+import TextField from '@versionone/ui/TextField';
+import VersionOneUIProvider from '@versionone/ui/VersionOneUIProvider';
 import v1Theme from './../../styles/themes/v1Theme';
 
 export default () => {
     const query = () => Promise.resolve([]);
 
     return (
-        <VueProvider
+        <VersionOneUIProvider
             runQuery={query}
             theme={v1Theme}
         >
@@ -15,6 +15,6 @@ export default () => {
                 hintText="hint text"
                 required
             />
-        </VueProvider>
+        </VersionOneUIProvider>
     )
 };

@@ -1,15 +1,15 @@
 import React, {Component, PropTypes} from 'react';
 import Drawer from 'material-ui/Drawer';
-import {List, ListItem, MakeSelectable} from 'material-ui/List';
+import {List, ListItem, makeSelectable} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import Subheader from 'material-ui/Subheader';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 import {spacing, typography, zIndex} from 'material-ui/styles';
-import {gunSmoke} from 'vue/styles/themes/v1Theme/foundations/colors';
+import {gunSmoke} from '@versionone/ui/styles/themes/v1Theme/foundations/colors';
 import SearchField from './SearchField';
 
-const SelectableList = MakeSelectable(List);
+const SelectableList = makeSelectable(List);
 
 const styles = {
     logo: {
@@ -62,7 +62,7 @@ class AppNavDrawer extends Component {
 
     componentDidMount() {
         const self = this;
-        const url = '/versions.json';
+        const url = '/vue/versions.json';
         const request = new XMLHttpRequest();
 
         request.onreadystatechange = function() {
@@ -92,9 +92,9 @@ class AppNavDrawer extends Component {
 
     handleVersionChange = (event, index, value) => {
         if (value === this.firstNonPreReleaseVersion()) {
-            window.location = 'http://www.material-ui.com/';
+            window.location = 'http://versionone.github.io/vue/release';
         } else {
-            window.location = `http://www.material-ui.com/${value}`;
+            window.location = `http://versionone.github.io/vue/${value}`;
         }
     };
 
@@ -135,7 +135,7 @@ class AppNavDrawer extends Component {
                 onRequestChange={onRequestChangeNavDrawer}
                 containerStyle={{zIndex: zIndex.drawer - 100}}>
                 <div style={styles.logo} onTouchTap={this.handleTouchTapHeader}>
-                    Vue
+                    VersionOne UI
                 </div>
                 <span style={styles.version}>Version:</span>
                 <DropDownMenu

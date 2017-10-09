@@ -1,7 +1,7 @@
 {
-  "name": "@versioneone/vue-docs",
-  "version": "1.0.0-alpha",
-  "description": "Documentation site for VersionOne Vue",
+  "name": "@versioneone/ui-docs",
+  "version": "0.0.1-alpha",
+  "description": "Documentation site for VersionOne UI",
   "repository": {
     "type": "git",
     "url": "https://github.com/versionone/vue.git"
@@ -13,9 +13,8 @@
   "scripts": {
     "start": "npm run browser:development",
     "browser:development": "webpack-dev-server --config webpack-dev-server.config.js --progress --colors --inline",
-    "browser:build": "cross-env NODE_ENV=docs-production webpack --config webpack-production.config.js --progress --colors --profile",
-    "browser:prd": "cross-env NODE_ENV=docs-production webpack-dev-server --config webpack-production.config.js --progress --colors",
-    "gh-pages:build": "node ./gh-pages-build.js"
+    "browser:build": "webpack --config webpack-production.config.js --progress --colors --profile",
+    "browser:prd": "webpack-dev-server --config webpack-production.config.js --progress --colors"
   },
   "dependencies": {
     "babel-core": "^6.18.2",
@@ -25,11 +24,11 @@
     "codemirror": "^5.18.2",
     "front-matter": "^2.1.0",
     "lunr": "^0.7.1",
-    "material-ui": "^0.15.4",
+    "material-ui": "^0.18.1",
     "rc-collapse": "^1.6.6",
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0",
-    "react-tap-event-plugin": "^2.0.0",
+    "react": "^15.4.0",
+    "react-dom": "^15.4.0",
+    "react-tap-event-plugin": "^2.0.1",
     "react-title-component": "^1.0.1",
     "simple-assign": "^0.1.0",
     "underscore": "^1.8.3",
@@ -42,7 +41,6 @@
     "babel-plugin-transform-react-inline-elements": "^6.8.0",
     "babel-plugin-transform-replace-object-assign": "^0.2.1",
     "copy-webpack-plugin": "^3.0.1",
-    "cross-env": "^3.1.3",
     "css-loader": "^0.23.0",
     "doctrine": "^1.1.0",
     "eslint": "^3.0.0",
@@ -80,7 +78,7 @@
       ]
     ],
     "env": {
-      "docs-production": {
+      "production": {
         "plugins": [
           "transform-react-remove-prop-types",
           "transform-react-constant-elements",

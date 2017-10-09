@@ -2,8 +2,8 @@ import React, {Component, PropTypes} from 'react';
 import Title from 'react-title-component';
 import SearchResult from './SearchResult';
 import {search} from './../searchIndex';
-import {List, ListItem, MakeSelectable} from 'material-ui/List';
-const SelectableList = MakeSelectable(List);
+import {List, ListItem, makeSelectable} from 'material-ui/List';
+const SelectableList = makeSelectable(List);
 
 export default class extends Component {
     static propTypes = {

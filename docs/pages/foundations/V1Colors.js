@@ -1,8 +1,8 @@
 import React from 'react';
 import Title from 'react-title-component';
-import MarkdownElement from 'vue-docs/MarkdownElement';
+import MarkdownElement from '@versionone/ui-docs/MarkdownElement';
 import readme from './colors.md';
-import StatusBadge from 'vue-docs/StatusBadge';
+import StatusBadge from '@versionone/ui-docs/StatusBadge';
 
 export default (props) => {
     return (

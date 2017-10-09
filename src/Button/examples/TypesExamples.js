@@ -1,6 +1,6 @@
 import React from 'react';
-import Button from 'vue/Button';
-import * as ButtonTypes from 'vue/Button/Types';
+import Button from '@versionone/ui/Button';
+import * as ButtonTypes from '@versionone/ui/Button/Types';
 
 export default () => (
     <div>

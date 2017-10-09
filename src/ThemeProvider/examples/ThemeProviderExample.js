@@ -1,6 +1,6 @@
 import React from 'react';
-import ThemeProvider from 'vue/ThemeProvider';
-import TextField from 'vue/TextField';
+import ThemeProvider from '@versionone/ui/ThemeProvider';
+import TextField from '@versionone/ui/TextField';
 import v1Theme from './../../styles/themes/v1Theme';
 
 export default () => {

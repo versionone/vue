@@ -16,8 +16,8 @@ const config = {
         extensions: ['', '.js', '.md', '.txt'],
         alias: {
             // material-ui requires will be searched in src folder, not in node_modules
-            'vue': path.resolve(__dirname, '../src'),
-            'vue-docs': path.resolve(__dirname, 'src', 'app', 'components')
+            '@versionone/ui': path.resolve(__dirname, '../src'),
+            '@versionone/ui-docs': path.resolve(__dirname, 'src', 'app', 'components')
         }
     },
     devtool: 'source-map',
@@ -35,14 +35,6 @@ const config = {
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                warnings: false
-            },
-            output: {
-                comments: false
-            }
-        }),
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: JSON.stringify('production')

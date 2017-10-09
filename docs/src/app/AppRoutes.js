@@ -36,7 +36,7 @@ const AppRoutes = (
             <Route path="page/:pageName" getComponent={(nextState, callback) => {
                 const pageId = camelCase(nextState.params.pageName);
                 const pageMeta = pages.find((page) => camelCase(page.title) === pageId);
-                callback(null, injectPageMeta(pageMeta)(pageMeta.component && pageMeta.component.default ? pageMeta.component.default : Page));
+                callback(null, injectPageMeta(pageMeta)(Page));
             }} />
         </Route>
     </Route>

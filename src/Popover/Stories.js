@@ -132,6 +132,10 @@ class PopoverDemoWithLongTextWidth extends Component {
 }
 
 class PopoverDemoWithManyMenuItems extends Component {
+    static defaultProps = {
+        autoCloseWhenOffScreen: true,
+    };
+
     constructor(...rest) {
         super(...rest);
         this.state = {
@@ -152,6 +156,7 @@ class PopoverDemoWithManyMenuItems extends Component {
     render() {
         const {
             anchorOrigin,
+            autoCloseWhenOffScreen,
             targetOrigin,
         } = this.props;
         const {
@@ -172,6 +177,7 @@ class PopoverDemoWithManyMenuItems extends Component {
                     <div key={"afterfiller" + index}>Filler {index}</div>
                 ))}
                 <Popover
+                    autoCloseWhenOffScreen={autoCloseWhenOffScreen}
                     anchorElement={this.anchor}
                     anchorOrigin={anchorOrigin}
                     open={open}
@@ -182,18 +188,18 @@ class PopoverDemoWithManyMenuItems extends Component {
                         <div
                             key={index}
                             style={{
-                            alignItems: 'center',
-                            alignSelf: 'stretch',
-                            backgroundColor: 'white',
-                            display: 'flex',
-                        }}>
+                                alignItems: 'center',
+                                alignSelf: 'stretch',
+                                backgroundColor: 'white',
+                                display: 'flex',
+                            }}>
                             <div
                                 style={{
                                     flex: '1 1 auto'
                                 }}>Item{index}
                             </div>
                             <div style={{
-                               display: 'inline-flex',
+                                display: 'inline-flex',
                             }}>
                                 >
                             </div>
@@ -261,7 +267,6 @@ class PopoverInCorners extends Component {
                     }
                 },
             ],
-
 
 
             [
@@ -348,7 +353,7 @@ class PopoverInCorners extends Component {
                                         this.setState({
                                             popoversOpen: {
                                                 ...this.state.popoversOpen,
-                                                [myIndex]: this.state.popoversOpen[myIndex] ? !this.state.popoversOpen[myIndex] : { open: true, }
+                                                [myIndex]: this.state.popoversOpen[myIndex] ? !this.state.popoversOpen[myIndex] : {open: true,}
                                             }
                                         });
                                     }}
@@ -364,10 +369,10 @@ class PopoverInCorners extends Component {
                                         Anchor
                                     </span>
                                     <div>
-                                        anchor: {positions.anchor.vertical} -  {positions.anchor.horizontal}
+                                        anchor: {positions.anchor.vertical} - {positions.anchor.horizontal}
                                     </div>
                                     <div>
-                                        target: {positions.target.vertical} -  {positions.target.horizontal}
+                                        target: {positions.target.vertical} - {positions.target.horizontal}
                                     </div>
                                     <Popover
                                         anchorElement={this.anchors[myIndex]}
@@ -375,7 +380,7 @@ class PopoverInCorners extends Component {
                                         open={this.state.popoversOpen[myIndex] && this.state.popoversOpen[myIndex].open}
                                         targetOrigin={positions.target}
                                     >
-                                        <div style={{ backgroundColor: 'white' }}>
+                                        <div style={{backgroundColor: 'white'}}>
                                             {new Array(3).fill(1).map((item, index) => (
                                                 <div key={index}>Item {index}</div>
                                             ))}
@@ -408,11 +413,11 @@ class PopoverDemoWithNoAnchor extends Component {
     }
 
     handleClick() {
-        this.setState({ open: !this.state.open });
+        this.setState({open: !this.state.open});
     }
 
     closePopover() {
-        this.setState({ open: false });
+        this.setState({open: false});
     }
 
     render() {
@@ -426,7 +431,7 @@ class PopoverDemoWithNoAnchor extends Component {
         } = this.state;
 
         var div = document.createElement("div");
-        div.setAttribute("class","a-class");
+        div.setAttribute("class", "a-class");
         return (
             <div>
                 <span
@@ -440,7 +445,7 @@ class PopoverDemoWithNoAnchor extends Component {
                     targetOrigin={targetOrigin}
                     onRequestClose={this.closePopover}
                 >
-                    <div style={{ backgroundColor: 'white' }}>
+                    <div style={{backgroundColor: 'white'}}>
                         This is the contents of the popover.
                     </div>
                 </Popover>
@@ -558,7 +563,7 @@ storiesOf('Popover')
     .addWithInfo('nudge down',
         ``,
         () => (
-            <PopoverInCorners />
+            <PopoverInCorners/>
         )
     )
     .addWithInfo('too far below, on top of anchor',
@@ -580,7 +585,7 @@ storiesOf('Popover')
     .addWithInfo('long text with min-width',
         ``,
         () => (
-            <PopoverDemoWithLongTextWidth />
+            <PopoverDemoWithLongTextWidth/>
         )
     )
     .addWithInfo('menu scroll',
@@ -606,6 +611,22 @@ storiesOf('Popover')
                     horizontal: 'left',
                     vertical: 'bottom'
                 }}
+                targetOrigin={{
+                    horizontal: 'left',
+                    vertical: 'top'
+                }}
+            />
+        )
+    )
+    .addWithInfo('autoCloseWhenOffScreen set to false',
+        ``,
+        () => (
+            <PopoverDemoWithManyMenuItems
+                anchorOrigin={{
+                    horizontal: 'left',
+                    vertical: 'bottom'
+                }}
+                autoCloseWhenOffScreen={false}
                 targetOrigin={{
                     horizontal: 'left',
                     vertical: 'top'

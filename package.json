@@ -1,5 +1,5 @@
 {
-  "name": "@versionone/ui",
+  "name": "v1-vue",
   "version": "3.0.4",
   "description": "Open-source and community supported collection of common UI components built with React. As an open-sourced and community supported project, VersionOne UI is not formally supported by VersionOne.",
   "engines": {

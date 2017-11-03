@@ -1,4 +1,6 @@
-exports[`test alternative button 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`alternative button 1`] = `
 <button
   data-radium={true}
   onBlur={[Function]}
@@ -16,7 +18,7 @@ exports[`test alternative button 1`] = `
       "color": "#ffffff",
       "cursor": "pointer",
       "display": "inline-block",
-      "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+      "fontFamily": "'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
       "fontSize": "14px",
       "fontWeight": undefined,
       "height": "32px",
@@ -29,12 +31,13 @@ exports[`test alternative button 1`] = `
       "transition": "all 0.5s linear 0ms",
       "whiteSpace": "no-wrap",
     }
-  }>
+  }
+>
   Click me
 </button>
 `;
 
-exports[`test basic alternative button 1`] = `
+exports[`basic alternative button 1`] = `
 <button
   data-radium={true}
   onBlur={[Function]}
@@ -52,7 +55,7 @@ exports[`test basic alternative button 1`] = `
       "color": "#31363e",
       "cursor": "pointer",
       "display": "inline-block",
-      "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+      "fontFamily": "'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
       "fontSize": "14px",
       "fontWeight": undefined,
       "height": "32px",
@@ -65,12 +68,13 @@ exports[`test basic alternative button 1`] = `
       "transition": "all 0.5s linear 0ms",
       "whiteSpace": "no-wrap",
     }
-  }>
+  }
+>
   Click me
 </button>
 `;
 
-exports[`test basic button 1`] = `
+exports[`basic button 1`] = `
 <button
   data-radium={true}
   onBlur={[Function]}
@@ -88,7 +92,7 @@ exports[`test basic button 1`] = `
       "color": "#ffffff",
       "cursor": "pointer",
       "display": "inline-block",
-      "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+      "fontFamily": "'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
       "fontSize": "14px",
       "fontWeight": undefined,
       "height": "32px",
@@ -101,12 +105,13 @@ exports[`test basic button 1`] = `
       "transition": "all 0.5s linear 0ms",
       "whiteSpace": "no-wrap",
     }
-  }>
+  }
+>
   Click me
 </button>
 `;
 
-exports[`test button can be disabled 1`] = `
+exports[`button can be disabled 1`] = `
 <button
   data-radium={true}
   onBlur={[Function]}
@@ -124,7 +129,7 @@ exports[`test button can be disabled 1`] = `
       "color": "rgba(49,54,62,0.3)",
       "cursor": "not-allowed",
       "display": "inline-block",
-      "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+      "fontFamily": "'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
       "fontSize": "14px",
       "fontWeight": undefined,
       "height": "32px",
@@ -137,10 +142,11 @@ exports[`test button can be disabled 1`] = `
       "transition": "all 0.5s linear 0ms",
       "whiteSpace": "no-wrap",
     }
-  } />
+  }
+/>
 `;
 
-exports[`test button can be resized 1`] = `
+exports[`button can be resized 1`] = `
 <button
   data-radium={true}
   onBlur={[Function]}
@@ -158,7 +164,7 @@ exports[`test button can be resized 1`] = `
       "color": "#31363e",
       "cursor": "pointer",
       "display": "inline-block",
-      "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+      "fontFamily": "'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
       "fontSize": "10.5px",
       "fontWeight": undefined,
       "height": "24px",
@@ -171,10 +177,11 @@ exports[`test button can be resized 1`] = `
       "transition": "all 0.5s linear 0ms",
       "whiteSpace": "no-wrap",
     }
-  } />
+  }
+/>
 `;
 
-exports[`test important button 1`] = `
+exports[`important button 1`] = `
 <button
   data-radium={true}
   onBlur={[Function]}
@@ -192,7 +199,7 @@ exports[`test important button 1`] = `
       "color": "#ffffff",
       "cursor": "pointer",
       "display": "inline-block",
-      "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+      "fontFamily": "'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
       "fontSize": "14px",
       "fontWeight": undefined,
       "height": "32px",
@@ -205,12 +212,13 @@ exports[`test important button 1`] = `
       "transition": "all 0.5s linear 0ms",
       "whiteSpace": "no-wrap",
     }
-  }>
+  }
+>
   Click me
 </button>
 `;
 
-exports[`test special button 1`] = `
+exports[`special button 1`] = `
 <button
   data-radium={true}
   onBlur={[Function]}
@@ -228,7 +236,7 @@ exports[`test special button 1`] = `
       "color": "#ffffff",
       "cursor": "pointer",
       "display": "inline-block",
-      "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+      "fontFamily": "'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
       "fontSize": "14px",
       "fontWeight": undefined,
       "height": "32px",
@@ -241,12 +249,13 @@ exports[`test special button 1`] = `
       "transition": "all 0.5s linear 0ms",
       "whiteSpace": "no-wrap",
     }
-  }>
+  }
+>
   Click me
 </button>
 `;
 
-exports[`test standard button 1`] = `
+exports[`standard button 1`] = `
 <button
   data-radium={true}
   onBlur={[Function]}
@@ -264,7 +273,7 @@ exports[`test standard button 1`] = `
       "color": "#31363e",
       "cursor": "pointer",
       "display": "inline-block",
-      "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+      "fontFamily": "'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
       "fontSize": "14px",
       "fontWeight": undefined,
       "height": "32px",
@@ -277,12 +286,13 @@ exports[`test standard button 1`] = `
       "transition": "all 0.5s linear 0ms",
       "whiteSpace": "no-wrap",
     }
-  }>
+  }
+>
   Click me
 </button>
 `;
 
-exports[`test standard button 2`] = `
+exports[`standard button 2`] = `
 <button
   data-radium={true}
   onBlur={[Function]}
@@ -300,7 +310,7 @@ exports[`test standard button 2`] = `
       "color": "#31363e",
       "cursor": "pointer",
       "display": "inline-block",
-      "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+      "fontFamily": "'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
       "fontSize": "14px",
       "fontWeight": undefined,
       "height": "32px",
@@ -313,7 +323,8 @@ exports[`test standard button 2`] = `
       "transition": "all 0.5s linear 0ms",
       "whiteSpace": "no-wrap",
     }
-  }>
+  }
+>
   Click me
 </button>
 `;

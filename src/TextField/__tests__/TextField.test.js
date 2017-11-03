@@ -14,14 +14,14 @@ const evt = {
 afterEach(reset(component));
 
 test('TextFields can render with a default value', () => {
-    component = shallowRenderTextField({
+    component = mountTextField({
         defaultValue: 'a default value',
     });
     expect(snapshot(component)).toMatchSnapshot();
 });
 
 test('TextFields can render with an explicit value', () => {
-    component = shallowRenderTextField({
+    component = mountTextField({
         value: 'a default value',
     });
     expect(snapshot(component)).toMatchSnapshot();
@@ -29,30 +29,30 @@ test('TextFields can render with an explicit value', () => {
 
 test('TextFields respond to onChange events', () => {
     const onChange = jest.fn();
-    component = shallowRenderTextField({
+    component = mountTextField({
         onChange,
     });
     typeInTextField(component, evt);
     expect(onChange).toHaveBeenCalledTimes(1);
-    expect(onChange).toHaveBeenCalledWith(evt, 'a');
+    expect(onChange).toHaveBeenCalledWith(expect.objectContaining(evt),'a');
 });
 
 test('TextField can be disabled', () => {
-    component = shallowRenderTextField({
+    component = mountTextField({
         disabled: true,
     });
     expect(snapshot(component)).toMatchSnapshot();
 });
 
 test('TextFields can be marked as required', () => {
-    component = shallowRenderTextField({
+    component = mountTextField({
         required: true,
     });
     expect(snapshot(component)).toMatchSnapshot();
 });
 
 test('TextFields will show the required indicator inside of the textbox when set to full width', () => {
-    component = shallowRenderTextField({
+    component = mountTextField({
         fullWidth: true,
         required: true,
     });
@@ -60,19 +60,19 @@ test('TextFields will show the required indicator inside of the textbox when set
 });
 
 test('TextFields will renders with a default width when no width is specified', () => {
-    component = shallowRenderTextField();
+    component = mountTextField();
     expect(snapshot(component)).toMatchSnapshot();
 });
 
 test('TextFields can have a specified width', () => {
-    component = shallowRenderTextField({
+    component = mountTextField({
         width: 100,
     });
     expect(snapshot(component)).toMatchSnapshot();
 });
 
 test('TextFields can render as full width; ignoring any width prop value', () => {
-    component = shallowRenderTextField({
+    component = mountTextField({
         fullWidth: true,
         width: 100,
     });
@@ -80,7 +80,7 @@ test('TextFields can render as full width; ignoring any width prop value', () =>
 });
 
 test('TextFields only display hint text when there is no value or default value', () => {
-    component = shallowRenderTextField({
+    component = mountTextField({
         hintText: 'hint text',
     });
     expect(snapshot(component)).toMatchSnapshot();
@@ -89,13 +89,13 @@ test('TextFields only display hint text when there is no value or default value'
     });
     expect(snapshot(component)).toMatchSnapshot();
 
-    component = shallowRenderTextField({
+    component = mountTextField({
         defaultValue: 'a default value',
         hintText: 'hint text',
     });
     expect(snapshot(component)).toMatchSnapshot();
 
-    component = shallowRenderTextField({
+    component = mountTextField({
         hintText: 'hint text',
         value: 'a value'
     });
@@ -103,7 +103,7 @@ test('TextFields only display hint text when there is no value or default value'
 });
 
 test('TextField renders with a height when there is no hint text, default value, or value', () => {
-    component = shallowRenderTextField();
+    component = mountTextField();
     expect(snapshot(component)).toMatchSnapshot();
 });
 
@@ -116,14 +116,14 @@ test('Clicking the hint text focuses the textbox', () => {
 });
 
 test('TextFields can have an error message and styled as having an error', () => {
-    component = shallowRenderTextField({
+    component = mountTextField({
         errorText: 'error: required',
     });
     expect(snapshot(component)).toMatchSnapshot();
 });
 
 test('TextFields can be styled as pending', () => {
-    component = shallowRenderTextField({
+    component = mountTextField({
         pending: true,
     });
     expect(snapshot(component)).toMatchSnapshot();
@@ -131,35 +131,35 @@ test('TextFields can be styled as pending', () => {
 
 test('TextFields respond to focus events and styled as focused', () => {
     const onFocus = jest.fn();
-    component = shallowRenderTextField({
+    component = mountTextField({
         onFocus,
     });
     focusTextField(component, evt);
     expect(onFocus).toHaveBeenCalledTimes(1);
-    expect(onFocus).toHaveBeenCalledWith(evt);
+    expect(onFocus).toHaveBeenCalledWith(expect.objectContaining(evt));
     expect(snapshot(component)).toMatchSnapshot();
 });
 
 test('TextFields respond to blur events and lose their focused styling when blurred', () => {
     const onBlur = jest.fn();
-    component = shallowRenderTextField({
+    component = mountTextField({
         onBlur,
     });
     focusTextField(component);
     blurTextField(component, evt);
     expect(onBlur).toHaveBeenCalledTimes(1);
-    expect(onBlur).toHaveBeenCalledWith(evt);
+    expect(onBlur).toHaveBeenCalledWith(expect.objectContaining(evt));
     expect(snapshot(component)).toMatchSnapshot();
 });
 
 test('TextFields auto-expands its height to accommodate hint text that is too large for the text field', () => {
-    component = shallowRenderTextField()
+    component = mountTextField()
         .setState({
             hintTextHeight: 51,
         });
     expect(snapshot(component)).toMatchSnapshot();
 
-    component = shallowRenderTextField({
+    component = mountTextField({
         errorText: 'error message',
         required: true
     })
@@ -197,10 +197,10 @@ function errorTextIsAlignedWithText(wrapper) {
             .margin === '0 0 0 6px';
 }
 function inputIsFocused(wrapper) {
-    return wrapper.find('input').node === document.activeElement;
+    return wrapper.find('input').getDOMNode() === document.activeElement;
 }
 function clickHintText(wrapper) {
-    wrapper.find('HintText').simulate('click');
+    wrapper.find('HintText').props().onClick();
 }
 function typeInTextField(wrapper, e = {}) {
     wrapper.find('input')

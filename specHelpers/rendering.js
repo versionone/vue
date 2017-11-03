@@ -1,9 +1,12 @@
 import toJson from 'enzyme-to-json';
 import React, {PropTypes} from 'react';
 import {combineReducers, createStore} from 'redux';
-import {mount, render, shallow} from 'enzyme';
+import Enzyme, { mount, render, shallow } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
 import {reducer as uiReducer} from 'redux-ui';
 import theme from './../src/styles/themes/v1Theme';
+
+Enzyme.configure({ adapter: new Adapter() });
 
 const reducer = combineReducers({
     ui: uiReducer,

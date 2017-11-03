@@ -1,10 +1,13 @@
-exports[`test Enter key selects the current highlighted item when list is active 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Enter key selects the current highlighted item when list is active 1`] = `
 <Connect(UI)
   active={true}
   highlightBackgroundColor="blue"
   highlightColor="white"
   highlightedIndex={1}
-  onSelectItem={[Function]}>
+  onSelectItem={[Function]}
+>
   <UI
     active={true}
     highlightBackgroundColor="blue"
@@ -15,16 +18,17 @@ exports[`test Enter key selects the current highlighted item when list is active
     onSelectItem={[Function]}
     setDefaultUI={[Function]}
     ui={
-      Object {
-        "Component": Object {
+      Immutable.Map {
+        "__reducers": Immutable.Map {},
+        "Component": Immutable.Map {
           "highlightedIndex": null,
           "keyboardTriggered": false,
         },
-        "__reducers": Object {},
       }
     }
     unmountUI={[Function]}
-    updateUI={[Function]}>
+    updateUI={[Function]}
+  >
     <List
       active={true}
       highlightBackgroundColor="blue"
@@ -51,27 +55,33 @@ exports[`test Enter key selects the current highlighted item when list is active
         ]
       }
       unmountUI={[Function]}
-      updateUI={[Function]}>
+      updateUI={[Function]}
+    >
       <div
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         style={
           Object {
             "backgroundColor": "white",
-            "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+            "fontFamily": "'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
             "fontSize": 14,
             "maxHeight": false,
             "overflow": "auto",
           }
-        }>
+        }
+      >
         <EventListener
-          capture={false}
           onKeyDown={[Function]}
           onKeyUp={[Function]}
-          target="window" />
+          target="window"
+        />
         <div
-          onClick={[Function]}>
-          <SubHeader>
+          key=".$.0"
+          onClick={[Function]}
+        >
+          <SubHeader
+            key="0"
+          >
             <header
               data-radium={true}
               style={
@@ -82,19 +92,24 @@ exports[`test Enter key selects the current highlighted item when list is active
                   "padding": "6px 12px",
                   "textTransform": "uppercase",
                 }
-              }>
+              }
+            >
               Hello world
             </header>
           </SubHeader>
         </div>
         <div
-          onClick={[Function]}>
+          key=".$.1"
+          onClick={[Function]}
+        >
           <ListItem
             highlightBackgroundColor="blue"
             highlightColor="white"
             highlighted={true}
             itemOid={0}
-            onMouseEnter={[Function]}>
+            key="1"
+            onMouseEnter={[Function]}
+          >
             <div
               data-radium={true}
               onMouseEnter={[Function]}
@@ -105,19 +120,24 @@ exports[`test Enter key selects the current highlighted item when list is active
                   "cursor": "pointer",
                   "padding": "6px 12px",
                 }
-              }>
+              }
+            >
               List
             </div>
           </ListItem>
         </div>
         <div
-          onClick={[Function]}>
+          key=".$.2"
+          onClick={[Function]}
+        >
           <ListItem
             highlightBackgroundColor="blue"
             highlightColor="white"
             highlighted={false}
             itemOid={1}
-            onMouseEnter={[Function]}>
+            key="2"
+            onMouseEnter={[Function]}
+          >
             <div
               data-radium={true}
               onMouseEnter={[Function]}
@@ -128,7 +148,8 @@ exports[`test Enter key selects the current highlighted item when list is active
                   "cursor": "pointer",
                   "padding": "6px 12px",
                 }
-              }>
+              }
+            >
               Items
             </div>
           </ListItem>
@@ -139,13 +160,14 @@ exports[`test Enter key selects the current highlighted item when list is active
 </Connect(UI)>
 `;
 
-exports[`test Holding the down arrow key moves highlighted item down to next highlight-able item when list is active 1`] = `
+exports[`Holding the down arrow key moves highlighted item down to next highlight-able item when list is active 1`] = `
 <Connect(UI)
   active={true}
   highlightBackgroundColor="blue"
   highlightColor="white"
   highlightedIndex={2}
-  onHighlightItem={[Function]}>
+  onHighlightItem={[Function]}
+>
   <UI
     active={true}
     highlightBackgroundColor="blue"
@@ -156,16 +178,17 @@ exports[`test Holding the down arrow key moves highlighted item down to next hig
     onHighlightItem={[Function]}
     setDefaultUI={[Function]}
     ui={
-      Object {
-        "Component": Object {
-          "highlightedIndex": 4,
-          "keyboardTriggered": true,
+      Immutable.Map {
+        "__reducers": Immutable.Map {},
+        "Component": Immutable.Map {
+          "highlightedIndex": null,
+          "keyboardTriggered": false,
         },
-        "__reducers": Object {},
       }
     }
     unmountUI={[Function]}
-    updateUI={[Function]}>
+    updateUI={[Function]}
+  >
     <List
       active={true}
       highlightBackgroundColor="blue"
@@ -181,8 +204,8 @@ exports[`test Holding the down arrow key moves highlighted item down to next hig
       setDefaultUI={[Function]}
       ui={
         Object {
-          "highlightedIndex": 4,
-          "keyboardTriggered": true,
+          "highlightedIndex": null,
+          "keyboardTriggered": false,
         }
       }
       uiKey="List-0"
@@ -192,27 +215,33 @@ exports[`test Holding the down arrow key moves highlighted item down to next hig
         ]
       }
       unmountUI={[Function]}
-      updateUI={[Function]}>
+      updateUI={[Function]}
+    >
       <div
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         style={
           Object {
             "backgroundColor": "white",
-            "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+            "fontFamily": "'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
             "fontSize": 14,
             "maxHeight": false,
             "overflow": "auto",
           }
-        }>
+        }
+      >
         <EventListener
-          capture={false}
           onKeyDown={[Function]}
           onKeyUp={[Function]}
-          target="window" />
+          target="window"
+        />
         <div
-          onClick={[Function]}>
-          <SubHeader>
+          key=".$.0"
+          onClick={[Function]}
+        >
+          <SubHeader
+            key="0"
+          >
             <header
               data-radium={true}
               style={
@@ -223,19 +252,24 @@ exports[`test Holding the down arrow key moves highlighted item down to next hig
                   "padding": "6px 12px",
                   "textTransform": "uppercase",
                 }
-              }>
+              }
+            >
               Hello world
             </header>
           </SubHeader>
         </div>
         <div
-          onClick={[Function]}>
+          key=".$.1"
+          onClick={[Function]}
+        >
           <ListItem
             highlightBackgroundColor="blue"
             highlightColor="white"
             highlighted={false}
             itemOid={0}
-            onMouseEnter={[Function]}>
+            key="1"
+            onMouseEnter={[Function]}
+          >
             <div
               data-radium={true}
               onMouseEnter={[Function]}
@@ -246,60 +280,24 @@ exports[`test Holding the down arrow key moves highlighted item down to next hig
                   "cursor": "pointer",
                   "padding": "6px 12px",
                 }
-              }>
+              }
+            >
               List
             </div>
           </ListItem>
         </div>
         <div
-          onClick={[Function]}>
-          <ListItem
-            highlightBackgroundColor="blue"
-            highlightColor="white"
-            highlighted={false}
-            itemOid={1}
-            onMouseEnter={[Function]}>
-            <div
-              data-radium={true}
-              onMouseEnter={[Function]}
-              style={
-                Object {
-                  "backgroundColor": "rgba(0,0,0,0)",
-                  "color": "initial",
-                  "cursor": "pointer",
-                  "padding": "6px 12px",
-                }
-              }>
-              Items
-            </div>
-          </ListItem>
-        </div>
-        <div
-          onClick={[Function]}>
-          <SubHeader>
-            <header
-              data-radium={true}
-              style={
-                Object {
-                  "backgroundColor": "rgba(0,0,0,0)",
-                  "borderBottom": "1px dashed #a6a6a6",
-                  "color": "#a6a6a6",
-                  "padding": "6px 12px",
-                  "textTransform": "uppercase",
-                }
-              }>
-              Hello world
-            </header>
-          </SubHeader>
-        </div>
-        <div
-          onClick={[Function]}>
+          key=".$.2"
+          onClick={[Function]}
+        >
           <ListItem
             highlightBackgroundColor="blue"
             highlightColor="white"
             highlighted={true}
-            itemOid={0}
-            onMouseEnter={[Function]}>
+            itemOid={1}
+            key="2"
+            onMouseEnter={[Function]}
+          >
             <div
               data-radium={true}
               onMouseEnter={[Function]}
@@ -310,19 +308,47 @@ exports[`test Holding the down arrow key moves highlighted item down to next hig
                   "cursor": "pointer",
                   "padding": "6px 12px",
                 }
-              }>
-              List
+              }
+            >
+              Items
             </div>
           </ListItem>
         </div>
         <div
-          onClick={[Function]}>
+          key=".$.3"
+          onClick={[Function]}
+        >
+          <SubHeader
+            key="3"
+          >
+            <header
+              data-radium={true}
+              style={
+                Object {
+                  "backgroundColor": "rgba(0,0,0,0)",
+                  "borderBottom": "1px dashed #a6a6a6",
+                  "color": "#a6a6a6",
+                  "padding": "6px 12px",
+                  "textTransform": "uppercase",
+                }
+              }
+            >
+              Hello world
+            </header>
+          </SubHeader>
+        </div>
+        <div
+          key=".$.4"
+          onClick={[Function]}
+        >
           <ListItem
             highlightBackgroundColor="blue"
             highlightColor="white"
             highlighted={false}
-            itemOid={1}
-            onMouseEnter={[Function]}>
+            itemOid={0}
+            key="4"
+            onMouseEnter={[Function]}
+          >
             <div
               data-radium={true}
               onMouseEnter={[Function]}
@@ -333,7 +359,36 @@ exports[`test Holding the down arrow key moves highlighted item down to next hig
                   "cursor": "pointer",
                   "padding": "6px 12px",
                 }
-              }>
+              }
+            >
+              List
+            </div>
+          </ListItem>
+        </div>
+        <div
+          key=".$.5"
+          onClick={[Function]}
+        >
+          <ListItem
+            highlightBackgroundColor="blue"
+            highlightColor="white"
+            highlighted={false}
+            itemOid={1}
+            key="5"
+            onMouseEnter={[Function]}
+          >
+            <div
+              data-radium={true}
+              onMouseEnter={[Function]}
+              style={
+                Object {
+                  "backgroundColor": "rgba(0,0,0,0)",
+                  "color": "initial",
+                  "cursor": "pointer",
+                  "padding": "6px 12px",
+                }
+              }
+            >
               Items
             </div>
           </ListItem>
@@ -344,13 +399,14 @@ exports[`test Holding the down arrow key moves highlighted item down to next hig
 </Connect(UI)>
 `;
 
-exports[`test Holding the up arrow key moves highlighted item up to next highlight-able item when list is active 1`] = `
+exports[`Holding the up arrow key moves highlighted item up to next highlight-able item when list is active 1`] = `
 <Connect(UI)
   active={true}
   highlightBackgroundColor="blue"
   highlightColor="white"
   highlightedIndex={4}
-  onHighlightItem={[Function]}>
+  onHighlightItem={[Function]}
+>
   <UI
     active={true}
     highlightBackgroundColor="blue"
@@ -361,16 +417,17 @@ exports[`test Holding the up arrow key moves highlighted item up to next highlig
     onHighlightItem={[Function]}
     setDefaultUI={[Function]}
     ui={
-      Object {
-        "Component": Object {
-          "highlightedIndex": 2,
-          "keyboardTriggered": true,
+      Immutable.Map {
+        "__reducers": Immutable.Map {},
+        "Component": Immutable.Map {
+          "highlightedIndex": null,
+          "keyboardTriggered": false,
         },
-        "__reducers": Object {},
       }
     }
     unmountUI={[Function]}
-    updateUI={[Function]}>
+    updateUI={[Function]}
+  >
     <List
       active={true}
       highlightBackgroundColor="blue"
@@ -386,8 +443,8 @@ exports[`test Holding the up arrow key moves highlighted item up to next highlig
       setDefaultUI={[Function]}
       ui={
         Object {
-          "highlightedIndex": 2,
-          "keyboardTriggered": true,
+          "highlightedIndex": null,
+          "keyboardTriggered": false,
         }
       }
       uiKey="List-0"
@@ -397,27 +454,33 @@ exports[`test Holding the up arrow key moves highlighted item up to next highlig
         ]
       }
       unmountUI={[Function]}
-      updateUI={[Function]}>
+      updateUI={[Function]}
+    >
       <div
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         style={
           Object {
             "backgroundColor": "white",
-            "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+            "fontFamily": "'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
             "fontSize": 14,
             "maxHeight": false,
             "overflow": "auto",
           }
-        }>
+        }
+      >
         <EventListener
-          capture={false}
           onKeyDown={[Function]}
           onKeyUp={[Function]}
-          target="window" />
+          target="window"
+        />
         <div
-          onClick={[Function]}>
-          <SubHeader>
+          key=".$.0"
+          onClick={[Function]}
+        >
+          <SubHeader
+            key="0"
+          >
             <header
               data-radium={true}
               style={
@@ -428,19 +491,24 @@ exports[`test Holding the up arrow key moves highlighted item up to next highlig
                   "padding": "6px 12px",
                   "textTransform": "uppercase",
                 }
-              }>
+              }
+            >
               Hello world
             </header>
           </SubHeader>
         </div>
         <div
-          onClick={[Function]}>
+          key=".$.1"
+          onClick={[Function]}
+        >
           <ListItem
             highlightBackgroundColor="blue"
             highlightColor="white"
             highlighted={false}
             itemOid={0}
-            onMouseEnter={[Function]}>
+            key="1"
+            onMouseEnter={[Function]}
+          >
             <div
               data-radium={true}
               onMouseEnter={[Function]}
@@ -451,19 +519,75 @@ exports[`test Holding the up arrow key moves highlighted item up to next highlig
                   "cursor": "pointer",
                   "padding": "6px 12px",
                 }
-              }>
+              }
+            >
               List
             </div>
           </ListItem>
         </div>
         <div
-          onClick={[Function]}>
+          key=".$.2"
+          onClick={[Function]}
+        >
+          <ListItem
+            highlightBackgroundColor="blue"
+            highlightColor="white"
+            highlighted={false}
+            itemOid={1}
+            key="2"
+            onMouseEnter={[Function]}
+          >
+            <div
+              data-radium={true}
+              onMouseEnter={[Function]}
+              style={
+                Object {
+                  "backgroundColor": "rgba(0,0,0,0)",
+                  "color": "initial",
+                  "cursor": "pointer",
+                  "padding": "6px 12px",
+                }
+              }
+            >
+              Items
+            </div>
+          </ListItem>
+        </div>
+        <div
+          key=".$.3"
+          onClick={[Function]}
+        >
+          <SubHeader
+            key="3"
+          >
+            <header
+              data-radium={true}
+              style={
+                Object {
+                  "backgroundColor": "rgba(0,0,0,0)",
+                  "borderBottom": "1px dashed #a6a6a6",
+                  "color": "#a6a6a6",
+                  "padding": "6px 12px",
+                  "textTransform": "uppercase",
+                }
+              }
+            >
+              Hello world
+            </header>
+          </SubHeader>
+        </div>
+        <div
+          key=".$.4"
+          onClick={[Function]}
+        >
           <ListItem
             highlightBackgroundColor="blue"
             highlightColor="white"
             highlighted={true}
-            itemOid={1}
-            onMouseEnter={[Function]}>
+            itemOid={0}
+            key="4"
+            onMouseEnter={[Function]}
+          >
             <div
               data-radium={true}
               onMouseEnter={[Function]}
@@ -474,60 +598,24 @@ exports[`test Holding the up arrow key moves highlighted item up to next highlig
                   "cursor": "pointer",
                   "padding": "6px 12px",
                 }
-              }>
-              Items
-            </div>
-          </ListItem>
-        </div>
-        <div
-          onClick={[Function]}>
-          <SubHeader>
-            <header
-              data-radium={true}
-              style={
-                Object {
-                  "backgroundColor": "rgba(0,0,0,0)",
-                  "borderBottom": "1px dashed #a6a6a6",
-                  "color": "#a6a6a6",
-                  "padding": "6px 12px",
-                  "textTransform": "uppercase",
-                }
-              }>
-              Hello world
-            </header>
-          </SubHeader>
-        </div>
-        <div
-          onClick={[Function]}>
-          <ListItem
-            highlightBackgroundColor="blue"
-            highlightColor="white"
-            highlighted={false}
-            itemOid={0}
-            onMouseEnter={[Function]}>
-            <div
-              data-radium={true}
-              onMouseEnter={[Function]}
-              style={
-                Object {
-                  "backgroundColor": "rgba(0,0,0,0)",
-                  "color": "initial",
-                  "cursor": "pointer",
-                  "padding": "6px 12px",
-                }
-              }>
+              }
+            >
               List
             </div>
           </ListItem>
         </div>
         <div
-          onClick={[Function]}>
+          key=".$.5"
+          onClick={[Function]}
+        >
           <ListItem
             highlightBackgroundColor="blue"
             highlightColor="white"
             highlighted={false}
             itemOid={1}
-            onMouseEnter={[Function]}>
+            key="5"
+            onMouseEnter={[Function]}
+          >
             <div
               data-radium={true}
               onMouseEnter={[Function]}
@@ -538,7 +626,8 @@ exports[`test Holding the up arrow key moves highlighted item up to next highlig
                   "cursor": "pointer",
                   "padding": "6px 12px",
                 }
-              }>
+              }
+            >
               Items
             </div>
           </ListItem>
@@ -549,7 +638,7 @@ exports[`test Holding the up arrow key moves highlighted item up to next highlig
 </Connect(UI)>
 `;
 
-exports[`test List can have a specified highlight color for its ListItems 1`] = `
+exports[`List can have a specified highlight color for its ListItems 1`] = `
 <UI
   highlightBackgroundColor="blue"
   highlightColor="white"
@@ -557,79 +646,95 @@ exports[`test List can have a specified highlight color for its ListItems 1`] = 
   mountUI={[Function]}
   setDefaultUI={[Function]}
   ui={
-    Object {
-      "__reducers": Object {},
+    Immutable.Map {
+      "__reducers": Immutable.Map {},
     }
   }
   unmountUI={[Function]}
-  updateUI={[Function]}>
-  <SubHeader>
+  updateUI={[Function]}
+>
+  <SubHeader
+    key=".0"
+  >
     Hello world
   </SubHeader>
   <ListItem
     highlighted={false}
     itemOid={0}
-    onMouseEnter={[Function]}>
+    key=".1"
+    onMouseEnter={[Function]}
+  >
     List
   </ListItem>
   <ListItem
     highlighted={false}
     itemOid={1}
-    onMouseEnter={[Function]}>
+    key=".2"
+    onMouseEnter={[Function]}
+  >
     Items
   </ListItem>
 </UI>
 `;
 
-exports[`test List can render ListItems 1`] = `
+exports[`List can render ListItems 1`] = `
 <UI
   massUpdateUI={[Function]}
   mountUI={[Function]}
   setDefaultUI={[Function]}
   ui={
-    Object {
-      "__reducers": Object {},
+    Immutable.Map {
+      "__reducers": Immutable.Map {},
     }
   }
   unmountUI={[Function]}
-  updateUI={[Function]}>
-  <SubHeader>
+  updateUI={[Function]}
+>
+  <SubHeader
+    key=".0"
+  >
     Hello world
   </SubHeader>
   <ListItem
     highlighted={false}
     itemOid={0}
-    onMouseEnter={[Function]}>
+    key=".1"
+    onMouseEnter={[Function]}
+  >
     List
   </ListItem>
   <ListItem
     highlighted={false}
     itemOid={1}
-    onMouseEnter={[Function]}>
+    key=".2"
+    onMouseEnter={[Function]}
+  >
     Items
   </ListItem>
 </UI>
 `;
 
-exports[`test List can render ListItems with scroll bar 1`] = `
+exports[`List can render ListItems with scroll bar 1`] = `
 <Connect(UI)
-  maxHeight={50}>
+  maxHeight={50}
+>
   <UI
     massUpdateUI={[Function]}
     maxHeight={50}
     mountUI={[Function]}
     setDefaultUI={[Function]}
     ui={
-      Object {
-        "Component": Object {
+      Immutable.Map {
+        "__reducers": Immutable.Map {},
+        "Component": Immutable.Map {
           "highlightedIndex": null,
           "keyboardTriggered": false,
         },
-        "__reducers": Object {},
       }
     }
     unmountUI={[Function]}
-    updateUI={[Function]}>
+    updateUI={[Function]}
+  >
     <List
       active={false}
       highlightBackgroundColor="#262626"
@@ -656,27 +761,33 @@ exports[`test List can render ListItems with scroll bar 1`] = `
         ]
       }
       unmountUI={[Function]}
-      updateUI={[Function]}>
+      updateUI={[Function]}
+    >
       <div
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         style={
           Object {
             "backgroundColor": "white",
-            "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+            "fontFamily": "'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
             "fontSize": 14,
             "maxHeight": "50px",
             "overflow": "auto",
           }
-        }>
+        }
+      >
         <EventListener
-          capture={false}
           onKeyDown={[Function]}
           onKeyUp={[Function]}
-          target="window" />
+          target="window"
+        />
         <div
-          onClick={[Function]}>
-          <SubHeader>
+          key=".$.0"
+          onClick={[Function]}
+        >
+          <SubHeader
+            key="0"
+          >
             <header
               data-radium={true}
               style={
@@ -687,19 +798,24 @@ exports[`test List can render ListItems with scroll bar 1`] = `
                   "padding": "6px 12px",
                   "textTransform": "uppercase",
                 }
-              }>
+              }
+            >
               Hello world
             </header>
           </SubHeader>
         </div>
         <div
-          onClick={[Function]}>
+          key=".$.1"
+          onClick={[Function]}
+        >
           <ListItem
             highlightBackgroundColor="#262626"
             highlightColor="#fff"
             highlighted={false}
             itemOid={0}
-            onMouseEnter={[Function]}>
+            key="1"
+            onMouseEnter={[Function]}
+          >
             <div
               data-radium={true}
               onMouseEnter={[Function]}
@@ -710,19 +826,24 @@ exports[`test List can render ListItems with scroll bar 1`] = `
                   "cursor": "pointer",
                   "padding": "6px 12px",
                 }
-              }>
+              }
+            >
               List
             </div>
           </ListItem>
         </div>
         <div
-          onClick={[Function]}>
+          key=".$.2"
+          onClick={[Function]}
+        >
           <ListItem
             highlightBackgroundColor="#262626"
             highlightColor="#fff"
             highlighted={false}
             itemOid={1}
-            onMouseEnter={[Function]}>
+            key="2"
+            onMouseEnter={[Function]}
+          >
             <div
               data-radium={true}
               onMouseEnter={[Function]}
@@ -733,7 +854,8 @@ exports[`test List can render ListItems with scroll bar 1`] = `
                   "cursor": "pointer",
                   "padding": "6px 12px",
                 }
-              }>
+              }
+            >
               Items
             </div>
           </ListItem>
@@ -744,7 +866,7 @@ exports[`test List can render ListItems with scroll bar 1`] = `
 </Connect(UI)>
 `;
 
-exports[`test List's highlighted item can be set 1`] = `
+exports[`List's highlighted item can be set 1`] = `
 <UI
   highlightBackgroundColor="blue"
   highlightColor="white"
@@ -752,31 +874,38 @@ exports[`test List's highlighted item can be set 1`] = `
   mountUI={[Function]}
   setDefaultUI={[Function]}
   ui={
-    Object {
-      "__reducers": Object {},
+    Immutable.Map {
+      "__reducers": Immutable.Map {},
     }
   }
   unmountUI={[Function]}
-  updateUI={[Function]}>
-  <SubHeader>
+  updateUI={[Function]}
+>
+  <SubHeader
+    key=".0"
+  >
     Hello world
   </SubHeader>
   <ListItem
     highlighted={false}
     itemOid={0}
-    onMouseEnter={[Function]}>
+    key=".1"
+    onMouseEnter={[Function]}
+  >
     List
   </ListItem>
   <ListItem
     highlighted={false}
     itemOid={1}
-    onMouseEnter={[Function]}>
+    key=".2"
+    onMouseEnter={[Function]}
+  >
     Items
   </ListItem>
 </UI>
 `;
 
-exports[`test List's list items are highlighted when hovered over 1`] = `
+exports[`List's list items are highlighted when hovered over 1`] = `
 <UI
   highlightBackgroundColor="blue"
   highlightColor="white"
@@ -784,25 +913,32 @@ exports[`test List's list items are highlighted when hovered over 1`] = `
   mountUI={[Function]}
   setDefaultUI={[Function]}
   ui={
-    Object {
-      "__reducers": Object {},
+    Immutable.Map {
+      "__reducers": Immutable.Map {},
     }
   }
   unmountUI={[Function]}
-  updateUI={[Function]}>
-  <SubHeader>
+  updateUI={[Function]}
+>
+  <SubHeader
+    key=".0"
+  >
     Hello world
   </SubHeader>
   <ListItem
     highlighted={false}
     itemOid={0}
-    onMouseEnter={[Function]}>
+    key=".1"
+    onMouseEnter={[Function]}
+  >
     List
   </ListItem>
   <ListItem
     highlighted={false}
     itemOid={1}
-    onMouseEnter={[Function]}>
+    key=".2"
+    onMouseEnter={[Function]}
+  >
     Items
   </ListItem>
 </UI>

@@ -129,6 +129,7 @@ class TextField extends Component {
     }
 
     handleHintTextOnClick(evt) {
+        console.log(evt);
         this.handleFocus(evt);
         this.inputField.focus();
     }

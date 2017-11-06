@@ -127,7 +127,7 @@ exports[`button can be disabled 1`] = `
       "borderRadius": "12px",
       "boxSizing": "border-box",
       "color": "rgba(49,54,62,0.3)",
-      "cursor": "not-allowed",
+      "cursor": "pointer",
       "display": "inline-block",
       "fontFamily": "'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
       "fontSize": "14px",

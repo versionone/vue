@@ -1,12 +1,7 @@
-/* eslint-disable import/first */
-jest.mock('react-dom');
-
 import React from 'react';
 /* eslint-disable camelcase */
-import {unstable_renderSubtreeIntoContainer} from 'react-dom';
 import RenderToLayer from '../RenderToLayer';
-import {getMount, reset} from './../../../specHelpers/rendering';
-
+import { getMount, reset } from './../../../specHelpers/rendering';
 jest.useFakeTimers();
 const mountRenderToLayer = getMount(RenderToLayer);
 let component;
@@ -31,8 +26,7 @@ test('render to layer does render contents of render function when open is true'
         open: true,
         render,
     });
-
-    expect(unstable_renderSubtreeIntoContainer.mock.calls[0][1]).toEqual(content);
+    expect(document.body.innerHTML).toMatch(/Rendered/);
 });
 
 test('unmounting RenderToLayer removes the rendered layer', () => {
@@ -128,10 +122,6 @@ test('onRendered is invoked after rendering has completed', () => {
         </ul>
     );
     render.mockReturnValue(renderedLayer);
-
-    unstable_renderSubtreeIntoContainer.mockImplementation((_1, _2, _3, callback) => {
-        callback();
-    });
 
     component = mountRenderToLayer({
         onRendered: handleRendered,

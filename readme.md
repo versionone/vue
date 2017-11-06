@@ -41,9 +41,10 @@ If there is an error, try running `npm install` again.
 Do **NOT** simply use `npm publish`.
 
 - Ensure you are logged in as versionone in the NPM CLI.
-- Run `./gulp publish {version}` where {version} is one of (patch | minor | major | next)
+- Run `./gulp publish -t {version}` where {version} is one of (patch | minor | major | next)
     - see the [Semantic Versioning docs](http://semver.org/) for more info between the version types
     - the docs site will automatically be deployed on major and minor releases
+        - manual publish of docs: `./gulp publish/docs`
 
 ## Other Resources
 [LICENSE.md](./license.md) - License for source code and redistribution

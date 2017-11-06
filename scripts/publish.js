@@ -117,7 +117,7 @@ gulp.task('publish/docs', () => {
 
     process.chdir(path.join(docsDirectory, '..'));
     // Symbolic link `release` to latest version
-    execSync(`ln -sf ./${version} ./release`);
+    execSync(`ln -sf ./${version} release`);
     // Symbolic link `versions.json` to latest version
     execSync(`ln -sf ./${version}/versions.json ./versions.json`);
 

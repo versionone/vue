@@ -11,5 +11,5 @@ eslint.*.js
 .eslintignore
 wallaby.js
 release
-/v*
+/v[1-9]*
 yarn.lock

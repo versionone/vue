@@ -1,7 +1,10 @@
-exports[`test circular icon button 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`circular icon button 1`] = `
 <Connect(UI)
   circle={true}
-  icon={[Function]}>
+  icon={[Function]}
+>
   <UI
     circle={true}
     icon={[Function]}
@@ -9,15 +12,16 @@ exports[`test circular icon button 1`] = `
     mountUI={[Function]}
     setDefaultUI={[Function]}
     ui={
-      Object {
-        "Component": Object {
+      Immutable.Map {
+        "__reducers": Immutable.Map {},
+        "Component": Immutable.Map {
           "hovered": false,
         },
-        "__reducers": Object {},
       }
     }
     unmountUI={[Function]}
-    updateUI={[Function]}>
+    updateUI={[Function]}
+  >
     <IconButton
       backgroundColor="rgba(0,0,0,0)"
       circle={true}
@@ -42,7 +46,8 @@ exports[`test circular icon button 1`] = `
         ]
       }
       unmountUI={[Function]}
-      updateUI={[Function]}>
+      updateUI={[Function]}
+    >
       <div
         onClick={[Function]}
         onMouseEnter={[Function]}
@@ -57,11 +62,13 @@ exports[`test circular icon button 1`] = `
             "lineHeight": 0.6,
             "transition": "all 0.25s linear 0ms",
           }
-        }>
+        }
+      >
         <CloseIcon
           hovered={false}
           padding={6}
-          size={16}>
+          size={16}
+        >
           <SvgIcon
             color="#000"
             hoverColor="#000"
@@ -71,7 +78,8 @@ exports[`test circular icon button 1`] = `
             onMouseLeave={[Function]}
             padding={6}
             size={16}
-            transition="fill 0.25s linear 0ms">
+            transition="fill 0.25s linear 0ms"
+          >
             <svg
               data-radium={true}
               onClick={[Function]}
@@ -89,9 +97,11 @@ exports[`test circular icon button 1`] = `
               }
               viewBox="0 0 16 16"
               x="0px"
-              y="0px">
+              y="0px"
+            >
               <polygon
-                points="24,5 19,0 12,7.2 4.9,0 0,5 7.2,12 0,19 4.9,24 12,16.8 19,24 24,19 16.8,12 " />
+                points="24,5 19,0 12,7.2 4.9,0 0,5 7.2,12 0,19 4.9,24 12,16.8 19,24 24,19 16.8,12 "
+              />
             </svg>
           </SvgIcon>
         </CloseIcon>
@@ -101,11 +111,12 @@ exports[`test circular icon button 1`] = `
 </Connect(UI)>
 `;
 
-exports[`test icon button can be disabled 1`] = `
+exports[`icon button can be disabled 1`] = `
 <Connect(UI)
   disable={true}
   icon={[Function]}
-  onClick={[Function]}>
+  onClick={[Function]}
+>
   <UI
     disable={true}
     icon={[Function]}
@@ -114,15 +125,16 @@ exports[`test icon button can be disabled 1`] = `
     onClick={[Function]}
     setDefaultUI={[Function]}
     ui={
-      Object {
-        "Component": Object {
+      Immutable.Map {
+        "__reducers": Immutable.Map {},
+        "Component": Immutable.Map {
           "hovered": false,
         },
-        "__reducers": Object {},
       }
     }
     unmountUI={[Function]}
-    updateUI={[Function]}>
+    updateUI={[Function]}
+  >
     <IconButton
       backgroundColor="rgba(0,0,0,0)"
       circle={false}
@@ -147,7 +159,8 @@ exports[`test icon button can be disabled 1`] = `
         ]
       }
       unmountUI={[Function]}
-      updateUI={[Function]}>
+      updateUI={[Function]}
+    >
       <div
         onClick={[Function]}
         onMouseEnter={[Function]}
@@ -162,13 +175,15 @@ exports[`test icon button can be disabled 1`] = `
             "lineHeight": 0.6,
             "transition": "all 0.25s linear 0ms",
           }
-        }>
+        }
+      >
         <CloseIcon
           color="rgba(0,0,0,0.26)"
           hoverColor="rgba(0,0,0,0.26)"
           hovered={false}
           padding={6}
-          size={16}>
+          size={16}
+        >
           <SvgIcon
             color="rgba(0,0,0,0.26)"
             hoverColor="rgba(0,0,0,0.26)"
@@ -178,7 +193,8 @@ exports[`test icon button can be disabled 1`] = `
             onMouseLeave={[Function]}
             padding={6}
             size={16}
-            transition="fill 0.25s linear 0ms">
+            transition="fill 0.25s linear 0ms"
+          >
             <svg
               data-radium={true}
               onClick={[Function]}
@@ -196,9 +212,11 @@ exports[`test icon button can be disabled 1`] = `
               }
               viewBox="0 0 16 16"
               x="0px"
-              y="0px">
+              y="0px"
+            >
               <polygon
-                points="24,5 19,0 12,7.2 4.9,0 0,5 7.2,12 0,19 4.9,24 12,16.8 19,24 24,19 16.8,12 " />
+                points="24,5 19,0 12,7.2 4.9,0 0,5 7.2,12 0,19 4.9,24 12,16.8 19,24 24,19 16.8,12 "
+              />
             </svg>
           </SvgIcon>
         </CloseIcon>
@@ -208,10 +226,11 @@ exports[`test icon button can be disabled 1`] = `
 </Connect(UI)>
 `;
 
-exports[`test icon button can be resized 1`] = `
+exports[`icon button can be resized 1`] = `
 <Connect(UI)
   icon={[Function]}
-  size={0.75}>
+  size={0.75}
+>
   <UI
     icon={[Function]}
     massUpdateUI={[Function]}
@@ -219,15 +238,16 @@ exports[`test icon button can be resized 1`] = `
     setDefaultUI={[Function]}
     size={0.75}
     ui={
-      Object {
-        "Component": Object {
+      Immutable.Map {
+        "__reducers": Immutable.Map {},
+        "Component": Immutable.Map {
           "hovered": false,
         },
-        "__reducers": Object {},
       }
     }
     unmountUI={[Function]}
-    updateUI={[Function]}>
+    updateUI={[Function]}
+  >
     <IconButton
       backgroundColor="rgba(0,0,0,0)"
       circle={false}
@@ -252,7 +272,8 @@ exports[`test icon button can be resized 1`] = `
         ]
       }
       unmountUI={[Function]}
-      updateUI={[Function]}>
+      updateUI={[Function]}
+    >
       <div
         onClick={[Function]}
         onMouseEnter={[Function]}
@@ -267,11 +288,13 @@ exports[`test icon button can be resized 1`] = `
             "lineHeight": 0.6,
             "transition": "all 0.25s linear 0ms",
           }
-        }>
+        }
+      >
         <CloseIcon
           hovered={false}
           padding={6}
-          size={12}>
+          size={12}
+        >
           <SvgIcon
             color="#000"
             hoverColor="#000"
@@ -281,7 +304,8 @@ exports[`test icon button can be resized 1`] = `
             onMouseLeave={[Function]}
             padding={6}
             size={12}
-            transition="fill 0.25s linear 0ms">
+            transition="fill 0.25s linear 0ms"
+          >
             <svg
               data-radium={true}
               onClick={[Function]}
@@ -299,9 +323,11 @@ exports[`test icon button can be resized 1`] = `
               }
               viewBox="0 0 16 16"
               x="0px"
-              y="0px">
+              y="0px"
+            >
               <polygon
-                points="24,5 19,0 12,7.2 4.9,0 0,5 7.2,12 0,19 4.9,24 12,16.8 19,24 24,19 16.8,12 " />
+                points="24,5 19,0 12,7.2 4.9,0 0,5 7.2,12 0,19 4.9,24 12,16.8 19,24 24,19 16.8,12 "
+              />
             </svg>
           </SvgIcon>
         </CloseIcon>
@@ -311,13 +337,14 @@ exports[`test icon button can be resized 1`] = `
 </Connect(UI)>
 `;
 
-exports[`test icon button can be set to be hovered 1`] = `
+exports[`icon button can be set to be hovered 1`] = `
 <Connect(UI)
   border="1px solid blue"
   hoverBackgroundColor="#fff"
   hoverColor="#3b8"
   hovered={true}
-  icon={[Function]}>
+  icon={[Function]}
+>
   <UI
     border="1px solid blue"
     hoverBackgroundColor="#fff"
@@ -328,15 +355,16 @@ exports[`test icon button can be set to be hovered 1`] = `
     mountUI={[Function]}
     setDefaultUI={[Function]}
     ui={
-      Object {
-        "Component": Object {
+      Immutable.Map {
+        "__reducers": Immutable.Map {},
+        "Component": Immutable.Map {
           "hovered": false,
         },
-        "__reducers": Object {},
       }
     }
     unmountUI={[Function]}
-    updateUI={[Function]}>
+    updateUI={[Function]}
+  >
     <IconButton
       backgroundColor="rgba(0,0,0,0)"
       border="1px solid blue"
@@ -365,7 +393,8 @@ exports[`test icon button can be set to be hovered 1`] = `
         ]
       }
       unmountUI={[Function]}
-      updateUI={[Function]}>
+      updateUI={[Function]}
+    >
       <div
         onClick={[Function]}
         onMouseEnter={[Function]}
@@ -380,12 +409,14 @@ exports[`test icon button can be set to be hovered 1`] = `
             "lineHeight": 0.6,
             "transition": "all 0.25s linear 0ms",
           }
-        }>
+        }
+      >
         <CloseIcon
           hoverColor="#3b8"
           hovered={true}
           padding={6}
-          size={16}>
+          size={16}
+        >
           <SvgIcon
             color="#000"
             hoverColor="#3b8"
@@ -395,7 +426,8 @@ exports[`test icon button can be set to be hovered 1`] = `
             onMouseLeave={[Function]}
             padding={6}
             size={16}
-            transition="fill 0.25s linear 0ms">
+            transition="fill 0.25s linear 0ms"
+          >
             <svg
               data-radium={true}
               onClick={[Function]}
@@ -413,9 +445,11 @@ exports[`test icon button can be set to be hovered 1`] = `
               }
               viewBox="0 0 16 16"
               x="0px"
-              y="0px">
+              y="0px"
+            >
               <polygon
-                points="24,5 19,0 12,7.2 4.9,0 0,5 7.2,12 0,19 4.9,24 12,16.8 19,24 24,19 16.8,12 " />
+                points="24,5 19,0 12,7.2 4.9,0 0,5 7.2,12 0,19 4.9,24 12,16.8 19,24 24,19 16.8,12 "
+              />
             </svg>
           </SvgIcon>
         </CloseIcon>
@@ -425,10 +459,11 @@ exports[`test icon button can be set to be hovered 1`] = `
 </Connect(UI)>
 `;
 
-exports[`test icon button can have a border 1`] = `
+exports[`icon button can have a border 1`] = `
 <Connect(UI)
   border="1px solid blue"
-  icon={[Function]}>
+  icon={[Function]}
+>
   <UI
     border="1px solid blue"
     icon={[Function]}
@@ -436,15 +471,16 @@ exports[`test icon button can have a border 1`] = `
     mountUI={[Function]}
     setDefaultUI={[Function]}
     ui={
-      Object {
-        "Component": Object {
+      Immutable.Map {
+        "__reducers": Immutable.Map {},
+        "Component": Immutable.Map {
           "hovered": false,
         },
-        "__reducers": Object {},
       }
     }
     unmountUI={[Function]}
-    updateUI={[Function]}>
+    updateUI={[Function]}
+  >
     <IconButton
       backgroundColor="rgba(0,0,0,0)"
       border="1px solid blue"
@@ -470,7 +506,8 @@ exports[`test icon button can have a border 1`] = `
         ]
       }
       unmountUI={[Function]}
-      updateUI={[Function]}>
+      updateUI={[Function]}
+    >
       <div
         onClick={[Function]}
         onMouseEnter={[Function]}
@@ -485,11 +522,13 @@ exports[`test icon button can have a border 1`] = `
             "lineHeight": 0.6,
             "transition": "all 0.25s linear 0ms",
           }
-        }>
+        }
+      >
         <CloseIcon
           hovered={false}
           padding={6}
-          size={16}>
+          size={16}
+        >
           <SvgIcon
             color="#000"
             hoverColor="#000"
@@ -499,7 +538,8 @@ exports[`test icon button can have a border 1`] = `
             onMouseLeave={[Function]}
             padding={6}
             size={16}
-            transition="fill 0.25s linear 0ms">
+            transition="fill 0.25s linear 0ms"
+          >
             <svg
               data-radium={true}
               onClick={[Function]}
@@ -517,9 +557,11 @@ exports[`test icon button can have a border 1`] = `
               }
               viewBox="0 0 16 16"
               x="0px"
-              y="0px">
+              y="0px"
+            >
               <polygon
-                points="24,5 19,0 12,7.2 4.9,0 0,5 7.2,12 0,19 4.9,24 12,16.8 19,24 24,19 16.8,12 " />
+                points="24,5 19,0 12,7.2 4.9,0 0,5 7.2,12 0,19 4.9,24 12,16.8 19,24 24,19 16.8,12 "
+              />
             </svg>
           </SvgIcon>
         </CloseIcon>
@@ -529,24 +571,26 @@ exports[`test icon button can have a border 1`] = `
 </Connect(UI)>
 `;
 
-exports[`test icon button renders with defaults 1`] = `
+exports[`icon button renders with defaults 1`] = `
 <Connect(UI)
-  icon={[Function]}>
+  icon={[Function]}
+>
   <UI
     icon={[Function]}
     massUpdateUI={[Function]}
     mountUI={[Function]}
     setDefaultUI={[Function]}
     ui={
-      Object {
-        "Component": Object {
+      Immutable.Map {
+        "__reducers": Immutable.Map {},
+        "Component": Immutable.Map {
           "hovered": false,
         },
-        "__reducers": Object {},
       }
     }
     unmountUI={[Function]}
-    updateUI={[Function]}>
+    updateUI={[Function]}
+  >
     <IconButton
       backgroundColor="rgba(0,0,0,0)"
       circle={false}
@@ -571,7 +615,8 @@ exports[`test icon button renders with defaults 1`] = `
         ]
       }
       unmountUI={[Function]}
-      updateUI={[Function]}>
+      updateUI={[Function]}
+    >
       <div
         onClick={[Function]}
         onMouseEnter={[Function]}
@@ -586,11 +631,13 @@ exports[`test icon button renders with defaults 1`] = `
             "lineHeight": 0.6,
             "transition": "all 0.25s linear 0ms",
           }
-        }>
+        }
+      >
         <CloseIcon
           hovered={false}
           padding={6}
-          size={16}>
+          size={16}
+        >
           <SvgIcon
             color="#000"
             hoverColor="#000"
@@ -600,7 +647,8 @@ exports[`test icon button renders with defaults 1`] = `
             onMouseLeave={[Function]}
             padding={6}
             size={16}
-            transition="fill 0.25s linear 0ms">
+            transition="fill 0.25s linear 0ms"
+          >
             <svg
               data-radium={true}
               onClick={[Function]}
@@ -618,9 +666,11 @@ exports[`test icon button renders with defaults 1`] = `
               }
               viewBox="0 0 16 16"
               x="0px"
-              y="0px">
+              y="0px"
+            >
               <polygon
-                points="24,5 19,0 12,7.2 4.9,0 0,5 7.2,12 0,19 4.9,24 12,16.8 19,24 24,19 16.8,12 " />
+                points="24,5 19,0 12,7.2 4.9,0 0,5 7.2,12 0,19 4.9,24 12,16.8 19,24 24,19 16.8,12 "
+              />
             </svg>
           </SvgIcon>
         </CloseIcon>

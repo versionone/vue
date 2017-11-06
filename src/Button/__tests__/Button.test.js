@@ -80,7 +80,7 @@ test('button can be resized', () => {
 test('button can be disabled', () => {
     const onClick = jest.fn();
     const button = shallowRenderButton({
-        disable: true,
+        disabled: true,
         onClick,
     });
     simulateClick(button);

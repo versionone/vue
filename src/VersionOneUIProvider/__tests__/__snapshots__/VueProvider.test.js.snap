@@ -1,4 +1,6 @@
-exports[`test VersionOneUIProvider provides the theme prop and V1 SDK prop to children via React's context 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VersionOneUIProvider provides the theme prop and V1 SDK prop to children via React's context 1`] = `
 <VersionOneUIProvider
   runQuery={[Function]}
   theme={
@@ -8,9 +10,11 @@ exports[`test VersionOneUIProvider provides the theme prop and V1 SDK prop to ch
         "themeProperty": "theme property value",
       },
     }
-  }>
+  }
+>
   <V1Provider
-    runQuery={[Function]}>
+    runQuery={[Function]}
+  >
     <ThemeProvider
       theme={
         Object {
@@ -19,7 +23,8 @@ exports[`test VersionOneUIProvider provides the theme prop and V1 SDK prop to ch
             "themeProperty": "theme property value",
           },
         }
-      }>
+      }
+    >
       <Provider
         store={
           Object {
@@ -27,9 +32,10 @@ exports[`test VersionOneUIProvider provides the theme prop and V1 SDK prop to ch
             "getState": [Function],
             "replaceReducer": [Function],
             "subscribe": [Function],
-            Symbol(Symbol.observable): [Function],
+            Symbol(observable): [Function],
           }
-        }>
+        }
+      >
         <span>
           Hello World
         </span>

@@ -1,4 +1,6 @@
-exports[`test required indicator renders with defaults 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`required indicator renders with defaults 1`] = `
 <div
   data-radium={true}
   style={
@@ -10,12 +12,13 @@ exports[`test required indicator renders with defaults 1`] = `
       "opacity": 1,
       "zIndex": 1,
     }
-  }>
+  }
+>
   *
 </div>
 `;
 
-exports[`test required indicator renders with defaults 2`] = `
+exports[`required indicator renders with defaults 2`] = `
 <div
   data-radium={true}
   style={
@@ -27,7 +30,8 @@ exports[`test required indicator renders with defaults 2`] = `
       "opacity": 0,
       "zIndex": 1,
     }
-  }>
+  }
+>
   *
 </div>
 `;

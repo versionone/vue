@@ -74,7 +74,7 @@ class RenderToLayer extends Component {
             return;
         }
 
-        setTimeout(() => {
+        window.setTimeout(() => {
             addEventListener('click', this.handleClickAway);
         }, immediateTimeOutValue);
 

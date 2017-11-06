@@ -33,7 +33,7 @@ const getStylesBasedOnType = (props, theme) => {
         textPrimaryColor,
     } = theme;
     const {
-        disable,
+        disabled,
         type,
     } = props;
     const inverseColors = [
@@ -41,7 +41,7 @@ const getStylesBasedOnType = (props, theme) => {
         lightInverseColor,
     ];
 
-    if (disable) {
+    if (disabled) {
         const disabledColorOpacity = 0.3;
         const color = toRgbaString(setOpacity(textPrimaryColor, disabledColorOpacity));
         return {
@@ -150,11 +150,11 @@ const getStyles = (props, theme) => {
 
 const Button = (props, context) => {
     const {
-        disable,
+        disabled,
         onClick,
         text,
     } = props;
-    const handleClick = createConditionalEventHandler(!disable)(onClick);
+    const handleClick = createConditionalEventHandler(!disabled)(onClick);
     const styles = getStyles(props, context.theme);
     return (
         <button
@@ -169,7 +169,7 @@ Button.propTypes = {
     /**
      * Disables the button from responding to event handlers
      */
-    disable: PropTypes.bool,
+    disabled: PropTypes.bool,
     /**
      * Click event handler; fired once a button is clicked
      */
@@ -195,7 +195,7 @@ Button.propTypes = {
     ]),
 };
 Button.defaultProps = {
-    disable: false,
+    disabled: false,
     onClick: () => {
     },
     size: ButtonSizes.normal,

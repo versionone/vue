@@ -1,5 +1,6 @@
 const gulp = require('gulp');
 const jest = require('gulp-jest').default;
+const pkg = require('../package.json');
 
 gulp.task('test', [
     'test/src',
@@ -15,7 +16,7 @@ gulp.task('test/src', [
         'src',
         '!packages',
     ])
-        .pipe(jest());
+        .pipe(jest(pkg.jest));
 });
 
 gulp.task('test/icons', [
@@ -23,5 +24,5 @@ gulp.task('test/icons', [
 ], () => {
     process.env.NODE_ENV = 'test';
     return gulp.src('packages')
-        .pipe(jest());
+        .pipe(jest(pkg.jest));
 });

@@ -1,4 +1,6 @@
-exports[`test it can render as full width 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it can render as full width 1`] = `
 <div
   data-radium={true}
   style={
@@ -14,7 +16,8 @@ exports[`test it can render as full width 1`] = `
       "padding": "6px",
       "width": "100%",
     }
-  }>
+  }
+>
   <div
     data-radium={true}
     style={
@@ -23,38 +26,44 @@ exports[`test it can render as full width 1`] = `
         "display": "flex",
         "width": "100%",
       }
-    }>
+    }
+  >
     <span
       data-radium={true}
+      key=".0"
       style={
         Object {
           "alignSelf": "center",
           "flex": 1,
-          "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+          "fontFamily": "'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
         }
-      }>
+      }
+    >
       Hello Chip
     </span>
     <div
       data-radium={true}
+      key=".1"
       style={
         Object {
           "display": "flex",
           "marginLeft": "14px",
         }
-      }>
+      }
+    >
       <Connect(UI)
         circle={true}
         color="rgba(89,89,89,1)"
         icon={[Function]}
         onClick={[Function]}
-        size={0.375} />
+        size={0.375}
+      />
     </div>
   </div>
 </div>
 `;
 
-exports[`test it can render text in the Chip 1`] = `
+exports[`it can render text in the Chip 1`] = `
 <div
   data-radium={true}
   style={
@@ -70,7 +79,8 @@ exports[`test it can render text in the Chip 1`] = `
       "padding": "6px",
       "width": "200px",
     }
-  }>
+  }
+>
   <div
     data-radium={true}
     style={
@@ -79,32 +89,38 @@ exports[`test it can render text in the Chip 1`] = `
         "display": "flex",
         "width": "100%",
       }
-    }>
+    }
+  >
     <span
       data-radium={true}
+      key=".0"
       style={
         Object {
           "alignSelf": "center",
           "flex": 1,
-          "fontFamily": "\'Proxima Nova\', \'Lucida Sans Unicode\', \'Lucida Grande\', sans-serif",
+          "fontFamily": "'Proxima Nova', 'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
         }
-      }>
+      }
+    >
       Hello Chip
     </span>
     <div
       data-radium={true}
+      key=".1"
       style={
         Object {
           "display": "flex",
           "marginLeft": "14px",
         }
-      }>
+      }
+    >
       <Connect(UI)
         circle={true}
         color="rgba(89,89,89,1)"
         icon={[Function]}
         onClick={[Function]}
-        size={0.375} />
+        size={0.375}
+      />
     </div>
   </div>
 </div>

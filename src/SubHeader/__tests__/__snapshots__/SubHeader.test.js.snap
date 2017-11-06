@@ -1,4 +1,6 @@
-exports[`test it renders text as a sub header 1`] = `
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders text as a sub header 1`] = `
 <header
   data-radium={true}
   style={
@@ -9,7 +11,8 @@ exports[`test it renders text as a sub header 1`] = `
       "padding": "6px 12px",
       "textTransform": "uppercase",
     }
-  }>
+  }
+>
   Hello world.
 </header>
 `;

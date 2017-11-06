@@ -116,10 +116,12 @@ gulp.task('publish/docs', () => {
     execSync('git checkout gh-pages');
 
     process.chdir(path.join(docsDirectory, '..'));
+    execSync('rm -rf release');
+    execSync('rm ./versions.json');
     // Symbolic link `release` to latest version
-    execSync(`ln -sf ./${version} release`);
+    execSync(`ln -sf ${version} release`);
     // Symbolic link `versions.json` to latest version
-    execSync(`ln -sf ./${version}/versions.json ./versions.json`);
+    execSync(`ln -sf ${version}/versions.json versions.json`);
 
     // Commit the new version
     if (version === 'HEAD') {

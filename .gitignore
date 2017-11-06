@@ -1,21 +1,5 @@
 ### Repo-specific
-/*
-!/src
-!/packages
-!/.*
 /.idea
-!/package.json
-!/readme.md
-!/scripts
-!/*.js
-/index.js
-!/docs
-!/specHelpers
-!/license.md
-!/npm-shrinkwrap.json
-/!gulpfile.js
-!/gulp
-!/gulp.cmd
 
 ### Published github pages
 .out

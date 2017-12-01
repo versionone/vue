@@ -16,3 +16,5 @@ import CloseIconComponent from './CloseIcon';
 export const CloseIcon = CloseIconComponent;
 import FilterIconComponent from './FilterIcon';
 export const FilterIcon = FilterIconComponent;
+import StarIconComponent from './StarIcon';
+export const StarIcon = StarIconComponent;

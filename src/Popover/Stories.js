@@ -398,6 +398,88 @@ class PopoverInCorners extends Component {
     }
 }
 
+class PopoverOnRequestClose extends Component {
+    static defaultProps = {
+        showContent: false,
+    };
+
+    constructor(...rest) {
+        super(...rest);
+        this.state = {
+            open: [false, false]
+        };
+        this.handleClick = this.handleClick.bind(this);
+        this.closePopover = this.closePopover.bind(this);
+    }
+
+    handleClick(position) {
+        let newOpen = this.state.open;
+        newOpen[position] = !newOpen[position];
+        this.setState({open: newOpen});
+    }
+
+    closePopover(position) {
+        let newOpen = this.state.open;
+        newOpen[position] = false;
+        this.setState({open: newOpen});
+    }
+
+    render() {
+        const {
+            anchorOrigin,
+            showContent,
+            targetOrigin,
+        } = this.props;
+        const {
+            open,
+        } = this.state;
+        return (
+            <div>
+                <span
+                    ref={(el) => {
+                        this.anchor1 = el;
+                    }}
+                    onClick={() => this.handleClick(0)}
+                >Anchor</span>
+                {showContent && <div>This is content that the popover can render over.</div>}
+                <Popover
+                    anchorElement={this.anchor1}
+                    anchorOrigin={anchorOrigin}
+                    open={open[0]}
+                    targetOrigin={targetOrigin}
+                    onRequestClose={() => this.closePopover(0)}
+                >
+                    <div style={{backgroundColor: 'white'}}>
+                        {(new Array(7).fill(1)).map((item, index) => (
+                            <div key={index}>Item {index}</div>
+                        ))}
+                    </div>
+                </Popover>
+                <span
+                    ref={(el) => {
+                        this.anchor2 = el;
+                    }}
+                    onClick={() => this.handleClick(1)}
+                >Anchor 2</span>
+                {showContent && <div>This is content that the popover can render over.</div>}
+                <Popover
+                    anchorElement={this.anchor2}
+                    anchorOrigin={anchorOrigin}
+                    open={open[1]}
+                    targetOrigin={targetOrigin}
+                    onRequestClose={() => this.closePopover(1)}
+                >
+                    <div style={{backgroundColor: 'white'}}>
+                        {(new Array(7).fill(1)).map((item, index) => (
+                            <div key={index}>Item {index}</div>
+                        ))}
+                    </div>
+                </Popover>
+            </div>
+        );
+    }
+}
+
 class PopoverDemoWithNoAnchor extends Component {
     static defaultProps = {
         showContent: false,
@@ -564,6 +646,12 @@ storiesOf('Popover')
         ``,
         () => (
             <PopoverInCorners/>
+        )
+    )
+    .addWithInfo('click away handling excludes the anchor',
+        ``,
+        () => (
+            <PopoverOnRequestClose/>
         )
     )
     .addWithInfo('too far below, on top of anchor',

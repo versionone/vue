@@ -244,6 +244,9 @@ class Popover extends Component {
     }
 
     handleComponentClickAway(evt) {
+        const anchorEl = this.anchorElement || findDOMNode(this);
+        if ((evt.type === 'click' && isDescendant(anchorEl, evt.target)) || anchorEl === evt.target) return;
+
         this.requestClose(evt, 'clickedAway');
     }
 

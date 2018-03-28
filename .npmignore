@@ -12,4 +12,5 @@ eslint.*.js
 wallaby.js
 release
 /v[1-9]*
+!/V1Provider
 yarn.lock

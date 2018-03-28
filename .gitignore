@@ -5,13 +5,13 @@
 !/.*
 /.idea
 !/package.json
+!/package-lock.json
 !/readme.md
 !/scripts
 !/*.js
 !/docs
 !/specHelpers
 !/license.md
-!/npm-shrinkwrap.json
 
 ### Published github pages
 .out

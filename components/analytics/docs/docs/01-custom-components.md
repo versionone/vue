@@ -1,8 +1,8 @@
 ## Enabling Analytics with Custom Components
 
-Analytics events can also be configured and fired for any, non-verdigris, component. As an example, we will create a `SaveButton` component that is not using the verdigris `Button` component.
+Analytics events can also be configured and fired for any, non-versionone-ui, component. As an example, we will create a `SaveButton` component that is not using the versionone-ui `Button` component.
 
-Given a custom, non-verdigris component:
+Given a custom, non-versionone-ui component:
 
 ```javascript
 const SaveButton = ({ onClick }) => {
@@ -19,7 +19,7 @@ const SaveButton = ({ onClick }) => {
 In order to enable the creation of an analytics event, we can leverage the `withAnalytics` HoC. This will inject a `createAnalyticsEvent` function as a property to our `SaveButton` component. We can use the injected prop function to create analytics events and either fire them immediately:
 
 ```javascript
-import { withAnalytics } from '@verdigris/analytics';
+import { withAnalytics } from '@versionone/ui-analytics';
 
 const SaveButton = ({ createAnalyticsEvent, onClick }) => {
   const handleClick = evt => {
@@ -41,7 +41,7 @@ const SaveButtonWithAnalytics = withAnalytics()(SaveButton);
 Or pass them to an event handler callback to be fired by a parent component:
 
 ```javascript
-import { withAnalytics } from '@verdigris/analytics';
+import { withAnalytics } from '@versionone/ui-analytics';
 
 const SaveButton = ({ createAnalyticsEvent, onClick }) => {
   const handleClick = evt => {

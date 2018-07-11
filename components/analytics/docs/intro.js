@@ -1,28 +1,28 @@
-import { code, md } from '@verdigris/docs';
+import { code, md } from '@versionone/ui-docs';
 
 export default () => md`
-Analytics events are supported by all relevant Verdigris components; however any component can fire these events. See [using analytics with Custom Components](./docs/custom-components) for more details on supporting analytics events in your own, custom components.
+Analytics events are supported by all relevant VersionOne UI components; however any component can fire these events. See [using analytics with Custom Components](./docs/custom-components) for more details on supporting analytics events in your own, custom components.
 
-## Using Analytics with Verdigris Components
+## Using Analytics with VersionOne UI Components
 
-All Verdigris components support analytics events. Event handlers for Verdigris components provide an analytics event as the second parameter. For example, given an Asset form containing a SaveButton:
+All VersionOne UI components support analytics events. Event handlers for VersionOne UI components provide an analytics event as the second parameter. For example, given an Asset form containing a SaveButton:
 
 #### SaveButton.js
 
 ${code`
-import Button from '@verdigris/button';
+import Button from '@versionone/ui-button';
 
 const SaveButton = ({ onClick }) => (
   <Button onClick={onClick}>Save</Button>
 );
 `}
 
-Button is a Verdigris component and therefore provides its event handlers with an analytics event as a second parameter:
+Button is a VersionOne UI component and therefore provides its event handlers with an analytics event as a second parameter:
 
 #### SaveButton.js
 
 ${code`
-import Button from '@verdigris/button';
+import Button from '@versionone/ui-button';
 
 const SaveButton = ({ onClick }) => (
   <Button onClick={(evt, analyticsEvt) => {
@@ -41,7 +41,7 @@ You can also update the analytics event with additional payload information. Rem
 #### SaveButton.js
 
 ${code`
-import Button from '@verdigris/button';
+import Button from '@versionone/ui-button';
 
 const SaveButton = ({ onClick }) => (
   <Button onClick={(evt, analyticsEvt) => {
@@ -69,7 +69,7 @@ Finally, we need to set up a listener to consume fired analytics events. This ca
 #### App.js
 
 ${code`
-import { AnalyticsListener } from 'verdigris/analytics';
+import { AnalyticsListener } from '@versionone/ui-analytics';
 import SaveButton from './SaveButton';
 
 const consumeAnalytics = analyticsEvt => console.log(analyticsEvt);
@@ -88,7 +88,7 @@ Additionally, we can provide additional contextual data to our analytics event v
 #### App.js
 
 ${code`
-import { AnalyticsContext, AnalyticsListener } from 'verdigris/analytics';
+import { AnalyticsContext, AnalyticsListener } from '@versionone/ui-analytics';
 import SaveButton from './SaveButton';
 
 const consumeAnalytics = analyticsEvt => console.log(analyticsEvt);

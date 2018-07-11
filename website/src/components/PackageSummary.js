@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'react-emotion';
 import * as PropTypes from 'prop-types';
-import { CodeBlock } from '@verdigris/code';
+import { CodeBlock } from '@versionone/ui-code';
 
 const Wrapper = styled('aside')`
 background: lightblue;
@@ -48,7 +48,7 @@ export default function PackageSummary({ description, name, sourceName, version 
           </PropertyWrapper>
           <PropertyWrapper>
             <Label>Source: </Label>
-            <Value><a href={`https://github.com/andrew-codes/verdigris/tree/master/components/${sourceName}`} title="Source code">GitHub</a></Value>
+            <Value><a href={`https://github.com/versionone/vue/tree/master/components/${sourceName}`} title="Source code">GitHub</a></Value>
           </PropertyWrapper>
         </Properties>
         <InstallCmdContainer>

@@ -1,11 +1,11 @@
 {
-  "name": "@verdigris/theme",
+  "name": "@versionone/ui-theme",
   "version": "0.0.0",
   "description": "Theming utilities and components.",
   "license": "MIT",
   "main": "./dist/index.js",
-  "verdigris:src": "./src/index.js",
-  "verdigris": {
+  "main:src": "./src/index.js",
+  "versionone-ui": {
     "name": "Theme"
   },
   "files": [

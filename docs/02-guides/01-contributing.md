@@ -49,6 +49,6 @@ The subject contain succinct description of the change:
 Just as in the subject, use the imperative, present tense: "change" not "changed" nor "changes". The body should include the motivation for the change and contrast this with previous behavior.
 
 ### Footer
-The footer should contain any information about Breaking Changes and is also the place to reference issues that this commit closes. The footer also contains packages that are affected by this commit in the form of: `affects: @verdigris/package-name`. Multiple packages may be impacted by adding more than one (space delimited).
+The footer should contain any information about Breaking Changes and is also the place to reference issues that this commit closes. The footer also contains packages that are affected by this commit in the form of: `affects: @versionone/ui-package-name`. Multiple packages may be impacted by adding more than one (space delimited).
 
 > **Breaking Changes** should start with the word `BREAKING CHANGE`: with a space or two newlines. The rest of the commit message is then used for this.

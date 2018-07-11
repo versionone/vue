@@ -1,7 +1,7 @@
 {
   "private": true,
-  "name": "@verdigris/webpack-config",
-  "description": "Webpack configuration for running dev server and building Verdigris website.",
+  "name": "@versionone/ui-webpack-config",
+  "description": "Webpack configuration for running dev server and building the VersionOne UI website.",
   "version": "0.0.0",
   "license": "MIT",
   "files": [
@@ -13,8 +13,8 @@
     "webpack-dev": "bin/dev.js"
   },
   "dependencies": {
-    "@verdigris/site-data": "^0.0.0",
-    "@verdigris/svg-icon-loader": "^0.0.0",
+    "@versionone/ui-site-data": "^0.0.0",
+    "@versionone/ui-svg-icon-loader": "^0.0.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.4",
     "component-metadata-loader": "^4.0.0",

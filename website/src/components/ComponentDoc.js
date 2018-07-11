@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'react-emotion';
-import { InlineCode } from '@verdigris/code';
+import { InlineCode } from '@versionone/ui-code';
 
 const ComponentWrapper = styled('div')``;
 const ComponentHeading = styled('h2')``;

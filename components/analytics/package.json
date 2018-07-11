@@ -1,17 +1,17 @@
 {
-  "name": "@verdigris/analytics",
+  "name": "@versionone/ui-analytics",
   "version": "0.0.0",
   "description": "Capture UI interactions, state, and contextual data from components.",
   "license": "MIT",
   "main": "./dist/index.js",
-  "verdigris:src": "./src/index.js",
+  "main:src": "./src/index.js",
   "files": [
     "dist"
   ],
   "scripts": {
     "build": "babel src --out-dir dist"
   },
-  "verdigris": {
+  "versionone-ui": {
     "name": "Analytics"
   },
   "peerDependencies": {
@@ -21,7 +21,7 @@
     "prop-types": "^15.6.1"
   },
   "devDependencies": {
-    "@verdigris/docs": "^0.0.0",
+    "@versionone/ui-docs": "^0.0.0",
     "lodash": "^4.17.10"
   }
 }

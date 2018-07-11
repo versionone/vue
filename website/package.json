@@ -1,19 +1,18 @@
 {
   "private": true,
-  "name": "@verdigris/website",
+  "name": "@versionone/ui-website",
   "version": "0.0.0",
-  "author": "Andrew Smith <andrew@andrew.codes>",
   "license": "MIT",
   "scripts": {
     "start": "yarn webpack:dev",
-    "webpack:dev": "cross-env NODE_ENV=development ../node_modules/@verdigris/webpack-config/bin/dev.js ./src/index.js",
-    "build": "cross-env NODE_ENV=production ../node_modules/@verdigris/webpack-config/bin/build.js ./src/index.js"
+    "webpack:dev": "cross-env NODE_ENV=development ../node_modules/@versionone/ui-webpack-config/bin/dev.js ./src/index.js",
+    "build": "cross-env NODE_ENV=production ../node_modules/@versionone/ui-webpack-config/bin/build.js ./src/index.js"
   },
   "dependencies": {
     "@mdx-js/mdx": "^0.8.1",
-    "@verdigris/analytics": "^0.0.0",
-    "@verdigris/code": "^0.0.0",
-    "@verdigris/docs": "^0.0.0",
+    "@versionone/ui-analytics": "^0.0.0",
+    "@versionone/ui-code": "^0.0.0",
+    "@versionone/ui-docs": "^0.0.0",
     "change-case": "^3.0.2",
     "emotion": "^9.1.3",
     "lodash": "^4.17.10",
@@ -28,7 +27,7 @@
     "regenerator-runtime": "^0.11.1"
   },
   "devDependencies": {
-    "@verdigris/webpack-config": "^0.0.0",
+    "@versionone/ui-webpack-config": "^0.0.0",
     "cross-env": "^5.1.4"
   }
 }

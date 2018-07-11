@@ -29,13 +29,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 > components/$name/LICENSE
 # Create package.json
 echo "{
-  \"name\": \"@verdigris/$name\",
+  \"name\": \"@versionone/ui-$name\",
   \"version\": \"0.0.0\",
   \"description\": \"$description\",
   \"license\": \"MIT\",
   \"main\": \"./dist/index.js\",
-  \"verdigris:src\": \"./src/index.js\",
-  \"verdigris\": {
+  \"main:src\": \"./src/index.js\",
+  \"versionone-ui\": {
     \"name\": \"$componentName\"
   },
   \"files\": [
@@ -55,7 +55,7 @@ echo "" > components/$name/src/index.js
 # ## docs directory
 mkdir -p components/$name/docs
 # code docs page (intro.js)
-echo "import { code, md } from '@verdigris/docs';
+echo "import { code, md } from '@versionone/ui-docs';
 
 export default () => md\`
 ## $componentName

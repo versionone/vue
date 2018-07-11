@@ -2,7 +2,7 @@
 
 ## Markdown
 
-Content in Verdigris is written in Markdown (see [Markdown guide](https://guides.github.com/features/mastering-markdown/)).
+Content in VersionOne UI is written in Markdown (see [Markdown guide](https://guides.github.com/features/mastering-markdown/)).
 > **Notes**:
 > 1. Internal links should ignore the `00-` prefix (of directories and files) and the file extension.
 >    - For example, a link to `../02-guides/01-contributing.md` would be written as `../guides/contributing`

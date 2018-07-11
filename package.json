@@ -1,9 +1,8 @@
 {
   "private": true,
-  "name": "@verdigris/ui",
+  "name": "@versionone/ui",
   "version": "0.0.0-development",
-  "author": "Andrew Smith <andrew@andrew.codes>",
-  "repository": "https://github.com/andrew-codes/verdigris.git",
+  "repository": "https://github.com/versionone/vue.git",
   "license": "MIT",
   "scripts": {
     "bootstrap": "yarn lerna bootstrap",
@@ -12,8 +11,8 @@
     "cy:run": "cypress run",
     "test": "start-server-and-test start http://localhost:9000 cy:run",
     "test:ci": "start-server-and-test start http://localhost:9000 cy:run -- --record",
-    "start": "lerna run start --scope @verdigris/website",
-    "build:website": "lerna run build --scope @verdigris/website",
+    "start": "lerna run start --scope @versionone/ui-website",
+    "build:website": "lerna run build --scope @versionone/ui-website",
     "new-comp": "scripts/bin/new-comp.sh",
     "build": "lerna run build"
   },

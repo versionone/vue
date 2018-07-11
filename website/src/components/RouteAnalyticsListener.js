@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { withAnalytics } from '@verdigris/analytics';
+import { withAnalytics } from '@versionone/ui-analytics';
 import { compose } from 'lodash/fp';
 import { withRouter } from 'react-router-dom';
 import * as PropTypes from 'prop-types';

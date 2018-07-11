@@ -1,7 +1,7 @@
 import Loadable from 'react-loadable';
 import React from 'react';
 import styled from 'react-emotion';
-import { md } from '@verdigris/docs';
+import { md } from '@versionone/ui-docs';
 import * as PropTypes from 'prop-types';
 import EditInGitHubLink from '../components/EditInGitHubLink';
 import Loading from '../components/Loading';

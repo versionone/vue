@@ -1,18 +1,18 @@
 {
-  "name": "@verdigris/selection",
+  "name": "@versionone/ui-selection",
   "version": "0.0.0",
   "description": "Selection controls; switch, checkbox, and radio button.",
   "license": "MIT",
   "main": "./dist/index.js",
-  "verdigris:src": "./src/index.js",
-  "verdigris": {
+  "main:src": "./src/index.js",
+  "versionone-ui": {
     "name": "Selection"
   },
   "files": [
     "dist"
   ],
   "dependencies": {
-    "@verdigris/theme": "^0.0.0",
+    "@versionone/ui-theme": "^0.0.0",
     "emotion": "^9.2.5",
     "emotion-theming": "^9.2.5",
     "lodash": "^4.17.10",

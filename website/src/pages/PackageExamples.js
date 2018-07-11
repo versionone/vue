@@ -1,5 +1,5 @@
 import Loadable from 'react-loadable';
-import { CodeBlock } from '@verdigris/code';
+import { CodeBlock } from '@versionone/ui-code';
 import React from 'react';
 import styled from 'react-emotion';
 import { Route } from 'react-router';
@@ -71,7 +71,7 @@ export default ({ match, location: { pathname } }) => {
     loader: () => currentExample.contents(),
     loading: Loading,
     render(contents) {
-      return <CodeBlock language="javascript">{contents.default.replace(/'\.\.\/src\/?(index)';/, `'@verdigris/${packageName}';`)}</CodeBlock>
+      return <CodeBlock language="javascript">{contents.default.replace(/'\.\.\/src\/?(index)';/, `'@versionone/ui-${packageName}';`)}</CodeBlock>
     },
   });
 

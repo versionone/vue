@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import ReactGA from 'react-ga';
 import styled, { injectGlobal } from 'react-emotion';
-import { AnalyticsListener } from '@verdigris/analytics';
+import { AnalyticsListener } from '@versionone/ui-analytics';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { hot } from 'react-hot-loader';
 import { withRouter } from 'react-router';
@@ -146,7 +146,7 @@ function App(props) {
                       const docSections = getDocs();
                       const docSection = docSections.find(d => d.id === docSectionId);
                       const routeDoc = docSection.pages.find(d => d.id === docId);
-                      window.location.href = `https://github.com/andrew-codes/verdigris/edit/master/docs/${docSection.name}/${routeDoc.name}`;
+                      window.location.href = `https://github.com/versionone/vue/edit/master/docs/${docSection.name}/${routeDoc.name}`;
                       return <Loading />;
                     }} />
                     <Route path="/packages/:packageName" component={PackagePage} />

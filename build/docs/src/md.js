@@ -2,7 +2,7 @@ import markings from 'react-markings';
 import path from 'path';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { CodeBlock, InlineCode } from '@verdigris/code';
+import { CodeBlock, InlineCode } from '@versionone/ui-code';
 
 const Link = withRouter(({
   children,

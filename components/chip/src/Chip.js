@@ -1,11 +1,11 @@
 import styled from 'react-emotion';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { defaultTheme } from '@verdigris/theme';
-import { CloseIcon } from '@verdigris/icons';
+import { defaultTheme } from '@versionone/ui-theme';
+import { CloseIcon } from '@versionone/ui-icons';
 import { noop } from 'lodash';
 import { ThemeProvider, withTheme } from 'emotion-theming';
-import { withAnalytics } from '@verdigris/analytics';
+import { withAnalytics } from '@versionone/ui-analytics';
 
 const ChipRoot = styled('div')`
   ${p => p.theme.Chip({ Avatar, Content, Delete })(p)}

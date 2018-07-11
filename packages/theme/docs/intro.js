@@ -1,4 +1,4 @@
-import { code, md } from '@verdigris/docs';
+import { code, md } from '@versionone/ui-docs';
 
 export default () => md`
 # Theme

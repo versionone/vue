@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'react-emotion';
-import { code, md } from '@verdigris/docs';
+import { code, md } from '@versionone/ui-docs';
 import * as Icons from '../src/index';
 
 const icons = Object.keys(Icons).map((key) => ({

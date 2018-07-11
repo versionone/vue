@@ -1,11 +1,11 @@
 {
-  "name": "@verdigris/chip",
+  "name": "@versionone/ui-chip",
   "version": "0.0.0",
   "description": "Concise representation of an otherwise more complex entity.",
   "license": "MIT",
   "main": "./dist/index.js",
-  "verdigris:src": "./src/index.js",
-  "verdigris": {
+  "main:src": "./src/index.js",
+  "versionone-ui": {
     "name": "Chip"
   },
   "files": [
@@ -18,9 +18,9 @@
     "react": "^16.4.1"
   },
   "dependencies": {
-    "@verdigris/analytics": "^0.0.0",
-    "@verdigris/icons": "^0.0.0",
-    "@verdigris/theme": "^0.0.0",
+    "@versionone/ui-analytics": "^0.0.0",
+    "@versionone/ui-icons": "^0.0.0",
+    "@versionone/ui-theme": "^0.0.0",
     "emotion": "^9.2.4",
     "emotion-theming": "^9.2.4",
     "lodash": "^4.17.10",

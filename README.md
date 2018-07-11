@@ -1,4 +1,4 @@
-# Verdigris
+# VersionOne UI
 Primarily a design language featured in some CollabNet VersionOne products with occasionally implemented components.
 
 ## Quick Start
@@ -9,8 +9,8 @@ Please ensure you have the proper software installed.
 3. `git --version` should be >= 2.0.0 [download](https://git-scm.com/downloads)
 
 ### Running the Docs Site Locally
-1. `git clone git@github.com:andrew-codes/verdigris.git` to clone repository
-2. `cd verdigris` to change directory into root of project
+1. `git clone git@github.com:versionone/vue.git versionone-ui` to clone repository
+2. `cd versionone-ui` to change directory into root of project
 1. `yarn && yarn bootstrap` to install and bootstrap dependencies.
 2. `yarn start` and navigate to [http://localhost:9000](http://localhost:9000)
 

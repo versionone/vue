@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { css } from 'emotion';
-import { extendThemeWith } from '@verdigris/theme';
+import { extendThemeWith } from '@versionone/ui-theme';
 import { ThemeProvider } from 'emotion-theming';
 import {
   CloseIcon

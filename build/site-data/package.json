@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@verdigris/site-data",
+  "name": "@versionone/ui-site-data",
   "version": "0.0.0",
   "description": "Webpack plugin to scrape component and document meta data from packages.",
   "license": "MIT",

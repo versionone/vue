@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import styled from 'react-emotion';
-import { defaultTheme } from '@verdigris/theme';
+import { defaultTheme } from '@versionone/ui-theme';
 import { noop } from 'lodash';
 import { ThemeProvider } from 'emotion-theming';
 

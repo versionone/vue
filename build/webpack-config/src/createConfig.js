@@ -60,7 +60,7 @@ module.exports = (
     rules: [
       {
         test: /SITE_DATA$/,
-        loader: require.resolve('@verdigris/site-data'),
+        loader: require.resolve('@versionone/ui-site-data'),
         options: {
           debug: env === 'development',
           include: [
@@ -79,7 +79,7 @@ module.exports = (
         test: /\.icon\.svg$/,
         loaders: [
           require.resolve('babel-loader'),
-          require.resolve('@verdigris/svg-icon-loader'),
+          require.resolve('@versionone/ui-svg-icon-loader'),
         ],
       },
       {
@@ -102,7 +102,7 @@ module.exports = (
     ],
   },
   resolve: {
-    mainFields: ['verdigris:src', 'main'],
+    mainFields: ['main:src', 'main'],
     extensions: ['.js', '.jsx'],
   },
   plugins: plugins({ cwd, env, noMinimize, report }),
@@ -119,7 +119,7 @@ function plugins(
     new webpack.NamedModulesPlugin(),
     new HtmlWebpackPlugin({
       template: path.join(cwd, 'public/index.html.ejs'),
-      title: `Verdigris Component Library${env === 'development' ? ' - DEV' : ''}`,
+      title: `VersionOne UI Component Library${env === 'development' ? ' - DEV' : ''}`,
       // favicon: path.join(
       //   cwd,
       //   `public/favicon${env === 'development' ? '-dev' : ''}.ico`,

@@ -6,7 +6,7 @@
 * `yarn lint`
 * `yarn test` will run all tests via [Cypress](https://cypress.io)
 * `yarn cypress open` will open tests in [Cypress](https://cypress.io) for local development
-* `yarn lerna add --scope @verdigris/package-name dependency-to-add` (see below for details on managing dependencies)
+* `yarn lerna add --scope @versionone/ui-package-name dependency-to-add` (see below for details on managing dependencies)
 * `yarn new-comp PackageName "A description of the package."` will scaffold out a new component in `./components/packageName`
 
 ## Managing Dependencies
@@ -15,8 +15,8 @@ Packages are managed using [lerna](https://lernajs.io/). Each package has its ow
 
 > **Note**: If you run into trouble after installing a new dependency, try running `yarn && yarn bootstrap`.
 
-* **Adding** a new dependency, use `yarn lerna add --scope @verdigris/package-name dependency-name`
-* For **dev dependencies**, add the `--dev` CLI option `yarn lerna add --dev --scope @verdigris/package-name dependency-name`
+* **Adding** a new dependency, use `yarn lerna add --scope @versionone/ui-package-name dependency-name`
+* For **dev dependencies**, add the `--dev` CLI option `yarn lerna add --dev --scope @versionone/ui-package-name dependency-name`
 * **Removing** dependencies requires deleting the item from the package's `package.json` and re-running `yarn bootstrap` in the project root.
 
 ## PR Deployment Preview Sites
@@ -25,6 +25,6 @@ In addition to running lint and tests for all open PRs via Travis, every PR will
 
 ## Additional Reading
 
-- [Tour of the Code Base](../../guides/tour-of-the-code-base): overview of of structure and conventions used in Verdigris
+- [Tour of the Code Base](../../guides/tour-of-the-code-base): overview of of structure and conventions used in VersionOne UI
 - [Contributing](.../../guides/contributing): guidelines for contributors
 - [Publishing](../../guides/publishing): guide to versioning and publishing

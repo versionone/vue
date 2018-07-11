@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'react-emotion';
 import { ThemeProvider } from 'emotion-theming';
-import { defaultTheme } from '@verdigris/theme';
+import { defaultTheme } from '@versionone/ui-theme';
 import ThemedIcon from './private-utils/ThemedIcon';
 
 const IconRoot = styled('span')`

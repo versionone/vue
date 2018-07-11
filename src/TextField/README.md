@@ -1,1 +1,0 @@
-Allow users to enter or select text, numbers, or mixed-format type of input.
